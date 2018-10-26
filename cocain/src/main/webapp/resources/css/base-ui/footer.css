@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR');
+*{
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+footer {
+    background-color: rgba(0,0,0,0.8); 
+    color: #ffffff;
+}
+footer > .container > .row > .col-sm-6 > a > i {
+    font-size: 35px;
+    line-height: 70px;
+    text-decoration: none;
+    color: #ffffff;
+}

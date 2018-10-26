@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR');
+*{
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.row.first-row  {
+    /* background-color: rgba(0,0,0,0.8);
+    margin-bottom: 30px; */
+    padding-top: 30px;
+}
+.row-control {
+    margin-left: 300px;
+    margin-right: 300px;
+}
+.col-md-4 > .jumbotron {
+    margin: 0 auto;
+    margin-bottom: 30px;
+    vertical-align: middle;
+    width: 250px;
+    height: 250px;
+    background: white;
+    color: rgba(0,0,0,0.8);
+    border: 1px solid rgba(0,0,0,0.8);
+    border-radius: 50% !important;
+}
+.content {
+    margin-top: 45px;
+}   
+#myCarousel-lank {
+    margin-top: 25px;
+}
+#myCarousel-lank > .carousel-control {
+    background: none;
+}
+#myCarousel-lank > .carousel-control  > .glyphicon.glyphicon-chevron-left {
+    font-size: 18px;
+    padding-top: 15px;
+    margin-left: 0;
+    color: #c0c0c0;
+}
+#myCarousel-lank > .carousel-control  > .glyphicon.glyphicon-chevron-right {
+    font-size: 18px;
+    padding-top: 15px;
+    margin-right: 0;
+    color: #c0c0c0;
+}
+.carousel.slide {
+    text-align: center;
+}
+.carousel-content {
+    position: absolute;
+    bottom: 36%;
+    left: 50%; 
+    transform: translateX(-50%);
+    text-shadow: black 0.2em 0.2em 0.2em;
+    color: #fffffd;
+}
+.carousel-content > p {
+    font-size: 35px;
+}
+.container > .row > .col-md-6 {
+    padding-bottom: 7px;
+}
+.col-md-6 > .panel-primary {
+    border-color: rgba(0,0,0,0.8);
+}    
+.col-md-6 > .panel-primary > .panel-heading {
+    background-color: rgba(0,0,0,0.8);
+}
+.table {
+    text-align: center;
+}
+.table > thead > tr > th {
+    text-align: center;
+}

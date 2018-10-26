@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/aop 
+                           http://www.springframework.org/schema/aop/spring-aop.xsd
+       					   http://www.springframework.org/schema/mvc 
+                           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       					   http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+       					   http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+                          
+    	
+    	
+    	<context:component-scan base-package="kr.co.cocain"/>
+
+     	
+     	<aop:aspectj-autoproxy/>
+       
+    	<mvc:annotation-driven>
+    		<!-- ajax화면출력message 한글처리하기 -->
+    		<mvc:message-converters>
+    			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+    				<!-- setSupportedMediaTypes 사용 -->
+    				<property name="supportedMediaTypes">
+    					<list>
+    						<value>text/plain;charset=UTF-8</value>
+    						<value>text/html;charset=UTF-8</value>
+    					</list>
+    				</property>
+    			</bean>
+    		</mvc:message-converters>
+    	</mvc:annotation-driven>
+    	
+     	
+    	<!-- 아이디가 고정되어야함. 규칙(multipartResolver) -->
+    	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    		<property name="maxUploadSize" value="10485760"/><!-- 10mb ,, 1024*1024*10 -->
+    	</bean>
+    	
+<!--     	controller 없이 이동하기 (form 호출 뭐 이런거 ) -->
+<!--     	<mvc:view-controller path="/09interceptor/loginForm.do" -->
+<!--     					     view-name="09interceptor/loginForm"/> -->
+    	
+    	<!-- 
+    		web 자원중에서 스프링을 거치지 않아도 되는 것들: iage,css,javascript
+    		 바로페이지를 반환  참고만하셔~ 
+    	 -->
+    	
+<!--     	<mvc:resources mapping="/resources/**" location="/resources/**" /> -->
+    	
+    	
+    	
+    	<mvc:default-servlet-handler />
+    	
+    	<mvc:view-resolvers>
+    		<mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp" />
+    	</mvc:view-resolvers>
+    	
+    	
+</beans>

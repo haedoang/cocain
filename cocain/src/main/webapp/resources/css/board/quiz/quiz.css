@@ -1,0 +1,12 @@
+section{
+	height:1000px;
+}
+
+.sheet{
+	border:1px solid blue;
+	height:400px;
+}
+
+table > tr > th {
+	text-align:center;
+}

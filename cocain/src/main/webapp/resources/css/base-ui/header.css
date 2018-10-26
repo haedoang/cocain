@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR');
+*{
+    font-family: 'Noto Sans KR', sans-serif;
+}
+a {
+    color: rgba(0,0,0,1);
+    text-decoration: none;
+}
+a:hover {
+    color: #bbbbbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+header > .navbar-default { 
+    background-color: rgba(0,0,0,0.8);
+    border-color: rgba(0,0,0,0.8); 
+    height: 80px;
+    font-size: 18px;
+    margin-bottom: 0px;
+    border-radius: 0px;
+    border-width: 0;
+}
+header > .navbar-default > .contatiner-fluid > .navbar-header > .navbar-brand {
+    font-size: 40px;
+    padding-top: 25px;
+}
+header > .navbar-default > .collapse > .nav > li > a {
+    padding-top: 15px;
+    margin-top: 15px;
+} 
+.navbar-form.navbar-right {
+    margin-top: 23px;
+}
+header > .navbar-default .navbar-brand { /* 내비게이션 제목 색상*/
+    color: #ffffff;
+}
+header > .navbar-default .navbar-brand:hover,
+header > .navbar-default .navbar-brand:focus {  /* 내비게이션 제목에 마우스를 올렸을 때 */
+    background-color: transparent;
+    color: #bbbbbb;
+}
+header > .navbar-default .navbar-nav > .active > a,
+header > .navbar-default .navbar-nav > .active > a:hover,
+header > .navbar-default .navbar-nav > .active > a:focus { /* 현재 선택된 내비게이션 색상 이벤트 */
+    color: white;
+    background-color: rgba(0,0,0,0.8);
+}
+header > .navbar-default .navbar-nav > li > a:hover,
+header > .navbar-default .navbar-nav > li > a:focus { /* 내비게이션의 글자에 마우스를 올렸을 때 */
+    color: #bbbbbb;
+}
+header > .navbar-default .navbar-nav > .open > a,
+header > .navbar-default .navbar-nav > .open > a:hover,
+header > .navbar-default .navbar-nav > .open > a:focus { /* 드랍다운이 열렸을 때 마우스 색상 이벤트 */
+    color: rgba(0,0,0,0.8);
+    background-color: #ffffff;
+    text-decoration: none;
+    border-radius: 3px;
+}
+header > .navbar-default .navbar-nav > li > a { /* 내비게이션 기본 색상 */
+    color: white;
+}
+.dropdown-menu {
+    border-radius: 3px;
+}
+@media (max-width: 767px) { 
+    .navbar-collapse.collapse.in {
+        background:  rgba(0,0,0,0.8);
+    }
+    header > .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #ffffff;
+    }
+    header > .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,       
+    header > .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #bbbbbb;
+    }       
+}
+
+.modal > .modal-dialog {
+    width: 500px;
+    height: 500px;
+}
+.modal-body > .form-login {
+    padding-top: 10px;
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 15px;
+    border-width: 5px;
+}
+.modal-body > .form-login > h1 {
+	margin-bottom: 20px;
+}
+.modal-body > .form-login > input {
+    font-size: 18px;
+}
+.form-login >.input-sm {
+    height: 50px;
+}
+.form-login > .wrapper {
+    text-align: center;
+}
+.form-login> .wrapper > span > .btn-primary {
+    background-color: rgba(0,0,0,0.8);
+    border-color: rgba(0,0,0,0.8);
+}

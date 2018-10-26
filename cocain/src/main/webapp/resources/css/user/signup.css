@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR');
+*{
+    font-family: 'Noto Sans KR', sans-serif;
+}
+a {
+    color: rgba(0,0,0,1);
+    text-decoration: none;
+}
+a:hover {
+    color: #bbbbbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+.row:first-child  {
+    margin-top: 83px;
+    margin-bottom: 62px;
+}
+.row > .col-md-6 > .panel-primary {
+    border-color: rgba(0,0,0,0.8) !important;
+}    
+.row > .col-md-6 > .panel-primary > .panel-heading {
+    background-color: rgba(0,0,0,0.8) !important;
+}
+.row > .col-md-6 > .panel > .panel-heading {
+	margin-bottom: 10px;
+}
+.row > .col-md-6 > .panel > .panel-heading > .panel-title {
+	font-size: 20px;
+}
+.text-center {
+	margin-bottom: 12px;
+}
+.text-center > .btn, .text-center  > .btn:hover, .text-center > .btn:target  {
+    background-color: rgba(0,0,0,0.75) !important;
+    color: white !important;
+}
+.row > .col-md-6 > .panel-primary > .panel-body > form > .input-group {
+	margin-bottom: 25px;
+}
+.row > .col-md-6 > .panel-primary > .panel-body > form > .input-group > span > .fa-user-secret {
+	font-size: 21px;
+}
