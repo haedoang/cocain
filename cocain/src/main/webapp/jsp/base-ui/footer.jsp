@@ -5,12 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  <title>footer</title>
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="../../resources/css/base-ui/footer.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="../js/jquery.animateNumber.js"></script>
-    <script src="../js/bootstrap.js"></script>
+    <script src="../../resources/js/jquery.animateNumber.js"></script>
+    <script src="../../resources/js/bootstrap.js"></script>
 </head>
 <body>
 	<footer>
