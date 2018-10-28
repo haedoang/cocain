@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.cocain.repository.mapper.UserMapper">
+	<resultMap id="userMap" type="user">
+		<result column="id" property="id" />
+		<result column="password" property="password" />
+		<result column="nickname" property="nickname" />
+		<result column="email" property="email" />
+		<result column="point" property="point"/>
+		<result column="reg_date" property="regDate" />
+	</resultMap>
+	
+	<!-- 회원 등록 -->
+	<insert id="registerUser" parameterType="user">
+		insert into tb_user(
+			id, password, nickname, email
+		) values (
+			#{id}, #{password}, #{nickname}, #{email}
+		)
+	</insert>
+	
+	<!-- 아이디 중복 체크 -->
+	<select id="checkId" parameterType="user" resultType="int">
+		select count(*)
+		  from tb_user
+		 where id = #{id} 
+	</select>
+	
+	<!-- 닉네임 중복 체크 -->
+	<select id="checkName" parameterType="user" resultType="int">
+		select count(*)
+		  from tb_user
+		 where nickname = #{nickname} 
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

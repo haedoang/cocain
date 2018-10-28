@@ -34,8 +34,9 @@ a:hover {
     background-color: rgba(0,0,0,0.75) !important;
     color: white !important;
 }
-.row > .col-md-6 > .panel-primary > .panel-body > form > .input-group {
-	margin-bottom: 25px;
+.row > .col-md-6 > .panel-primary > .panel-body > form > .row {
+	height: 25px; 
+	padding-left: 84px;
 }
 .row > .col-md-6 > .panel-primary > .panel-body > form > .input-group > span > .fa-user {
 	font-size: 21px;
