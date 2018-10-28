@@ -1,0 +1,70 @@
+        *{
+    padding:0;
+    margin:0;
+}
+/* content size */ 
+section{
+	height:1000px; 
+}
+
+.section{
+    width:80%;
+/*   	border:1px solid red; */
+    display:inline-block;
+    position:absolute;
+    margin-left:25px;
+    }
+.aside{
+    /* background:skyblue; */
+    width:12%;
+    height:500px;
+/*     display:inline-block; */
+	float:left;
+/*     border:1px solid blue; */
+
+}
+.background{
+    height:250px;
+    /* border:1px solid red; */
+}
+.title{
+    margin-top:30px;
+    height:80px;
+    background-color:#252c3f;
+    color:white;
+}
+.context{
+    margin-top:30px;
+}
+a{
+    color:#000515; !important;
+}
+h2{
+    position:relative;
+    top:20px;
+    left:30px;
+}
+.pagination{
+    margin:0 25%; 
+}
+
+.search{
+    text-align:center;
+}
+.search > *{
+    height:30px;
+    
+}
+.btn-primary{
+    border:#6d909c;
+    background-color:#252c3f;
+}
+.nav-pills > li.active > a {
+  color: #fff;
+  background-color: #252c3f;
+}
+.nav > li > a:hover,
+.nav > li > a:focus {
+  color: #fff;
+  background-color: #6d909c;
+}
