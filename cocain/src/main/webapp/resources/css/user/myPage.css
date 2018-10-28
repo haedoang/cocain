@@ -76,6 +76,9 @@ nav.text-center > .pagination > li.active > a {
 .row > .modal > .modal-dialog > .modal-content > .panel-primary > .panel-body > form > .input-group {
 	margin-bottom: 25px;
 }
+.row > .modal > .modal-dialog > .modal-content > .panel-primary > .panel-body > form > .input-group > span > .fa-lock {
+	font-size: 21px;
+}
 .row > .modal > .modal-dialog > .modal-content > .panel-primary > .panel-body > form > .input-group > span > .fa-user-secret {
 	font-size: 21px;
 }

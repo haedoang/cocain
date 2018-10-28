@@ -37,6 +37,12 @@ a:hover {
 .row > .col-md-6 > .panel-primary > .panel-body > form > .input-group {
 	margin-bottom: 25px;
 }
+.row > .col-md-6 > .panel-primary > .panel-body > form > .input-group > span > .fa-user {
+	font-size: 21px;
+}
+.row > .col-md-6 > .panel-primary > .panel-body > form > .input-group > span > .fa-lock {
+	font-size: 21px;
+}
 .row > .col-md-6 > .panel-primary > .panel-body > form > .input-group > span > .fa-user-secret {
 	font-size: 21px;
 }

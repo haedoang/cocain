@@ -8,15 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CoCaIn</title>
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/signup.css">
+    <link rel="stylesheet" href="/cocain/resources/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="/cocain/resources/css/user/signUp.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="../js/jquery.animateNumber.js"></script>
-    <script src="../js/bootstrap.js"></script>
+    <script src="/cocain/resources/js/jquery.animateNumber.js"></script>
+    <script src="/cocain/resources/js/bootstrap.js"></script>
 </head>
 <body>
-  	<c:import url="header.jsp"/> 
+  	<c:import url="/jsp/base-ui/header.jsp"/> 
   	
     <div class="container">
         <div class="row">
@@ -33,15 +33,15 @@
                     <div class="panel-body">
                         <form>
                              <div class="input-group input-group-lg">
-                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                 <span class="input-group-addon"><i class="fas fa-user"></i></span>
                                  <input id="id" type="text" class="form-control" name="id" value="" placeholder="아이디">                                        
                              </div>
                              <div class="input-group input-group-lg">
-	                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+	                             <span class="input-group-addon"><i class="fas fa-lock"></i></span>
 	                             <input id="password" type="password" class="form-control" name="password" placeholder="비밀번호">
                              </div>
                              <div class="input-group input-group-lg">
-	                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+	                             <span class="input-group-addon"><i class="fas fa-lock"></i></span>
 	                             <input id="passwordCk" type="password" class="form-control" name="passwordCk" placeholder="비밀번호 확인">
                              </div>
                              <div class="input-group input-group-lg">
@@ -64,7 +64,7 @@
         </div>
     </div>  
   	
-  	<c:import url="footer.jsp"/>  
+  	<c:import url="/jsp/base-ui/footer.jsp"/>   
   	
 </body>
 </html>

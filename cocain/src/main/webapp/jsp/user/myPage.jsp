@@ -8,15 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CoCaIn</title>
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/mypage.css">
+    <link rel="stylesheet" href="/cocain/resources/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="/cocain/resources/css/user/myPage.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="../js/jquery.animateNumber.js"></script>
-    <script src="../js/bootstrap.js"></script>
+    <script src="/cocain/resources/js/bootstrap.js"></script>
 </head>
 <body>
-  	<c:import url="header.jsp"/> 
+  	<c:import url="/jsp/base-ui/header.jsp"/> 
   	
     <div class="container">
         <div class="row">
@@ -32,7 +31,7 @@
                         <div class="media">
                             <div class="media-left">
                                 <a href="#">
-                                    <img class="media-object" src="../images/icon.png" alt="개발자 이미지"/>
+                                    <img class="media-object" src="/cocain/resources/images/icon.png" alt="개발자 이미지"/>
                                 </a>
                             </div>
                             <div class="media-body">
@@ -207,15 +206,15 @@
 		                             <input id="nickName" type="text" class="form-control" name="nickName" placeholder="닉네임">
 	                             </div>                             
 	                             <div class="input-group input-group-lg">
-		                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+		                             <span class="input-group-addon"><i class="fas fa-lock"></i></span>
 		                             <input id="oriPassword" type="password" class="form-control" name="oriPassword" placeholder="현재 비밀번호">
 	                             </div>
 	                             <div class="input-group input-group-lg">
-		                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+		                             <span class="input-group-addon"><i class="fas fa-lock"></i></span>
 		                             <input id="newPassword" type="password" class="form-control" name="newPassword" placeholder="새 비밀번호">
 	                             </div>
 	                             <div class="input-group input-group-lg">
-		                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+		                             <span class="input-group-addon"><i class="fas fa-lock"></i></span>
 		                             <input id="passwordCk" type="password" class="form-control" name="passwordCk" placeholder="비밀번호 확인">
 	                             </div>
 	   							 <div class="text-center">
@@ -229,7 +228,7 @@
 		</div>
 	</div>
   	
-  	<c:import url="footer.jsp"/>  
+  	<c:import url="/jsp/base-ui/footer.jsp"/>  
 
 </body>
 </html>
