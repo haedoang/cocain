@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>dq update</title>
+<title>content 연습</title>
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" />
 <link rel="stylesheet"
@@ -30,14 +30,14 @@
 					<li role="presentation"><a href="DailyQuiz.html"> <i
 							class="fas fa-folder"></i> 데일리퀴즈
 					</a></li>
-					<li role="presentation" class="active"><a
+					<li role="presentation" ><a
 						href="DailyQuiz.html"> &nbsp;&nbsp; <i
 							class="fas fa-folder-open"></i> 문제
 					</a></li>
 					<li role="presentation"><a href="DailyQuizResult.html">
 							&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인</span>
 					</a></li>
-					<li role="presentation"><a href="UserQuiz.html"> <i
+					<li role="presentation" class="active"><a href="UserQuiz.html"> <i
 							class="fas fa-folder"></i> 유저퀴즈
 					</a></li>
 					<li role="presentation"><a href="RankMain.html"> <i
@@ -49,12 +49,12 @@
 
 		<div class="section">
 			<div class="background">
-				<img src="<c:url value="/resources/images/quiz-back.jpg"/>"
+				<img src="<c:url value="/resources/images/quiz-back2.jpg"/>"
 				width=100% height=250px; />
 			</div>
 
 			<div class="title">
-				<h2>문제 수정페이지</h2>
+				<h2>유저퀴즈 > 문제 업로드</h2>
 			</div>
 
 			<div class="context"></div>
@@ -97,8 +97,8 @@
 					</tr>
 					<tr>
 						<th class="buttons">
-							<button class="btn btn-primary">수정하기</button>
-							<button class="btn btn-primary">수정취소</button>
+							<button class="btn btn-primary">등록</button>
+							<button class="btn btn-primary">취소</button>
 						</th>
 						<td></td>
 					</tr>
@@ -115,13 +115,13 @@
 
 	<!-- summernote -->
 	<script>
-		/* $(document).ready(function() {
+		 $(document).ready(function() {
 			$('#summernote').summernote({
 				height : 325,
 				maxheight : null,
 				editable : [ "note-editable" ]
 			});
-		}); */
+		}); 
 	</script>
 </body>
 </html>
