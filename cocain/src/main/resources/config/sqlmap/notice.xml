@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.cocain.repository.mapper.NoticeMapper">
+	<resultMap id="NoticeMap" type="Notice">
+		<result column="no" property="no" />
+		<result column="writer" property="writer" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="reg_date" property="regDate" />
+		<result column="view_cnt" property="viewCnt"/>
+	</resultMap>
+	
+	<resultMap id="CommentMap" type="NoticeComment">
+		<result column="comment_no" property="commentNo"></result>
+		<result column="no" property="no"></result>
+		<result column="content" property="content"></result>
+		<result column="writer" property="writer"></result>
+		<result column="reg_date" property="regDate"></result>
+	</resultMap>
+	
+
+<select id="listNotice" parameterType="NoticePage" resultMap="NoticeMap" >
+	select *
+from(select a.* , (@rownum:=@rownum+1) rnum
+	from(select *
+	from tb_notice
+	order by no desc)a
+    where (@rownum:=0)=0
+    and @rownum &lt; #{end})b
+    where rnum &gt;= #{begin}
+</select>
+
+<select id="listCount" resultType="int">
+	select count(*)
+	from tb_notice
+</select>
+
+<select id="detailNotice"  parameterType="int" resultMap="NoticeMap">
+	select *
+	from tb_notice
+	where no = #{no}
+</select>
+
+<insert id="writeNotice" parameterType="Notice">
+	insert into tb_notice (no,title,writer,content) values (null,#{title}, #{writer}, #{content} );
+</insert>
+
+<delete id="deleteNotice" parameterType="int">
+	delete from tb_notice
+	where no = #{no}
+</delete>
+
+<update id="updateNotice" parameterType="Notice">
+	update tb_notice 
+	    set title = #{title},
+			content = #{content}
+	        where no = #{no}
+</update>
+
+<select id="selectRecom" resultType="int"  parameterType="NoticeRecom">
+select count(*) 
+from tb_notice_recom
+where no =#{no}
+		<!-- id = #{id} -->
+</select>
+
+<insert id="insertRecom"  parameterType="NoticeRecom">
+insert into tb_notice_recom (no) values (#{no})
+</insert>
+
+<select id="listComment" parameterType="int" resultMap="CommentMap">
+select *
+from tb_notice_comment
+where no = #{no}
+</select>
+
+<delete id="deleteComment" parameterType="int" >
+delete table tb_notice_comment 
+where no = #{no}
+</delete>
+
+</mapper>
