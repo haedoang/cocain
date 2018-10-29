@@ -54,6 +54,9 @@
                              <div class="input-group input-group-lg">
 	                             <span class="input-group-addon"><i class="fas fa-envelope"></i></span>
 	                             <input id="email" type="text" class="form-control" name="email" placeholder="이메일">
+                        	     <span class="input-group-btn">
+								 	<button class="btn btn-default" type="button" data-toggle="modal" data-target="#certify">인증</button>
+							     </span>
                              </div>
                              <div class="row" id="ckEmailMsg"></div>     
    							 <div class="text-center">
@@ -67,7 +70,28 @@
         	</div>
         </div>
     </div>  
-  	
+	<div class="modal fade" id="certify">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h3 class="modal-title">이메일 인증</h3>
+				</div>
+				<div class="modal-body">
+					<h4>
+						입력하신 이메일로 인증번호를 보냈습니다.
+					</h4><br>
+					<div class="input-group input-group-lg">
+                         <span class="input-group-addon"><i class="fas fa-key"></i></span>
+                         <input id="certifyNo" type="text" class="form-control" name="certifyNo" placeholder="인증번호">
+                    </div>
+				</div>
+				<div class="modal-footer text-center">
+					<button type="button" class="btn btn-primary btn-lg">인증하기</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
   	<c:import url="../base-ui/footer.jsp"/>  
   	
 	<script type="text/javascript">

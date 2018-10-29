@@ -38,6 +38,7 @@
 			<param-value>
 				classpath:config/spring/servlet-context.xml
 				classpath:config/spring/repository-context.xml
+				classpath:config/spring/spring-security.xml
 			</param-value>
 <!-- 			 context파일을 여러개 읽을 때...
      		<param-value>classpath:config/spring/*context.xml</param-value> -->

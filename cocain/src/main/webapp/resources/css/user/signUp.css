@@ -47,3 +47,15 @@ a:hover {
 .row > .col-md-6 > .panel-primary > .panel-body > form > .input-group > span > .fa-user-secret {
 	font-size: 21px;
 }
+#certify > .modal-dialog > .modal-content > .modal-header > button {
+	line-height: 33.64px;
+}
+#certify > .modal-dialog > .modal-content > .modal-body > .input-group > #certifyNo {
+	height: 46.53px;
+}
+#certify > .modal-dialog > .modal-content > .modal-footer {
+	margin-bottom: 0px;
+}
+#certify > .modal-dialog > .modal-content > .modal-footer > button {
+	border-color: rgba(0,0,0,0.75);
+}
