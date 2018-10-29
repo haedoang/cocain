@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<!-- header.. -->
+	<c:import url="/jsp/base-ui/header.jsp"></c:import>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>uqupdate</title>
 <link rel="stylesheet"
@@ -15,12 +17,11 @@
 
 <!-- include summernote css/js -->
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/summernote.css"/>" />
-<script src="<c:url value="/resources/js/summernote.js"/>"></script>
+	href="<c:url value="/resources/summernote/summernote.css"/>" />
+<script src="<c:url value="/resources/summernote/summernote.js"/>"></script>
 
 <body>
-	<!-- header.. -->
-	<c:import url="/jsp/base-ui/header.jsp"></c:import>
+
 
 	<section>
 		<div class="aside">
@@ -59,7 +60,7 @@
 
 			<div class="context"></div>
 
-			<div class="col-md-9">
+			<div class="col-md-10">
 				<table class="table">
 					<tr>
 						<th>제목</th>
@@ -92,7 +93,7 @@
 					<tr>
 						<th>문제 내용</th>
 						<td>
-							<div id="summernote">Hello Summernote</div>
+							<div id="summernote" style="resize:none;">Hello Summernote</div>
 						</td>
 					</tr>
 					<tr>
@@ -114,14 +115,6 @@
 	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
 
 	<!-- summernote -->
-	<script>
-		 $(document).ready(function() {
-			$('#summernote').summernote({
-				height : 325,
-				maxheight : null,
-				editable : [ "note-editable" ]
-			});
-		}); 
-	</script>
+	<script src="<c:url value="/resources/js/edit-summernote.js"/>"></script>
 </body>
 </html>

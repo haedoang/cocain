@@ -1,14 +1,14 @@
-        *{
+*{
     padding:0;
     margin:0;
 }
 /* content size */ 
 section{
-	height:1000px; 
+	height:1600px; 
 }
 
 .section{
-    width:80%;
+    width:83.7%;
 /*   	border:1px solid red; */
     display:inline-block;
     position:absolute;
@@ -69,10 +69,8 @@ div > .nav > li > a:focus {
   color: #fff;
   background-color: #6d909c;
 }
- 
 
 textarea{
 	resize:none;
 }
 
-/* table align */ 

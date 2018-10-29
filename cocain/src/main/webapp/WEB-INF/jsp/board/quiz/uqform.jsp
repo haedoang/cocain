@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- header.. -->
+<c:import url="/jsp/base-ui/header.jsp"></c:import>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>content 연습</title>
 <link rel="stylesheet"
@@ -15,13 +17,9 @@
 
 <!-- include summernote css/js -->
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/summernote.css"/>" />
-<script src="<c:url value="/resources/js/summernote.js"/>"></script>
-
+	href="<c:url value="/resources/summernote/summernote.css"/>" />
+<script src="<c:url value="/resources/summernote/summernote.js"/>"></script>
 <body>
-	<!-- header.. -->
-	<c:import url="/jsp/base-ui/header.jsp"></c:import>
-
 	<section>
 		<div class="aside">
 			<div class="sidebar">
@@ -30,15 +28,14 @@
 					<li role="presentation"><a href="DailyQuiz.html"> <i
 							class="fas fa-folder"></i> 데일리퀴즈
 					</a></li>
-					<li role="presentation" ><a
-						href="DailyQuiz.html"> &nbsp;&nbsp; <i
-							class="fas fa-folder-open"></i> 문제
+					<li role="presentation"><a href="DailyQuiz.html">
+							&nbsp;&nbsp; <i class="fas fa-folder-open"></i> 문제
 					</a></li>
 					<li role="presentation"><a href="DailyQuizResult.html">
 							&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인</span>
 					</a></li>
-					<li role="presentation" class="active"><a href="UserQuiz.html"> <i
-							class="fas fa-folder"></i> 유저퀴즈
+					<li role="presentation" class="active"><a href="UserQuiz.html">
+							<i class="fas fa-folder"></i> 유저퀴즈
 					</a></li>
 					<li role="presentation"><a href="RankMain.html"> <i
 							class="fas fa-signal"></i> 랭킹보기
@@ -50,7 +47,7 @@
 		<div class="section">
 			<div class="background">
 				<img src="<c:url value="/resources/images/quiz-back2.jpg"/>"
-				width=100% height=250px; />
+					width=100% height=250px; />
 			</div>
 
 			<div class="title">
@@ -59,7 +56,7 @@
 
 			<div class="context"></div>
 
-			<div class="col-md-9">
+			<div class="col-md-10">
 				<table class="table">
 					<tr>
 						<th>제목</th>
@@ -114,14 +111,6 @@
 	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
 
 	<!-- summernote -->
-	<script>
-		 $(document).ready(function() {
-			$('#summernote').summernote({
-				height : 325,
-				maxheight : null,
-				editable : [ "note-editable" ]
-			});
-		}); 
-	</script>
+	<script src="<c:url value="/resources/js/edit-summernote.js"/>"></script>
 </body>
 </html>

@@ -203,12 +203,5 @@
 	<!-- footer.. -->
 	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
 
-	<!-- bootstrap tab toggle -->
-	<script>
-		$('#myTab a').click(function(e) {
-			e.preventDefault()
-			$(this).tab('show')
-		})
-	</script>
 </body>
 </html>

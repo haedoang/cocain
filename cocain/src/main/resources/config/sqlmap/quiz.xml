@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.cocain.repository.mapper.QuizMapper">
+	
+	<resultMap id="categoryMap" type="QuizCategory">
+		<result column="category_no" property="categoryNo"></result>
+		<result column="category_name" property="categoryName"></result>
+	</resultMap>
+	
+	<resultMap id="levelMap" type="QuizLevel">
+		<result column="level_no" property="levelNo"></result>
+		<result column="level_name" property="levelName"></result>
+		<result column="level_point" property="levelPoint"></result>
+	</resultMap>
+	
+	<resultMap id="typeMap" type="QuizType">
+		<result column="type_no" property="typeNo"></result>
+		<result column="type_name" property="typeName"></result>
+	</resultMap>
+	
+	<resultMap id="quizMap" type="QuizBoard">
+		<result column="quiz_no" property="quizNo" />
+		<result column="type_no" property="typeNo" />
+		<result column="category_no" property="categoryNo" />
+		<result column="level_no" property="levelNo" />
+		<result column="id" property="id" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="reg_date" property="regDate" />
+		<result column="hint" property="hint" />
+		<result column="correct" property="correct" />
+		<result column="answer_cnt" property="answerCnt" />
+		<result column="try_cnt" property="tryCnt" />
+	</resultMap>
+	
+	<!-- daily quiz list -->
+	<select id="selectDQList" resultMap="quizMap">
+		select * 
+		  from tb_quiz_board
+		 where type_no = 1
+		order by quiz_no desc
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

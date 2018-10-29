@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- header.. -->
+	<c:import url="/jsp/base-ui/header.jsp"></c:import>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>dqdetail</title>
 <link rel="stylesheet"
@@ -13,25 +15,14 @@
 <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 
-<%-- <!-- summernote -->
+ <!-- summernote -->
 <link rel="stylesheet"
 	href="<c:url value="/resources/summernote/summernote.css"/>" />
-<script src="<c:url value="/resources/summernote/summernote.js"/>"></script> --%>
-
-<!-- include summernote css/js -->
-<link
-	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css"
-	rel="stylesheet">
-<script
-	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-
-
-
+<script src="<c:url value="/resources/summernote/summernote.js"/>"></script> 
 
 </head>
 <body>
-	<!-- header.. -->
-	<c:import url="/jsp/base-ui/header.jsp"></c:import>
+	
 
 	<section>
 		<div class="aside">
@@ -66,12 +57,12 @@
 				</div>
 
 				<div class="title">
-					<h2>DailyQuiz > 문제풀기</h2>
+					<h2>UserQuiz > 문제풀기</h2>
 				</div>
 
 				<div class="context"></div>
 
-				<div class="col-md-8">
+				<div class="col-md-10">
 					<table class="table">
 						<tr>
 							<th>게시글 번호</th>
@@ -101,7 +92,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th>정답 제출하기</th>
+							<th>정답 확인하기</th>
 							<td class="buttons"><input type="text" placeholder="정답을 입력하세요" />
 								<button class="btn btn-primary">정답확인</button>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ajax 정답
@@ -112,9 +103,9 @@
 					<h4>댓글테이블</h4>
 					<div class="row">
 						<div class="col-md-10">
-							<textarea class="form-control" rows="3">
+							<textarea class="form-control" rows="2">
 		
-								</textarea>
+							</textarea>
 
 						</div>
 						<div class="col-md-2 buttons">
@@ -144,6 +135,7 @@
 					<!-- 8 end  -->
 				</div>
 			</div>
+		</div>
 	</section>
 
 
@@ -151,15 +143,8 @@
 	<!-- footer.. -->
 	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
 
-	<script>
-		$(document).ready(function() {
-			$("#summernote").summernote({
-				height : 325,
-				maxheight : null,
-				editable : [ "note-editable" ]
-			});
-		});
-	</script>
+	<!-- summernote -->
+	<script src="<c:url value="/resources/js/edit-summernote.js"/>"></script>
 
 </body>
 </html>

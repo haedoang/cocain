@@ -23,10 +23,10 @@
 		<div class="sidebar">
 			<ul class="nav nav-pills nav-stacked">
 				<li role="presentation"><a href="#">퀴즈게시판</a></li>
-				<li role="presentation"><a href="<c:url value="/jsp/board/quiz/dqlist.jsp"/>"> <i
+				<li role="presentation" class="active"><a href="<c:url value="/jsp/board/quiz/dqlist.jsp"/>"> <i
 						class="fas fa-folder"></i> 데일리퀴즈
 				</a></li>
-				<li role="presentation" class="active"><a href="DailyQuiz.html">
+				<li role="presentation" ><a href="DailyQuiz.html">
 						&nbsp;&nbsp; <i class="fas fa-folder-open"></i> 문제
 				</a></li>
 				<li role="presentation"><a href="DailyQuizResult.html">
@@ -66,116 +66,19 @@
 				<th>정답률</th>
 				<th>난이도</th>
 			</tr>
-			<tr>
-				<td>799</td>
-				<td>Java</td>
-				<td><a href="#">객체 생성하기</a></td>
-				<td>관리자</td>
-				<td>18-10-21 오전 11:36:42</td>
-				<td style="color: green">18-10-22 오전 11:36:41</td>
-				<td>22</td>
-				<td>72%</td>
-				<td>쉬워요</td>
-			</tr>
-			<tr>
-				<td>799</td>
-				<td>Java</td>
-				<td><a href="#">객체 생성하기</a></td>
-				<td>관리자</td>
-				<td>18-10-21 오전 11:36:42</td>
-				<td style="color: green">18-10-22 오전 11:36:41</td>
-				<td>22</td>
-				<td>72%</td>
-				<td>쉬워요</td>
-			</tr>
-			<tr>
-				<td>799</td>
-				<td>Java</td>
-				<td><a href="#">객체 생성하기</a></td>
-				<td>관리자</td>
-				<td>18-10-21 오전 11:36:42</td>
-				<td style="color: green">18-10-22 오전 11:36:41</td>
-				<td>22</td>
-				<td>72%</td>
-				<td>쉬워요</td>
-			</tr>
-			<tr>
-				<td>799</td>
-				<td>Java</td>
-				<td><a href="#">객체 생성하기</a></td>
-				<td>관리자</td>
-				<td>18-10-21 오전 11:36:42</td>
-				<td style="color: green">18-10-22 오전 11:36:41</td>
-				<td>22</td>
-				<td>72%</td>
-				<td>쉬워요</td>
-			</tr>
-			<tr>
-				<td>799</td>
-				<td>Java</td>
-				<td><a href="#">객체 생성하기</a></td>
-				<td>관리자</td>
-				<td>18-10-21 오전 11:36:42</td>
-				<td style="color: green">18-10-22 오전 11:36:41</td>
-				<td>22</td>
-				<td>72%</td>
-				<td>쉬워요</td>
-			</tr>
-			<tr>
-				<td>799</td>
-				<td>Java</td>
-				<td><a href="#">객체 생성하기</a></td>
-				<td>관리자</td>
-				<td>18-10-21 오전 11:36:42</td>
-				<td style="color: green">18-10-22 오전 11:36:41</td>
-				<td>22</td>
-				<td>72%</td>
-				<td>쉬워요</td>
-			</tr>
-			<tr>
-				<td>799</td>
-				<td>Java</td>
-				<td><a href="#">객체 생성하기</a></td>
-				<td>관리자</td>
-				<td>18-10-21 오전 11:36:42</td>
-				<td style="color: green">18-10-22 오전 11:36:41</td>
-				<td>22</td>
-				<td>72%</td>
-				<td>쉬워요</td>
-			</tr>
-			<tr>
-				<td>799</td>
-				<td>Java</td>
-				<td><a href="#">객체 생성하기</a></td>
-				<td>관리자</td>
-				<td>18-10-21 오전 11:36:42</td>
-				<td style="color: green">18-10-22 오전 11:36:41</td>
-				<td>22</td>
-				<td>72%</td>
-				<td>쉬워요</td>
-			</tr>
-			<tr>
-				<td>799</td>
-				<td>Java</td>
-				<td><a href="#">객체 생성하기</a></td>
-				<td>관리자</td>
-				<td>18-10-21 오전 11:36:42</td>
-				<td style="color: green">18-10-22 오전 11:36:41</td>
-				<td>22</td>
-				<td>72%</td>
-				<td>쉬워요</td>
-			</tr>
-			<tr>
-				<td>799</td>
-				<td>Java</td>
-				<td><a href="#">객체 생성하기</a></td>
-				<td>관리자</td>
-				<td>18-10-21 오전 11:36:42</td>
-				<td style="color: green">18-10-22 오전 11:36:41</td>
-				<td>22</td>
-				<td>72%</td>
-				<td>쉬워요</td>
-			</tr>
+			<c:forEach var="i" items="${list}" >
+				<tr>
+					<td>${i.quizNo}</td>
+					<td>${i.typeNo}</td>
+					<td><a href="#">${i.title}</a></td>
+					<td>${i.id}</td>
+					<td>${i.regDate}</td>
+					<td style="color: green">18-10-22 오전 11:36:41</td>
+					<td>22</td>
+					<td>72%</td>
+					<td>${i.levelNo}</td>
+				</tr>
+			</c:forEach>
 			
 
 		</table>
