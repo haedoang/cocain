@@ -16,6 +16,11 @@ public class QuizBoardController {
 	
 	@RequestMapping("dqlist.do")
 	public void dqlist(Model model) {
-		model.addAttribute("list", service.selectDQList());
+		model.addAttribute("data", service.selectDQList());
+	}
+	
+	@RequestMapping("uqlist.do")
+	public void uqlist(Model model) {
+		model.addAttribute("data",service.selectUQList());
 	}
 }

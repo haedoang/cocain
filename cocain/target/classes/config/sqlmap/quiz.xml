@@ -34,6 +34,19 @@
 		<result column="try_cnt" property="tryCnt" />
 	</resultMap>
 	
+	<!-- category list -->
+	<select id="selectCategory" resultMap="categoryMap">
+		select * 
+		  from tb_quiz_category
+	</select>
+	<!-- level list -->
+	<select id="selectLevel" resultMap="levelMap">
+		select *
+		  from tb_quiz_lev
+	</select>
+	
+	
+	
 	<!-- daily quiz list -->
 	<select id="selectDQList" resultMap="quizMap">
 		select * 
@@ -41,6 +54,16 @@
 		 where type_no = 1
 		order by quiz_no desc
 	</select>
+	
+	<!-- user quiz list -->
+	<select id="selectUQList" resultMap="quizMap">
+		select * 
+		  from tb_quiz_board
+		 where type_no = 2
+		order by quiz_no desc
+	</select>
+	
+	
 	
 </mapper>
 

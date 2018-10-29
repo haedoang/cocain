@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,17 +67,29 @@
 				<th>정답률</th>
 				<th>난이도</th>
 			</tr>
-			<c:forEach var="i" items="${list}" >
+			<c:forEach var="i" items="${data.list}" >
 				<tr>
 					<td>${i.quizNo}</td>
-					<td>${i.typeNo}</td>
+					<c:forEach var="j" items="${data.category}">
+						<c:if test="${i.categoryNo eq j.categoryNo}">
+						<td>${j.categoryName}</td>
+						</c:if>
+					</c:forEach>
 					<td><a href="#">${i.title}</a></td>
 					<td>${i.id}</td>
-					<td>${i.regDate}</td>
-					<td style="color: green">18-10-22 오전 11:36:41</td>
-					<td>22</td>
-					<td>72%</td>
-					<td>${i.levelNo}</td>
+					<td>
+					<fmt:formatDate value="${i.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					</td>
+					<td style="color: green">
+					<fmt:formatDate value="${i.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					</td>
+					<td>${i.answerCnt}</td>
+					<td>${i.answerCnt / i.tryCnt * 100} %</td>										
+					<c:forEach var="k" items="${data.level}">
+						<c:if test="${i.levelNo eq k.levelNo}">
+						<td>${k.levelName}</td>
+						</c:if>
+					</c:forEach>		
 				</tr>
 			</c:forEach>
 			
@@ -129,6 +142,10 @@
 
  	<!-- footer.. -->
 	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
-
+	
+	
+	<script>
+		//ajax category
+	</script>
 </body>
 </html>
