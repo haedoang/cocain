@@ -88,19 +88,19 @@ header > .navbar-default .navbar-nav > li > a { /* 내비게이션 기본 색상
     border-radius: 15px;
     border-width: 5px;
 }
-.modal-body > .form-login > h1 {
+.modal-body > .form-login > form > h1 {
 	margin-bottom: 20px;
 }
-.modal-body > .form-login > input {
+.modal-body > .form-login > form > input {
     font-size: 18px;
 }
-.form-login >.input-sm {
+.form-login > form > .input-sm {
     height: 50px;
 }
-.form-login > .wrapper {
+.form-login > form > .wrapper {
     text-align: center;
 }
-.form-login> .wrapper > span > .btn-primary {
+.form-login> form > .wrapper > span > .btn-primary {
     background-color: rgba(0,0,0,0.8);
     border-color: rgba(0,0,0,0.8);
 }

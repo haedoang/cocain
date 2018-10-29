@@ -15,7 +15,7 @@
     <script src="/cocain/resources/js/bootstrap.js"></script>
 </head>
 <body>
-  	<c:import url="../base-ui/header.jsp"/> 
+  	<c:import url="/WEB-INF/jsp/base-ui/header.jsp"/> 
   	
     <div class="container">
         <div class="row">
@@ -228,7 +228,7 @@
 		</div>
 	</div>
   	
-  	<c:import url="../base-ui/footer.jsp"/>  
+  	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"/>   
 
 </body>
 </html>

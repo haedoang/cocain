@@ -25,7 +25,7 @@ public class SignUpController {
 	public String signUp(User user) {
 		service.register(user);
 
-		return "redirect:signUpForm.do";
+		return "redirect:/main/main.do";
 	} // signUp
 	
 	@RequestMapping("checkId.do")

@@ -36,7 +36,14 @@
     		</mvc:message-converters>
     	</mvc:annotation-driven>
     	
-     	
+   		<!-- 로그인 세션 필터 처리 -->
+		<mvc:interceptors>
+			<mvc:interceptor>
+				<mvc:mapping path="/user/myPage.do" /> 
+				<bean class="kr.co.cocain.user.controller.AuthInterceptor" />
+			</mvc:interceptor>
+		</mvc:interceptors>
+	
     	<!-- 아이디가 고정되어야함. 규칙(multipartResolver) -->
     	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     		<property name="maxUploadSize" value="10485760"/><!-- 10mb ,, 1024*1024*10 -->

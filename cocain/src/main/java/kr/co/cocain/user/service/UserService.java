@@ -27,14 +27,15 @@ public interface UserService {
 	 */
 	int checkName(User user);
 	
-/*	*//**
-	 * 회원 가입시 이메일 인증코드 생성
-	 *//*
-	String createKey();*/
-	
 	/**
 	 * 회원 가입시 인증코드 메일 보내기
 	 */
 	String sendMail(User user);
+	
+	/**
+	 * 로그인 처리
+	 * @param user
+	 */
+	User userLogin(User user);
 	
 } // end interface

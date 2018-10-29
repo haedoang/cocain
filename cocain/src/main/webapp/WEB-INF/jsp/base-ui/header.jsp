@@ -22,8 +22,8 @@
 			<button type="button" class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
 				aria-expanded="false">
-				<span class="sr-only"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span>
+				<span class="sr-only"></span> <span class="icon-bar"></span> 
+				<span class="icon-bar"></span> <span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="<c:url value="/index.jsp"/>">CoCaIn</a>
 		</div>
@@ -42,8 +42,14 @@
 			<li><a href="#">지식iN</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="#" data-target="#login" data-toggle="modal">로그인</a></li>
-			<li><a href="<c:url value="/user/signUpForm.do" />">회원가입</a></li>
+			<c:if test="${user == null}">
+				<li><a href="#" data-target="#login" id="log" data-toggle="modal">로그인</a></li>
+				<li><a href="<c:url value="/user/signUpForm.do" />">회원가입</a></li>
+			</c:if>
+			<c:if test="${user != null}">
+				<li><a href="<c:url value="/user/myPage.do"/>">마이페이지</a></li>
+	            <li><a href="<c:url value="/login/logout.do"/>">로그아웃</a></li>
+            </c:if>
 		</ul>
 		<form class="navbar-form navbar-right" action="">
 			<div class="form-group">
@@ -64,22 +70,59 @@
 					</div>
 					<div class="modal-body" style="text-align: center;">
 						<div class="form-login">
-							<h1>CoCaIn</h1>
-							<br> <input type="text" id="userName"
-								class="form-control input-sm chat-input" placeholder="아이디" /> <br>
-							<input type="text" id="userPassword"
-								class="form-control input-sm chat-input" placeholder="비밀번호" />
-							<br>
-							<br>
-							<div class="wrapper">
-								<span> <a href="#" class="btn btn-primary btn-lg">로그인</a>
-								</span>
-							</div>
+							<form action="<c:url value="/login/login.do"/>" method="post">
+								<h1>CoCaIn</h1>
+								<br> <input type="text" id="id" name="id"
+									class="form-control input-sm chat-input" placeholder="아이디" /> <br>
+								<input type="password" id="password" name="password"
+									class="form-control input-sm chat-input" placeholder="비밀번호" />
+								<br>
+								<br>
+								<div class="wrapper">
+									<span> 
+										<button type="button" id="doLogin" class="btn btn-primary btn-lg">로그인</button>
+									</span>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+ 	<script type="text/javascript">
+ 		$("#log").on("click", function() {
+ 			$("#id").focus();
+		});
+ 	
+		$("#doLogin").on("click", function() {
+			var id = $("#id").val();
+			var password = $("#password").val();
+			
+			$.ajax({
+				url: "/cocain/login/login.do",
+				data: {id: id}
+			})
+			.done(function(user) {
+				console.log(user);
+				if(user == "") {
+					alert("존재하지 않는 아이디입니다.");
+
+					return;
+				}
+				if(user.password != password) {
+					alert("비밀번호가 다릅니다.");
+					
+					return;
+				} else {
+					alert("로그인 되었습니다.");
+					$("#login").modal("hide");
+					location.href = "main.do";
+				}
+			})
+		});
+	
+	</script> 
 </body>
 </html>

@@ -33,19 +33,7 @@ public class UserServiceImpl implements UserService {
 	public int checkName(User user) {
 		return mapper.checkName(user);
 	} // checkName
-/*
-	@Override
-	public String createKey() {
-		String key = "";
-		Random rd = new Random();
 
-		for (int i=0; i<8; i++) {
-			key += rd.nextInt(10);
-		} // for
-		
-		return key;
-	} // createKey
-*/
 	@Override
 	public String sendMail(User user) {
 		// Mail Server 설정
@@ -63,14 +51,14 @@ public class UserServiceImpl implements UserService {
 		// 인증키 생성
 		Random rd = new Random();
 		StringBuffer sb = new StringBuffer();
+		
 		for(int i=0; i<5; i++){
-		    // rnd.nextBoolean() 는 랜덤으로 true, false 를 리턴. true일 시 랜덤 한 소문자를, false 일 시 랜덤 한 숫자를 StringBuffer 에 append 한다.
 		    if(rd.nextBoolean()){
 		    	sb.append((char)((int)(rd.nextInt(26))+97));
-		    }else{
+		    } else {
 		    	sb.append((rd.nextInt(10)));
-		    }
-		}
+		    } // if-else
+		} // for
 
 		// 회원가입 메일 내용
 		subject = "Cocain 회원가입 인증 메일입니다.";
@@ -99,5 +87,10 @@ public class UserServiceImpl implements UserService {
 		
 		return sb.toString();
 	} // sendMail
+
+	@Override
+	public User userLogin(User user) {
+		return mapper.userLogin(user);
+	} // userLogin
 
 } // end class
