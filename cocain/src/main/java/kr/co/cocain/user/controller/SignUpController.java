@@ -40,4 +40,10 @@ public class SignUpController {
 		return Integer.toString(service.checkName(user));
 	} // checkName
 	
+	@RequestMapping("sendMail.do")
+	@ResponseBody
+	public String sendMail(User user) {
+		return service.sendMail(user);
+	} // sendMail
+	
 } // end class

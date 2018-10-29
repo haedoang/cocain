@@ -31,7 +31,7 @@
                         <div class="media">
                             <div class="media-left">
                                 <a href="#">
-                                    <img class="media-object" src="../images/icon.png" alt="개발자 이미지"/>
+                                    <img class="media-object" src="/cocain/resources/images/icon.png" alt="개발자 이미지"/>
                                 </a>
                             </div>
                             <div class="media-body">

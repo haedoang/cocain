@@ -15,7 +15,7 @@
     <script src="/cocain/resources/js/bootstrap.js"></script>
 </head>
 <body>
-  	<c:import url="../base-ui/header.jsp"/> 
+  	<c:import url="/WEB-INF/jsp/base-ui/header.jsp"/> 
   	
     <div class="container">
         <div class="row">
@@ -55,7 +55,7 @@
 	                             <span class="input-group-addon"><i class="fas fa-envelope"></i></span>
 	                             <input id="email" type="text" class="form-control" name="email" placeholder="이메일">
                         	     <span class="input-group-btn">
-								 	<button class="btn btn-default" type="button" data-toggle="modal" data-target="#certify">인증</button>
+								 	<button id="sendMail" class="btn btn-default" type="button" data-toggle="modal" data-target="#certify">인증</button>
 							     </span>
                              </div>
                              <div class="row" id="ckEmailMsg"></div>     
@@ -70,7 +70,7 @@
         	</div>
         </div>
     </div>  
-	<div class="modal fade" id="certify">
+	<div class="modal" id="certify">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -87,12 +87,13 @@
                     </div>
 				</div>
 				<div class="modal-footer text-center">
-					<button type="button" class="btn btn-primary btn-lg">인증하기</button>
+					<button id="auth" type="button" class="btn btn-primary btn-lg">인증하기</button>
 				</div>
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-  	<c:import url="../base-ui/footer.jsp"/>  
+			</div>
+		</div>
+	</div>
+  	
+  	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"/>  
   	
 	<script type="text/javascript">
 		var idConfirmSwich = 1;	
@@ -100,6 +101,7 @@
 		var passCkConfirmSwich = 1;	
 		var nicknameConfirmSwich = 1;	
 		var emailConfirmSwich = 1;	
+		var emailKeyConfirmSwich = 1;	
 	
 		// 아이디 입력
 		$("#id").on("input", function() {
@@ -223,10 +225,39 @@
 				
 				return false;
 			} else {
-				$("#ckEmailMsg").html("<span style='color: green; line-height: 25px;'>사용 가능한 이메일입니다.</span>");
+				$("#ckEmailMsg").html(
+						"<span style='color: green; line-height: 25px;'>사용 가능한 이메일입니다.　</span>"
+				);
 				emailConfirmSwich = 0;
 			}
 		});
+		
+		// 이메일 인증
+		var key = "";
+		$("#sendMail").on("click", function(e) {
+ 			key = "";
+			var email = $("#email").val();
+			$.ajax({
+				url: "sendMail.do",
+				data: {email: email}
+			})
+			.done(function(result) {
+				key = result;
+			});
+		});	
+		
+		// 이메일 인증 확인
+		$("#auth").on("click", function(e) {
+			var certifyNo = $("#certifyNo").val();
+			if(certifyNo == key) {
+				alert("인증 성공");
+				emailKeyConfirmSwich = 0;
+				
+				$("#certify").modal("hide");
+			} else {
+				alert("올바른 인증키를 입력하십시오.");
+			}
+		}); 
 		
 		// 가입하기
 		$("#singUp").on("click", function(e) {
@@ -273,6 +304,11 @@
 			}
 			if(emailConfirmSwich == 1) {
 	            $("#email").focus();
+				return false;
+			}	
+			if(emailKeyConfirmSwich == 1) {
+				alert("이메일 인증을 하십시오.")
+	            $("#sendMail").focus();
 				return false;
 			}	
 			alert("가입되었습니다.");

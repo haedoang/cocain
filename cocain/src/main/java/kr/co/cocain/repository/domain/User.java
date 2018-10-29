@@ -10,7 +10,7 @@ public class User {
 	private String email;
 	private int point;
 	private Date regDate;
-	
+
 	
 	public String getId() {
 		return id;
