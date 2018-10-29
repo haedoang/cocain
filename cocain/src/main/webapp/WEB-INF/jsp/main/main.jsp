@@ -5,16 +5,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>index.jsp</title>
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/main.css">
+<title>cocain</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/cocain/resources/css/main/main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="../js/jquery.animateNumber.js"></script>
-    <script src="../js/bootstrap.js"></script>
+    <script src="/cocain/resources/js/jquery.animateNumber.js"></script>
+    <script src="/cocain/resources/js/bootstrap.js"></script>
 </head>
 <body>
-  	<c:import url="header.jsp"/> 
+  	<c:import url="/WEB-INF/jsp/base-ui/header.jsp"/> 
   	
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -26,19 +26,19 @@
         </ol>
         <div class="carousel-inner">
             <div class="item active">
-                <img src="../images/code-2620118_1920.jpg" alt="code">
+                <img src="/cocain/resources/images/code-2620118_1920.jpg" alt="code">
             </div>
             <div class="item">
-                <img src="../images/비지니스.jpg" alt="비지니스">
+                <img src="/cocain/resources/images/비지니스.jpg" alt="비지니스">
             </div>
             <div class="item">
-                <img src="../images/technology.jpg" alt="technology">
+                <img src="/cocain/resources/images/technology.jpg" alt="technology">
             </div>
             <div class="item">
-                <img src="../images/web.png" alt="web">
+                <img src="/cocain/resources/images/web.png" alt="web">
             </div>
             <div class="item">
-                <img src="../images/webdesign.jpg" alt="webdesign">
+                <img src="/cocain/resources/images/webdesign.jpg" alt="webdesign">
             </div>
             <div class="carousel-content">
                 <p class="text-center">CoCaIn은 코딩 커뮤니티 사이트입니다. <br>원하는 스터디 그룹 모집 및 지식을 공유할 수 있습니다.</p>
@@ -332,7 +332,7 @@
         </div>
     </div>  
   	
-  	<c:import url="footer.jsp"/>  
+  	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"/>  
   
     <script>
         var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')

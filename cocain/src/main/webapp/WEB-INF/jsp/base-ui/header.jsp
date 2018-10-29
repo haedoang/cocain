@@ -13,7 +13,6 @@
 	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
 	crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="/cocain/resources/js/jquery.animateNumber.js"></script>
 <script src="/cocain/resources/js/bootstrap.js"></script>
 </head>
 <body>
@@ -26,7 +25,7 @@
 				<span class="sr-only"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span> <span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.jsp">CoCaIn</a>
+			<a class="navbar-brand" href="<c:url value="/index.jsp"/>">CoCaIn</a>
 		</div>
 	</div>
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -44,7 +43,7 @@
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="#" data-target="#login" data-toggle="modal">로그인</a></li>
-			<li><a href="#">회원가입</a></li>
+			<li><a href="<c:url value="/user/signUpForm.do" />">회원가입</a></li>
 		</ul>
 		<form class="navbar-form navbar-right" action="">
 			<div class="form-group">
