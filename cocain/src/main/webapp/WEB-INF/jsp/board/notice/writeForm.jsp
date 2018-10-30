@@ -6,15 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript"
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+    <c:import url="/jsp/base-ui/header.jsp"></c:import>
+<!-- <script type="text/javascript" -->
+<!--   src="https://code.jquery.com/jquery-3.3.1.js" -->
+<!--   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" -->
+<!--   crossorigin="anonymous"></script> -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+
 </head>
 <body>
 	<div class="h2">자유게시판</div>
@@ -35,20 +36,23 @@
 	</form>
 	<script>
 	
-	 $(function() {
+
 	        $('.summernote').summernote({
 	        	  height: 500,               
 	        	  minHeight: null,         
 	        	  maxHeight: null,        
 	        	  focus: true    
 	        });
-	    });
 	 
 	$coco = $('#summernote').summernote('code'); 
 
 	$('#fff').html($coco);
 	
 	</script>
+	
+	<%--     <c:import url="/jsp/base-ui/footer.jsp"></c:import> --%>
+    <!-- footer jquery 섬머노트 충돌남 -->
+	
 </body>
 </html>
 

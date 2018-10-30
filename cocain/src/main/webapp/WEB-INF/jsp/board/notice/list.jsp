@@ -7,13 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- <script -->
+<!--   src="https://code.jquery.com/jquery-3.3.1.js" -->
+<!--   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" -->
+<!--   crossorigin="anonymous"></script> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
+
 
 <style type="text/css">
 .form-control{
@@ -22,6 +23,7 @@ width:auto;
 </style>
 </head>
 <body>
+	    <c:import url="/jsp/base-ui/header.jsp"></c:import>
 	
 	<!-- 게시물 목록 표현하기 -->
 	
@@ -101,6 +103,8 @@ width:auto;
 </nav>
 	</div>
 	
+	    <c:import url="/jsp/base-ui/footer.jsp"></c:import>
+	
 	
 	<script>
 			
@@ -115,10 +119,10 @@ width:auto;
 		
 			 $(".btn").mouseenter(function() {
 				 $(this).addClass("active focus");
-			
+			 });
 				 $(".btn").mouseleave(function() {
 				$(this).removeClass("active focus")
-			})
+			});
 		
 	</script>
 </body>

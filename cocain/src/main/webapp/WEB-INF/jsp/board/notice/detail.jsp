@@ -6,10 +6,15 @@
 <head>
   <meta charset='utf-8'>
   <title>자유게시판</title>
- <script type="text/javascript"
+<%--   <c:import url="/jsp/base-ui/header.jsp"></c:import> --%>
+<script
   src="https://code.jquery.com/jquery-3.3.1.js"
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
+ <link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+	crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -97,7 +102,7 @@
 		
 		<form class="form-inline" id="commentForm" method="post">
 		<div class="form-group" style="width: 100%; background-color: #efefef ">
-			<input id="rnum" name="no"  value="${board.no}" type="hidden">
+			<input id="no" name="no"  value="${board.no}" type="hidden">
 		<img src="http://codingschool.info/img/title_comment.gif">
 			<input class="form-control" id="writer" name="writer"  type="text" placeholder="닉네임을 입력 해 주세요">
 			<textarea placeholder="댓글내용을 입력 해 주세요" style="width: 91%; height:100px;" class="form-control resize"  id='content' name="content"></textarea>
@@ -108,29 +113,34 @@
 		<div id="divv"></div>
 	 </div>
 	 
+	 <br>
+	 
 	<script>
 	 $('.button').click(function(){
 		 $.ajax({
-		 		url : "<c:url value='/recom/insertrecom.json' />",
+		 		url : "<c:url value='/board/recom/insertrecom.do' />",
 		 		data : "no=${board.no}"
 		 	}).done(function (result) {
-		 		$('#recom1').text(result)
-		 	});
+		 		console.log(result);
+		 		$('#recom1').text(result);
+		 	})
 	 })
 	 $('.button1').click(function(){
 		 $.ajax({
-		 		url : "<c:url value='/recom/deleterecom.json' />",
+		 		url : "<c:url value='/board/recom/deleterecom.do' />",
 		 		data : "no=${board.no}"
 		 	}).done(function (result) {
+		 		console.log(result);
 		 		$('#recom1').text(result)
 		 	});
 	 })
 	  
 	 function list() {
-	 $.ajax({
-		 url : "<c:url value='/board/listComment.json' />",
-		 data : "no=${board.no}"
-	 }).done(function (result) {
+		 $.ajax({
+		 		url: "<c:url value='/board/listComment.do' />",
+		 		data: "no=${board.no}"
+		 	}).done(function (result) {
+		 		console.log(result);
 		 var output = "";
 	 output +='<tr id="ezz">'
 			output +='<th>번호</th>'
@@ -140,11 +150,10 @@
 			output +='<th>버튼</th>'
 		 	output +='</tr>'
 		 	
-		 	
  $.each(result, function(idx,val) {
 	
 	output +='<div><tr>'
-	output += '<td>'+val.rnum+'</td>'
+	output += '<td>'+val.no+'</td>'
 	output += '<td>'+val.writer+'</td>'
 	output += '<td>'+val.content+'</td>'
 	output += '<td>'+new Date(val.regDate).toISOString(0,10)+'</td>'	//new Date(val.regDate).toISOString()
@@ -237,5 +246,7 @@
 	 list();
 	 
 	</script>
+
+<%-- 	    <c:import url="/jsp/base-ui/footer.jsp"></c:import> --%>
 </body>
 </html>

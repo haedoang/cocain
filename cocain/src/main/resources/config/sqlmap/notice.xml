@@ -69,15 +69,19 @@ where no =#{no}
 insert into tb_notice_recom (no) values (#{no})
 </insert>
 
+<delete id="deleteRecon" parameterType="NoticeRecom" >
+delete from tb_notice_recom
+where no = #{no}
+</delete>
+
 <select id="listComment" parameterType="int" resultMap="CommentMap">
 select *
 from tb_notice_comment
 where no = #{no}
 </select>
 
-<delete id="deleteComment" parameterType="int" >
-delete table tb_notice_comment 
-where no = #{no}
-</delete>
+<insert id="insertComment" >
+
+</insert>
 
 </mapper>

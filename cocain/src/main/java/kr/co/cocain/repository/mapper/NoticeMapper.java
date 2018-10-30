@@ -44,5 +44,7 @@ public interface NoticeMapper {
 	
 	int insertRecom(NoticeRecom recom);
 	
+	int deleteRecon(NoticeRecom recom);
+	
 	List<NoticeComment> listComment(int commentNo);
 }
