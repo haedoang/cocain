@@ -30,13 +30,14 @@
 	</div>
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav">
-			<li><a href="#">공지사항</a></li>
+			<li><a href="<c:url value="/board/notice/list.do"/>">공지사항</a></li>
 			<li><a href="#">스터디</a></li>
 			<li class="dropdown"><a href="#" class="dropdown-toggle"
 				data-toggle="dropdown" role="button" aria-haspopup="true"
 				aria-expanded="false">퀴즈<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="<c:url value="quiz.jsp"/>">퀴즈 풀기</a></li>
+					<li><a href="<c:url value="/board/quiz/dqlist.do"/>">데일리 퀴즈</a></li>
+					<li><a href="<c:url value="/board/quiz/uqlist.do"/>">유저 퀴즈</a></li>
 					<li><a href="#">랭킹 보기</a></li>
 				</ul></li>
 			<li><a href="#">지식iN</a></li>
@@ -70,11 +71,11 @@
 					</div>
 					<div class="modal-body" style="text-align: center;">
 						<div class="form-login">
-							<form action="<c:url value="/login/login.do"/>" method="post">
+							<form id="loginForm" action="<c:url value="/login/login.do"/>" method="post">
 								<h1>CoCaIn</h1>
-								<br> <input type="text" id="id" name="id"
+								<br> <input type="text" name="id"
 									class="form-control input-sm chat-input" placeholder="아이디" /> <br>
-								<input type="password" id="password" name="password"
+								<input type="password" name="password"
 									class="form-control input-sm chat-input" placeholder="비밀번호" />
 								<br>
 								<br>
@@ -93,32 +94,28 @@
 	
  	<script type="text/javascript">
  		$("#log").on("click", function() {
- 			$("#id").focus();
+ 			$("#loginForm").find("input[name='id']").focus();
 		});
  	
 		$("#doLogin").on("click", function() {
-			var id = $("#id").val();
-			var password = $("#password").val();
+			var id = $("#loginForm").find("input[name='id']").val();
+			var password = $("#loginForm").find("input[name='password']").val();
 			
 			$.ajax({
 				url: "/cocain/login/login.do",
-				data: {id: id}
+				data: {id: id, password: password},
+				type: "post"
 			})
 			.done(function(user) {
 				console.log(user);
 				if(user == "") {
-					alert("존재하지 않는 아이디입니다.");
+					alert("이메일 혹은 비밀번호를 잘못 입력하셨습니다.");
 
-					return;
-				}
-				if(user.password != password) {
-					alert("비밀번호가 다릅니다.");
-					
 					return;
 				} else {
 					alert("로그인 되었습니다.");
 					$("#login").modal("hide");
-					location.href = "main.do";
+					location.href = "/cocain/main/main.do";
 				}
 			})
 		});
