@@ -38,4 +38,16 @@ public interface UserService {
 	 */
 	User userLogin(User user);
 	
+	/**
+	 * 현재 비밀번호 확인
+	 * @param id
+	 */
+	User checkPass(String id);
+	
+	/**
+	 * 비밀번호 수정
+	 * @param user
+	 */
+	void updatePass(User user);
+	
 } // end interface

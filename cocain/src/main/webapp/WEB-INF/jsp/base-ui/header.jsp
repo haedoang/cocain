@@ -81,7 +81,7 @@
 								<br>
 								<div class="wrapper">
 									<span> 
-										<button type="button" id="doLogin" class="btn btn-primary btn-lg">로그인</button>
+										<button id="doLogin" class="btn btn-primary btn-lg">로그인</button>
 									</span>
 								</div>
 							</form>
@@ -93,11 +93,12 @@
 	</div>
 	
  	<script type="text/javascript">
- 		$("#log").on("click", function() {
+ 		$("#log").on("click", function(e) {
  			$("#loginForm").find("input[name='id']").focus();
 		});
  	
-		$("#doLogin").on("click", function() {
+		$("#doLogin").on("click", function(e) {
+			e.preventDefault();
 			var id = $("#loginForm").find("input[name='id']").val();
 			var password = $("#loginForm").find("input[name='password']").val();
 			

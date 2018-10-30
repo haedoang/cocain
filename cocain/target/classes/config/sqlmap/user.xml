@@ -41,6 +41,20 @@
 		 where id = #{id}
 	</select>
 	
+	<!-- 현재 비밀번호 체크 -->
+	<select id="checkPass" parameterType="string" resultMap="userMap">
+		select * 
+		  from tb_user
+		 where id = #{id}
+	</select>
+	
+	<!-- 비밀번호 수정 -->
+	<update id="updatePass" parameterType="user">
+		update tb_user 
+		   set password = #{password}
+		 where id = #{id}
+	</update>
+	
 </mapper>
 
 

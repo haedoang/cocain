@@ -73,8 +73,15 @@ nav.text-center > .pagination > li.active > a {
 	padding-top: 25px; 
 	padding-bottom: 25px;
 }
-.row > .modal > .modal-dialog > .modal-content > .panel-primary > .panel-body > form > .input-group {
-	margin-bottom: 25px;
+.panel-primary > .panel-body > form > .row {
+	height: 25px; 
+	padding-left: 84px;
+}
+#info > .modal-dialog > .modal-content > .panel-primary > .panel-body > .input-group > .form-control {
+	height: 46.53px;
+}
+#info > .modal-dialog > .modal-content > .panel-primary > .panel-body > form > .input-group > .form-control {
+	height: 46.53px;
 }
 .row > .modal > .modal-dialog > .modal-content > .panel-primary > .panel-body > form > .input-group > span > .fa-lock {
 	font-size: 21px;

@@ -32,15 +32,14 @@
                             <div class="media-body">
                             	<br>
                                 <h1 class="media-heading">
-                                    CoCaIn1234&nbsp;&nbsp;
-                                    <button type="button" class="btn btn-default" data-target="#info" data-toggle="modal">
-                                    	<i class="fas fa-user-alt"></i> 정보수정
+                                    ${user.nickname}&nbsp;&nbsp;
+                                    <button type="button" id="modify" class="btn btn-default" data-target="#info" data-toggle="modal">
+                                    	<i class="fas fa-user-cog"></i> 비밀번호 수정
                                     </button>
                                 </h1>
                                 <div>
-                                	<br>
-                                    <div><h3>랭킹 5위 </h3><h4> (3,820p)</h4></div><br>
-                                    <h4>가입된 스터디 : 자바 스터디, 자바스크립트 스터디</h4>
+                                	<br><br>
+                                    <div><h3>랭킹 5위 </h3><h4> (${user.point}p)</h4></div>
                                 </div>
                             </div>
                         </div>
@@ -184,36 +183,37 @@
     </div>  
   	
 	<div class="row">
-		<div class="modal" id="info" tabindex="-1">
+		<div class="modal fade" id="info" tabindex="-1">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="panel panel-primary">
 	                    <div class="panel-heading">
 	                        <h2 class="panel-title">
 	                            <i class="fas fa-user-cog"></i>
-	                            &nbsp;&nbsp;정보수정
+	                            &nbsp;&nbsp;비밀번호 수정
 	                        </h2>
 	                    </div>
-	                    <div class="panel-body">
-	                        <form>
-	                             <div class="input-group input-group-lg">
-		                             <span class="input-group-addon"><i class="fas fa-user-secret"></i></span>
-		                             <input id="nickName" type="text" class="form-control" name="nickName" placeholder="닉네임">
-	                             </div>                             
-	                             <div class="input-group input-group-lg">
-		                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-		                             <input id="oriPassword" type="password" class="form-control" name="oriPassword" placeholder="현재 비밀번호">
+	                    <div class="panel-body">            
+                             <div class="input-group input-group-lg" id="oriPassDiv">
+	                             <span class="input-group-addon"><i class="fas fa-lock"></i></span>
+	                             <input id="oriPassword" type="password" class="form-control" name="oriPassword" placeholder="현재 비밀번호">
+                             </div>
+                             <br>
+                        	<form id="modifyForm" action="modifyPass.do" method="post">               
+	                             <div class="input-group input-group-lg" id="newPassDiv" style="display: none;">
+		                             <span class="input-group-addon"><i class="fas fa-lock"></i></span>
+		                             <input id="password" type="password" class="form-control" name="password" placeholder="새 비밀번호">
 	                             </div>
-	                             <div class="input-group input-group-lg">
-		                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-		                             <input id="newPassword" type="password" class="form-control" name="newPassword" placeholder="새 비밀번호">
-	                             </div>
-	                             <div class="input-group input-group-lg">
-		                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            	 <div class="row" id="ckPassMsg" style="display: none;"></div>     
+	                             <div class="input-group input-group-lg" id="passCkDiv" style="display: none;">
+		                             <span class="input-group-addon"><i class="fas fa-lock"></i></span>
 		                             <input id="passwordCk" type="password" class="form-control" name="passwordCk" placeholder="비밀번호 확인">
 	                             </div>
+	                             <input type="hidden" name="id" value="${user.id}"/>
+                            	 <div class="row" id="ConfirmPassMsg" style="display: none;"></div>  
 	   							 <div class="text-center">
-	                           	 	 <button type="button" class="btn btn-default btn-lg">수정하기</button>
+	                           	 	 <button type="button" class="btn btn-default btn-lg" id="confirm">확인</button>
+	                           	 	 <button class="btn btn-default btn-lg" id="mod" style="display: none;">수정하기</button>
 								 </div> 
 							</form>     
 	                    </div>
@@ -224,6 +224,97 @@
 	</div>
   	
   	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"/>   
+	
+	<script type="text/javascript">
+		var passConfirmSwich = 1;	
+		var passCkConfirmSwich = 1;	
+		
+		// 현재 비밀번호 확인 후 새 비밀번호 UI 부르기
+		$("#confirm").click(function() {
+			var oriPassword = $("#oriPassword").val();
+			var id = "${user.id}";
+			$.ajax({
+				url: "/cocain/user/passCheck.do",
+				data: {id: id, oriPassword: oriPassword}
+			})
+			.done(function(user) {
+				if(user == "") {
+					alert("비밀번호를 다시 확인해주세요.");					
+				} else {
+					$("#oriPassDiv").css("display", "none");				
+					$("#confirm").css("display", "none");				
+					$("#newPassDiv, #passCkDiv").css("display", "table");
+					$("#newPassDiv, #ckPassMsg").css("display", "table");
+					$("#newPassDiv, #ConfirmPassMsg").css("display", "table");
+					$("#mod").css("display", "inline");
+					
+				}
+			});
+		});
+		
 
+		// 비밀번호 입력
+		$("#password").on("input", function() {
+			var password = $("#password").val();
+			var passwordCk = $("#passwordCk").val();
+			
+			if(password.length < 8 || password.length > 16) {
+				$("#ckPassMsg").html("<span style='color: red; line-height: 25px;'>비밀번호를 8~16자까지 입력해주세요.</span>");
+				passConfirmSwich = 1;
+
+				return false;
+			} else {
+				$("#ckPassMsg").html("<span style='color: green; line-height: 25px;'>사용 가능한 비밀번호입니다.</span>");
+				passConfirmSwich = 0;
+			}
+			
+			if(password != passwordCk) {
+				$("#ConfirmPassMsg").html("<span style='color: red; line-height: 25px;'>비밀번호를 재확인해주세요.</span>");
+				passCkConfirmSwich = 1;
+
+				return false;
+			}
+		});
+		
+		// 비밀번호 확인 입력
+		$("#passwordCk").on("input", function() {
+			var password = $("#password").val();
+			var passwordCk = $("#passwordCk").val();
+			
+			if(password == passwordCk) {
+				$("#ConfirmPassMsg").html("<span style='color: green; line-height: 25px;'>비밀번호가 확인되었습니다.</span>");
+				passCkConfirmSwich = 0;
+			} else {
+				$("#ConfirmPassMsg").html("<span style='color: red; line-height: 25px;'>비밀번호가 일치하지 않습니다.</span>");
+				passCkConfirmSwich = 1;
+
+				return false;
+			}
+		});
+		
+		// 새 비밀번호 유효성 체크
+		$("#mod").on("click", function(e) {
+			if($("#password").val() == "") {
+				$("#ckPassMsg").html("<span style='color: red; line-height: 25px;'>비밀번호를 입력하세요.</span>");
+	            $("#password").focus();
+	            return false;
+			}    
+			if($("#passwordCk").val() == "") {
+				$("#ConfirmPassMsg").html("<span style='color: red; line-height: 25px;'>비밀번호를 확인하세요.</span>");
+	            $("#passwordCk").focus();
+	            return false;
+			}
+			if(passConfirmSwich == 1) {
+	            $("#password").focus();
+				return false;
+			}
+			if(passCkConfirmSwich == 1) {
+	            $("#passwordCk").focus();
+				return false;
+			}
+			alert("비밀번호가 수정되었습니다. 다시 로그인 해주세요.");
+		});
+			
+	</script>
 </body>
 </html>

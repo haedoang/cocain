@@ -13,11 +13,13 @@ import kr.co.cocain.repository.mapper.UserMapper;
 
 @Service
 public class UserServiceImpl implements UserService {
+	
 	@Autowired
 	private UserMapper mapper;
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
+	
 	@Override
 	public void register(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -83,7 +85,7 @@ public class UserServiceImpl implements UserService {
 			email.send();
 		} catch (Exception e) {
 			System.out.println("메일발송 실패 : " + e);
-		}
+		} // try-catch
 		
 		return sb.toString();
 	} // sendMail
@@ -92,5 +94,16 @@ public class UserServiceImpl implements UserService {
 	public User userLogin(User user) {
 		return mapper.userLogin(user);
 	} // userLogin
+
+	@Override
+	public User checkPass(String id) {
+		return mapper.checkPass(id);
+	} // checkPass
+
+	@Override
+	public void updatePass(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		mapper.updatePass(user);
+	} // userPass
 
 } // end class

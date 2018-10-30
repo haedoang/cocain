@@ -16,4 +16,11 @@ public interface UserMapper {
 
 	// 로그인
 	User userLogin(User user);
+	
+	// 로그인
+	User checkPass(String id);
+	
+	// 비밀번호 수정
+	void updatePass(User user);
+	
 } // end interface

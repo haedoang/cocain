@@ -65,7 +65,7 @@
         	</div>
         </div>
     </div>  
-	<div class="modal" id="certify">
+	<div class="modal fade" id="certify">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -306,7 +306,7 @@
 	            $("#sendMail").focus();
 				return false;
 			}	
-			alert("가입되었습니다.");
+			alert("가입되었습니다. 로그인 후 이용해주세요.");
 		});
 	</script>  	
 </body>
