@@ -16,7 +16,7 @@
 
 <body>
 	<!-- header.. -->
-	<c:import url="/jsp/base-ui/header.jsp"></c:import>
+	<c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 
 	<section>
 		<div class="aside">

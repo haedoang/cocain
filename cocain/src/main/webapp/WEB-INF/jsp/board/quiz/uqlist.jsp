@@ -17,7 +17,7 @@
 
 <body>
 	<!-- header.. -->
-	<c:import url="/jsp/base-ui/header.jsp"></c:import>
+	<c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 
 	<section>
 		<div class="aside">
@@ -80,7 +80,7 @@
 						<td><fmt:formatDate value="${i.regDate}"
 								pattern="yyyy-MM-dd" /></td>
 						<td>${i.answerCnt}</td>
-						<td>${i.answerCnt / i.tryCnt * 100}%</td>
+						<td>${i.probability}%</td>
 						<c:forEach var="k" items="${data.level}">
 							<c:if test="${i.levelNo eq k.levelNo}">
 								<td>${k.levelName}</td>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <!-- header.. -->
-	<c:import url="/jsp/base-ui/header.jsp"></c:import>
+	<c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>dqdetail</title>
 <link rel="stylesheet"

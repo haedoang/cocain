@@ -23,7 +23,7 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 		map.put("list", mapper.selectDQList());
 		map.put("category", mapper.selectCategory());
 		map.put("level", mapper.selectLevel());
-		
+			
 		return map;
 	}
 
