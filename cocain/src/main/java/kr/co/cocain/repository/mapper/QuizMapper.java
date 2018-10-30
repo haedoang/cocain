@@ -17,7 +17,7 @@ public interface QuizMapper {
 	//user quiz list
 	List<QuizBoard> selectUQList();
 	
-	
+	void insertQuizBoard(QuizBoard quizBoard);
 
 	
 }

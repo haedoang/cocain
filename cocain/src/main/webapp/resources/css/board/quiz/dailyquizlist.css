@@ -4,7 +4,7 @@
 }
 /* content size */ 
 section{
-	height:1600px; 
+	height:1200px; 
 }
 
 .section{
@@ -73,4 +73,6 @@ div > .nav > li > a:focus {
 textarea{
 	resize:none;
 }
-
+#uqForm > table > tbody > tr > th {
+	width:20%
+}

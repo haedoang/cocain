@@ -4,12 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.cocain.repository.domain.QuizBoard;
+import kr.co.cocain.repository.domain.QuizCategory;
+import kr.co.cocain.repository.domain.QuizLevel;
 
 public interface QuizBoardService {
-	//category, level
-	//List<QuizCategory> selectCategory();
-	
-	//List<QuizLevel> selectLevel();
 	
 	//dq list
 	Map<String,Object> selectDQList();
@@ -18,7 +16,12 @@ public interface QuizBoardService {
 	//uq list
 	Map<String,Object> selectUQList();
 	
-	
+	//dq up.. form data invoke
+	Map<String,Object> onLoadForm();
+
+	//dq insert
+	void insertQuizBoard(QuizBoard quizBoard);
+
 	
 	
 }

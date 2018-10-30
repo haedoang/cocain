@@ -24,19 +24,19 @@
 		<div class="sidebar">
 			<ul class="nav nav-pills nav-stacked">
 				<li role="presentation"><a href="#">퀴즈게시판</a></li>
-				<li role="presentation" class="active"><a href="<c:url value="/jsp/board/quiz/dqlist.jsp"/>"> <i
+				<li role="presentation" class="active"><a href="<c:url value="dqlist.do"/>"> <i
 						class="fas fa-folder"></i> 데일리퀴즈
 				</a></li>
-				<li role="presentation" ><a href="DailyQuiz.html">
+				<li role="presentation" ><a href="<c:url value="dqlist.do"/>">
 						&nbsp;&nbsp; <i class="fas fa-folder-open"></i> 문제
 				</a></li>
-				<li role="presentation"><a href="DailyQuizResult.html">
-						&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인</span>
+				<li role="presentation"><a href="<c:url value="dqsubmit.do"/>">
+						&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인
 				</a></li>
-				<li role="presentation"><a href="UserQuiz.html"> <i
+				<li role="presentation"><a href="<c:url value="uqlist.do"/>"> <i
 						class="fas fa-folder"></i> 유저퀴즈
 				</a></li>
-				<li role="presentation"><a href="RankMain.html"> <i
+				<li role="presentation"><a href="<c:url value="rank/rank.do"/>"> <i
 						class="fas fa-signal"></i> 랭킹보기
 				</a></li>
 			</ul>
@@ -76,7 +76,7 @@
 						</c:if>
 					</c:forEach>
 					<td><a href="<c:url value="/board/quiz/dqdetail.do?no=${i.quizNo}"/>">${i.title}</a></td>
-					<td>${i.id}</td>
+					<td>${i.nickname}</td>
 					<td>
 					<fmt:formatDate value="${i.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 					</td>
@@ -100,7 +100,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="write">
-					<button onclick='location.href="<c:url value='/jsp/board/quiz/dqform.jsp'/>"'
+					<button onclick='location.href="<c:url value='dqform.do'/>"'
 						class="btn btn-primary">글쓰기</button>
 				</div>
 			</div>

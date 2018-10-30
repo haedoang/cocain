@@ -93,6 +93,11 @@
 						</td>
 					</tr>
 					<tr>
+						<th>정답</th>
+						<td>
+							<input type="text" placeholder="정답을 입력하세요"/>
+						</td>
+					<tr>
 						<th class="buttons">
 							<button class="btn btn-primary">등록</button>
 							<button class="btn btn-primary">취소</button>

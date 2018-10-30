@@ -10,7 +10,7 @@ public class QuizBoard {
 	private int typeNo;
 	private int categoryNo;
 	private int levelNo;
-	private String id;
+	private String nickname;
 	private String title;
 	private String content;
 	private Date regDate;
@@ -62,12 +62,15 @@ public class QuizBoard {
 	public void setLevelNo(int levelNo) {
 		this.levelNo = levelNo;
 	}
-	public String getId() {
-		return id;
+	
+	public String getNickname() {
+		return nickname;
 	}
-	public void setId(String id) {
-		this.id = id;
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -130,12 +133,13 @@ public class QuizBoard {
 	@Override
 	public String toString() {
 		return "QuizBoard [quizNo=" + quizNo + ", typeNo=" + typeNo + ", categoryNo=" + categoryNo + ", levelNo="
-				+ levelNo + ", id=" + id + ", title=" + title + ", content=" + content + ", regDate=" + regDate
-				+ ", endDate=" + endDate + ", hint=" + hint + ", correct=" + correct + ", answerCnt=" + answerCnt
-				+ ", tryCnt=" + tryCnt + ", probability=" + probability + "]";
+				+ levelNo + ", nickname=" + nickname + ", title=" + title + ", content=" + content + ", regDate="
+				+ regDate + ", endDate=" + endDate + ", hint=" + hint + ", correct=" + correct + ", answerCnt="
+				+ answerCnt + ", tryCnt=" + tryCnt + ", probability=" + probability + "]";
 	}
-	
-	
+
+
+
 	
 	
 	

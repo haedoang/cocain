@@ -76,7 +76,7 @@
 							</c:if>
 						</c:forEach>
 						<td><a href="#">${i.title}</a></td>
-						<td>${i.id}</td>
+						<td>${i.nickname}</td>
 						<td><fmt:formatDate value="${i.regDate}"
 								pattern="yyyy-MM-dd" /></td>
 						<td>${i.answerCnt}</td>
@@ -95,7 +95,7 @@
 				<div class="col-md-4">
 					<div class="write">
 						<button
-							onclick='location.href="<c:url value='/jsp/board/quiz/uqform.jsp'/>"'
+							onclick='location.href="<c:url value='uqform.do'/>"'
 							class="btn btn-primary">글쓰기</button>
 					</div>
 				</div>

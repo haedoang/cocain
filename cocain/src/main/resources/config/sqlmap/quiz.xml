@@ -24,7 +24,7 @@
 		<result column="type_no" property="typeNo" />
 		<result column="category_no" property="categoryNo" />
 		<result column="level_no" property="levelNo" />
-		<result column="id" property="id" />
+		<result column="nickname" property="nickname" />
 		<result column="title" property="title" />
 		<result column="content" property="content" />
 		<result column="reg_date" property="regDate" />
@@ -62,6 +62,43 @@
 		 where type_no = 2
 		order by quiz_no desc
 	</select>
+	
+	
+	<!-- quiz insert -->
+	<insert id="insertQuizBoard" parameterType="QuizBoard">
+		insert into tb_quiz_board(
+									type_no,
+									category_no,
+									level_no,
+									nickname,
+									title,
+									content,
+									hint,
+									correct	
+									) values (
+												#{typeNo},
+												#{categoryNo},
+												#{levelNo},
+												#{nickname},
+												#{title},
+												#{content},
+												#{hint},
+												#{correct}
+															)
+		
+	</insert>
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
