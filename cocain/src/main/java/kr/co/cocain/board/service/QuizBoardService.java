@@ -38,5 +38,5 @@ public interface QuizBoardService {
 	int selectUQListCount();
 
 	
-	
+	//test	
 }

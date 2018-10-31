@@ -38,4 +38,5 @@ public interface QuizMapper {
 	//paging test
 	List<QuizBoard> selectQuizPaging(int PageNo);
 	
+	//test
 }
