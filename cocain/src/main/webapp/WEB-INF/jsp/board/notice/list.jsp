@@ -23,7 +23,7 @@ width:auto;
 </style>
 </head>
 <body>
-	    <c:import url="/jsp/base-ui/header.jsp"></c:import>
+	    <c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 	
 	<!-- 게시물 목록 표현하기 -->
 	
@@ -55,7 +55,7 @@ width:auto;
 
 	<c:forEach var="b" items="${list}">
     <tr>
-		<td>${b.no}</td>
+		<td>${b.rnum}</td>
 		<td><a href='detail.do?no=${b.no}'>${b.title}</a></td>
 		<td>${b.writer}</td>
 	    <td><fmt:formatDate value="${b.regDate}" pattern="yy-MM-dd" /></td>
@@ -103,7 +103,7 @@ width:auto;
 </nav>
 	</div>
 	
-	    <c:import url="/jsp/base-ui/footer.jsp"></c:import>
+	    <c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
 	
 	
 	<script>

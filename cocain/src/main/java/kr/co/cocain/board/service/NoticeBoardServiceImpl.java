@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import kr.co.cocain.repository.domain.Notice;
 import kr.co.cocain.repository.domain.NoticeComment;
 import kr.co.cocain.repository.domain.NoticePage;
+import kr.co.cocain.repository.domain.NoticePage2;
 import kr.co.cocain.repository.domain.NoticeRecom;
 import kr.co.cocain.repository.mapper.NoticeMapper;
 
@@ -65,6 +66,33 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		return mapper.listComment(no);
 	}
 
+	@Override
+	public void insertComment(NoticeComment comment) {
+		  mapper.insertComment(comment);
+	}
 
+	@Override
+	public void deleteComment(int no) {
+		mapper.deleteComment(no);
+	}
+
+	@Override
+	public void updateComment(NoticeComment comment) {
+		mapper.updateComment(comment);
+	}
+
+	@Override
+	public List<Notice> category(NoticePage2 noticePage) {
+		return mapper.categoryList(noticePage);
+	}
+
+	@Override
+	public int categoryCount(NoticePage2 noticePage) {
+		return mapper.categoryCount(noticePage);
+	}
+
+	
+
+	
     
 }

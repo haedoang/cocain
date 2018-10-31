@@ -5,6 +5,7 @@ import java.util.List;
 import kr.co.cocain.repository.domain.Notice;
 import kr.co.cocain.repository.domain.NoticeComment;
 import kr.co.cocain.repository.domain.NoticePage;
+import kr.co.cocain.repository.domain.NoticePage2;
 import kr.co.cocain.repository.domain.NoticeRecom;
 
 public interface NoticeMapper {
@@ -47,4 +48,14 @@ public interface NoticeMapper {
 	int deleteRecon(NoticeRecom recom);
 	
 	List<NoticeComment> listComment(int commentNo);
+	
+	void insertComment(NoticeComment comment);
+	
+	void deleteComment(int no);
+	
+	void updateComment(NoticeComment comment);
+	
+	
+	List<Notice> categoryList(NoticePage2 noticePage);
+	int categoryCount(NoticePage2 noticePage);
 }

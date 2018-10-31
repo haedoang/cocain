@@ -1,6 +1,6 @@
 package kr.co.cocain.board.controller;
 
-	import java.util.List;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,12 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import kr.co.cocain.board.service.NoticeBoardService;
 import kr.co.cocain.repository.domain.Notice;
 import kr.co.cocain.repository.domain.NoticeComment;
 import kr.co.cocain.repository.domain.NoticePage;
+import kr.co.cocain.repository.domain.NoticePage2;
 import kr.co.cocain.repository.domain.NoticeRecom;
 
 	@Controller
@@ -88,7 +90,7 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 	    @RequestMapping("/recom/insertrecom.do")
 	    @ResponseBody
 	    public int insertrecom(Model model,NoticeRecom recom) {
-	    	 System.out.println("댓글 " + recom);
+//	    	 System.out.println("댓글 " + recom);
 	    	 model.addAttribute("recom" , service.insertRecom(recom));
 	    	 return service.recom(recom);
 	    }
@@ -103,8 +105,61 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 	    @RequestMapping("/listComment.do")
 	    @ResponseBody
 	    public List<NoticeComment> commentList(int no) throws Exception {
-	    	System.out.println("댓글 리스트" + no);
+//	    	System.out.println("댓글 리스트" + no);
 	    	return service.listComment(no);
 	    }
 	      
+	    @RequestMapping("/insertComment.do")
+	    @ResponseBody
+	    public List<NoticeComment> insertComment(NoticeComment comment){
+//	    	System.out.println("코멘트"+comment);
+	    	service.insertComment(comment);
+	    	return service.listComment(comment.getNo());
+	    }
+
+	    @RequestMapping("/deleteComment.do")
+	    @ResponseBody
+	    public List<NoticeComment> deleteComment(NoticeComment comment){
+//	    	System.out.println("딜리트코맨" + comment);
+	    	service.deleteComment(comment.getCommentNo());
+	    	return service.listComment(comment.getCommentNo());
+	    }
+	    
+	    @RequestMapping("/updateComment.do")
+	    @ResponseBody
+	    public List<NoticeComment> updateComment(NoticeComment comment){
+//	    	System.out.println("업뎃코맨" + comment);
+	    	service.updateComment(comment);
+	    	return service.listComment(comment.getCommentNo());
+	    }
+	    
+	    @RequestMapping("/notice/category.do")
+	    public ModelAndView category(@RequestParam(value="pageNo", defaultValue="1")int pageNo, NoticePage2 noticePage){
+//	    	model.("list", service.category(noticePage));
+	    	System.out.println(noticePage);
+	    	ModelAndView mav = new ModelAndView("board/notice/list");
+
+	    	int count = service.categoryCount(noticePage);
+	    	
+	    	NoticePage2 page = new NoticePage2();
+	    	page.setPageNo(pageNo);
+	    	
+	    	int lastPage = (int)Math.ceil(count/10d);
+	         
+	         // 페이지 블럭 시작
+	        int pageSize = 10;
+	        int currTab = (pageNo-1)/pageSize +1;
+	        //11번 부터 2페이지가 되는것
+	        int beginPage =  (currTab-1)*pageSize +1;
+	        int endPage = currTab*pageSize < lastPage ? currTab*pageSize : lastPage;  
+	    	
+		    mav.addObject("beginPage",beginPage);
+		    mav.addObject("endPage",endPage);
+		    mav.addObject("lastPage",lastPage);
+	    	mav.addObject("pageNo",pageNo);
+	    	mav.addObject("list", service.category(noticePage));
+	    	mav.addObject("count", service.categoryCount(noticePage));
+	    	
+	        return mav;
+	    }
 }

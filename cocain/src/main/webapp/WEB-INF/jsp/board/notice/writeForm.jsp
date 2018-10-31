@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-    <c:import url="/jsp/base-ui/header.jsp"></c:import>
+    <c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 <!-- <script type="text/javascript" -->
 <!--   src="https://code.jquery.com/jquery-3.3.1.js" -->
 <!--   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" -->
@@ -18,27 +18,33 @@
 
 </head>
 <body>
-	<div class="h2">자유게시판</div>
+<div class="container">
+	<div class="h3">공지사항</div>
 	<hr>
-	<form action="write.do" method="post">
-		<div>
-			제목 : <input type="text" name="title" />
-		</div>
-		<div>
-			작성자 : <input type="text" name="writer" />
-		</div>
-		<div>
+	<form id="form" action="write.do" method="post">
+		<div class="panel panel-default">
+		 <div class="panel-heading" >
+		 <input class="form-control"  id="title" type="text" name="title"  placeholder="제목을 입력 해 주세요"/>	
+		 </div>
+		
+			<input type="hidden" name="writer"  value="${user.nickname}"/>	
+			<div class="panel-body">
 			<textarea class="summernote"  id="ddd"  name="content" ></textarea>
-			<div id ="fff"></div>
+			</div>
 		</div>
+		
 		<button class="btn btn-default">등록</button>
 		<a class="btn btn-default" href="list.do">목록</a>
 	</form>
+	
+</div>
+	<br>
+	
 	<script>
 	
 
 	        $('.summernote').summernote({
-	        	  height: 500,               
+	        	height: 500,               
 	        	  minHeight: null,         
 	        	  maxHeight: null,        
 	        	  focus: true    
@@ -46,11 +52,24 @@
 	 
 	$coco = $('#summernote').summernote('code'); 
 
-	$('#fff').html($coco);
+	$('#ddd').html($coco);
+	
+	$('#form').submit(function() {
+		
+		if($('#title').val() == ""){
+		alert("제목이 없잖아");
+		return false;
+		}
+		if($('#ddd').val() ==""){
+			alert("내용 입력 해 주세요")
+		return false;
+		}
+	})
+	
 	
 	</script>
 	
-	<%--     <c:import url="/jsp/base-ui/footer.jsp"></c:import> --%>
+	 <c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
     <!-- footer jquery 섬머노트 충돌남 -->
 	
 </body>

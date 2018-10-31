@@ -1,23 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+  <c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 <!DOCTYPE html> 
 <html>
 <head>
   <meta charset='utf-8'>
   <title>자유게시판</title>
-<%--   <c:import url="/jsp/base-ui/header.jsp"></c:import> --%>
-<script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
- <link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-	crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
 	<style>
 	
 		
@@ -56,6 +48,8 @@
 	</style>
 </head>
 <body>
+
+
 <div class="container org">
 	 <div class="h2"><kbd>공지사항</kbd></div>
 	 <hr> 
@@ -104,7 +98,7 @@
 		<div class="form-group" style="width: 100%; background-color: #efefef ">
 			<input id="no" name="no"  value="${board.no}" type="hidden">
 		<img src="http://codingschool.info/img/title_comment.gif">
-			<input class="form-control" id="writer" name="writer"  type="text" placeholder="닉네임을 입력 해 주세요">
+			<input class="form-control" id="writer" name="writer"  type="text"  readonly="readonly"  value="${user.nickname}">
 			<textarea placeholder="댓글내용을 입력 해 주세요" style="width: 91%; height:100px;" class="form-control resize"  id='content' name="content"></textarea>
 			<button id=subm ><img src="http://codingschool.info/img/ok_ripple.gif" /></button>
 		</div>
@@ -114,6 +108,8 @@
 	 </div>
 	 
 	 <br>
+	 
+	 
 	 
 	<script>
 	 $('.button').click(function(){
@@ -153,7 +149,7 @@
  $.each(result, function(idx,val) {
 	
 	output +='<div><tr>'
-	output += '<td>'+val.no+'</td>'
+	output += '<td>'+val.commentNo+'</td>'
 	output += '<td>'+val.writer+'</td>'
 	output += '<td>'+val.content+'</td>'
 	output += '<td>'+new Date(val.regDate).toISOString(0,10)+'</td>'	//new Date(val.regDate).toISOString()
@@ -172,11 +168,12 @@
 			e.preventDefault();
 // 			console.log($(this).serialize());
 			$.ajax({
-				url : "<c:url value='/board/insertComment.json' />",
+				url : "<c:url value='/board/insertComment.do' />",
 				data : $(this).serialize(),
 				method : "POST"
-			}).done(function(result){ list();
-			$('#writer').val("");
+			}).done(function(result){ 
+				list();
+
 			$('#content').val("");
 			})
 			.fail(function(result){ alert("댓글을 입력 해 주세요") })
@@ -185,9 +182,10 @@
 	
 	 function del(eee) {
 		 $.ajax({
-				url : "<c:url value='/board/deleteComment.json' />",
+				url : "<c:url value='/board/deleteComment.do' />",
 				data : "commentNo="+eee
 		 }).done(function (result) {
+			 console.log("성공")
 				list();
 		 })
 	 }
@@ -221,7 +219,7 @@
 		 event.preventDefault();
 		 console.log($(this).serialize());
 		 $.ajax({
-				url : "<c:url value='/board/updateComment.json' />",
+				url : "<c:url value='/board/updateComment.do' />",
 				data : $(this).serialize(),
 				method : "POST"
 		 }).done(function (result) {
@@ -247,6 +245,6 @@
 	 
 	</script>
 
-<%-- 	    <c:import url="/jsp/base-ui/footer.jsp"></c:import> --%>
+	  <c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
 </body>
 </html>

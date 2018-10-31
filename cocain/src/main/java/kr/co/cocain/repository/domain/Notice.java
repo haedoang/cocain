@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Notice {
 
+	private int rnum;
 	private int no;
 	private int viewCnt;
 	private String title;
@@ -11,6 +12,14 @@ public class Notice {
 	private String content;
 	private Date regDate;
 	
+	
+	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public int getNo() {
 		return no;
 	}

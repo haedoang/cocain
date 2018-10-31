@@ -2,10 +2,26 @@ package kr.co.cocain.repository.domain;
 
 public class NoticePage {
 
+		private String select;
+		private String text;
 		private int pageNo;
 		private int begin;
 		private int end;
 		
+		
+		
+		public String getSelect() {
+			return select;
+		}
+		public void setSelect(String select) {
+			this.select = select;
+		}
+		public String getText() {
+			return text;
+		}
+		public void setText(String text) {
+			this.text = text;
+		}
 		public int getPageNo() {
 			return pageNo;
 		}
@@ -23,6 +39,11 @@ public class NoticePage {
 		}
 		public void setEnd(int end) {
 			this.end = end;
+		}
+		@Override
+		public String toString() {
+			return "NoticePage [select=" + select + ", text=" + text + ", pageNo=" + pageNo + ", begin=" + begin
+					+ ", end=" + end + "]";
 		}
 		
 		
