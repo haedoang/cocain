@@ -1,6 +1,7 @@
 package kr.co.cocain.repository.domain;
 
 import java.util.Date;
+import java.util.List;
 
 
 public class User {
@@ -10,7 +11,15 @@ public class User {
 	private String email;
 	private int point;
 	private Date regDate;
+	private UserFile userFile;
 
+	
+	public UserFile getUserFile() {
+		return userFile;
+	}
+	public void setUserFile(UserFile userFile) {
+		this.userFile = userFile;
+	}
 	
 	public String getId() {
 		return id;
@@ -57,7 +66,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", password=" + password + ", nickname=" + nickname + ", email=" + email + ", point="
-				+ point + ", regDate=" + regDate + "]";
+				+ point + ", regDate=" + regDate + ", userFile=" + userFile + "]";
 	}
 	
 } // end class

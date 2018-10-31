@@ -1,6 +1,7 @@
 package kr.co.cocain.repository.mapper;
 
 import kr.co.cocain.repository.domain.User;
+import kr.co.cocain.repository.domain.UserFile;
 
 
 public interface UserMapper {
@@ -22,5 +23,14 @@ public interface UserMapper {
 	
 	// 비밀번호 수정
 	void updatePass(User user);
+	
+	// 파일 등록
+	void insertFile(UserFile userFile);
+	
+	// 파일 삭제
+	void deleteFile(UserFile userFile);
+	
+	// 파일정보 검색
+	UserFile selectFile(UserFile userFile);
 	
 } // end interface

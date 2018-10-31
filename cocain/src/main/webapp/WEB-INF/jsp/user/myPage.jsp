@@ -22,24 +22,39 @@
                             &nbsp;&nbsp;마이페이지
                         </h3>
                     </div>
+                    <input id="userId" type="hidden" value="${user.id}" />
                     <div class="panel-body">
                         <div class="media">
                             <div class="media-left">
+                            <div id="drop">
                                 <a href="#">
-                                    <img class="media-object" src="/cocain/resources/images/icon.png" alt="개발자 이미지"/>
+                                	<c:choose>
+		                            	<c:when test="${userFile == null}">
+	        	                            <img id="profile" class="media-object" src="/cocain/resources/images/icon.png" alt="프로필"/>
+	    	                        	</c:when>
+		                            	<c:otherwise>
+	        	                            <img id="profile" class="media-object" src="${userFile.uploadPath}" alt="프로필"/>
+	    	                        	</c:otherwise>
+    	                        	</c:choose>
                                 </a>
+                            </div>    
+                                <br>
+                                <div class="fileBox text-center">
+                                	<label for="uploadBtn" class="btn_file">프로필 사진 수정</label>
+									<input type="file" name="uploadFile" id="uploadBtn" class="uploadBtn"/>
+                                </div>
                             </div>
                             <div class="media-body">
-                            	<br>
+                            	<br><br>
                                 <h1 class="media-heading">
-                                    ${user.nickname}&nbsp;&nbsp;
+									　${user.nickname}&nbsp;&nbsp;
                                     <button type="button" id="modify" class="btn btn-default" data-target="#info" data-toggle="modal">
                                     	<i class="fas fa-user-cog"></i> 비밀번호 수정
                                     </button>
                                 </h1>
                                 <div>
                                 	<br><br>
-                                    <div><h3>랭킹 5위 </h3><h4> (${user.point}p)</h4></div>
+                                    <div><h3> 　 &nbsp;랭킹 5위 </h3><h4> (${user.point}p)</h4></div>
                                 </div>
                             </div>
                         </div>
@@ -314,7 +329,51 @@
 			}
 			alert("비밀번호가 수정되었습니다. 다시 로그인 해주세요.");
 		});
-			
+		
+		// 파일
+		$("input[type='file']").change(function(e) {
+			 var fileReader = new FileReader();
+			 var conf = null;
+			 fileReader.readAsDataURL(e.target.files[0]);
+			 
+			 fileReader.onload = function(e) {
+			    document.getElementById('profile').src = e.target.result;
+			 	setTimeout(function() {
+			 		conf = confirm("수정하시겠습니까?");
+					if(conf == false) {location.href = "myPage.do"; return;}
+		 			
+					var formData = new FormData();
+					var inputFile = $("input[name='uploadFile']")
+					var files = inputFile[0].files;
+					var id = $("#userId").val();
+					formData.append("uploadFile", files[0]);
+					$.ajax({
+						url: "/cocain/user/profileImg.do",
+						processData: false,
+						contentType: false,
+						data: formData,
+						type: "POST"
+					})
+					.done(function(result) {
+						console.log(result);
+						location.href = "myPage.do";
+					});   
+				}, 10)
+			 }  
+		});
+		
+		// 파일 드래그 앤 드롭
+		var drop = document.getElementById('drop');
+		var fileInput = document.getElementById('uploadBtn');
+		
+		drop.ondragover = drop.ondragenter = function(e) {
+			e.preventDefault();
+		};
+
+		drop.ondrop = function(e) {
+			fileInput.files = e.dataTransfer.files;
+			e.preventDefault();
+		};
 	</script>
 </body>
 </html>
