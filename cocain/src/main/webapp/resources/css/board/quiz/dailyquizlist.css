@@ -55,7 +55,7 @@ div > .search > *{
     height:30px;
     
 }
-div > .btn-primary, * > .buttons > button{
+div > .btn-primary, * > .buttons > button, form > button {
     border:#6d909c;
     background-color:#252c3f;
     height:30px;
@@ -73,6 +73,6 @@ div > .nav > li > a:focus {
 textarea{
 	resize:none;
 }
-#uqForm > table > tbody > tr > th {
-	width:20%
+#uqForm > table > tbody > tr > th,#dqForm > table > tbody > tr > th {
+	width:15%
 }

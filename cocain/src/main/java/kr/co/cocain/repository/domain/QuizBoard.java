@@ -25,9 +25,9 @@ public class QuizBoard {
 	public double getProbability() {
 		if(this.tryCnt==0) {
 			return 0;
-		}else {
-		double result = (double)this.answerCnt/this.tryCnt*100.0;
-		return result;
+		} else {
+			double result = Math.round((double)this.answerCnt/this.tryCnt*100.0);
+			return result;
 		}
 	}
 	

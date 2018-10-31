@@ -23,21 +23,22 @@
 			<div class="sidebar">
 				<ul class="nav nav-pills nav-stacked">
 					<li role="presentation"><a href="#">퀴즈게시판</a></li>
-					<li role="presentation"><a href="DailyQuiz.html"> <i
-							class="fas fa-folder"></i> 데일리퀴즈
-					</a></li>
 					<li role="presentation" class="active"><a
-						href="DailyQuiz.html"> &nbsp;&nbsp; <i
-							class="fas fa-folder-open"></i> 문제
+						href="#"> <i class="fas fa-folder"></i>
+							데일리퀴즈
 					</a></li>
-					<li role="presentation"><a href="DailyQuizResult.html">
-							&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인</span>
+					<li role="presentation"><a href="<c:url value="dqlist.do"/>">
+							&nbsp;&nbsp; <i class="fas fa-folder-open"></i> 문제
 					</a></li>
-					<li role="presentation"><a href="UserQuiz.html"> <i
-							class="fas fa-folder"></i> 유저퀴즈
+					<li role="presentation"><a href="<c:url value="dqsubmit.do"/>">
+							&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인
 					</a></li>
-					<li role="presentation"><a href="RankMain.html"> <i
-							class="fas fa-signal"></i> 랭킹보기
+					<li role="presentation"><a href="<c:url value="uqlist.do"/>">
+							<i class="fas fa-folder"></i> 유저퀴즈
+					</a></li>
+					<li role="presentation"><a
+						href="<c:url value="rank/rank.do"/>"> <i class="fas fa-signal"></i>
+							랭킹보기
 					</a></li>
 				</ul>
 			</div>
@@ -46,7 +47,7 @@
 		<div class="section">
 			<div class="background">
 				<img src="<c:url value="/resources/images/quiz-back4.jpg"/>"
-				width=100% height=250px; />
+					width=100% height=250px; />
 			</div>
 
 			<div class="title">
@@ -111,7 +112,7 @@
 					<td><a href="#"><i class="far fa-file-code"></i></a></td>
 					<td>2018-09-11 12:24:32</td>
 				</tr>
-		
+
 				<tr>
 					<td>1</td>
 					<td>799</td>

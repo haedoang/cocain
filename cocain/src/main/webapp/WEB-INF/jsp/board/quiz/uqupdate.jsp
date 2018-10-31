@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- header.. -->
-	<c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
+<!-- header.. -->
+<c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>uqupdate</title>
 <link rel="stylesheet"
@@ -19,7 +19,6 @@
 <link rel="stylesheet"
 	href="<c:url value="/resources/summernote/summernote.css"/>" />
 <script src="<c:url value="/resources/summernote/summernote.js"/>"></script>
-
 <body>
 
 
@@ -28,21 +27,22 @@
 			<div class="sidebar">
 				<ul class="nav nav-pills nav-stacked">
 					<li role="presentation"><a href="#">퀴즈게시판</a></li>
-					<li role="presentation"><a href="DailyQuiz.html"> <i
-							class="fas fa-folder"></i> 데일리퀴즈
+					<li role="presentation"><a
+						href="#"> <i class="fas fa-folder"></i>
+							데일리퀴즈
 					</a></li>
-					<li role="presentation" ><a
-						href="DailyQuiz.html"> &nbsp;&nbsp; <i
-							class="fas fa-folder-open"></i> 문제
+					<li role="presentation"><a href="<c:url value="dqlist.do"/>">
+							&nbsp;&nbsp; <i class="fas fa-folder"></i> 문제
 					</a></li>
-					<li role="presentation"><a href="DailyQuizResult.html">
-							&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인</span>
+					<li role="presentation"><a href="<c:url value="dqsubmit.do"/>">
+							&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인
 					</a></li>
-					<li role="presentation" class="active"><a href="UserQuiz.html"> <i
-							class="fas fa-folder"></i> 유저퀴즈
+					<li role="presentation" class="active"><a href="<c:url value="uqlist.do"/>">
+							<i class="fas fa-folder-open"></i> 유저퀴즈
 					</a></li>
-					<li role="presentation"><a href="RankMain.html"> <i
-							class="fas fa-signal"></i> 랭킹보기
+					<li role="presentation"><a
+						href="<c:url value="rank/rank.do"/>"> <i class="fas fa-signal"></i>
+							랭킹보기
 					</a></li>
 				</ul>
 			</div>
@@ -51,7 +51,7 @@
 		<div class="section">
 			<div class="background">
 				<img src="<c:url value="/resources/images/quiz-back2.jpg"/>"
-				width=100% height=250px; />
+					width=100% height=250px; />
 			</div>
 
 			<div class="title">
@@ -93,7 +93,7 @@
 					<tr>
 						<th>문제 내용</th>
 						<td>
-							<div id="summernote" style="resize:none;">Hello Summernote</div>
+							<div id="summernote" style="resize: none;">Hello Summernote</div>
 						</td>
 					</tr>
 					<tr>

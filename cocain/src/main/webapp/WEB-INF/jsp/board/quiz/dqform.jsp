@@ -7,7 +7,7 @@
 <!-- header.. -->
 <c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>content 연습</title>
+<title>데일리퀴즈 등록하기</title>
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" />
 <link rel="stylesheet"
@@ -25,11 +25,11 @@
 			<div class="sidebar">
 				<ul class="nav nav-pills nav-stacked">
 					<li role="presentation"><a href="#">퀴즈게시판</a></li>
-					<li role="presentation" class="active"><a
-						href="<c:url value="dqlist.do"/>"> <i class="fas fa-folder"></i>
+					<li role="presentation" ><a
+						href="#"> <i class="fas fa-folder"></i>
 							데일리퀴즈
 					</a></li>
-					<li role="presentation"><a href="<c:url value="dqlist.do"/>">
+					<li role="presentation" class="active"><a href="<c:url value="dqlist.do"/>">
 							&nbsp;&nbsp; <i class="fas fa-folder-open"></i> 문제
 					</a></li>
 					<li role="presentation"><a href="<c:url value="dqsubmit.do"/>">
@@ -58,7 +58,7 @@
 
 			<div class="context"></div>
 
-			<div class="col-md-8">
+			<div class="col-md-10">
 
 				<form id="dqForm" action="<c:url value="dqwrite.do"/>" method="post">
 					<table class="table">
@@ -92,11 +92,11 @@
 						<tr>
 							<th>제목</th>
 							<td>
-							<!-- typeNo, Id hidden -->
-							<input type="hidden" name="typeNo" value="1" /> 
-							<input type="hidden" name="nickname" value="${user.nickname}"/>
-							<input type="text" size="50" name="title" placeholder="제목을 입력하세요" />
-								</td>
+								<!-- typeNo, Id hidden --> <input type="hidden" name="typeNo"
+								value="1" /> <input type="hidden" name="nickname"
+								value="${user.nickname}" /> <input type="text" size="50"
+								name="title" placeholder="제목을 입력하세요" />
+							</td>
 						</tr>
 						<tr>
 							<th>문제 내용</th>
@@ -119,7 +119,10 @@
 	<script>
 		$("#submit").click(function(){
 			$("#dqForm").submit();
-		})
+		});
+		$("#cancel").click(function(){
+			locationhref="<c:url value="dqlist.do"/>";
+		});
 	</script>
 
 	<!-- footer.. -->

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,26 +17,26 @@
 
 <body>
 	<!-- header.. -->
-	<c:import url="/jsp/base-ui/header.jsp"></c:import>
+	<c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 	
 	<section>
 	<div class="aside">
 		<div class="sidebar">
 			<ul class="nav nav-pills nav-stacked">
 				<li role="presentation"><a href="#">퀴즈게시판</a></li>
-				<li role="presentation" class="active"><a href="<c:url value="/jsp/board/quiz/dqlist.jsp"/>"> <i
+				<li role="presentation" class="active"><a href="#"> <i
 						class="fas fa-folder"></i> 데일리퀴즈
 				</a></li>
-				<li role="presentation" ><a href="DailyQuiz.html">
+				<li role="presentation" ><a href="<c:url value="dqlist.do"/>">
 						&nbsp;&nbsp; <i class="fas fa-folder-open"></i> 문제
 				</a></li>
-				<li role="presentation"><a href="DailyQuizResult.html">
-						&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인</span>
+				<li role="presentation"><a href="<c:url value="dqsubmit.do"/>">
+						&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인
 				</a></li>
-				<li role="presentation"><a href="UserQuiz.html"> <i
+				<li role="presentation"><a href="<c:url value="uqlist.do"/>"> <i
 						class="fas fa-folder"></i> 유저퀴즈
 				</a></li>
-				<li role="presentation"><a href="RankMain.html"> <i
+				<li role="presentation"><a href="<c:url value="rank/rank.do"/>"> <i
 						class="fas fa-signal"></i> 랭킹보기
 				</a></li>
 			</ul>
@@ -69,14 +70,26 @@
 			<c:forEach var="i" items="${list}" >
 				<tr>
 					<td>${i.quizNo}</td>
-					<td>${i.typeNo}</td>
-					<td><a href="#">${i.title}</a></td>
-					<td>${i.id}</td>
-					<td>${i.regDate}</td>
-					<td style="color: green">18-10-22 오전 11:36:41</td>
-					<td>22</td>
-					<td>72%</td>
-					<td>${i.levelNo}</td>
+<%-- 					<c:forEach var="j" items="${data.category}"> --%>
+<%-- 						<c:if test="${i.categoryNo eq j.categoryNo}"> --%>
+<%-- 						<td>${j.categoryName}</td> --%>
+<%-- 						</c:if> --%>
+<%-- 					</c:forEach> --%>
+					<td><a href="<c:url value="/board/quiz/dqdetail.do?quizNo=${i.quizNo}"/>">${i.title}</a></td>
+					<td>${i.nickname}</td>
+					<td>
+					<fmt:formatDate value="${i.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					</td>
+					<td style="color: green">
+					<fmt:formatDate value="${i.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					</td>
+					<td>${i.answerCnt}</td>
+					<td>${i.probability}%</td>
+<%-- 					<c:forEach var="k" items="${data.level}"> --%>
+<%-- 						<c:if test="${i.levelNo eq k.levelNo}"> --%>
+<%-- 						<td>${k.levelName}</td> --%>
+<%-- 						</c:if> --%>
+<%-- 					</c:forEach>		 --%>
 				</tr>
 			</c:forEach>
 			
@@ -87,8 +100,10 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="write">
-					<button onclick='location.href="<c:url value='/jsp/board/quiz/dqform.jsp'/>"'
+					<c:if test="${sessionScope.user.id=='admin'}">
+					<button onclick='location.href="<c:url value='dqform.do'/>"'
 						class="btn btn-primary">글쓰기</button>
+					</c:if>
 				</div>
 			</div>
 
@@ -129,6 +144,10 @@
 
  	<!-- footer.. -->
 	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
-
+	
+	
+	<script>
+		//ajax category
+	</script>
 </body>
 </html>

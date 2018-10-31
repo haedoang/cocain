@@ -1,12 +1,14 @@
 package kr.co.cocain.board.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.cocain.repository.domain.QuizBoard;
+import kr.co.cocain.repository.domain.QuizPage;
 import kr.co.cocain.repository.mapper.QuizMapper;
 
 @Service
@@ -17,9 +19,9 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 	
 	//dqlist.. 
 	@Override
-	public Map<String,Object> selectDQList() {
+	public Map<String,Object> selectDQList(QuizPage quizPage) {
 		Map<String,Object> map = new HashMap<>();
-		map.put("list", mapper.selectDQList());
+		map.put("list", mapper.selectDQList(quizPage));
 		map.put("category", mapper.selectCategory());
 		map.put("level", mapper.selectLevel());
 			
@@ -28,9 +30,9 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 
 	//uqlist..
 	@Override
-	public Map<String, Object> selectUQList() {
+	public Map<String, Object> selectUQList(QuizPage quizPage) {
 		Map<String,Object> map = new HashMap<>();
-		map.put("list", mapper.selectUQList());
+		map.put("list", mapper.selectUQList(quizPage));
 		map.put("category", mapper.selectCategory());
 		map.put("level", mapper.selectLevel());
 		
@@ -49,6 +51,46 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 	public void insertQuizBoard(QuizBoard quizBoard) {
 		mapper.insertQuizBoard(quizBoard);
 	}
+
+	@Override
+	public Map<String, Object> selectQuizBoardByNo(int quizNo) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("category", mapper.selectCategory());
+		map.put("level", mapper.selectLevel());
+		map.put("detail", mapper.selectQuizBoardByNo(quizNo));
+		
+		return map;
+	}
+	
+	//정답 호출 ajax 
+	@Override
+	public int selectQuizCorrect(QuizBoard quizBoard) {
+		return mapper.selectQuizCorrect(quizBoard);
+	}
+
+	@Override
+	public void deleteQuizBoard(int quizNo) {
+		mapper.deleteQuizBoard(quizNo);	
+	}
+
+	
+		//paging test
+	@Override
+	public List<QuizBoard> selectQuizPaging(int pageNo) {
+		return mapper.selectQuizPaging(pageNo);
+	}
+
+	@Override
+	public int selectDQListCount() {
+		return mapper.selectDQListCount();
+	}
+
+	@Override
+	public int selectUQListCount() {
+		return mapper.selectUQListCount();
+	}
+	
+	
 	
 	
 	

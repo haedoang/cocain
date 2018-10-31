@@ -26,21 +26,22 @@
 			<div class="sidebar">
 				<ul class="nav nav-pills nav-stacked">
 					<li role="presentation"><a href="#">퀴즈게시판</a></li>
-					<li role="presentation"><a href="DailyQuiz.html"> <i
-							class="fas fa-folder"></i> 데일리퀴즈
+					<li role="presentation"><a
+						href="#"> <i class="fas fa-folder"></i>
+							데일리퀴즈
 					</a></li>
-					<li role="presentation" class="active"><a
-						href="DailyQuiz.html"> &nbsp;&nbsp; <i
-							class="fas fa-folder-open"></i> 문제
+					<li role="presentation" class="active"><a href="<c:url value="dqlist.do"/>">
+							&nbsp;&nbsp; <i class="fas fa-folder-open"></i> 문제
 					</a></li>
-					<li role="presentation"><a href="DailyQuizResult.html">
+					<li role="presentation"><a href="<c:url value="dqsubmit.do"/>">
 							&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인
 					</a></li>
-					<li role="presentation"><a href="UserQuiz.html"> <i
-							class="fas fa-folder"></i> 유저퀴즈
+					<li role="presentation"><a href="<c:url value="uqlist.do"/>">
+							<i class="fas fa-folder"></i> 유저퀴즈
 					</a></li>
-					<li role="presentation"><a href="RankMain.html"> <i
-							class="fas fa-signal"></i> 랭킹보기
+					<li role="presentation"><a
+						href="<c:url value="rank/rank.do"/>"> <i class="fas fa-signal"></i>
+							랭킹보기
 					</a></li>
 				</ul>
 
@@ -64,29 +65,32 @@
 					<table class="table">
 						<tr>
 							<th>게시글 번호</th>
-							<td>1</td>
+							<td>${data.detail.quizNo}</td>
 						</tr>
 						<tr>
 							<th>제목</th>
-							<td><span>삼각형 면적 구하는 알고리즘 작성하기</span></td>
+							<td><span>${data.detail.title}</span></td>
 						</tr>
 						<tr>
 							<th>카테고리</th>
-							<td><span>java</span></td>
+							<c:forEach var="i" items="${data.category}">
+								<c:if test="${data.detail.categoryNo==i.categoryNo}">
+									<td><span>${i.categoryName}</span></td>
+								</c:if>
+							</c:forEach>
 						</tr>
 						<tr>
 							<th>Hint</th>
 							<td>
 								<div>
-									<span>Math클래스 활용하기</span> <span>method 활용하기</span> <span>열심히
-										해보렴</span>
+									<span>${data.detail.hint}</span>
 								</div>
 							</td>
 						</tr>
 						<tr>
 							<th>문제 내용</th>
 							<td>
-								<div id="summernote"></div>
+								<div id="">${data.detail.content}</div>
 							</td>
 						</tr>
 						<tr>
@@ -98,9 +102,11 @@
 						</tr>
 						<tr>
 							<th class="buttons" colspan="3">
-								<button class="btn btn-primary">목록</button>
-								<button class="btn btn-primary">수정</button>
-								<button class="btn btn-primary">삭제</button>
+								<button id="list" class="btn btn-primary">목록</button>
+								<c:if test="${sessionScope.user.id=='admin'}">
+								<button id="update" class="btn btn-primary">수정</button>
+								<button id="delete" class="btn btn-primary">삭제</button>
+								</c:if>
 							</th>
 							<td></td>
 						</tr>
@@ -119,6 +125,17 @@
 
 	<!-- summernote -->
 	<script src="<c:url value="/resources/js/edit-summernote.js"/>"></script>
-
+	
+	<!-- button script -->
+	<script>
+		$("#list").click(function(){
+			location.href="<c:url value="dqlist.do"/>"
+		});
+		
+		$("#delete").click(function(){
+			location.href="<c:url value='deleteboard.do?quizNo=${data.detail.quizNo}&typeNo=${data.detail.typeNo}'/>"
+		});
+	</script>
+	
 </body>
 </html>

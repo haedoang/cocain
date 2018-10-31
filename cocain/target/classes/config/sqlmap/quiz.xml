@@ -46,23 +46,40 @@
 	</select>
 	
 	
-	
+	<!-- paging 적용 test.. -->
 	<!-- daily quiz list -->
-	<select id="selectDQList" resultMap="quizMap">
+	<select id="selectDQList" parameterType="QuizPage" resultMap="quizMap">
 		select * 
 		  from tb_quiz_board
 		 where type_no = 1
 		order by quiz_no desc
+		limit #{begin},10
 	</select>
 	
+	<!-- paging count.. -->
+	<select id="selectDQListCount" resultType="int">
+		select count(*)
+		  from tb_quiz_board
+		 where type_no =1 
+	</select>
+	
+	
+	
 	<!-- user quiz list -->
-	<select id="selectUQList" resultMap="quizMap">
+	<select id="selectUQList" parameterType="QuizPage" resultMap="quizMap">
 		select * 
 		  from tb_quiz_board
 		 where type_no = 2
 		order by quiz_no desc
+		limit #{begin},10
 	</select>
-	
+
+	<!-- paging count.. -->
+	<select id="selectUQListCount" resultType="int">
+		select count(*)
+		  from tb_quiz_board
+		 where type_no =2 
+	</select>
 	
 	<!-- quiz insert -->
 	<insert id="insertQuizBoard" parameterType="QuizBoard">
@@ -89,16 +106,36 @@
 	</insert>
 	
 
+	<!-- detail...  -->
+	
+	<select id="selectQuizBoardByNo" parameterType="int" resultMap="quizMap">
+		select *
+		  from tb_quiz_board
+		 where quiz_no = #{quizNo}
+	</select>
+	
+	<!-- 유저퀴즈 정답 찾기 -->
+	<select id="selectQuizCorrect" parameterType="QuizBoard" resultType="int">
+		select count(*)
+		 from tb_quiz_board
+		where quiz_no=#{quizNo}
+		  and correct=#{correct}
+	</select>
+	
+	<!-- 게시글 삭제하기 -->
+	<delete id="deleteQuizBoard" parameterType="int">
+		delete from tb_quiz_board
+		 where quiz_no=#{quizNo}
+	</delete>
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	<!-- paging test -->
+	<select id="selectQuizPaging" parameterType="QuizPage" resultMap="quizMap">
+		select * 
+		  from tb_quiz_board
+		 where type_no=1
+		 limit #{begin},20;
+	</select>
 	
 	
 	
