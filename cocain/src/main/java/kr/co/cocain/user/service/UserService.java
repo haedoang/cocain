@@ -1,6 +1,7 @@
 package kr.co.cocain.user.service;
 
 import kr.co.cocain.repository.domain.User;
+import kr.co.cocain.repository.domain.UserFile;
 
 
 /**
@@ -49,5 +50,23 @@ public interface UserService {
 	 * @param user
 	 */
 	void updatePass(User user);
+	
+	/**
+	 * 파일 등록
+	 * @param userFile
+	 */
+	void insertFile(UserFile userFile);
+	
+	/**
+	 * 파일 삭제
+	 * @param userFile
+	 */
+	void deleteFile(UserFile userFile);
+	
+	/**
+	 * 유저 파일 검색
+	 * @param userFile
+	 */
+	UserFile selectFile(UserFile userFile);
 	
 } // end interface

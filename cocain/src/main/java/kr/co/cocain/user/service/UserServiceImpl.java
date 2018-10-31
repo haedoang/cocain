@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.co.cocain.repository.domain.User;
+import kr.co.cocain.repository.domain.UserFile;
 import kr.co.cocain.repository.mapper.UserMapper;
 
 
@@ -105,5 +106,20 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		mapper.updatePass(user);
 	} // userPass
+
+	@Override
+	public void insertFile(UserFile userFile) {
+		mapper.insertFile(userFile);
+	} // insertFile
+
+	@Override
+	public void deleteFile(UserFile userFile) {
+		mapper.deleteFile(userFile);
+	} // deleteFile
+
+	@Override
+	public UserFile selectFile(UserFile userFile) {
+		return mapper.selectFile(userFile);
+	} // selectFile
 
 } // end class

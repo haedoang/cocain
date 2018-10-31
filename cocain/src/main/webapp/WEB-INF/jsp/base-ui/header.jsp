@@ -110,7 +110,7 @@
 			.done(function(user) {
 				console.log(user);
 				if(user == "") {
-					alert("이메일 혹은 비밀번호를 잘못 입력하셨습니다.");
+					alert("아아디 또는 비밀번호를 잘못 입력하셨습니다.");
 
 					return;
 				} else {

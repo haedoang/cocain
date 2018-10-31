@@ -35,8 +35,10 @@ a:hover {
 .media-left {
     height: 73px;
 }
-.media-left > a > img {
+.media-left > div > a > img {
     width: 200px;
+    height: 200px;
+    border-radius: 5px;
 }
 .media-left > i {
     line-height: 73px;
@@ -88,4 +90,35 @@ nav.text-center > .pagination > li.active > a {
 }
 .row > .modal > .modal-dialog > .modal-content > .panel-primary > .panel-body > form > .input-group > span > .fa-user-secret {
 	font-size: 21px;
+}
+.fileBox .fileName {
+	display: inline-block;
+	width: 190px;
+	height: 30px;
+	padding-left: 10px;
+	margin-right: 5px;
+	line-height: 30px;
+	border: 1px solid #aaa;
+	background-color: #fff;
+	vertical-align: middle
+}
+.fileBox .btn_file {
+	display: inline-block;
+	border: 1px solid #000;
+	width: 100px;
+	height: 30px;
+	font-size: 0.8em;
+	line-height: 30px;
+	text-align: center;
+	vertical-align: middle
+}
+.fileBox input[type="file"] {
+	position :absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0,0,0,0);
+	border: 0
 }
