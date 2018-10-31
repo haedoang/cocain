@@ -31,11 +31,12 @@ public interface QuizBoardService {
 	void deleteQuizBoard(int quizNo);
 
 
-	List<QuizBoard> selectQuizPaging(int pageNo);
-
 	//paging count..
 	int selectDQListCount();
 	int selectUQListCount();
+
+
+	List<QuizBoard> selectQuizSearch(QuizBoard quizBoard);
 
 	
 	//test	

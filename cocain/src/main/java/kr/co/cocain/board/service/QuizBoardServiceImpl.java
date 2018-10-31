@@ -73,12 +73,6 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 		mapper.deleteQuizBoard(quizNo);	
 	}
 
-	
-		//paging test
-	@Override
-	public List<QuizBoard> selectQuizPaging(int pageNo) {
-		return mapper.selectQuizPaging(pageNo);
-	}
 
 	@Override
 	public int selectDQListCount() {
@@ -88,6 +82,11 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 	@Override
 	public int selectUQListCount() {
 		return mapper.selectUQListCount();
+	}
+
+	@Override
+	public List<QuizBoard> selectQuizSearch(QuizBoard quizBoard) {
+		return mapper.selectQuizSearch(quizBoard);
 	}
 	
 	

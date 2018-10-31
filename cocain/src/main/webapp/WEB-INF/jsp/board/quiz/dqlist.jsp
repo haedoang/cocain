@@ -56,7 +56,7 @@
 
 			<div class="context"></div>
 
-			<table id="dq-list" class="table table-bordered">
+			<table id="dqtable" class="table table-bordered">
 				<tr>
 					<th>번호</th>
 					<th>카테고리</th>
@@ -108,23 +108,15 @@
 				</div>
 
 				<div class="col-md-4">
-					<!-- 	<ul class="pagination pagination-sm">
-					<li><a href="#" aria-label="Previous"> <span
-							aria-hidden="true">&laquo;</span>
-					</a></li>
-					<li><a href="#">1</a></li>
-					<li><a href="#" aria-label="Next"> <span
-							aria-hidden="true">&raquo;</span>
-					</a></li>
-				</ul> -->
 					<nav>
-					<c:if test="${pageResult.count!=0}">
-						<!-- 전체 게시글이 0개가 아닐때 -->
+						<c:if test="${pageResult.count!=0}">
+							<!-- 전체 게시글이 0개가 아닐때 -->
 							<ul class="pagination pagination-sm">
 								<li
 									<c:if test="${pageResult.prev eq false}">class="disabled"</c:if>>
-									<a href="<c:url value="dqlist.do?pageNo=${pageResult.beginPage-1}"/>" aria-label="Previous">
-										<span aria-hidden="true">&laquo;</span>
+									<a
+									href="<c:url value="dqlist.do?pageNo=${pageResult.beginPage-1}"/>"
+									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 								</a>
 								</li>
 
@@ -141,25 +133,30 @@
 
 								<li
 									<c:if test="${pageResult.next eq false}">class="disabled"</c:if>>
-									<a href="<c:url value="dqlist.do?pageNo=${pageResult.endPage+1}"/>" aria-label="Next"> <span
-										aria-hidden="true">&raquo;</span>
+									<a
+									href="<c:url value="dqlist.do?pageNo=${pageResult.endPage+1}"/>"
+									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 								</a>
 								</li>
 							</ul>
-					</c:if>
+						</c:if>
 					</nav>
 				</div>
 
 
 				<div class="col-md-4">
 					<div class="search">
-						<select>
-							<option>제목</option>
-							<option>카테고리</option>
-						</select> <input class="ser" type="text" size="15" placeholder="검색어를 입력하세요" />
-						<button class="ser">
-							&nbsp;&nbsp;<i class="fas fa-search"></i>&nbsp;&nbsp;
-						</button>
+						<form id="sForm" method="post">
+							<input type="hidden" name="typeNo" value="${data.list[0].typeNo}"/>
+							<select>
+								<option>제목</option>
+								<option>카테고리</option>
+							</select> <input class="ser" type="text" size="15"
+								placeholder="검색어를 입력하세요" name="title"/>
+							<button id="search" class="ser" style="background-color:#000000">
+								&nbsp;&nbsp;<i class="fas fa-search"></i>&nbsp;&nbsp;
+							</button>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -174,7 +171,89 @@
 
 
 	<script>
-		//ajax category
+		/* paging 설정하기 !! */
+		$(".pagination > li:eq(0) > a").click(function(e){
+			if(!${pageResult.prev}){
+				e.preventDefault();
+			}
+		})
+	
+		$(".pagination > li:last > a").click(function(e){
+			if(!${pageResult.next}){
+				e.preventDefault();
+			}
+		})
+		
+		/* 검색 ajax */
+		
+		$("#search").click(function(e){
+			e.preventDefault();
+			var data = $("#sForm").serialize();
+			console.log(data);
+			 
+			$.ajax({
+				url:"<c:url value="search.do"/>",
+				method:"POST",
+				data:data
+			}).done(function(result){
+				//alert(result);
+				$("#dqtable > tbody > tr:eq(0)").siblings().remove();
+				var html=""	
+				for(var i in result){
+					html+=`
+							<tr>
+							<td>${i.quizNo}</td>
+							<c:forEach var="j" items="${data.category}">
+								<c:if test="${i.categoryNo eq j.categoryNo}">
+									<td>${j.categoryName}</td>
+								</c:if>
+							</c:forEach>
+							<td><a
+								href="<c:url value="/board/quiz/dqdetail.do?quizNo=${i.quizNo}"/>">${i.title}</a></td>
+							<td>${i.nickname}</td>
+							<td><fmt:formatDate value="${i.regDate}"
+									pattern="yyyy-MM-dd HH:mm:ss" /></td>
+							<td style="color: green"><fmt:formatDate value="${i.endDate}"
+									pattern="yyyy-MM-dd HH:mm:ss" /></td>
+							<td>${i.answerCnt}</td>
+							<td>${i.probability}%</td>
+							<c:forEach var="k" items="${data.level}">
+								<c:if test="${i.levelNo eq k.levelNo}">
+									<td>${k.levelName}</td>
+								</c:if>
+							</c:forEach>
+						</tr>`
+				}
+				$("#dqtable > tbody > tr:eq(0)").after(html);
+			}); 
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	</script>
+
+
 </body>
 </html>

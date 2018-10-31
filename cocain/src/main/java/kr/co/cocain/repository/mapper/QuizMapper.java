@@ -35,8 +35,6 @@ public interface QuizMapper {
 	void deleteQuizBoard(int quizNo);
 	
 	
-	//paging test
-	List<QuizBoard> selectQuizPaging(int PageNo);
-	
-	//test
+	//search
+	List<QuizBoard> selectQuizSearch(QuizBoard quizBoard);
 }

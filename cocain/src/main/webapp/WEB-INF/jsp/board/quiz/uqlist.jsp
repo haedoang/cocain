@@ -24,9 +24,8 @@
 			<div class="sidebar">
 				<ul class="nav nav-pills nav-stacked">
 					<li role="presentation"><a href="#">퀴즈게시판</a></li>
-					<li role="presentation"><a
-						href="#"> <i class="fas fa-folder"></i>
-							데일리퀴즈
+					<li role="presentation"><a href="#"> <i
+							class="fas fa-folder"></i> 데일리퀴즈
 					</a></li>
 					<li role="presentation"><a href="<c:url value="dqlist.do"/>">
 							&nbsp;&nbsp; <i class="fas fa-folder"></i> 문제
@@ -34,8 +33,9 @@
 					<li role="presentation"><a href="<c:url value="dqsubmit.do"/>">
 							&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인
 					</a></li>
-					<li role="presentation" class="active"><a href="<c:url value="uqlist.do"/>">
-							<i class="fas fa-folder-open"></i> 유저퀴즈
+					<li role="presentation" class="active"><a
+						href="<c:url value="uqlist.do"/>"> <i
+							class="fas fa-folder-open"></i> 유저퀴즈
 					</a></li>
 					<li role="presentation"><a
 						href="<c:url value="rank/rank.do"/>"> <i class="fas fa-signal"></i>
@@ -94,6 +94,10 @@
 
 			<div class="row">
 				<div class="col-md-4">
+					<%-- 
+					<div>게시글 수 :${pageResult.count}</div>
+					<div>마지막 페이지:${pageResult.lastPage}</div>
+					--%>
 					<div class="write">
 						<c:if test="${not empty sessionScope.user.id}">
 							<button onclick='location.href="<c:url value='uqform.do'/>"'
@@ -103,19 +107,40 @@
 				</div>
 
 				<div class="col-md-4">
-					<ul class="pagination pagination-sm">
-						<li><a href="#" aria-label="Previous"> <span
-								aria-hidden="true">&laquo;</span>
-						</a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#" aria-label="Next"> <span
-								aria-hidden="true">&raquo;</span>
-						</a></li>
-					</ul>
+					<nav>
+						<c:if test="${pageResult.count!=0}">
+							<ul class="pagination pagination-sm">
+								<li
+									<c:if test="${pageResult.prev eq false}">
+										class="disabled"
+									 </c:if>
+								>
+									<a href="<c:url value="uqlist.do?pageNo=${pageResult.beginPage-1}"/>"aria-label="Previous">
+							        <span aria-hidden="true">&laquo;</span></a>
+								</li>
+
+								<!-- 반복 -->
+								<c:forEach var="i" begin="${pageResult.beginPage}"
+									end="${pageResult.endPage}">
+									<!-- 현재페이지 체크 불가 -->
+									<li
+										<c:if test="${i eq pageResult.pageNo}">
+								class="active"</c:if>>
+										<a href="<c:url value="uqlist.do?pageNo=${i}"/>">${i}</a>
+									</li>
+								</c:forEach>
+
+								<li
+									<c:if test="${pageResult.next eq false}">class="disabled"</c:if>>
+									<a
+									href="<c:url value="uqlist.do?pageNo=${pageResult.endPage+1}"/>"
+									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+								</a>
+								</li>
+							</ul>
+						</c:if>
+					</nav>
+
 				</div>
 
 
@@ -139,6 +164,20 @@
 
 	<!-- footer.. -->
 	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
-
+	<script>
+		/* paging 설정하기 !! */
+		$(".pagination > li:eq(0) > a").click(function(e){
+			if(!${pageResult.prev}){
+				e.preventDefault();
+			}
+		})
+		$(".pagination > li:last > a").click(function(e){
+			if(!${pageResult.next}){
+				e.preventDefault();
+			}
+		})
+		
+		
+	</script>
 </body>
 </html>

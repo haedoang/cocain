@@ -1,5 +1,7 @@
 package kr.co.cocain.board.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +24,8 @@ public class QuizBoardController {
 	/* list 출력 관련 */
 	/**
 	 * dqlist : dqlist.jsp 호출
-	 * param  : category,level,list
+	 * param  : model(category,level,list)
+	 *          pageNo(페이지번호 default 1page) 
 	 */
 	@RequestMapping("dqlist.do")
 	public void dqlist(@RequestParam(value="pageNo" ,defaultValue="1")int pageNo,Model model) {
@@ -36,13 +39,14 @@ public class QuizBoardController {
 	}
 	/**
 	 * uqlist : uqlist.jsp 호출
-	 * param  : category,level,list
-	 */
+	 * param  : model(category,level,list)
+	 *          pageNo(페이지번호 default 1page)
+	 */       
 	@RequestMapping("uqlist.do")
 	public void uqlist(@RequestParam(value="pageNo" ,defaultValue="1")int pageNo,Model model) {
 		QuizPage qp = new QuizPage();
 		qp.setPageNo(pageNo);
-		PageResult pageResult = new PageResult(pageNo,service.selectDQListCount());
+		PageResult pageResult = new PageResult(pageNo,service.selectUQListCount());
 		
     	model.addAttribute("data",service.selectUQList(qp));
     	model.addAttribute("pageResult",pageResult);
@@ -104,12 +108,16 @@ public class QuizBoardController {
 		
 	}
 	
+	/* search ajax */
 	
-	@RequestMapping("dqlistpaging.do")
-	public void selectQuizPaging(@RequestParam(value="pageNo" ,defaultValue="1")int pageNo,Model model) {
-		model.addAttribute("list",service.selectQuizPaging(pageNo));
+	@RequestMapping("search.do")
+	@ResponseBody
+	public List<QuizBoard> selectQuizSearch(QuizBoard quizBoard) {
+		return service.selectQuizSearch(quizBoard);
 	}
 	
 	
-//test	
+	
+	
+	
 }

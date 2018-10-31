@@ -63,8 +63,7 @@
 		 where type_no =1 
 	</select>
 	
-	
-	
+
 	<!-- user quiz list -->
 	<select id="selectUQList" parameterType="QuizPage" resultMap="quizMap">
 		select * 
@@ -104,6 +103,31 @@
 															)
 		
 	</insert>
+
+	<!-- 제목, 카테고리 검색 (제목만 먼저 구현하자..카테고리 db써야함;; )  -->
+	<select id="selectQuizSearch" parameterType="QuizBoard" resultMap="quizMap">
+		select *
+		  from tb_quiz_board
+	  <where>
+		<if test="typeNo!=null">
+	    	and	type_no=#{typeNo}
+		</if>
+		<if test="title!=null">
+			and title like concat('%',#{title},'%')
+		</if>	
+		order by quiz_no desc
+		
+		<!-- limit page 어떻게 받으면 좋을까~?  -->
+	  </where>  
+	</select>
+
+
+
+
+
+
+
+
 	
 
 	<!-- detail...  -->

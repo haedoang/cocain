@@ -24,7 +24,7 @@ public class PageResult {
 	
 	//@param = 게시물 전체 개수
 	public PageResult(int pageNo, int count) {
-		this(pageNo,count,10,5); //listSize, tabSize default 10 설정 !!! 
+		this(pageNo,count,10,5);  
 	}
 	
 	public PageResult(int pageNo,int count, int listSize, int tabSize) {
