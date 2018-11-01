@@ -125,8 +125,13 @@ public class UserServiceImpl implements UserService {
 	} // selectFile
 
 	@Override
-	public List<RecentActivity> userRecentActivity(String nickname) {
-		return mapper.userRecentActivity(nickname);
+	public List<RecentActivity> userRecentActivity(RecentActivity recentActivity) {
+		return mapper.userRecentActivity(recentActivity);
 	} // userRecentActivity
+
+	@Override
+	public int userRecentActivityCount(RecentActivity recentActivity) {
+		return mapper.userRecentActivityCount(recentActivity);
+	} // userRecentActivityCount
 
 } // end class

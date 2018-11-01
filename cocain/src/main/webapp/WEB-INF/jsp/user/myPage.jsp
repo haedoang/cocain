@@ -76,7 +76,14 @@
                     	<c:forEach var="active" items="${ra}">
 	                        <div class="media">
 	                            <div class="media-left">
-	                                <i class="far fa-edit fa-3x"></i>
+	                           		<c:choose>
+	                           			<c:when test="${active.typeqna == 'typeqna' or active.typeqna == 'typequiz' or active.typeqna == 'typestudy'}">
+		                                	<i class="far fa-edit fa-3x"></i>
+		                                </c:when>
+		                                <c:otherwise>
+		                                	<i class="far fa-comment fa-3x" style="font-size:3.375em"></i>
+		                                </c:otherwise>
+	                                </c:choose>
 	                            </div>
 	                            <div class="media-body">
 	                                <table class="table table-hover">
@@ -89,61 +96,108 @@
 	                                        		<c:when test="${active.typeqna == 'typequiz'}">
 	                                          			<th>유저 퀴즈에 ${active.no}번 게시물을 작성하였습니다.&nbsp;&nbsp; 
                                           			</c:when>
-                                          			<c:otherwise>
+                                          			<c:when test="${active.typeqna == 'typestudy'}">
                                           				<th>스터디에 ${active.no}번 게시물을 작성하였습니다.&nbsp;&nbsp;
-                                          			</c:otherwise>
+                                          			</c:when>
+                                          			<c:when test="${active.typeqna == 'typeqnacm'}">
+                                          				<th>지식iN ${active.no}번 게시물에 댓글을 작성하였습니다.&nbsp;&nbsp;
+                                          			</c:when>
 	                                            </c:choose>
 	                                            <span><fmt:formatDate value="${active.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></th>
 	                                        </tr>
 	                                    </thead>
 	                                    <tbody>
 	                                        <tr>
-	                                            <td>${active.title}</td>
+	                                            <td>
+		                                            <div style="width: 500px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+		                                            	<c:choose>
+		                                        			<c:when test="${active.typeqna == 'typeqna' || active.typeqna == 'typeqnacm'}">
+		                                            			<a href="<c:url value="/board/qna/detail.do?no=${active.no}" />">${active.title}</a>
+		                                          			</c:when>
+			                                        		<c:when test="${active.typeqna == 'typequiz'}">
+		                                            			<a href="<c:url value="/board/quiz/uqdetail.do?quizNo=${active.no}" />">${active.title}</a>
+		                                          			</c:when>
+		                                          			<c:when test="${active.typeqna == 'typestudy'}">
+		                                            			<a href="<c:url value="/board/typestudy/detail.do?no=${active.no}" />">${active.title}</a>
+		                                          			</c:when>
+		                                            	</c:choose>
+		                                            </div>
+	                                            </td>
 	                                        </tr>
 	                                    </tbody>
 	                                </table>
 	                            </div> 
 	                        </div>   
 						</c:forEach>
-                        <div class="media">
-                            <div class="media-left">
-                                <i class="far fa-comment fa-3x"></i>
-                            </div>
-                            <div class="media-body">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>2번 게시물에 댓글을 남겼습니다.&nbsp;&nbsp; 
-                                            <span>2018-10-15 20:10:52</span></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>빙고 퀴즈 나갑니다.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <nav class="text-center">
-							    	<ul class="pagination">
-									    <li>
-										    <a href="#" aria-label="Previous">
-										        <span aria-hidden="true">&laquo;</span>
-										    </a>
-									    </li>
-									    <li class="active"><a href="#">1</a></li>
-									    <li><a href="#">2</a></li>
-									    <li><a href="#">3</a></li>
-									    <li><a href="#">4</a></li>
-									    <li><a href="#">5</a></li>
-									    <li>
-										    <a href="#" aria-label="Next">
-										        <span aria-hidden="true">&raquo;</span>
-										    </a>
-									    </li>
-									</ul>
-								</nav>
-                            </div> 
-                        </div>    
+                        <nav class="text-center">
+							<c:if test="${pageResult.count!=0}">
+								<ul class="pagination">
+									<li
+										<c:if test="${pageResult.prev eq false}">class="disabled"</c:if>>
+										<c:choose>
+											<c:when test="${pageResult.prev eq false}">
+												<a aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
+											</c:when>
+											<c:otherwise>
+												<a
+												href="<c:url value="myPage.do?pageNo=1"/>"
+												aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+												</a>
+											</c:otherwise>
+										</c:choose>
+									</li>
+									<li
+										<c:if test="${pageResult.prev eq false}">class="disabled"</c:if>>
+										<c:choose>
+											<c:when test="${pageResult.prev eq false}">
+												<a aria-label="Previous"> <span aria-hidden="true">&lsaquo;</span></a>
+											</c:when>
+											<c:otherwise>
+												<a
+												href="<c:url value="myPage.do?pageNo=${pageResult.beginPage-1}"/>"
+												aria-label="Previous"> <span aria-hidden="true">&lsaquo;</span>
+												</a>
+											</c:otherwise>
+										</c:choose>
+									</li>
+									<c:forEach var="i" begin="${pageResult.beginPage}" end="${pageResult.endPage}">
+										<li
+											<c:if test="${i eq pageResult.pageNo}">
+											class="active"</c:if>>
+											<a href="<c:url value="myPage.do?pageNo=${i}"/>">${i}</a>
+										</li>
+									</c:forEach>
+									<li
+										<c:if test="${pageResult.next eq false}">class="disabled"</c:if>>
+										<c:choose>
+											<c:when test="${pageResult.next eq false}">
+												<a aria-label="Previous"> <span aria-hidden="true">&rsaquo;</span></a>
+											</c:when>
+											<c:otherwise>
+												<a
+												href="<c:url value="myPage.do?pageNo=${pageResult.endPage+1}"/>"
+												aria-label="Next"> <span aria-hidden="true">&rsaquo;</span>
+												</a>
+											</c:otherwise>
+										</c:choose>
+									</li>
+									<li
+										<c:if test="${pageResult.next eq false}">class="disabled"</c:if>>
+										<c:choose>
+											<c:when test="${pageResult.next eq false}">
+												<a aria-label="Previous"> <span aria-hidden="true">&raquo;</span></a>
+											</c:when>
+											<c:otherwise>
+												<a
+												href="<c:url value="myPage.do?pageNo=${pageResult.lastPage}"/>"
+												aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+												</a>
+											</c:otherwise>
+										</c:choose>
+									</li>
+								</ul>
+							</c:if>
+						</nav>
                     </div>
                 </div>       
             </div>

@@ -31,7 +31,7 @@
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav">
 			<li><a href="<c:url value="/board/notice/list.do"/>">공지사항</a></li>
-			<li><a href="#">스터디</a></li>
+			<li><a href="<c:url value="/board/studygroup/list.do"/>">스터디</a></li>
 			<li class="dropdown"><a href="#" class="dropdown-toggle"
 				data-toggle="dropdown" role="button" aria-haspopup="true"
 				aria-expanded="false">퀴즈<span class="caret"></span></a>

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +23,7 @@ import kr.co.cocain.repository.domain.RecentActivity;
 import kr.co.cocain.repository.domain.User;
 import kr.co.cocain.repository.domain.UserFile;
 import kr.co.cocain.user.service.UserService;
+import kr.co.cocain.util.PageResult;
 
 
 @Controller("kr.co.cocain.user.controller.MyPageController")
@@ -35,12 +37,19 @@ public class MyPageController {
 	
 	
 	@RequestMapping("myPage.do")
-	public void myPage(Model model, HttpSession session) {
+	public void myPage(@RequestParam(value="pageNo", defaultValue="1")int pageNo, Model model, HttpSession session) {
 		User user = (User) session.getAttribute("user");
+		
 		UserFile userFile = new UserFile();
 		userFile.setId(user.getId());
 		model.addAttribute("userFile", service.selectFile(userFile));
-		model.addAttribute("ra", service.userRecentActivity(user.getId()));
+		
+		RecentActivity recentActivity = new RecentActivity();
+		recentActivity.setWriter(user.getId());
+		recentActivity.setPageNo(pageNo);
+		PageResult pageResult = new PageResult(pageNo, service.userRecentActivityCount(recentActivity), 5, 5);
+		model.addAttribute("pageResult", pageResult);
+		model.addAttribute("ra", service.userRecentActivity(recentActivity));
 	} // myPage
 	
 	@RequestMapping("passCheck.do")

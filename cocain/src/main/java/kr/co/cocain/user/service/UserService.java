@@ -74,8 +74,15 @@ public interface UserService {
 	
 	/**
 	 * 최근활동 리스트
-	 * @param user
+	 * @param recentActivity
 	 */
-	List<RecentActivity> userRecentActivity(String nickname);
+	List<RecentActivity> userRecentActivity(RecentActivity recentActivity);
+	
+	
+	/**
+	 * 최근활동 리스트 갯수
+	 * @param recentActivity
+	 */
+	int userRecentActivityCount(RecentActivity recentActivity);
 	
 } // end interface

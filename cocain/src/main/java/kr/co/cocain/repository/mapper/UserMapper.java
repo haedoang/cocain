@@ -37,6 +37,9 @@ public interface UserMapper {
 	UserFile selectFile(UserFile userFile);
 	
 	// 최근활동 리스트
-	List<RecentActivity> userRecentActivity(String nickname);
+	List<RecentActivity> userRecentActivity(RecentActivity recentActivity);
+	
+	// 최근활동 리스트 총 갯수
+	int userRecentActivityCount(RecentActivity recentActivity);
 	
 } // end interface
