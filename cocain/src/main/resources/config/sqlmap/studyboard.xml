@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.cocain.repository.mapper.StudyBoardMapper">
+	<resultMap id="BoardMap" type="studyBoard">
+		<result column="no" property="no" />
+		<result column="id" property="id" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="reg_date" property="regDate" />
+		<result column="view_cnt" property="viewCnt" />
+	
+	</resultMap>
+	
+	<resultMap id="categoryMap" type="QuizCategory">
+		<result column="category_no" property="categoryNo"></result>
+		<result column="category_name" property="categoryName"></result>
+	</resultMap>
+	
+
+	<!-- 전체 목록 가져오기 -->
+	<select id="selectBoard" resultMap="BoardMap">
+		select *
+		from tb_study
+		order by
+		no desc
+	</select>
+
+	<!-- 상세보기 -->
+	<select id="selectBoardByNo" parameterType="int" resultMap="BoardMap">
+		select *
+		from tb_study
+		where no = #{no}
+	</select>
+
+	<!-- 게시물 등록하기 : insertBoard -->
+	<insert id="insertBoard" parameterType="studyBoard">
+		insert into tb_study(
+		title, content, id
+		) values (
+		#{title}, #{content}, #{id}
+		)
+	</insert>
+
+	<!-- 게시글 삭제하기 -->
+	<delete id="deleteBoard" parameterType="int">
+		delete
+		from tb_study
+		where
+		no = #{no}
+	</delete>
+
+	<!-- 게시글 수정하기 -->
+	<update id="updateBoard" parameterType="studyBoard">
+		update tb_study
+		set title = #{title},
+		content = #{content}
+		where no = #{no}
+	</update>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

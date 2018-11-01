@@ -40,8 +40,11 @@ select>option {
 <body>
 	<c:import url="../../base-ui/header.jsp" />
 	<hr>
-	<form action="write.do" method="post">
-	<input type="hidden" name="id" value="java"/>
+	<form action="update.do" method="post">
+	
+	<input type="hidden" name="id" value="${board.id}"/>
+	<input type='hidden' name='no' value='${board.no}' />
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2"></div>
@@ -51,7 +54,7 @@ select>option {
 				<br>
 				<div>
 					<span>제목</span> <br> <input type="text" class="form-control" name="title"
-						id="exampleInputName2" placeholder="제목을 입력하세요"> <br>
+						id="exampleInputName2" value="${board.title}" /> <br>
 					<span>분류</span> <br> <select class="input-sm"
 						style="width: 280px; height: 35px; font-size: 14px;">
 						<option value="">선택하세요</option>
@@ -65,13 +68,13 @@ select>option {
 
 				<div>
 					<span>내용</span>
-					<textarea class="form-control" rows="3" style="height: 200px" name="content"
-						placeholder="내용을 입력하세요"></textarea>
+					<textarea class="form-control" rows="3" style="height: 200px" name="content">${board.content}</textarea>
 				</div>
 				<br>
+	</form>
 				<div class="text-center">
-					<button class="btn btn btn-primary" style="background-color: black; border-color: black;" onclick="location.href='list.do'">
-					등록</button>
+					<button class="btn btn btn-primary" style="background-color: black; border-color: black;" onclick="location.href='list.do'" type="submit">
+					수정</button>
 					<button class="btn btn btn-primary" style="background-color: black; border-color: black;" onclick="location.href='list.do'">
 					목록</button>
 				</div>
@@ -80,7 +83,6 @@ select>option {
 		
 		<div class="col-md-2"></div>
 	</div>
-	</form>
 	<c:import url="../../base-ui/footer.jsp" />
 </body>
 
