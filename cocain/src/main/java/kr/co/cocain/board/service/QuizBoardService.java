@@ -36,8 +36,9 @@ public interface QuizBoardService {
 	int selectUQListCount();
 
 
-	List<QuizBoard> selectQuizSearch(QuizBoard quizBoard);
+	Map<String,Object> selectQuizSearch(QuizBoard quizBoard);
 
-	
-	//test	
+	//submit 게시판
+	Map<String,Object> selectSubmitList(QuizPage quizPage);
+	int selectSubmitListCount();
 }

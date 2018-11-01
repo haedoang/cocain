@@ -34,6 +34,17 @@
 		<result column="try_cnt" property="tryCnt" />
 	</resultMap>
 	
+	<resultMap id="submitMap" type="QuizSubmit">
+		<result column="submit_no" property="submitNo" />
+		<result column="quiz_no" property="quizNo" />
+		<result column="nickname" property="nickname" />
+		<result column="level_point" property="levelPoint" />
+		<result column="evaluation" property="evaluation" />
+		<result column="path" property="path" />
+		<result column="reg_date" property="regDate"/>
+		<result column="file_name" property="fileName" />
+	</resultMap>
+	
 	<!-- category list -->
 	<select id="selectCategory" resultMap="categoryMap">
 		select * 
@@ -80,6 +91,27 @@
 		 where type_no =2 
 	</select>
 	
+	<!-- dqsubmit list -->
+
+	<select id="selectSubmitList" parameterType="QuizPage" resultMap="submitMap">
+		select *
+		  from tb_quiz_submit
+		 order by submit_no desc
+		 limit #{begin}, 10
+	</select>	
+	<select id="selectSubmitListCount" resultType="int">
+		select count(*)
+		  from tb_quiz_submit
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<!-- quiz insert -->
 	<insert id="insertQuizBoard" parameterType="QuizBoard">
 		insert into tb_quiz_board(
@@ -122,14 +154,6 @@
 	</select>
 
 
-
-
-
-
-
-
-	
-
 	<!-- detail...  -->
 	
 	<select id="selectQuizBoardByNo" parameterType="int" resultMap="quizMap">
@@ -153,13 +177,7 @@
 	</delete>
 	
 	
-	<!-- paging test -->
-	<select id="selectQuizPaging" parameterType="QuizPage" resultMap="quizMap">
-		select * 
-		  from tb_quiz_board
-		 where type_no=1
-		 limit #{begin},20;
-	</select>
+	
 	
 	
 	

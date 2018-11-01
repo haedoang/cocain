@@ -13,12 +13,14 @@
 	href="<c:url value="/resources/css/board/quiz/dailyquizlist.css"/>" />
 <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+
 </head>
 
 <body>
+
+	
 	<!-- header.. -->
 	<c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
-
 	<section>
 		<div class="aside">
 			<div class="sidebar">
@@ -169,7 +171,7 @@
 	<!-- footer.. -->
 	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
 
-
+	<script src="<c:url value="/resources/js/jquery-dateformat.js"/>"></script>
 	<script>
 		/* paging 설정하기 !! */
 		$(".pagination > li:eq(0) > a").click(function(e){
@@ -188,69 +190,48 @@
 		
 		$("#search").click(function(e){
 			e.preventDefault();
-			var data = $("#sForm").serialize();
-			console.log(data);
-			 
+			var formData = $("#sForm").serialize();
+		 
 			$.ajax({
 				url:"<c:url value="search.do"/>",
 				method:"POST",
-				data:data
-			}).done(function(result){
-				//alert(result);
+				data:formData
+			}).done(function(data){
+				//console.log(data);
 				$("#dqtable > tbody > tr:eq(0)").siblings().remove();
-				var html=""	
-				for(var i in result){
-					html+=`
-							<tr>
-							<td>${i.quizNo}</td>
-							<c:forEach var="j" items="${data.category}">
-								<c:if test="${i.categoryNo eq j.categoryNo}">
-									<td>${j.categoryName}</td>
-								</c:if>
-							</c:forEach>
-							<td><a
-								href="<c:url value="/board/quiz/dqdetail.do?quizNo=${i.quizNo}"/>">${i.title}</a></td>
-							<td>${i.nickname}</td>
-							<td><fmt:formatDate value="${i.regDate}"
-									pattern="yyyy-MM-dd HH:mm:ss" /></td>
-							<td style="color: green"><fmt:formatDate value="${i.endDate}"
-									pattern="yyyy-MM-dd HH:mm:ss" /></td>
-							<td>${i.answerCnt}</td>
-							<td>${i.probability}%</td>
-							<c:forEach var="k" items="${data.level}">
-								<c:if test="${i.levelNo eq k.levelNo}">
-									<td>${k.levelName}</td>
-								</c:if>
-							</c:forEach>
-						</tr>`
-				}
+				var html="";	
+				var list = data.list;
+				var category = data.category;
+				var level = data.level;
+				console.log(list);	
+				alert(list[0].quizNo)
+				
+				for(var i of list){
+					html+="<tr><td>"+i.quizNo+"</td>";
+						for(var j of category){
+							if(i.categoryNo==j.categoryNo){
+								html+="<td>"+j.categoryName+"</td>";	
+							}//category end
+						}//inner for end 
+					html+="<td><a href='<c:url value='/board/quiz/dqdetail.do?quizNo="+i.quizNo+"'/>'>";
+					html+=i.title+"</a></td><td>"+i.nickname+"</td>";
+					html+="<td>"+$.format.date(i.regDate, "yyyy-MM-dd HH:mm:ss")+"</td>";
+					html+="<td style='color:green'>"+$.format.date(i.endDate, "yyyy-MM-dd HH:mm:ss")+"</td>";
+					html+="<td>"+i.answerCnt+"</td><td>"+i.probability+"%</td>";
+					
+					for(var k of level){
+						if(k.levelNo==i.levelNo){
+							html+="<td>"+k.levelName+"</td>";	
+						}//category end
+					}
+					
+				}//for end 	
+		 		html+="</tr>"	
 				$("#dqtable > tbody > tr:eq(0)").after(html);
 			}); 
 		});
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		
 	</script>
 

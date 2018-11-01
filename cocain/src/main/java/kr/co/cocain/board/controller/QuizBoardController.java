@@ -1,6 +1,7 @@
 package kr.co.cocain.board.controller;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -112,10 +113,21 @@ public class QuizBoardController {
 	
 	@RequestMapping("search.do")
 	@ResponseBody
-	public List<QuizBoard> selectQuizSearch(QuizBoard quizBoard) {
+	public Map<String,Object> selectQuizSearch(QuizBoard quizBoard) {
 		return service.selectQuizSearch(quizBoard);
 	}
 	
+	
+	/* quizsubmit list */
+	@RequestMapping("dqsubmit.do")
+	public void dqsubmit(@RequestParam(value="pageNo" ,defaultValue="1")int pageNo,Model model) {
+		QuizPage qp = new QuizPage();
+		qp.setPageNo(pageNo);
+		PageResult pageResult = new PageResult(pageNo, service.selectSubmitListCount());
+		model.addAttribute("data", service.selectSubmitList(qp));
+		model.addAttribute("pageResult",pageResult);
+		
+	}
 	
 	
 	

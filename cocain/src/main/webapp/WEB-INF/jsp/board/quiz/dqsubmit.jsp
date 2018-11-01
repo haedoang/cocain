@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,138 +65,76 @@
 					<th>제목</th>
 					<th>파일첨부</th>
 					<th>제출일</th>
+					<c:if test="${sessionScope.user.id=='admin'}">
+					<th>채점하기</th>
+					</c:if>
 				</tr>
+				<c:forEach var="i" items="${data.list}">
 				<tr>
-					<td>1</td>
-					<td>799</td>
-					<td>조*일</td>
-					<td>799번 문제 제출 파일</td>
-					<td><a href="#"><i class="far fa-file-code"></i></a></td>
-					<td>2018-09-11 12:24:32</td>
+					<td>${i.submitNo}</td>
+					<td>${i.quizNo}</td>
+					<!-- 
+					jstl masking
+					 -->
+					<td class="nickname">${fn:substring (i.nickname,0,fn:length(i.nickname)-4) }****</td>
+					<td>${i.quizNo}번 문제 제출 파일</td>
+					<td><a href="file://${i.path}"><i class="far fa-file-code"></i></a></td>
+					<td>
+						<fmt:formatDate value="${i.regDate}" pattern="yyyy-MM-dd"/>
+					</td>
+					<c:if test="${sessionScope.user.id=='admin'}">
+						<td>
+							<form>
+							<input type="radio" id="yes" name="evaluation" value="y" />
+								<label for="yes">정답</label>
+							<input type="radio" id="no" name="evaluation" value="n" />
+								<label for="no">오답</label>　　　
+							<input type="button" value="채점">		
+							</form>
+						</td>
+					</c:if>
 				</tr>
-				<tr>
-					<td>1</td>
-					<td>799</td>
-					<td>조*일</td>
-					<td>799번 문제 제출 파일</td>
-					<td><a href="#"><i class="far fa-file-code"></i></a></td>
-					<td>2018-09-11 12:24:32</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>799</td>
-					<td>조*일</td>
-					<td>799번 문제 제출 파일</td>
-					<td><a href="#"><i class="far fa-file-code"></i></a></td>
-					<td>2018-09-11 12:24:32</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>799</td>
-					<td>조*일</td>
-					<td>799번 문제 제출 파일</td>
-					<td><a href="#"><i class="far fa-file-code"></i></a></td>
-					<td>2018-09-11 12:24:32</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>799</td>
-					<td>조*일</td>
-					<td>799번 문제 제출 파일</td>
-					<td><a href="#"><i class="far fa-file-code"></i></a></td>
-					<td>2018-09-11 12:24:32</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>799</td>
-					<td>조*일</td>
-					<td>799번 문제 제출 파일</td>
-					<td><a href="#"><i class="far fa-file-code"></i></a></td>
-					<td>2018-09-11 12:24:32</td>
-				</tr>
-
-				<tr>
-					<td>1</td>
-					<td>799</td>
-					<td>조*일</td>
-					<td>799번 문제 제출 파일</td>
-					<td><a href="#"><i class="far fa-file-code"></i></a></td>
-					<td>2018-09-11 12:24:32</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>799</td>
-					<td>조*일</td>
-					<td>799번 문제 제출 파일</td>
-					<td><a href="#"><i class="far fa-file-code"></i></a></td>
-					<td>2018-09-11 12:24:32</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>799</td>
-					<td>조*일</td>
-					<td>799번 문제 제출 파일</td>
-					<td><a href="#"><i class="far fa-file-code"></i></a></td>
-					<td>2018-09-11 12:24:32</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>799</td>
-					<td>조*일</td>
-					<td>799번 문제 제출 파일</td>
-					<td><a href="#"><i class="far fa-file-code"></i></a></td>
-					<td>2018-09-11 12:24:32</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>799</td>
-					<td>조*일</td>
-					<td>799번 문제 제출 파일</td>
-					<td><a href="#"><i class="far fa-file-code"></i></a></td>
-					<td>2018-09-11 12:24:32</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>799</td>
-					<td>조*일</td>
-					<td>799번 문제 제출 파일</td>
-					<td><a href="#"><i class="far fa-file-code"></i></a></td>
-					<td>2018-09-11 12:24:32</td>
-				</tr>
+				</c:forEach>
 			</table>
 			<div class="row">
 				<div class="col-md-4">
-					<div class="write">
-						<button onclick="location.href='DailyQuizForm.html'"
-							class="btn btn-primary">글쓰기</button>
-					</div>
 				</div>
 				<div class="col-md-4">
-					<ul class="pagination pagination-sm">
-						<li><a href="#" aria-label="Previous"> <span
-								aria-hidden="true">&laquo;</span>
-						</a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#" aria-label="Next"> <span
-								aria-hidden="true">&raquo;</span>
-						</a></li>
-					</ul>
+					<nav>
+						<c:if test="${pageResult.count!=0}">
+							<!-- 전체 게시글이 0개가 아닐때 -->
+							<ul class="pagination pagination-sm">
+								<li
+									<c:if test="${pageResult.prev eq false}">class="disabled"</c:if>>
+									<a
+									href="<c:url value="dqsubmit.do?pageNo=${pageResult.beginPage-1}"/>"
+									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								</a>
+								</li>
+
+								<!-- 반복 -->
+								<c:forEach var="i" begin="${pageResult.beginPage}"
+									end="${pageResult.endPage}">
+									<!-- 현재페이지 체크 불가 -->
+									<li
+										<c:if test="${i eq pageResult.pageNo}">
+								class="active"</c:if>>
+										<a href="<c:url value="dqsubmit.do?pageNo=${i}"/>">${i}</a>
+									</li>
+								</c:forEach>
+
+								<li
+									<c:if test="${pageResult.next eq false}">class="disabled"</c:if>>
+									<a
+									href="<c:url value="dqsubmit.do?pageNo=${pageResult.endPage+1}"/>"
+									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+								</a>
+								</li>
+							</ul>
+						</c:if>
+					</nav>
 				</div>
-				<div class="col-md-4">
-					<div class="search">
-						<select>
-							<option>제목</option>
-							<option>카테고리</option>
-						</select> <input class="ser" type="text" size="15" placeholder="검색어를 입력하세요" />
-						<button class="ser">
-							&nbsp;&nbsp;<i class="fas fa-search"></i>&nbsp;&nbsp;
-						</button>
-					</div>
-				</div>
+				<div class="col-md-4"></div>
 			</div>
 		</div>
 	</section>
@@ -203,6 +143,22 @@
 
 	<!-- footer.. -->
 	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
+	
+	<script>
+	/* paging 설정하기 !! */
+	$(".pagination > li:eq(0) > a").click(function(e){
+		if(!${pageResult.prev}){
+			e.preventDefault();
+		}
+	})
+
+	$(".pagination > li:last > a").click(function(e){
+		if(!${pageResult.next}){
+			e.preventDefault();
+		}
+	})
+	
+	</script>
 
 </body>
 </html>

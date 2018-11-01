@@ -6,6 +6,7 @@ import kr.co.cocain.repository.domain.QuizBoard;
 import kr.co.cocain.repository.domain.QuizCategory;
 import kr.co.cocain.repository.domain.QuizLevel;
 import kr.co.cocain.repository.domain.QuizPage;
+import kr.co.cocain.repository.domain.QuizSubmit;
 
 public interface QuizMapper {
 	
@@ -37,4 +38,13 @@ public interface QuizMapper {
 	
 	//search
 	List<QuizBoard> selectQuizSearch(QuizBoard quizBoard);
+	
+	//제출게시판
+	List<QuizSubmit>selectSubmitList(QuizPage quizPage);
+	int selectSubmitListCount();
+	
+	
+	
+	
+	
 }

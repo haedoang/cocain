@@ -1,7 +1,6 @@
 package kr.co.cocain.board.service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,13 +84,26 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 	}
 
 	@Override
-	public List<QuizBoard> selectQuizSearch(QuizBoard quizBoard) {
-		return mapper.selectQuizSearch(quizBoard);
+	public Map<String, Object> selectQuizSearch(QuizBoard quizBoard) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("list",mapper.selectQuizSearch(quizBoard));
+		map.put("category", mapper.selectCategory());
+		map.put("level", mapper.selectLevel());
+		return map;
 	}
-	
-	
-	
-	
-	//test
 
+	@Override
+	public Map<String, Object> selectSubmitList(QuizPage quizPage) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("list", mapper.selectSubmitList(quizPage));
+		return map;
+	}
+
+	@Override
+	public int selectSubmitListCount() {
+		return mapper.selectSubmitListCount();
+	}
+
+
+	
 }
