@@ -1,5 +1,8 @@
 package kr.co.cocain.repository.mapper;
 
+import java.util.List;
+
+import kr.co.cocain.repository.domain.RecentActivity;
 import kr.co.cocain.repository.domain.User;
 import kr.co.cocain.repository.domain.UserFile;
 
@@ -32,5 +35,8 @@ public interface UserMapper {
 	
 	// 파일정보 검색
 	UserFile selectFile(UserFile userFile);
+	
+	// 최근활동 리스트
+	List<RecentActivity> userRecentActivity(String nickname);
 	
 } // end interface

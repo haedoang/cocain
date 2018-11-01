@@ -1,5 +1,6 @@
 package kr.co.cocain.user.service;
 
+import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.mail.HtmlEmail;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import kr.co.cocain.repository.domain.RecentActivity;
 import kr.co.cocain.repository.domain.User;
 import kr.co.cocain.repository.domain.UserFile;
 import kr.co.cocain.repository.mapper.UserMapper;
@@ -121,5 +123,10 @@ public class UserServiceImpl implements UserService {
 	public UserFile selectFile(UserFile userFile) {
 		return mapper.selectFile(userFile);
 	} // selectFile
+
+	@Override
+	public List<RecentActivity> userRecentActivity(String nickname) {
+		return mapper.userRecentActivity(nickname);
+	} // userRecentActivity
 
 } // end class

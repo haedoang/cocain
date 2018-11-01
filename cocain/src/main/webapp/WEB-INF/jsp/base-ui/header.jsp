@@ -40,7 +40,7 @@
 					<li><a href="<c:url value="/board/quiz/uqlist.do"/>">유저 퀴즈</a></li>
 					<li><a href="#">랭킹 보기</a></li>
 				</ul></li>
-			<li><a href="#">지식iN</a></li>
+			<li><a href="<c:url value="/board/qna/list.do"/>">지식iN</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<c:if test="${user == null}">

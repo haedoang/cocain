@@ -3,6 +3,7 @@ package kr.co.cocain.user.controller;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.cocain.repository.domain.RecentActivity;
 import kr.co.cocain.repository.domain.User;
 import kr.co.cocain.repository.domain.UserFile;
 import kr.co.cocain.user.service.UserService;
@@ -38,6 +40,7 @@ public class MyPageController {
 		UserFile userFile = new UserFile();
 		userFile.setId(user.getId());
 		model.addAttribute("userFile", service.selectFile(userFile));
+		model.addAttribute("ra", service.userRecentActivity(user.getId()));
 	} // myPage
 	
 	@RequestMapping("passCheck.do")

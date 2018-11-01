@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,86 +73,38 @@
                         </h3>
                     </div>
                     <div class="panel-body">
-                        <div class="media">
-                            <div class="media-left">
-                                <i class="far fa-edit fa-3x"></i>
-                            </div>
-                            <div class="media-body">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>질문과 답변에 1번 게시물을 작성하였습니다.&nbsp;&nbsp; 
-                                            <span>2018-10-15 20:10:52</span></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>알고리즘 질문합니다.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div> 
-                        </div>    
-                        <div class="media">
-                            <div class="media-left">
-                                <i class="far fa-edit fa-3x"></i>
-                            </div>
-                            <div class="media-body">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>퀴즈 게시판에 2번 게시물을 작성하였습니다.&nbsp;&nbsp; 
-                                            <span>2018-10-15 20:10:52</span></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>빙고 퀴즈 나갑니다.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div> 
-                        </div>    
-                        <div class="media">
-                            <div class="media-left">
-                                <i class="far fa-edit fa-3x"></i>
-                            </div>
-                            <div class="media-body">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>스터디 모집에 3번 게시물을 작성하였습니다.&nbsp;&nbsp; 
-                                            <span>2018-10-15 20:10:52</span></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>강남역 자바스터디 모집합니다.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div> 
-                        </div>    
-                        <div class="media">
-                            <div class="media-left">
-                                <i class="far fa-comment fa-3x"></i>
-                            </div>
-                            <div class="media-body">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>1번 게시물에 댓글을 남겼습니다.&nbsp;&nbsp; 
-                                            <span>2018-10-15 20:10:52</span></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>알고리즘 질문합니다.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div> 
-                        </div>    
+                    	<c:forEach var="active" items="${ra}">
+	                        <div class="media">
+	                            <div class="media-left">
+	                                <i class="far fa-edit fa-3x"></i>
+	                            </div>
+	                            <div class="media-body">
+	                                <table class="table table-hover">
+	                                    <thead>
+	                                        <tr>
+	                                        	<c:choose>
+	                                        		<c:when test="${active.typeqna == 'typeqna'}">
+	                                          			<th>지식iN에 ${active.no}번 게시물을 작성하였습니다.&nbsp;&nbsp; 
+                                          			</c:when>
+	                                        		<c:when test="${active.typeqna == 'typequiz'}">
+	                                          			<th>유저 퀴즈에 ${active.no}번 게시물을 작성하였습니다.&nbsp;&nbsp; 
+                                          			</c:when>
+                                          			<c:otherwise>
+                                          				<th>스터디에 ${active.no}번 게시물을 작성하였습니다.&nbsp;&nbsp;
+                                          			</c:otherwise>
+	                                            </c:choose>
+	                                            <span><fmt:formatDate value="${active.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></th>
+	                                        </tr>
+	                                    </thead>
+	                                    <tbody>
+	                                        <tr>
+	                                            <td>${active.title}</td>
+	                                        </tr>
+	                                    </tbody>
+	                                </table>
+	                            </div> 
+	                        </div>   
+						</c:forEach>
                         <div class="media">
                             <div class="media-left">
                                 <i class="far fa-comment fa-3x"></i>

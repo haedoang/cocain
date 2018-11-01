@@ -20,6 +20,14 @@
 		<result column="uploadPath" property="uploadPath" />
 	</resultMap> 
 	
+	<resultMap id="recentActivityMap" type="recentActivity">
+		<result column="no" property="no" />
+		<result column="title" property="title" />
+		<result column="writer" property="writer" />
+		<result column="typeqna" property="typeqna" />
+		<result column="reg_date" property="regDate" />
+	</resultMap> 
+	
 	<!-- 회원 등록 -->
 	<insert id="registerUser" parameterType="user">
 		insert into tb_user(
@@ -84,7 +92,18 @@
 		select * from tb_user_file
 		 where id = #{id}
 	</select> 
-
+	
+	<!-- 유저 최근활동 리스트 -->
+ 	<select id="userRecentActivity" parameterType="string" resultMap="recentActivityMap">
+		select no, title, writer, typeqna, reg_date 
+		  from(select no, title, writer, 'typeqna', reg_date from tb_qna
+		        union
+			   select no, title, id, 'typestudy', reg_date from tb_study
+			 	union 
+			   select quiz_no, title, nickname, 'typequiz', reg_date from tb_quiz_board) b 
+		  where writer = #{writer}
+		  order by reg_date desc;
+	</select> 
 </mapper>
 
 

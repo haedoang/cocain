@@ -1,5 +1,8 @@
 package kr.co.cocain.user.service;
 
+import java.util.List;
+
+import kr.co.cocain.repository.domain.RecentActivity;
 import kr.co.cocain.repository.domain.User;
 import kr.co.cocain.repository.domain.UserFile;
 
@@ -68,5 +71,11 @@ public interface UserService {
 	 * @param userFile
 	 */
 	UserFile selectFile(UserFile userFile);
+	
+	/**
+	 * 최근활동 리스트
+	 * @param user
+	 */
+	List<RecentActivity> userRecentActivity(String nickname);
 	
 } // end interface
