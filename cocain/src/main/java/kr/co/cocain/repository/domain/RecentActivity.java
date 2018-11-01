@@ -9,7 +9,23 @@ public class RecentActivity {
 	private String writer;
 	private String typeqna;
 	private Date regDate;
+	private int pageNo;
+	private int begin;
 	
+	
+	public int getPageNo() {
+		return pageNo;
+	}
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
+	}
+	
+	public int getBegin() {
+		return (pageNo - 1) * 5;
+	}
+	public void setBegin(int begin) {
+		this.begin = begin;
+	}
 	
 	public int getNo() {
 		return no;
@@ -49,7 +65,7 @@ public class RecentActivity {
 	@Override
 	public String toString() {
 		return "RecentActivity [no=" + no + ", title=" + title + ", writer=" + writer + ", typeqna=" + typeqna
-				+ ", regDate=" + regDate + "]";
+				+ ", regDate=" + regDate + ", pageNo=" + pageNo + ", begin=" + begin + "]";
 	}
 	
 } // end class
