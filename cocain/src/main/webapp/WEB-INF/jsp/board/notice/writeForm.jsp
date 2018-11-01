@@ -50,7 +50,7 @@
 	        	  focus: true    
 	        });
 	 
-	$coco = $('#summernote').summernote('code'); 
+	$coco = $('.summernote').summernote('code'); 
 
 	$('#ddd').html($coco);
 	
@@ -70,7 +70,6 @@
 	</script>
 	
 	 <c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
-    <!-- footer jquery 섬머노트 충돌남 -->
 	
 </body>
 </html>

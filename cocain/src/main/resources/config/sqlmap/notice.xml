@@ -37,6 +37,12 @@ from(select a.* , (@rownum:=@rownum+1) rnum
 	from tb_notice
 </select>
 
+<update id="listNoticeUpdateView">
+	update tb_notice
+	set view_cnt = view_cnt +1
+	where no = ${no}
+</update>
+
 <select id="detailNotice"  parameterType="int" resultMap="NoticeMap">
 	select *
 	from tb_notice
@@ -99,11 +105,10 @@ where comment_no =#{commentNo}
 
 <select id="categoryList" parameterType="NoticePage2" resultMap="NoticeMap">
 	select a.* 
-		from(select * , (@rownum:=@rownum+1) rnum
-		from tb_notice 
+		from(select *
+		from tb_notice )a 
 <!-- 		<choose> -->
 <!-- 			<when test="select=='title' " > -->
-			 where (@rownum:=0)=0)a
 			where title like concat('%',#{text},'%')
  			limit #{begin} , #{end}
 <!-- 			</when> -->

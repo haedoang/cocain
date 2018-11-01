@@ -111,7 +111,7 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 	      
 	    @RequestMapping("/insertComment.do")
 	    @ResponseBody
-	    public List<NoticeComment> insertComment(NoticeComment comment){
+	    public List<NoticeComment> insertComment(NoticeComment comment, Model model){
 //	    	System.out.println("코멘트"+comment);
 	    	service.insertComment(comment);
 	    	return service.listComment(comment.getNo());
@@ -136,7 +136,7 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 	    @RequestMapping("/notice/category.do")
 	    public ModelAndView category(@RequestParam(value="pageNo", defaultValue="1")int pageNo, NoticePage2 noticePage){
 //	    	model.("list", service.category(noticePage));
-	    	System.out.println(noticePage);
+	    	System.out.println(noticePage.getText() +"-"+ noticePage.getSelect());
 	    	ModelAndView mav = new ModelAndView("board/notice/list");
 
 	    	int count = service.categoryCount(noticePage);
@@ -153,6 +153,8 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 	        int beginPage =  (currTab-1)*pageSize +1;
 	        int endPage = currTab*pageSize < lastPage ? currTab*pageSize : lastPage;  
 	    	
+	        mav.addObject("text", noticePage.getText());
+	        mav.addObject("select", noticePage.getSelect());
 		    mav.addObject("beginPage",beginPage);
 		    mav.addObject("endPage",endPage);
 		    mav.addObject("lastPage",lastPage);

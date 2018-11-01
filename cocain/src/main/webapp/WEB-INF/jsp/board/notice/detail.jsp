@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
   <c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 <!DOCTYPE html> 
 <html>
@@ -89,10 +90,6 @@
 	 </div>
 	 
 	 <div class="container">
-		<table class='comment table text-center' >
-		
-		</table>
-		
 		
 		<form class="form-inline" id="commentForm" method="post">
 		<div class="form-group" style="width: 100%; background-color: #efefef ">
@@ -103,8 +100,21 @@
 			<button id=subm ><img src="http://codingschool.info/img/ok_ripple.gif" /></button>
 		</div>
 		</form>
-	 
 		<div id="divv"></div>
+	 
+	 <table class='comment table text-center' >			
+	 <c:set var="now" value="<%=new java.util.Date()%>" />
+	 <c:set var="now2"><fmt:formatDate value="${now}" pattern="yyyyMMddHHmmss" /></c:set> 
+			
+		
+			<h4>
+			<kbd>댓글 갯수 : 	
+			</kbd>
+			</h4>
+
+		</table>
+		
+	 
 	 </div>
 	 
 	 <br>
@@ -138,21 +148,11 @@
 		 	}).done(function (result) {
 		 		console.log(result);
 		 var output = "";
-	 output +='<tr id="ezz">'
-			output +='<th>번호</th>'
-			output +='<th>작성자</th>'
-			output +='<th>내용</th>'
-			output +='<th>등록일</th>'
-			output +='<th>버튼</th>'
-		 	output +='</tr>'
-		 	
  $.each(result, function(idx,val) {
-	
-	output +='<div><tr>'
-	output += '<td>'+val.commentNo+'</td>'
-	output += '<td>'+val.writer+'</td>'
-	output += '<td>'+val.content+'</td>'
-	output += '<td>'+new Date(val.regDate).toISOString(0,10)+'</td>'	//new Date(val.regDate).toISOString()
+	output +='<div><tr class="text-left">'
+	+"<input type='hidden' value='+val.commentNo+'>"
+	output += '<td>'+val.writer+'　'+func1(val.regDate)+'<br><br>'
+	+val.content+'</td>'
 	output += '<td>'+'<button class="btn btn-default" onclick="upd(\''+ val.content + '\' , \'' + val.writer +'\' , \''+val.commentNo+'\')">수정</button>'
 // 	output += '<td>'+'<button onclick="upd(\''+ val.content +'\')">수정</button>'
 			   + '<button class="btn btn-default" onclick="del('+val.commentNo+')">삭제</button>'+'</td>'
@@ -200,7 +200,7 @@
 			  '<form class="form-inline" id="cf2" method="post" >'
 			+'<div class="form-group" style="width: 100%; background-color: #efefef ">'
 			+'<input id="commentNo" name="commentNo" value='+iii+' type="hidden">'
-			+'<input class="form-control" id="writer2" name="writer"  type="text">'
+			+'<input class="form-control" id="writer2" name="writer"  type="hidden">'
 			+'<textarea style="width: 91%; height: 100px; resize: none" class="form-control" id="content2" name="content" rows="4" cols="50"></textarea>'
 			+'<button id="butt2"><img src="http://codingschool.info/img/ok_ripple.gif" /></button>'
 			+'</div></form>'		 
@@ -242,6 +242,22 @@
 	
 	 })	 
 	 list();
+	 
+	 function func1(reg){
+		 var exs = new Date(reg).toISOString().split("-");
+		 var day = exs[2].split("T");
+		 var time = day[1].split(".")[0].split(":");
+		 var tt = parseInt(time[0]) + 9; //string
+// 		 console.log(exs[0],exs[1],"-", day[0], tt , time[1],time[2]);
+		 var good = parseInt(exs[0]+exs[1]+day[0]+tt+time[1]+time[2]);
+		 var now = parseInt(${now2});
+		var end = (now-good).toString().substring(0,1)
+		console.log(end);
+		 return  end+"시간 전";
+		 /*20181101191055  */
+		 /* 20181101191025 */
+	 } 
+	 
 	 
 	</script>
 

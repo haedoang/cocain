@@ -55,7 +55,7 @@ width:auto;
 
 	<c:forEach var="b" items="${list}">
     <tr>
-		<td>${b.rnum}</td>
+		<td>${b.no}</td>
 		<td><a href='detail.do?no=${b.no}'>${b.title}</a></td>
 		<td>${b.writer}</td>
 	    <td><fmt:formatDate value="${b.regDate}" pattern="yy-MM-dd" /></td>
@@ -80,13 +80,23 @@ width:auto;
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
-
 	<c:forEach var="i" begin="${beginPage}" end="${endPage}">
-    <li ><a href="list.do?pageNo=${i}">${i}</a></li>
+    <li ><a
+    <c:choose>
+   	<c:when test='${requestScope["javax.servlet.forward.request_uri"].substring(20) eq "/category.do"}'>
+    href="category.do?pageNo=${i-1}&select=${select}&text=${text}"
+    </c:when>
+    <c:otherwise>
+     href="list.do?pageNo=${i}"
+     </c:otherwise>
+      </c:choose>>
+   
+     ${i}</a>
+     </li>
 	</c:forEach>
     
     <li>
-    	    	
+<%--     	<c:if test="" >href="category.do?select=title&text=초보&pageNo=1"</c:if> --%>
       	
       <a 
     	<c:choose>
@@ -103,14 +113,17 @@ width:auto;
 </nav>
 	</div>
 	
+    	    	<div id="df">${requestScope["javax.servlet.forward.request_uri"].substring(20)}</div>
 	    <c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
 	
 	
 	<script>
-			
+	
+// 	$('#df').text($(location).attr('pathname').substring(20) );
+	
 			function google() {
 			if($.trim($('.asdf').val())==''){
-			    alert('검색어를 입력 해 주세요.');  
+			    alert('검색어를 입력 해 주세요.');
 				$('.asdf').focus();
 				return false;
 			    }

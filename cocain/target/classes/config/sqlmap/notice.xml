@@ -3,6 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.cocain.repository.mapper.NoticeMapper">
 	<resultMap id="NoticeMap" type="Notice">
+		<result column="rnum" property="rnum" />
 		<result column="no" property="no" />
 		<result column="writer" property="writer" />
 		<result column="title" property="title" />
@@ -26,7 +27,7 @@ from(select a.* , (@rownum:=@rownum+1) rnum
 	from(select *
 	from tb_notice
 	order by no desc)a
-    where (@rownum:=0)=0
+    where (@rownum:=0)=0 
     and @rownum &lt; #{end})b
     where rnum &gt;= #{begin}
 </select>
@@ -35,6 +36,12 @@ from(select a.* , (@rownum:=@rownum+1) rnum
 	select count(*)
 	from tb_notice
 </select>
+
+<update id="listNoticeUpdateView">
+	update tb_notice
+	set view_cnt = view_cnt +1
+	where no = ${no}
+</update>
 
 <select id="detailNotice"  parameterType="int" resultMap="NoticeMap">
 	select *
@@ -80,8 +87,58 @@ from tb_notice_comment
 where no = #{no}
 </select>
 
-<insert id="insertComment" >
-
+<insert id="insertComment"  parameterType="NoticeComment">
+insert into tb_notice_comment (comment_no,no,writer,content) values (null, #{no} , #{writer}, #{content} )
 </insert>
+
+<delete id="deleteComment" parameterType="int">
+delete from tb_notice_comment 
+where comment_no =#{commentNo}
+</delete>
+
+<update id="updateComment" parameterType="NoticeComment">
+	update tb_notice_comment
+	set writer = #{writer},
+		content = #{content}
+		where comment_no =#{commentNo}
+</update>
+
+<select id="categoryList" parameterType="NoticePage2" resultMap="NoticeMap">
+	select a.* 
+		from(select *
+		from tb_notice )a 
+<!-- 		<choose> -->
+<!-- 			<when test="select=='title' " > -->
+			where title like concat('%',#{text},'%')
+ 			limit #{begin} , #{end}
+<!-- 			</when> -->
+<!-- 			<otherwise> -->
+<!-- 			where writer like concat('%',#{text},'%'))a -->
+<!-- 			where (@rownum:=0)=0 -->
+<!--  			and rnum &lt;= #{end} -->
+<!--  			and rnum &gt;= #{begin} -->
+<!-- 			</otherwise> -->
+<!-- 		</choose> -->
+</select>
+
+<select id="categoryCount" parameterType="NoticePage" resultType="int">
+	select count(*)
+		from(select * , (@rownum:=@rownum+1) rnum
+		from tb_notice 
+<!-- 		<choose> -->
+<!-- 			<when test="select=='title' " > -->
+			where title like concat('%',#{text},'%'))a
+			where (@rownum:=0)=0
+<!--  			and rnum &lt;= #{end} -->
+<!--  			and rnum &gt;= #{begin} -->
+<!-- 			</when> -->
+<!-- 			<otherwise> -->
+<!-- 			where writer like concat('%',#{text},'%'))a -->
+<!-- 			where (@rownum:=0)=0 -->
+<!--  			and rnum &lt;= #{end} -->
+<!--  			and rnum &gt;= #{begin} -->
+<!-- 			</otherwise> -->
+<!-- 		</choose> -->
+</select>
 
 </mapper>
