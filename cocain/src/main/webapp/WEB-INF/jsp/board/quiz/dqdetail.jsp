@@ -93,13 +93,36 @@
 								<div id="">${data.detail.content}</div>
 							</td>
 						</tr>
+						<c:choose>
+							<c:when test="${not empty sessionScope.user.id}">
 						<tr>
 							<th>정답 제출</th>
 							<td class="buttons">
-								<p>파일을 첨부해주세요</p> <input type="file" style="display: inline" />
-								<button class="btn btn-primary">제출하기</button>
+							<form id="submitForm"  class="buttons" enctype="multipart/form-data">
+								<!-- 
+									넘길 데이터 :quizNo, nickname, level_point ~~  
+							 	-->
+								<p>파일을 첨부해주세요</p>
+								<input type="hidden" name="quizNo" value="${data.detail.quizNo}"/>
+								<input type="hidden" name="nickname" value="${sessionScope.user.nickname}"/> 
+								<c:forEach var="k" items="${data.level}">
+									<c:if test="${k.levelNo==data.detail.levelNo}">
+										<input type="hidden" name="levelPoint" value="${k.levelPoint}"/>
+									</c:if>
+								</c:forEach>
+								<input type="file" name="attach" style="display: inline" />
+								<button id="submit" class="btn btn-primary">제출하기</button>
+							</form>
 							</td>
 						</tr>
+							</c:when>
+							<c:otherwise>
+								<th>정답 제출</th>
+								<td>
+									<p style="color:red">로그인이 필요합니다.</p>
+								</td>
+							</c:otherwise>
+						</c:choose>
 						<tr>
 							<th class="buttons" colspan="3">
 								<button id="list" class="btn btn-primary">목록</button>
@@ -135,6 +158,34 @@
 		$("#delete").click(function(){
 			location.href="<c:url value='deleteboard.do?quizNo=${data.detail.quizNo}&typeNo=${data.detail.typeNo}'/>"
 		});
+		
+		
+		$("#submit").click(function(e){
+			e.preventDefault();
+			var formData = new FormData($("#submitForm")[0]);
+			console.log(formData);
+			
+			//var formData = $("#submitForm").serialize();
+			//console.log(formData);
+			
+			$.ajax({
+				url:"<c:url value='dqupload.do'/>",
+				method:"POST",
+				enctype:'multipart/form-data',
+				contentType:false,
+				processData:false,
+				data:formData
+			}).done(function(data){
+				if(data=="true"){
+					alert("문제 제출완료!! 제출 게시판으로 이동합니다~~");
+					location.href="<c:url value='dqsubmit.do'/>";
+				} else{
+					alert("파일을 첨부해주시죠!!");
+				}
+			});
+		});
+		
+		
 	</script>
 	
 </body>

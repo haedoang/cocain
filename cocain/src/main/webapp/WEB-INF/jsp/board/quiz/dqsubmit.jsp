@@ -25,14 +25,14 @@
 			<div class="sidebar">
 				<ul class="nav nav-pills nav-stacked">
 					<li role="presentation"><a href="#">퀴즈게시판</a></li>
-					<li role="presentation" class="active"><a
+					<li role="presentation" ><a
 						href="#"> <i class="fas fa-folder"></i>
 							데일리퀴즈
 					</a></li>
 					<li role="presentation"><a href="<c:url value="dqlist.do"/>">
 							&nbsp;&nbsp; <i class="fas fa-folder-open"></i> 문제
 					</a></li>
-					<li role="presentation"><a href="<c:url value="dqsubmit.do"/>">
+					<li role="presentation" class="active"><a href="<c:url value="dqsubmit.do"/>">
 							&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인
 					</a></li>
 					<li role="presentation"><a href="<c:url value="uqlist.do"/>">

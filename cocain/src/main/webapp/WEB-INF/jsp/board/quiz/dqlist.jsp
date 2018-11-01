@@ -94,11 +94,7 @@
 						</c:forEach>
 					</tr>
 				</c:forEach>
-
-
 			</table>
-
-
 			<div class="row">
 				<div class="col-md-4">
 					<div class="write">
@@ -122,7 +118,6 @@
 								</a>
 								</li>
 
-								<!-- 반복 -->
 								<c:forEach var="i" begin="${pageResult.beginPage}"
 									end="${pageResult.endPage}">
 									<!-- 현재페이지 체크 불가 -->
@@ -149,6 +144,7 @@
 				<div class="col-md-4">
 					<div class="search">
 						<form id="sForm" method="post">
+							
 							<input type="hidden" name="typeNo" value="${data.list[0].typeNo}"/>
 							<select>
 								<option>제목</option>

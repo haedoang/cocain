@@ -44,7 +44,8 @@ public interface QuizMapper {
 	int selectSubmitListCount();
 	
 	
-	
+	//제출게시판 등록하기 
+	void insertQuizSubmit(QuizSubmit quizSubmit);
 	
 	
 }

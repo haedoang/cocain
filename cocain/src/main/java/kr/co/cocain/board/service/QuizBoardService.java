@@ -1,10 +1,10 @@
 package kr.co.cocain.board.service;
 
-import java.util.List;
 import java.util.Map;
 
 import kr.co.cocain.repository.domain.QuizBoard;
 import kr.co.cocain.repository.domain.QuizPage;
+import kr.co.cocain.repository.domain.QuizSubmit;
 
 public interface QuizBoardService {
 	
@@ -41,4 +41,7 @@ public interface QuizBoardService {
 	//submit 게시판
 	Map<String,Object> selectSubmitList(QuizPage quizPage);
 	int selectSubmitListCount();
+	
+	//submit 등록하기!!!
+	void insertQuizSubmit(QuizSubmit quizSubmit);
 }

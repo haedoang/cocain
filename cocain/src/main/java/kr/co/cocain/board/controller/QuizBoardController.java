@@ -1,19 +1,25 @@
 package kr.co.cocain.board.controller;
 
-import java.util.HashMap;
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import kr.co.cocain.board.service.QuizBoardService;
 import kr.co.cocain.repository.domain.QuizBoard;
 import kr.co.cocain.repository.domain.QuizPage;
+import kr.co.cocain.repository.domain.QuizSubmit;
 import kr.co.cocain.util.PageResult;
 
 @Controller("kr.co.cocain.board.controller.QuizBoardController")
@@ -29,7 +35,7 @@ public class QuizBoardController {
 	 *          pageNo(페이지번호 default 1page) 
 	 */
 	@RequestMapping("dqlist.do")
-	public void dqlist(@RequestParam(value="pageNo" ,defaultValue="1")int pageNo,Model model) {
+	public void dqList(@RequestParam(value="pageNo" ,defaultValue="1")int pageNo,Model model) {
 		QuizPage qp = new QuizPage();
 		qp.setPageNo(pageNo);
 		PageResult pageResult = new PageResult(pageNo,service.selectDQListCount());
@@ -44,7 +50,7 @@ public class QuizBoardController {
 	 *          pageNo(페이지번호 default 1page)
 	 */       
 	@RequestMapping("uqlist.do")
-	public void uqlist(@RequestParam(value="pageNo" ,defaultValue="1")int pageNo,Model model) {
+	public void uqList(@RequestParam(value="pageNo" ,defaultValue="1")int pageNo,Model model) {
 		QuizPage qp = new QuizPage();
 		qp.setPageNo(pageNo);
 		PageResult pageResult = new PageResult(pageNo,service.selectUQListCount());
@@ -120,7 +126,7 @@ public class QuizBoardController {
 	
 	/* quizsubmit list */
 	@RequestMapping("dqsubmit.do")
-	public void dqsubmit(@RequestParam(value="pageNo" ,defaultValue="1")int pageNo,Model model) {
+	public void dqSubmit(@RequestParam(value="pageNo" ,defaultValue="1")int pageNo,Model model) {
 		QuizPage qp = new QuizPage();
 		qp.setPageNo(pageNo);
 		PageResult pageResult = new PageResult(pageNo, service.selectSubmitListCount());
@@ -128,7 +134,45 @@ public class QuizBoardController {
 		model.addAttribute("pageResult",pageResult);
 		
 	}
-	
+	/* dq file upload */
+	@RequestMapping(value="dqupload.do",method=RequestMethod.POST)
+	@ResponseBody
+	public String dqUpload(HttpServletRequest request,QuizSubmit quizSubmit,MultipartFile attach) throws IllegalStateException, IOException {
+		System.out.println(quizSubmit);
+		System.out.println("attach:"+attach);
+		
+		if(attach.isEmpty() == true) return "false";
+		
+		String oriName = attach.getOriginalFilename(); 
+		
+		//확장자 자르기
+		String ext ="";
+		int index = oriName.lastIndexOf(".");  
+		if(index != -1 ) {	  
+			ext = oriName.substring(index);  
+		}
+		
+		//파일저장하자!!!
+	//	String fileName= quizSubmit.getQuizNo()+":"+quizSubmit.getNickname()+ext;
+		
+	//	System.out.println(fileName);
+		//경로지정!!!
+		String path= request.getRealPath("/resources/fileupload");
+		
+		String rename= quizSubmit.getSubmitNo()+"_"+quizSubmit.getNickname()+ext;
+		System.out.println(rename);
+		
+		
+		
+		attach.transferTo(new File(path,rename));
+		
+		quizSubmit.setPath(path);
+		quizSubmit.setFileName(rename);
+		service.insertQuizSubmit(quizSubmit);
+		
+		return "true";
+
+	}
 	
 	
 	

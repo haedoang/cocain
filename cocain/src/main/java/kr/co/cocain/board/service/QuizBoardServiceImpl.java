@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.cocain.repository.domain.QuizBoard;
 import kr.co.cocain.repository.domain.QuizPage;
+import kr.co.cocain.repository.domain.QuizSubmit;
 import kr.co.cocain.repository.mapper.QuizMapper;
 
 @Service
@@ -102,6 +103,11 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 	@Override
 	public int selectSubmitListCount() {
 		return mapper.selectSubmitListCount();
+	}
+
+	@Override
+	public void insertQuizSubmit(QuizSubmit quizSubmit) {
+		mapper.insertQuizSubmit(quizSubmit);	
 	}
 
 

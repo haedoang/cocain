@@ -176,7 +176,23 @@
 		 where quiz_no=#{quizNo}
 	</delete>
 	
+	<!-- dq 답안 등록하기 -->
 	
+	<insert id="insertQuizSubmit" parameterType="QuizSubmit">
+		insert into tb_quiz_submit(
+									quiz_no,
+									nickname,
+									level_point,
+									path,
+									file_name
+												)values (
+															#{quizNo},
+															#{nickname},
+															#{levelPoint},
+															#{path},
+															#{fileName}
+																		)
+	</insert>
 	
 	
 	
