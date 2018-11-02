@@ -43,23 +43,22 @@
 						</thead>
 						<tbody>
 						
-				<c:forEach var="list" items="${list}">
+				<c:forEach var="list" items="${list.list}">
 							<tr>
 								<td>${list.no}</td>
-								<c:if test="${list.qnaStatus=='n'}">
-								<td>답변대기</td>
-								</c:if>
-								<c:if test="${list.qnaStatus!='n'}">
+<%-- 								<c:if test="${list.qnaStatus=='n'}"> --%>
+<!-- 								<td>답변대기</td> -->
+<%-- 								</c:if> --%>
+<%-- 								<c:if test="${list.qnaStatus!='n'}"> --%>
 								<td>답변완료</td>
-								</c:if>
+<%-- 								</c:if> --%>
 								<td><a href='detail.do?no=${list.no}'>${list.title}</a></td>
 								<td>${list.writer}</td>
-								<td><fmt:formatDate value="${list.regDate}" pattern="yy-MM-dd" /></td>
+								<td><fmt:formatDate value="${list.regDate}" pattern="yyyy-MM-dd" /></td>
 								<td>${list.viewCnt}</td>
 								<td>22</td>
 							</tr>
 							</c:forEach>
-							
 						</tbody>
 					</table>
 					<hr />
@@ -79,22 +78,29 @@
 			<div class="col-md-10">
 				<div class="text-center">
 					<ul class="pagination">
-						<li><a href="#" aria-label="Previous"> <span
-								aria-hidden="true">&laquo;</span>
-						</a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">6</a></li>
-						<li><a href="#">7</a></li>
-						<li><a href="#">8</a></li>
-						<li><a href="#">9</a></li>
-						<li><a href="#">10</a></li>
-						<li><a href="#" aria-label="Next"> <span
-								aria-hidden="true">&raquo;</span>
-						</a></li>
+						<li
+							<c:if test="${pageResult.prev eq false}">class="disabled"</c:if>>
+							<a
+							href="<c:url value="list.do?pageNo=${pageResult.beginPage-1}"/>"
+							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+						</a>
+						</li>
+						<c:forEach var="i" begin="${pageResult.beginPage}"
+									end="${pageResult.endPage}">
+									<!-- 현재페이지 체크 불가 -->
+									<li
+										<c:if test="${i eq pageResult.pageNo}">
+								class="active"</c:if>>
+										<a href="<c:url value="list.do?pageNo=${i}"/>">${i}</a>
+									</li>
+								</c:forEach>
+						<li
+							<c:if test="${pageResult.next eq false}">class="disabled"</c:if>>
+							<a
+							href="<c:url value="list.do?pageNo=${pageResult.endPage+1}"/>"
+							aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+						</a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -128,6 +134,19 @@
 		</div>
 	</div>
 	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp" />
+	<script>
+		/* paging 설정하기 !! */
+		$(".pagination > li:eq(0) > a").click(function(e){
+			if(!${pageResult.prev}){
+				e.preventDefault();
+			}
+		});
+		$(".pagination > li:last > a").click(function(e){
+			if(!${pageResult.next}){
+				e.preventDefault();
+			}
+		});
+	</script>
 </body>
 
 </html>

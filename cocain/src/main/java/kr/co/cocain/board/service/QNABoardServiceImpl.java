@@ -1,12 +1,16 @@
 package kr.co.cocain.board.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.cocain.board.service.QNABoardService;
 import kr.co.cocain.repository.domain.Qna;
+import kr.co.cocain.repository.domain.QnaComment;
+import kr.co.cocain.repository.domain.QnaPage;
 import kr.co.cocain.repository.mapper.QnaMapper;
 
 @Service
@@ -16,8 +20,10 @@ public class QNABoardServiceImpl  implements QNABoardService{
     QnaMapper mapper;
     
 	@Override
-	public List<Qna> listqna() {
-		return mapper.listqna();
+	public Map<String,Object> listqna(QnaPage qnaPage) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("list", mapper.listqna(qnaPage));
+		return map;
 	}
 	@Override
 	public void write(Qna qna) {
@@ -33,12 +39,31 @@ public class QNABoardServiceImpl  implements QNABoardService{
 	}
 	@Override
 	public int listCount() {
-		return mapper.listqnaCount();
+		return mapper.listCount();
 	}
 	@Override
 	public void update(Qna qna) {
 		mapper.updateqna(qna);
-		
 	}
+	@Override
+	public List<QnaComment> listComment(int no) {
+		return mapper.listComment(no);
+	}
+	@Override
+	public void insertComment(QnaComment comment) {
+		mapper.insertComment(comment);
+	}
+	@Override
+	public void deleteComment(int no) {
+		mapper.deleteComment(no);
+	}
+	@Override
+	public void updateComment(QnaComment comment) {
+		mapper.updateComment(comment);
+	}
+//	@Override
+//	public int qnaPagingCount() {
+//		return mapper.qnaPagingCount();
+//	}
 
 }

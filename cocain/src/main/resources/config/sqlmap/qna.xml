@@ -12,37 +12,72 @@
 		<result column="qna_status" property="qnaStatus" />
 	</resultMap>
 
-	<select id="listqna" resultMap="QnaMap">
+	<resultMap id="CommentMap" type="QnaComment">
+		<result column="comment_no" property="commentNo" />
+		<result column="no" property="no" />
+		<result column="qna_status" property="qnaStatus" />
+		<result column="content" property="content" />
+		<result column="writer" property="writer" />
+		<result column="reg_date" property="regDate" />
+	</resultMap>
+
+	<select id="listqna" parameterType="QnaPage" resultMap="QnaMap">
 		select *
-		from tb_qna
-		order by no desc
-	</select>
-	
-	<select id="listqnaCount" resultType="int">
-		select count(*)
-		from tb_qna
+		  from tb_qna
+		 order by no desc
+		 limit #{begin}, 15
 	</select>
 
-	<insert id="writeqna" useGeneratedKeys="true" keyProperty="no" parameterType="Qna">
-		insert into tb_qna (title,writer,content) 
+<!-- 	<select id="qnaPagingCount" resultType="int"> -->
+	<select id="listCount" resultType="int">
+		select count(*)
+		  from tb_qna
+	</select>
+	
+	
+
+	<insert id="writeqna" useGeneratedKeys="true" keyProperty="no"
+		parameterType="Qna">
+		insert into tb_qna (title,writer,content)
 		values (#{title}, #{writer}, #{content})
 	</insert>
-	
+
 	<select id="detailqna" parameterType="int" resultMap="QnaMap">
-    	select *
-    	  from tb_qna
-    	 where no = #{no}
-    </select>
+		select *
+		  from tb_qna
+	 	 where no = #{no}
+	</select>
 
 	<delete id="deleteqna" parameterType="int">
 		delete from tb_qna
 		 where no = #{no}
 	</delete>
-	
+
 	<update id="updateqna" parameterType="Qna">
-	update tb_qna 
-	    set title = #{title},
-			content = #{content}
-	  where no = #{no}
-</update>
+		update tb_qna
+		   set title = #{title}, content = #{content}
+		 where no = #{no}
+	</update>
+
+	<select id="listComment" parameterType="int" resultMap="CommentMap">
+		select *
+		  from tb_qna_comment
+		 where no = #{no}
+	</select>
+
+	<insert id="insertComment" parameterType="QnaComment">
+		insert into tb_qna_comment (no,writer,content) 
+		values (#{no}, #{writer}, #{content})
+	</insert>
+
+	<delete id="deleteComment" parameterType="int">
+		delete from tb_qna_comment
+	 	 where comment_no = #{commentNo}
+	</delete>
+
+	<update id="updateComment" parameterType="QnaComment">
+		update tb_qna_comment
+		   set content = #{content}
+		 where comment_no = #{commentNo}
+	</update>
 </mapper>
