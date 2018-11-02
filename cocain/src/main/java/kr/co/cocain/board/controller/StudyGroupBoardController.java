@@ -16,11 +16,11 @@ public class StudyGroupBoardController {
 	@Autowired
 	private StudyGroupBoardService service;
 
+		
 	@RequestMapping("list.do")
 	public void list(Model model) throws Exception {
-	
 		model.addAttribute("list", service.list());
-		
+		model.addAttribute("category", service.category());
 	}
 	
 	@RequestMapping("detail.do")
@@ -29,7 +29,9 @@ public class StudyGroupBoardController {
 	}
 	
 	@RequestMapping("writeForm.do")
-	public void writeForm() {}
+	public void writeForm(Model model) {
+		model.addAttribute("category", service.category());
+	}
 	
 
 	@RequestMapping("write.do")
@@ -48,6 +50,7 @@ public class StudyGroupBoardController {
 	@RequestMapping("updateForm.do")
 	public void updateForm(int no, Model model) throws Exception {
 		model.addAttribute("board", service.updateForm(no));
+		model.addAttribute("category", service.category());
 	}
 	
 

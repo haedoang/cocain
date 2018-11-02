@@ -66,11 +66,12 @@ th {
 			<div class="row text-center ">
 				<select class="input-sm form-control"
 					style="width: 140px; height: 30px; font-size: 14px;">
+
 					<option value="">선택하세요</option>
-					<option value="">java</option>
-					<option value="">javascript</option>
-					<option value="">SQL</option>
-					<option value="">html/CSS</option>
+					<c:forEach var="c" items="${category}">
+						<option value="${c.categoryName}">${c.categoryName}	</option>
+					</c:forEach>
+					
 				</select> <input type="text form-control" style="width: 250px; height: 30px;"
 					class=".input-sm">
 
@@ -95,7 +96,7 @@ th {
 									 <span class="date"><fmt:formatDate value="${b.regDate}" pattern="yyyy-MM-dd" /></span>
 									 </div>
 									<div>
-									<span class="categori">카테고리</span> 
+										<span class="categori">${b.categoryName}</span>
 									</div>
 									<div>
 									<span class="title"><a href='detail.do?no=${b.no}'>${b.title}</span>

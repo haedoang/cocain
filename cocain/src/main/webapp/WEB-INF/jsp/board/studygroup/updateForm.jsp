@@ -55,14 +55,14 @@ select>option {
 				<div>
 					<span>제목</span> <br> <input type="text" class="form-control" name="title"
 						id="exampleInputName2" value="${board.title}" /> <br>
-					<span>분류</span> <br> <select class="input-sm"
-						style="width: 280px; height: 35px; font-size: 14px;">
-						<option value="">선택하세요</option>
-						<option value="">java</option>
-						<option value="">javascript</option>
-						<option value="">SQL</option>
-						<option value="">html/CSS</option>
-					</select>
+					<span>분류<br> 
+						<select class="input-sm"style="width: 280px; height: 35px; font-size: 14px;" name="categoryName">
+							<option value="">선택하세요</option>
+							<c:forEach var="c" items="${category}">
+								<option selected="selected" >${c.categoryName}</option>
+							</c:forEach>
+						</select>
+					</span>
 				</div>
 				<br>
 
@@ -84,6 +84,7 @@ select>option {
 		<div class="col-md-2"></div>
 	</div>
 	<c:import url="../../base-ui/footer.jsp" />
+
 </body>
 
 </html>

@@ -53,7 +53,7 @@
 				<table class="table table-bordered">
 					<span class="id">${board.id}</span> &nbsp;&nbsp;
 					<span class="date"><fmt:formatDate value="${board.regDate}" pattern="yyyy-MM-dd" /></span><br>
-					<span class="categori">카테고리</span>	<br>
+					<span class="categori">${board.categoryName}</span> <br>
 					<span class="title">${board.title} </span><br>
 					<span class="glyphicon glyphicon-eye-open"> ${board.viewCnt}</span>
 					&nbsp;&nbsp;&nbsp;&nbsp;

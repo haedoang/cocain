@@ -41,7 +41,7 @@ select>option {
 	<c:import url="../../base-ui/header.jsp" />
 	<hr>
 	<form action="write.do" method="post">
-	<input type="hidden" name="id" value="${user.nickname}"/>
+	<input type="hidden" name="id" value="${user.id}"/>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2"></div>
@@ -52,13 +52,12 @@ select>option {
 				<div>
 					<span>제목</span> <br> <input type="text" class="form-control" name="title"
 						id="exampleInputName2" placeholder="제목을 입력하세요"> <br>
-					<span>분류</span> <br> <select class="input-sm"
-						style="width: 280px; height: 35px; font-size: 14px;">
+					<span>분류</span> <br> 
+					<select class="input-sm" style="width: 280px; height: 35px; font-size: 14px;" name="categoryName">
 						<option value="">선택하세요</option>
-						<option value="">java</option>
-						<option value="">javascript</option>
-						<option value="">SQL</option>
-						<option value="">html/CSS</option>
+						<c:forEach var="c" items="${category}">
+							<option value="${c.categoryName}">${c.categoryName}</option>
+						</c:forEach>
 					</select>
 				</div>
 				<br>

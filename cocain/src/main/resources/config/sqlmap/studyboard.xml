@@ -10,8 +10,22 @@
 		<result column="content" property="content" />
 		<result column="reg_date" property="regDate" />
 		<result column="view_cnt" property="viewCnt" />
-	
+		<result column="category_name" property="categoryName" />
+		
 	</resultMap>
+
+
+	<resultMap id="categoryMap" type="QuizCategory">
+		<result column="category_name" property="categoryName"></result>
+	</resultMap>
+
+
+	<!-- category list -->
+	<select id="selectCategory" resultMap="categoryMap">
+		select *
+		from tb_quiz_category
+	</select>
+
 
 
 	<!-- 전체 목록 가져오기 -->
@@ -32,9 +46,9 @@
 	<!-- 게시물 등록하기 : insertBoard -->
 	<insert id="insertBoard" parameterType="studyBoard">
 		insert into tb_study(
-		title, content, id
+		title, content, id, category_name
 		) values (
-		#{title}, #{content}, #{id}
+		#{title}, #{content}, #{id}, #{categoryName}
 		)
 	</insert>
 
@@ -49,8 +63,10 @@
 	<!-- 게시글 수정하기 -->
 	<update id="updateBoard" parameterType="studyBoard">
 		update tb_study
-		set title = #{title},
-		content = #{content}
+		set title
+		= #{title},
+		content = #{content},
+		category_name = #{categoryName}
 		where no = #{no}
 	</update>
 
