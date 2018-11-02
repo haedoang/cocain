@@ -22,14 +22,11 @@
 	
 
 <select id="listNotice" parameterType="NoticePage" resultMap="NoticeMap"  useCache="false" flushCache="true">
-	select *
-from(select a.* , (@rownum:=@rownum+1) rnum
-	from(select *
+select *
 	from tb_notice
-	order by no desc)a
-    where (@rownum:=0)=0 
-    and @rownum &lt; #{end})b
-    where rnum &gt;= #{begin}
+	order by no desc
+	limit #{begin}, 10
+
 </select>
 
 <select id="listCount" resultType="int">
@@ -110,7 +107,7 @@ where comment_no =#{commentNo}
 <!-- 		<choose> -->
 <!-- 			<when test="select=='title' " > -->
 			where title like concat('%',#{text},'%')
- 			limit #{begin} , #{end}
+ 			limit #{begin} , 10
 <!-- 			</when> -->
 <!-- 			<otherwise> -->
 <!-- 			where writer like concat('%',#{text},'%'))a -->

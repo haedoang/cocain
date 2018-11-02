@@ -29,7 +29,7 @@ public class NoticePage {
 			this.pageNo = pageNo;
 		}
 		public int getBegin() {
-			return (pageNo-1)*10 +1;
+			return (pageNo-1)*10;
 		}
 		public void setBegin(int begin) {
 			this.begin = begin;
