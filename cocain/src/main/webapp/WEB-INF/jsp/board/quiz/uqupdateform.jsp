@@ -73,7 +73,7 @@
 										</c:if>>${i.categoryName}</option>
 									</c:forEach>
 							</select></td>
-						</tr>
+						</tr>  
 						<tr>
 							<th>난이도</th>
 							<td><c:forEach var="j" items="${data.level}">
