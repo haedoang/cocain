@@ -19,6 +19,7 @@
 <link rel="stylesheet"
 	href="<c:url value="/resources/summernote/summernote.css"/>" />
 <script src="<c:url value="/resources/summernote/summernote.js"/>"></script>
+</head>
 <body>
 	<section>
 		<div class="aside">
@@ -46,7 +47,7 @@
 			</div>
 		</div>
 
-		<div class="section">
+	<%-- 	<div class="section">
 			<div class="background">
 				<img src="<c:url value="/resources/images/quiz-back2.jpg"/>"
 					width=100% height=250px; />
@@ -58,7 +59,7 @@
 
 			<div class="context"></div>
 
-		<%-- 	<div class="col-md-10">
+		 	<div class="col-md-10">
 				<form id="uqForm" action="<c:url value="uqupdate.do"/>" method="POST">
 					<table class="table">
 						<tr>
@@ -114,12 +115,12 @@
 						</tr>
 					</table>
 				</form>
-			</div> --%>
+			</div> 
 			<!-- col-md-8 end -->
 		</div>
 	</section>
 
-
+ --%>
 
 	<!-- footer.. -->
 	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
