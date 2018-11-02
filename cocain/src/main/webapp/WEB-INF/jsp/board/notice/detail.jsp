@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
   <c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 <!DOCTYPE html> 
 <html>
@@ -100,18 +101,15 @@
 			<button id=subm ><img src="http://codingschool.info/img/ok_ripple.gif" /></button>
 		</div>
 		</form>
-		<div id="divv"></div>
 	 
+		<div id="divv"></div>
 	 <table class='comment table text-center' >			
 	 <c:set var="now" value="<%=new java.util.Date()%>" />
 	 <c:set var="now2"><fmt:formatDate value="${now}" pattern="yyyyMMddHHmmss" /></c:set> 
 			
-		
-			<h4>
-			<kbd>댓글 갯수 : 	
-			</kbd>
-			</h4>
-
+	<br>		
+			<i class="fas fa-users">댓글 갯수 : #</i>
+	
 		</table>
 		
 	 
@@ -154,8 +152,7 @@
 	output += '<td>'+val.writer+'　'+func1(val.regDate)+'<br><br>'
 	+val.content+'</td>'
 	output += '<td>'+'<button class="btn btn-default" onclick="upd(\''+ val.content + '\' , \'' + val.writer +'\' , \''+val.commentNo+'\')">수정</button>'
-// 	output += '<td>'+'<button onclick="upd(\''+ val.content +'\')">수정</button>'
-			   + '<button class="btn btn-default" onclick="del('+val.commentNo+')">삭제</button>'+'</td>'
+			  +' '+ '<button class="btn btn-default" onclick="del('+val.commentNo+')">삭제</button>'+'</td>'
 	output += '</tr></div>'
 		 })
 		 $('.comment').html(output);
@@ -243,21 +240,51 @@
 	 })	 
 	 list();
 	 
-	 function func1(reg){
-		 var exs = new Date(reg).toISOString().split("-");
-		 var day = exs[2].split("T");
-		 var time = day[1].split(".")[0].split(":");
-		 var tt = parseInt(time[0]) + 9; //string
-// 		 console.log(exs[0],exs[1],"-", day[0], tt , time[1],time[2]);
-		 var good = parseInt(exs[0]+exs[1]+day[0]+tt+time[1]+time[2]);
-		 var now = parseInt(${now2});
-		var end = (now-good).toString().substring(0,1)
-		console.log(end);
-		 return  end+"시간 전";
-		 /*20181101191055  */
-		 /* 20181101191025 */
-	 } 
 	 
+	 
+	 function func1(reg){
+		var ymdt = new Date(reg).toLocaleString('en-GB');	// db시간 로컬(한국)
+		var ymdts = ymdt.split("/");
+		var year = ymdts[2].substring(0,4); // db 년
+		var month = ymdts[1];	// db 월
+		var day = ymdts[0];	// db 일
+		var time = ymdts[2].substring(5).trim(); //db 시간
+		var times = time.substring(0,2);	//시
+		var minute = time.substring(3,5);	 //분
+		var second = time.substring(5);	//초
+		var $now = ${now2}
+		
+ 		var dd=(minute+second).split(":");
+		var now = $now.toString().substring(0,10);// 현재시간 년 월 일  시
+		console.log("현재 년월일시 : " + now);
+		var needay = year+month+day+times	// db 년 월 일 시
+		console.log("db 년월일시 : " + needay);
+ 		var nowtime = $now.toString().substring(8,10);	// 현재 시 
+ 		var nowmin = $now.toString().substring(10,12);	// 현재 분
+ 		var nowsec = $now.toString().substring(12);	// 현재 초
+		
+ 		var newt = parseInt(nowtime)*3600+parseInt(nowmin)*60+parseInt(nowsec);	//현재 시분초을 초로
+ 		var dbt= parseInt(times)*3600+parseInt(dd[0])*60 + parseInt(dd[1]);	//db시분초을 초로
+ 		console.log("나우민 : "+newt, typeof(newt));
+		console.log("디비민 : "+dbt , typeof(dbt));
+
+		//년월일시 같을 때
+ 		if(now == needay){
+ 		
+ 			if(newt-dbt<200){
+ 				console.log(newt-dbt);
+ 	 				return "방금 전";
+ 	 			}
+ 			else if (newt-dbt > 200 && newt-dbt < 3600){
+ 				return Math.floor( (newt-dbt)/60 ) + "분 전"
+ 			}
+ 		
+ 		return ymdt;
+ 		} //out if
+ 		else {
+ 			return ymdt;
+ 		}
+	 }//function
 	 
 	</script>
 

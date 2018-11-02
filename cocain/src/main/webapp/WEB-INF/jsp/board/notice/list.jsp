@@ -7,13 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- <script -->
-<!--   src="https://code.jquery.com/jquery-3.3.1.js" -->
-<!--   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" -->
-<!--   crossorigin="anonymous"></script> -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
 
 
 <style type="text/css">
@@ -96,8 +89,6 @@ width:auto;
 	</c:forEach>
     
     <li>
-<%--     	<c:if test="" >href="category.do?select=title&text=초보&pageNo=1"</c:if> --%>
-      	
       <a 
     	<c:choose>
       <c:when test="${endPage != lastPage}"> href="list.do?pageNo=${endPage+1}" </c:when>
@@ -113,13 +104,11 @@ width:auto;
 </nav>
 	</div>
 	
-    	    	<div id="df">${requestScope["javax.servlet.forward.request_uri"].substring(20)}</div>
+    	    	<div id="df"></div>
 	    <c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
 	
 	
 	<script>
-	
-// 	$('#df').text($(location).attr('pathname').substring(20) );
 	
 			function google() {
 			if($.trim($('.asdf').val())==''){
