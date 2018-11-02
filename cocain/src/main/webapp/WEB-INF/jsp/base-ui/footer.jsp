@@ -5,9 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  <title>footer</title>
-    <link rel="stylesheet" href="/cocain/resources/css/bootstrap/bootstrap.css">
     <link rel="stylesheet" href="/cocain/resources/css/base-ui/footer.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body>
 	<footer>

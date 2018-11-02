@@ -230,6 +230,7 @@
 		// 이메일 인증
 		var key = "";
 		$("#sendMail").on("click", function(e) {
+			if(emailConfirmSwich == 1) {return;}
  			key = "";
 			var email = $("#email").val();
 			$.ajax({

@@ -118,7 +118,7 @@
 		                                            			<a href="<c:url value="/board/quiz/uqdetail.do?quizNo=${active.no}" />">${active.title}</a>
 		                                          			</c:when>
 		                                          			<c:when test="${active.typeqna == 'typestudy'}">
-		                                            			<a href="<c:url value="/board/typestudy/detail.do?no=${active.no}" />">${active.title}</a>
+		                                            			<a href="<c:url value="/board/studygroup/detail.do?no=${active.no}" />">${active.title}</a>
 		                                          			</c:when>
 		                                            	</c:choose>
 		                                            </div>
