@@ -14,7 +14,7 @@
 	href="<c:url value="/resources/css/board/quiz/dailyquizlist.css"/>" />
 <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-
+  
 <!-- include summernote css/js -->
 <link rel="stylesheet"
 	href="<c:url value="/resources/summernote/summernote.css"/>" />
@@ -63,13 +63,13 @@
 					<tr>
 						<th>제목</th>
 						<td><input type="text" size="50" name="title"
-							placeholder="제목을 입력하세요" /></td>
+							value="${data.detail.title}" /></td>
 					</tr>
 					<tr>
 						<th>카테고리</th>
 						<td><select name="category">
 								<option>java</option>
-								<option>html</option>
+			 					<option>html</option>
 								<option>css</option>
 								<option>javascript</option>
 								<option>ajax</option>
@@ -110,7 +110,7 @@
 
 
 	<!-- footer.. -->
-	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
+	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
 
 	<!-- summernote -->
 	<script src="<c:url value="/resources/js/edit-summernote.js"/>"></script>

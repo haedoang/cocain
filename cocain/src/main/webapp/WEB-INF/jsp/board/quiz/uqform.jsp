@@ -8,7 +8,7 @@
 <c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>content 연습</title>
-<link rel="stylesheet"
+<link rel="stylesheet" 
 	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" />
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/board/quiz/dailyquizlist.css"/>" />
@@ -81,7 +81,7 @@
 							<th>Hint 설정</th>
 							<td>
 								<div>
-									<input type="text" name="hint" placeholder="힌트를 입력하세요"
+									<input id="yeshint" type="text" name="hint" placeholder="힌트를 입력하세요"
 										size="50" /> <br> <span> <input type="checkbox"
 										id="nohint" /> <label for="nohint">힌트 없음</label>
 									</span>
@@ -123,7 +123,7 @@
 
 
 	<!-- footer.. -->
-	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
+	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
 
 	<!-- summernote -->
 	<script src="<c:url value="/resources/js/edit-summernote.js"/>"></script>

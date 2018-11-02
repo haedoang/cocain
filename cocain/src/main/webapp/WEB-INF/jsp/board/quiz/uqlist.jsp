@@ -163,7 +163,7 @@
 
 
 	<!-- footer.. -->
-	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
+	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
 	<script src="<c:url value="/resources/js/jquery-dateformat.js"/>"></script>
 	<script>
 		/* paging 설정하기 !! */

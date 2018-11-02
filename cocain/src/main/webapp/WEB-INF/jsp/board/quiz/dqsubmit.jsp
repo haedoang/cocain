@@ -142,7 +142,7 @@
 
 
 	<!-- footer.. -->
-	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
+	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
 	
 	<script>
 	/* paging 설정하기 !! */

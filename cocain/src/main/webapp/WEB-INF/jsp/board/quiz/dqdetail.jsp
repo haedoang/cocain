@@ -76,6 +76,14 @@
 							</c:forEach>
 						</tr>
 						<tr>
+							<th>난이도</th>
+							<c:forEach var="j" items="${data.level}">
+								<c:if test="${data.detail.levelNo==j.levelNo}">
+									<td><span>${j.levelName}</span></td>
+								</c:if>
+							</c:forEach>
+						</tr>
+						<tr>
 							<th>Hint</th>
 							<td>
 								<div>
@@ -143,7 +151,7 @@
 
 
 	<!-- footer.. -->
-	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
+	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
 
 	<!-- summernote -->
 	<script src="<c:url value="/resources/js/edit-summernote.js"/>"></script>
@@ -154,12 +162,20 @@
 			location.href = "<c:url value="dqlist.do"/>"
 		});
 
-		$("#delete")
-				.click(
-						function() {
-							location.href = "<c:url value='deleteboard.do?quizNo=${data.detail.quizNo}&typeNo=${data.detail.typeNo}'/>"
-						});
+		$("#delete").click(function() {
+			location.href = "<c:url value='deleteboard.do?quizNo=${data.detail.quizNo}&typeNo=${data.detail.typeNo}'/>"
+		});
 
+		$("#update").click(function(){
+			location.href="<c:url value='dqupdateform.do?quizNo=${data.detail.quizNo}'/>";
+		});
+		
+		
+		
+		
+		
+		
+		
 		$("#submit").click(function(e) {
 			e.preventDefault();
 			

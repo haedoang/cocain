@@ -13,12 +13,8 @@
 	href="<c:url value="/resources/css/board/quiz/dailyquizlist.css"/>" />
 <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-
 </head>
-
 <body>
-
-	
 	<!-- header.. -->
 	<c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 	<section>
@@ -165,7 +161,7 @@
 
 
 	<!-- footer.. -->
-	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
+	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
 
 	<script src="<c:url value="/resources/js/jquery-dateformat.js"/>"></script>
 	<script>
@@ -198,10 +194,7 @@
 				var html="";	
 				var list = data.list;
 				var category = data.category;
-				var level = data.level;
-				console.log(list);	
-				alert(list[0].quizNo)
-				
+				var level = data.level;			
 				for(var i of list){
 					html+="<tr><td>"+i.quizNo+"</td>";
 						for(var j of category){

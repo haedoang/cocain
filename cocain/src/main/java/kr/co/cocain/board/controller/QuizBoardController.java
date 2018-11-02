@@ -88,7 +88,7 @@ public class QuizBoardController {
 	
 	/* detail */ 
 	//파라미터값 게시글번호..
-	@RequestMapping(value= {"dqdetail.do","uqdetail.do"})
+	@RequestMapping(value= {"dqdetail.do","uqdetail.do","dqupdateform.do","uqupdateform.do"})
 	public void detail(int quizNo, Model model) {
 		model.addAttribute("data",service.selectQuizBoardByNo(quizNo));
 	}
@@ -151,18 +151,14 @@ public class QuizBoardController {
 		if(index != -1 ) {	  
 			ext = oriName.substring(index);  
 		}
-		
-
+	
 		String path= request.getRealPath("/resources/fileupload");
 		
-		String rename= quizSubmit.getSubmitNo()+"_"+quizSubmit.getNickname()+ext;
-		System.out.println(rename);
-		
-		
-		
+		String rename= quizSubmit.getQuizNo()+"_"+quizSubmit.getNickname()+ext;
+	
 		attach.transferTo(new File(path,rename));
 		
-		quizSubmit.setPath(path);
+		quizSubmit.setPath("/resources/fileupload");
 		quizSubmit.setFileName(rename);
 		service.insertQuizSubmit(quizSubmit);
 		
@@ -170,8 +166,16 @@ public class QuizBoardController {
 
 	}
 	
+/*	 수정!!! 
+	@RequestMapping(value= {"dqupdate.do","uqupdate.do"})
+	public void update(QuizBoard quizBoard,Model model) {
+		model.addAttribute("data", service.updateBoard(quizBoard));
+	}
 	
-	//commit;
-	
+	 수정등록..  
+	@RequestMapping(value= {"dqupdate.do","uqupdate.do"})
+	public void update(QuizBoard quizBoard,Model model) {
+		model.addAttribute("data", service.updateBoard(quizBoard));
+	}*/
 	
 }

@@ -10,7 +10,7 @@
 <title>dqdetail</title>
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" />
-<link rel="stylesheet"
+<link rel="stylesheet" 
 	href="<c:url value="/resources/css/board/quiz/dailyquizlist.css"/>" />
 <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
@@ -71,6 +71,10 @@
 						<tr>
 							<th>제목</th>
 							<td><span>${data.detail.title}</span></td>
+						</tr>
+						<tr>
+							<th>작성자</th>
+							<td><span>${data.detail.nickname}</span></td>
 						</tr>
 						<tr>
 							<th>카테고리</th>
@@ -160,7 +164,7 @@
 
 
 	<!-- footer.. -->
-	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
+	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
 
 	<!-- summernote -->
 	<script src="<c:url value="/resources/js/edit-summernote.js"/>"></script>
@@ -199,6 +203,10 @@
 			location.href="<c:url value='deleteboard.do?quizNo=${data.detail.quizNo}&typeNo=${data.detail.typeNo}'/>"
 		});
 		
+		
+		$("#update").click(function(){
+			location.href="<c:url value='uqupdateform.do?quizNo=${data.detail.quizNo}'/>";
+		});
 		
 		
 	</script>
