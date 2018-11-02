@@ -20,8 +20,6 @@
 	href="<c:url value="/resources/summernote/summernote.css"/>" />
 <script src="<c:url value="/resources/summernote/summernote.js"/>"></script>
 <body>
-
-// d
 	<section>
 		<div class="aside">
 			<div class="sidebar">
