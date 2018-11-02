@@ -51,6 +51,7 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 	        model.addAttribute("endPage",endPage);
 	    model.addAttribute("lastPage",lastPage);
 	    model.addAttribute("pageNo",pageNo);
+	    System.out.println(service.listNotice(page).size());
 	    model.addAttribute("list", service.listNotice(page));
 	    model.addAttribute("count", service.listCount());
 	    }

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+	    <c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,6 @@ width:auto;
 </style>
 </head>
 <body>
-	    <c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 	
 	<!-- 게시물 목록 표현하기 -->
 	

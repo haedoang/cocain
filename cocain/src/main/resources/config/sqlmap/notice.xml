@@ -21,7 +21,7 @@
 	</resultMap>
 	
 
-<select id="listNotice" parameterType="NoticePage" resultMap="NoticeMap" >
+<select id="listNotice" parameterType="NoticePage" resultMap="NoticeMap"  useCache="false" flushCache="true">
 	select *
 from(select a.* , (@rownum:=@rownum+1) rnum
 	from(select *
