@@ -57,7 +57,7 @@
 
 			<div class="context"></div>
 
-			<table class="table table-bordered">
+			<table id="uqtable" class="table table-bordered">
 				<tr>
 					<th>번호</th>
 					<th>카테고리</th>
@@ -94,10 +94,6 @@
 
 			<div class="row">
 				<div class="col-md-4">
-					<%-- 
-					<div>게시글 수 :${pageResult.count}</div>
-					<div>마지막 페이지:${pageResult.lastPage}</div>
-					--%>
 					<div class="write">
 						<c:if test="${not empty sessionScope.user.id}">
 							<button onclick='location.href="<c:url value='uqform.do'/>"'
@@ -146,13 +142,17 @@
 
 				<div class="col-md-4">
 					<div class="search">
-						<select>
-							<option>제목</option>
-							<option>카테고리</option>
-						</select> <input class="ser" type="text" size="15" placeholder="검색어를 입력하세요" />
-						<button class="ser">
-							&nbsp;&nbsp;<i class="fas fa-search"></i>&nbsp;&nbsp;
-						</button>
+						<form id="sForm" method="post">
+							<input type="hidden" name="typeNo" value="${data.list[0].typeNo}" />
+							<select>
+								<option>제목</option>
+								<option>카테고리</option>
+							</select> <input class="ser" type="text" size="15"
+								placeholder="검색어를 입력하세요" name="title" />
+							<button id="search" class="ser" style="background-color: #000000">
+								&nbsp;&nbsp;<i class="fas fa-search"></i>&nbsp;&nbsp;
+							</button>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -164,6 +164,7 @@
 
 	<!-- footer.. -->
 	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
+	<script src="<c:url value="/resources/js/jquery-dateformat.js"/>"></script>
 	<script>
 		/* paging 설정하기 !! */
 		$(".pagination > li:eq(0) > a").click(function(e){
@@ -177,7 +178,46 @@
 			}
 		})
 		
+		$("#search").click(function(e){
+			e.preventDefault();
+			var formData = $("#sForm").serialize();
+		 
+			$.ajax({
+				url:"<c:url value="search.do"/>",
+				method:"POST",
+		   		data:formData
+			}).done(function(data){
+				//console.log(data);
+				$("#uqtable > tbody > tr:eq(0)").siblings().remove();
+				var html="";	
+				var list = data.list;
+				var category = data.category;
+				var level = data.level;
+				console.log(list);	
+				alert(list[0].quizNo)
+				
+				for(var i of list){
+					html+="<tr><td>"+i.quizNo+"</td>";
+						for(var j of category){
+							if(i.categoryNo==j.categoryNo){
+								html+="<td>"+j.categoryName+"</td>";	
+							}//category end
+						}//inner for end 
+					html+="<td><a href='<c:url value='/board/quiz/uqdetail.do?quizNo="+i.quizNo+"'/>'>";
+					html+=i.title+"</a></td><td>"+i.nickname+"</td>";
+					html+="<td>"+$.format.date(i.regDate, "yyyy-MM-dd")+"</td>";
+					html+="<td>"+i.answerCnt+"</td><td>"+i.probability+"%</td>";
+					for(var k of level){
+						if(k.levelNo==i.levelNo){
+							html+="<td>"+k.levelName+"</td>";	
+						}//category end
+					}
 		
+					}//for end 	
+		 			html+="</tr>"	
+				$("#uqtable > tbody > tr:eq(0)").after(html);
+			}); 
+		});
 	</script>
 </body>
 </html>

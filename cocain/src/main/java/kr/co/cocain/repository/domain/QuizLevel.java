@@ -10,4 +10,6 @@ public class QuizLevel {
 	
 	
 	// 1 상 50   2 중 30  3 하 10 
+	
+	//commit;
 }

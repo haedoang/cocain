@@ -14,4 +14,6 @@ public class QuizSubmit {
 	private String path;
 	private String fileName;
 	private Date regDate;
+	
+	//commit;
 }

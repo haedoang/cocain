@@ -44,4 +44,6 @@ public interface QuizBoardService {
 	
 	//submit 등록하기!!!
 	void insertQuizSubmit(QuizSubmit quizSubmit);
+	
+	//commit;
 }

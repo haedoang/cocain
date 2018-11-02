@@ -4,17 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- header.. -->
-<c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>dqdetail</title>
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" />
+
+<!-- header.. -->
+<c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/board/quiz/dailyquizlist.css"/>" />
-<script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
-<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-
 <!-- summernote -->
 <link rel="stylesheet"
 	href="<c:url value="/resources/summernote/summernote.css"/>" />
@@ -26,12 +22,12 @@
 			<div class="sidebar">
 				<ul class="nav nav-pills nav-stacked">
 					<li role="presentation"><a href="#">퀴즈게시판</a></li>
-					<li role="presentation"><a
-						href="#"> <i class="fas fa-folder"></i>
-							데일리퀴즈
+					<li role="presentation"><a href="#"> <i
+							class="fas fa-folder"></i> 데일리퀴즈
 					</a></li>
-					<li role="presentation" class="active"><a href="<c:url value="dqlist.do"/>">
-							&nbsp;&nbsp; <i class="fas fa-folder-open"></i> 문제
+					<li role="presentation" class="active"><a
+						href="<c:url value="dqlist.do"/>"> &nbsp;&nbsp; <i
+							class="fas fa-folder-open"></i> 문제
 					</a></li>
 					<li role="presentation"><a href="<c:url value="dqsubmit.do"/>">
 							&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인
@@ -95,40 +91,43 @@
 						</tr>
 						<c:choose>
 							<c:when test="${not empty sessionScope.user.id}">
-						<tr>
-							<th>정답 제출</th>
-							<td class="buttons">
-							<form id="submitForm"  class="buttons" enctype="multipart/form-data">
-								<!-- 
-									넘길 데이터 :quizNo, nickname, level_point ~~  
-							 	-->
-								<p>파일을 첨부해주세요</p>
-								<input type="hidden" name="quizNo" value="${data.detail.quizNo}"/>
-								<input type="hidden" name="nickname" value="${sessionScope.user.nickname}"/> 
-								<c:forEach var="k" items="${data.level}">
-									<c:if test="${k.levelNo==data.detail.levelNo}">
-										<input type="hidden" name="levelPoint" value="${k.levelPoint}"/>
-									</c:if>
-								</c:forEach>
-								<input type="file" name="attach" style="display: inline" />
-								<button id="submit" class="btn btn-primary">제출하기</button>
-							</form>
-							</td>
-						</tr>
+								<tr>
+									<th>정답 제출</th>
+									<td class="buttons">
+										<form id="submitForm" class="buttons"
+											enctype="multipart/form-data">
+											<!-- 
+												넘길 데이터 :quizNo, nickname, level_point ~~  
+							 				-->
+											<p>파일을 첨부해주세요</p>
+											<input type="hidden" name="quizNo"
+												value="${data.detail.quizNo}" /> <input type="hidden"
+												name="nickname" value="${sessionScope.user.nickname}" />
+											<c:forEach var="k" items="${data.level}">
+												<c:if test="${k.levelNo==data.detail.levelNo}">
+													<input type="hidden" name="levelPoint"
+														value="${k.levelPoint}" />
+												</c:if>
+											</c:forEach>
+											<input id="attach" type="file" name="attach" style="display: inline" />
+											<button id="submit" class="btn btn-primary">제출하기</button>
+										</form>
+									</td>
+								</tr>
 							</c:when>
 							<c:otherwise>
 								<th>정답 제출</th>
 								<td>
-									<p style="color:red">로그인이 필요합니다.</p>
+									<p style="color: red">로그인이 필요합니다.</p>
 								</td>
 							</c:otherwise>
 						</c:choose>
 						<tr>
 							<th class="buttons" colspan="3">
-								<button id="list" class="btn btn-primary">목록</button>
-								<c:if test="${sessionScope.user.id=='admin'}">
-								<button id="update" class="btn btn-primary">수정</button>
-								<button id="delete" class="btn btn-primary">삭제</button>
+								<button id="list" class="btn btn-primary">목록</button> <c:if
+									test="${sessionScope.user.id=='admin'}">
+									<button id="update" class="btn btn-primary">수정</button>
+									<button id="delete" class="btn btn-primary">삭제</button>
 								</c:if>
 							</th>
 							<td></td>
@@ -148,45 +147,61 @@
 
 	<!-- summernote -->
 	<script src="<c:url value="/resources/js/edit-summernote.js"/>"></script>
-	
+
 	<!-- button script -->
 	<script>
-		$("#list").click(function(){
-			location.href="<c:url value="dqlist.do"/>"
+		$("#list").click(function() {
+			location.href = "<c:url value="dqlist.do"/>"
 		});
-		
-		$("#delete").click(function(){
-			location.href="<c:url value='deleteboard.do?quizNo=${data.detail.quizNo}&typeNo=${data.detail.typeNo}'/>"
-		});
-		
-		
-		$("#submit").click(function(e){
+
+		$("#delete")
+				.click(
+						function() {
+							location.href = "<c:url value='deleteboard.do?quizNo=${data.detail.quizNo}&typeNo=${data.detail.typeNo}'/>"
+						});
+
+		$("#submit").click(function(e) {
 			e.preventDefault();
+			
+			var fileName= $("#attach").val();			
+			
+			fileName = fileName.slice(fileName.indexOf(".") + 1).toLowerCase();
+
+			if(fileName != "txt" && fileName != "java" &&  fileName != "html" &&  fileName != "jsp"){
+
+				alert("파일은 (jpg, java, html, jsp) 형식만 등록 가능합니다.");
+
+				$("#attach").val("");
+
+				return;
+
+			}
+			
+			var result = confirm("정답을 제출하시겠습니까?");
+			if (result == false)
+				return;
+
 			var formData = new FormData($("#submitForm")[0]);
 			console.log(formData);
-			
-			//var formData = $("#submitForm").serialize();
-			//console.log(formData);
-			
+
 			$.ajax({
-				url:"<c:url value='dqupload.do'/>",
-				method:"POST",
-				enctype:'multipart/form-data',
-				contentType:false,
-				processData:false,
-				data:formData
-			}).done(function(data){
-				if(data=="true"){
+				url : "<c:url value='dqupload.do'/>",
+				method : "POST",
+				enctype : 'multipart/form-data',
+				contentType : false,
+				processData : false,
+				data : formData
+			}).done(function(data) {
+				if (data == "true") {
 					alert("문제 제출완료!! 제출 게시판으로 이동합니다~~");
-					location.href="<c:url value='dqsubmit.do'/>";
-				} else{
+					location.href = "<c:url value='dqsubmit.do'/>";
+				} else {
 					alert("파일을 첨부해주시죠!!");
-				}
+					return;
+				} 
 			});
 		});
-		
-		
 	</script>
-	
+
 </body>
 </html>

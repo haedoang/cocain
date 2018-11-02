@@ -9,4 +9,6 @@ public class QuizCategory {
 	
 	
 	//1)java 2)javascript 3)sql 4)html/css
+	
+	//commit;
 }

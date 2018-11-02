@@ -152,11 +152,7 @@ public class QuizBoardController {
 			ext = oriName.substring(index);  
 		}
 		
-		//파일저장하자!!!
-	//	String fileName= quizSubmit.getQuizNo()+":"+quizSubmit.getNickname()+ext;
-		
-	//	System.out.println(fileName);
-		//경로지정!!!
+
 		String path= request.getRealPath("/resources/fileupload");
 		
 		String rename= quizSubmit.getSubmitNo()+"_"+quizSubmit.getNickname()+ext;
@@ -174,6 +170,8 @@ public class QuizBoardController {
 
 	}
 	
+	
+	//commit;
 	
 	
 }

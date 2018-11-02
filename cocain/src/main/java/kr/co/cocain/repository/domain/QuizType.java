@@ -8,4 +8,7 @@ public class QuizType {
 	private String typeName;
 	
 	//1 DailyQuiz 2 UserQuiz
+	
+	//commit;
 }
+

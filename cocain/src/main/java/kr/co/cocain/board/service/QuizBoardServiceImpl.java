@@ -111,5 +111,6 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 	}
 
 
+	//commit;
 	
 }

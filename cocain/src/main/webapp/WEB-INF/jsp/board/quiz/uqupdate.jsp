@@ -8,7 +8,7 @@
 <c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>uqupdate</title>
-<link rel="stylesheet"
+<link rel="stylesheet" 
 	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" />
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/board/quiz/dailyquizlist.css"/>" />

@@ -47,5 +47,6 @@ public interface QuizMapper {
 	//제출게시판 등록하기 
 	void insertQuizSubmit(QuizSubmit quizSubmit);
 	
+	//commit;
 	
 }

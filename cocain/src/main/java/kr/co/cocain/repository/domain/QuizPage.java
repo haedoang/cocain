@@ -20,4 +20,6 @@ public class QuizPage {
 		this.begin = begin;
 	}
 	
+	//commit;
+	
 }
