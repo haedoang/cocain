@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -55,7 +56,7 @@
                 <div class="jumbotron">
                     <div class="content">
                         <h2 class="text-center post-count">
-                            12345
+                            
                         </h2>
                         <h4 class="text-center">전체 게시물</h4>
                     </div>
@@ -65,7 +66,7 @@
                 <div class="jumbotron">
                     <div class="content">
                         <h2 class="text-center quiz-count">
-                            678
+                            
                         </h2>
                         <h4 class="text-center">전체 문제</h4>
                     </div>
@@ -121,41 +122,23 @@
                         <table class="table table-hover">
                             <thead>
                                 <th>번호</th>
-                                <th>제목</th>
+                                <th><div style="width: 240px;">제목</div></th>
                                 <th>작성자</th>
                                 <th>작성일</th>
                             </thead>
                             <tbody>
+                            <c:forEach var="notice" items="${noticeList}" begin="0" end="4" >
                                 <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
+                                    <td>${notice.no}</td>
+                                    <td>
+                                    	<div style="width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+	                                    	<a href="<c:url value="/board/notice/detail.do?no=${notice.no}"/>">${notice.title}</a>
+	                                    </div>
+                                    </td>
+                                    <td>${notice.writer}</td>
+                                    <td><fmt:formatDate value="${notice.regDate}" pattern="yy-MM-dd" /></td>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
-                                </tr>
+                            </c:forEach>    
                             </tbody>
                         </table>
                     </div> 
@@ -173,47 +156,23 @@
                         <table class="table table-hover">
                             <thead>
                                 <th>번호</th>
-                                <th>제목</th>
+                                <th><div style="width: 240px;">제목</div></th>
                                 <th>작성자</th>
                                 <th>작성일</th>
-                                <th>조회수</th>
                             </thead>
                             <tbody>
+                            <c:forEach var="study" items="${studyList}" begin="0" end="4" >
                                 <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
-                                    <td>1</td>
+                                    <td>${study.no}</td>
+                                    <td>
+                                    	<div style="width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    		<a href="<c:url value="/board/studygroup/detail.do?no=${study.no}"/>">${study.title}</a>
+                                    	</div>
+                                    </td>
+                                    <td>${study.id}</td>
+                                    <td><fmt:formatDate value="${study.regDate}" pattern="yy-MM-dd" /></td>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
-                                    <td>1</td>
-                                </tr>
+                            </c:forEach>    
                             </tbody>
                         </table>
                     </div> 
@@ -233,41 +192,23 @@
                         <table class="table table-hover">
                             <thead>
                                 <th>번호</th>
-                                <th>제목</th>
+                                <th><div style="width: 240px">제목</div></th>
                                 <th>작성자</th>
                                 <th>작성일</th>
                             </thead>
                             <tbody>
+                            <c:forEach var="quiz" items="${quizList.list}" begin="0" end="4" >
                                 <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
+                                    <td>${quiz.quizNo}</td>
+                                    <td>
+                                    	<div style="width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    		<a href="<c:url value="/board/quiz/uqdetail.do?quizNo=${quiz.quizNo}"/>">${quiz.title}</a>
+                                    	</div>
+                                    </td>
+                                    <td>${quiz.nickname}</td>
+                                    <td><fmt:formatDate value="${quiz.regDate}" pattern="yy-MM-dd" /></td>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
-                                </tr>
+                            </c:forEach>  
                             </tbody>
                         </table>
                     </div> 
@@ -285,41 +226,23 @@
                         <table class="table table-hover">
                             <thead>
                                 <th>번호</th>
-                                <th>제목</th>
+                                <th><div style="width: 240px;">제목</div></th>
                                 <th>작성자</th>
                                 <th>작성일</th>
                             </thead>
                             <tbody>
+                            <c:forEach var="qna" items="${qnaList.list}" begin="0" end="4" >
                                 <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
+                                    <td>${qna.no}</td>
+                                    <td>
+	                                    <div style="width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+	                                    	<a href="<c:url value="/board/qna/detail.do?no=${qna.no}"/>">${qna.title}</a>
+	                                    </div>
+                                    </td>
+                                    <td>${qna.writer}</td>
+                                    <td><fmt:formatDate value="${qna.regDate}" pattern="yy-MM-dd" /></td>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>안녕하세요</td>
-                                    <td>관리자</td>
-                                    <td>2018.10.11</td>
-                                </tr>
+                            </c:forEach> 
                             </tbody>
                         </table>   
                     </div> 
@@ -331,18 +254,19 @@
   	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"/>  
   
     <script>
+    	var articleCount = ${articleCount};
+    	var quizCount = ${quizCount};
+    	
         var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
-        var postConut = $(".post-count").text();
         $('.post-count').animateNumber(
             {
-                number: parseInt(postConut),
+                number: parseInt(articleCount),
                 numberStep: comma_separator_number_step
             }, 2000
         );
-        var quizConut = $(".quiz-count").text();
         $('.quiz-count').animateNumber(
             {
-                number: parseInt(quizConut),
+                number: parseInt(quizCount),
                 numberStep: comma_separator_number_step
             }, 2000
         );

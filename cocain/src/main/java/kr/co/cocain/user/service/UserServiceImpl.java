@@ -134,4 +134,14 @@ public class UserServiceImpl implements UserService {
 		return mapper.userRecentActivityCount(recentActivity);
 	} // userRecentActivityCount
 
+	@Override
+	public int allArticleCount() {
+		return mapper.allArticleCount();
+	} // allArticleCount
+
+	@Override
+	public int allQuizCount() {
+		return mapper.allQuizCount();
+	} // allQuizCount
+
 } // end class

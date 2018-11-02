@@ -45,7 +45,7 @@ public class MyPageController {
 		model.addAttribute("userFile", service.selectFile(userFile));
 		
 		RecentActivity recentActivity = new RecentActivity();
-		recentActivity.setWriter(user.getId());
+		recentActivity.setWriter(user.getNickname());
 		recentActivity.setPageNo(pageNo);
 		PageResult pageResult = new PageResult(pageNo, service.userRecentActivityCount(recentActivity), 5, 5);
 		model.addAttribute("pageResult", pageResult);

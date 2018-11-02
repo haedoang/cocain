@@ -42,4 +42,10 @@ public interface UserMapper {
 	// 최근활동 리스트 총 갯수
 	int userRecentActivityCount(RecentActivity recentActivity);
 	
+	// 전체 게시물 수
+	int allArticleCount();
+	
+	// 전체 문제 수
+	int allQuizCount();
+	
 } // end interface

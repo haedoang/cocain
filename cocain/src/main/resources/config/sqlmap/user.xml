@@ -120,7 +120,24 @@
 			 	 select no, content, writer, 'typeqnacm', reg_date from tb_qna_comment) b 
 		  where writer = #{writer}
 	</select>
-		  
+	
+	<!-- 전체 게시물 수 -->
+	<select id="allArticleCount" resultType="int">
+		select count(*) 
+	 	 from(select no, title, writer from tb_qna
+	     	   union
+		  	  select no, title, id from tb_study
+		 	   union 
+		 	  select quiz_no, title, nickname from tb_quiz_board
+			   union 
+		 	  select no, title, writer from tb_notice) b
+	</select> 	  
+	
+	<!-- 전체 문제 수 -->
+	<select id="allQuizCount" resultType="int">
+		select count(*) from tb_quiz_board
+	</select> 
+		  	  
 </mapper>
 
 
