@@ -57,8 +57,8 @@
 			</div>
 
 			<div class="context"></div>
-
-		<%-- 	<div class="col-md-10">
+<%-- 
+			<div class="col-md-10">
 				<form id="uqForm" action="<c:url value="uqupdate.do"/>" method="POST">
 					<table class="table">
 						<tr>
@@ -110,11 +110,11 @@
 								<button class="btn btn-primary">수정하기</button>
 								<button class="btn btn-primary">수정취소</button>
 							</th>
-							<td></td>
+							<td></td> --%>
 						</tr>
 					</table>
 				</form>
-			</div> --%>
+			</div>
 			<!-- col-md-8 end -->
 		</div>
 	</section>
