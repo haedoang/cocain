@@ -41,7 +41,7 @@ select>option {
 	<c:import url="../../base-ui/header.jsp" />
 	<hr>
 	<form action="write.do" method="post">
-	<input type="hidden" name="id" value="java"/>
+	<input type="hidden" name="id" value="${user.nickname}"/>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2"></div>

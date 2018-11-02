@@ -90,7 +90,7 @@ th {
 								<td>
 									<!-- <div>${b.no}</div> -->
 									<div>
-									<span class="id">${user.nickname}</span>
+									<span class="id">${b.id}</span>
 									 &nbsp&nbsp&nbsp
 									 <span class="date"><fmt:formatDate value="${b.regDate}" pattern="yyyy-MM-dd" /></span>
 									 </div>
