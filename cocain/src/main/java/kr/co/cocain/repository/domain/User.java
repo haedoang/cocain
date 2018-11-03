@@ -4,6 +4,10 @@ import java.util.Date;
 import java.util.List;
 
 
+/**
+ * 유저관리에 대한 VO
+ * @author 조성일
+ */
 public class User {
 	private String id;
 	private String password;
@@ -14,6 +18,7 @@ public class User {
 	private UserFile userFile;
 
 	
+	// 유저 파일
 	public UserFile getUserFile() {
 		return userFile;
 	}
@@ -21,6 +26,7 @@ public class User {
 		this.userFile = userFile;
 	}
 	
+	// 유저 아이디
 	public String getId() {
 		return id;
 	}
@@ -28,6 +34,7 @@ public class User {
 		this.id = id;
 	}
 	
+	// 유저 비밀번호
 	public String getPassword() {
 		return password;
 	}
@@ -35,6 +42,7 @@ public class User {
 		this.password = password;
 	}
 	
+	// 유저 닉네임
 	public String getNickname() {
 		return nickname;
 	}
@@ -42,6 +50,7 @@ public class User {
 		this.nickname = nickname;
 	}
 	
+	// 유저 이메일
 	public String getEmail() {
 		return email;
 	}
@@ -49,6 +58,7 @@ public class User {
 		this.email = email;
 	}
 	
+	// 유저 포인트
 	public int getPoint() {
 		return point;
 	}
@@ -56,6 +66,7 @@ public class User {
 		this.point = point;
 	}
 	
+	// 유저 등록일
 	public Date getRegDate() {
 		return regDate;
 	}
@@ -63,6 +74,7 @@ public class User {
 		this.regDate = regDate;
 	}
 	
+	// toString
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", password=" + password + ", nickname=" + nickname + ", email=" + email + ", point="

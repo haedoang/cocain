@@ -135,7 +135,7 @@
 	                                    	<a href="<c:url value="/board/notice/detail.do?no=${notice.no}"/>">${notice.title}</a>
 	                                    </div>
                                     </td>
-                                    <td>${notice.writer}</td>
+                                    <td><a href="<c:url value="/user/profile.do?writer=${notice.writer}" />">${notice.writer}</a></td>
                                     <td><fmt:formatDate value="${notice.regDate}" pattern="yy-MM-dd" /></td>
                                 </tr>
                             </c:forEach>    
@@ -169,7 +169,7 @@
                                     		<a href="<c:url value="/board/studygroup/detail.do?no=${study.no}"/>">${study.title}</a>
                                     	</div>
                                     </td>
-                                    <td>${study.id}</td>
+                                    <td><a href="<c:url value="/user/profile.do?writer=${study.id}" />">${study.id}</a></td>
                                     <td><fmt:formatDate value="${study.regDate}" pattern="yy-MM-dd" /></td>
                                 </tr>
                             </c:forEach>    
@@ -205,7 +205,7 @@
                                     		<a href="<c:url value="/board/quiz/uqdetail.do?quizNo=${quiz.quizNo}"/>">${quiz.title}</a>
                                     	</div>
                                     </td>
-                                    <td>${quiz.nickname}</td>
+                                    <td><a href="<c:url value="/user/profile.do?writer=${quiz.nickname}" />">${quiz.nickname}</a></td>
                                     <td><fmt:formatDate value="${quiz.regDate}" pattern="yy-MM-dd" /></td>
                                 </tr>
                             </c:forEach>  
@@ -239,7 +239,7 @@
 	                                    	<a href="<c:url value="/board/qna/detail.do?no=${qna.no}"/>">${qna.title}</a>
 	                                    </div>
                                     </td>
-                                    <td>${qna.writer}</td>
+                                    <td><a href="<c:url value="/user/profile.do?writer=${qna.writer}" />">${qna.writer}</a></td>
                                     <td><fmt:formatDate value="${qna.regDate}" pattern="yy-MM-dd" /></td>
                                 </tr>
                             </c:forEach> 

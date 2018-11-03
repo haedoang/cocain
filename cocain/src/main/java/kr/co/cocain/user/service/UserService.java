@@ -8,7 +8,7 @@ import kr.co.cocain.repository.domain.UserFile;
 
 
 /**
- * 유저에 대한 로직 처리
+ * 유저에 대한 서비스 인터페이스
  * @author 조성일
  */
 public interface UserService {
@@ -33,6 +33,7 @@ public interface UserService {
 	
 	/**
 	 * 회원 가입시 인증코드 메일 보내기
+	 * @param user
 	 */
 	String sendMail(User user);
 	
@@ -85,13 +86,19 @@ public interface UserService {
 	int userRecentActivityCount(RecentActivity recentActivity);
 	
 	/**
-	 * 전체 게시물 수
+	 * 메인화면의 전체 게시물 수
 	 */
 	int allArticleCount();
 	
 	/**
-	 * 전체 문제 수
+	 * 메인화면의 전체 문제 수
 	 */
 	int allQuizCount();
+	
+	/**
+	 * 닉네임에 대한 유저정보
+	 * @param writer
+	 */
+	User selectUser(String writer);
 	
 } // end interface
