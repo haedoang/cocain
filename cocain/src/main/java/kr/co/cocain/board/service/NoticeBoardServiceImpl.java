@@ -25,6 +25,9 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
     public List<Notice> listNotice(NoticePage page) {
         return mapper.listNotice(page);
     }
+    public List<Notice> listNotice2(NoticePage page) {
+    	return mapper.listNotice2(page);
+    }
 
     @Override
     public Notice detail(int no) {

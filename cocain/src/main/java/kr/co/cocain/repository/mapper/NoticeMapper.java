@@ -16,6 +16,7 @@ public interface NoticeMapper {
 	 * @return 공지사항 전체
 	 */
 	List<Notice> listNotice(NoticePage page);
+	List<Notice> listNotice2(NoticePage page);
 	
 	/**
 	 * @return 공지사항 전체 글 갯수
@@ -58,4 +59,5 @@ public interface NoticeMapper {
 	
 	List<Notice> categoryList(NoticePage2 noticePage);
 	int categoryCount(NoticePage2 noticePage);
+
 }

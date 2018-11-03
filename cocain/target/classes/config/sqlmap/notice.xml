@@ -28,6 +28,13 @@ select *
 	limit #{begin}, 10
 
 </select>
+<select id="listNotice2" parameterType="NoticePage" resultMap="NoticeMap"  useCache="false" flushCache="true">
+select *
+	from tb_notice
+	order by no asc
+	limit #{begin}, 10
+
+</select>
 
 <select id="listCount" resultType="int">
 	select count(*)
@@ -103,7 +110,8 @@ where comment_no =#{commentNo}
 <select id="categoryList" parameterType="NoticePage2" resultMap="NoticeMap">
 	select a.* 
 		from(select *
-		from tb_notice )a 
+		from tb_notice
+		order by no desc )a 
 <!-- 		<choose> -->
 <!-- 			<when test="select=='title' " > -->
 			where title like concat('%',#{text},'%')

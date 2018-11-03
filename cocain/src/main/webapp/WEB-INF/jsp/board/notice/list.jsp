@@ -9,54 +9,64 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-
-<style type="text/css">
-.form-control{
-width:auto;
-}
-</style>
 </head>
 <body>
-	
-	<!-- 게시물 목록 표현하기 -->
-	
+
+<!-- 게시물 목록 표현하기 -->
+	<div><c:if test="${user.nickname != undefined}">${user.nickname} 님이 로그인 중입니다 </c:if></div>
 	<div class="container">
 	
-	<form class="form-inline" id='form' name="form" method="post" action="category.do"  onsubmit='return google();'>
 	<div class="h2">공지사항</div>
 	<div class="h4">전체 글 <kbd>${count}</kbd> 개</div>
 	<hr>
-		<a class="btn btn-default "  href="list.do">최신순</a>
-		<a class="btn btn-default"  href="selectView.do">조회순</a>
-		<!-- <a href="selectRecom.do">추천순</a> -->
-	<div style="float: right"> 
+	<div class="form-inline">
+<!-- 		<a class="btn btn-default "  href="list.do">최신순</a> -->
+		<a class="btn btn-default"  href="selectView.do">조회순 구현하자</a>	
+	
+	<form class="form-group pull-right" id='form' name="form" method="post" action="category.do"  onsubmit='return google();'>
 	<select class="form-control"  name="select">
 		<option class="form-control" value="title">제목순</option>
 		<option class="form-control" value="writer">작성자순</option>
 	</select>
 		<input class='asdf form-control'  type="text" name="text" placeholder="입력하세요">
 		<button class="btn btn-default">검색</button>
-	</div>
 	
 	</form><br>
+	</div>
+	<br>
 		<!--여기까지 카테고리 검색시  form으로 이동-->
 	
-	<table class="table">	
+	<table class="table table-hover">	
 	<tr>
-		<th>번호</th><th>제목</th><th>글쓴이</th><th>작성일</th><th>조회수</th>
+		<th><a id="num" href="list2.do" >번호<i class="fas fa-sort"></i></a></th><th>제목</th><th>글쓴이</th><th>작성일</th><th>조회수</th>
 	</tr>
 
 	<c:forEach var="b" items="${list}">
     <tr>
 		<td>${b.no}</td>
-		<td><a href='detail.do?no=${b.no}'>${b.title}</a></td>
+		<td>
+		 <a
+		 <c:choose>
+		<c:when test="${user.nickname == undefined}">
+		href="#" data-target="#login" id="log" data-toggle="modal"
+		</c:when>
+		<c:otherwise>
+		  href='detail.do?no=${b.no}'  
+		   </c:otherwise>
+		   </c:choose>  >
+			${b.title}
+		 </a></td>
 		<td>${b.writer}</td>
 	    <td><fmt:formatDate value="${b.regDate}" pattern="yy-MM-dd" /></td>
-	    <td>${b.viewCnt}</td>
+	    <td><i class="far fa-eye"></i> ${b.viewCnt}</td>
 	</tr>
 	</c:forEach>	
 	</table>
+	
+	
+	<c:if test="${user.nickname == '코카인관리자'}">
 	<a class="btn btn-default"  href="writeForm.do">글쓰기</a>
+	</c:if>
 	
 	<nav>
 	<div class="text-center">
@@ -78,6 +88,9 @@ width:auto;
     <c:choose>
    	<c:when test='${requestScope["javax.servlet.forward.request_uri"].substring(20) eq "/category.do"}'>
     href="category.do?pageNo=${i-1}&select=${select}&text=${text}"
+    </c:when>
+   	<c:when test='${requestScope["javax.servlet.forward.request_uri"].substring(20) eq "/list2.do"}'>
+    href="list2.do?pageNo=${i}"
     </c:when>
     <c:otherwise>
      href="list.do?pageNo=${i}"
@@ -107,7 +120,6 @@ width:auto;
     	    	<div id="df"></div>
 	    <c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
 	
-	
 	<script>
 	
 			function google() {
@@ -126,6 +138,11 @@ width:auto;
 				$(this).removeClass("active focus")
 			});
 		
+				 if(${requestScope["javax.servlet.forward.request_uri"].substring(20) eq "/list2.do"}){
+					 console.log("성공");
+					 $('#num').attr("href" , "list.do"); 
+				 }
+				 
 	</script>
 </body>
 </html>

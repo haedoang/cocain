@@ -103,14 +103,13 @@
 		</form>
 	 
 		<div id="divv"></div>
-	 <table class='comment table text-center' >			
+
+<br>		
+			<i class="fas fa-users col-md-10 col-md-offset-1">댓글 갯수 : #</i>
+	 <div class='comment col-md-10 col-md-offset-1' >			
 	 <c:set var="now" value="<%=new java.util.Date()%>" />
 	 <c:set var="now2"><fmt:formatDate value="${now}" pattern="yyyyMMddHHmmss" /></c:set> 
-			
-	<br>		
-			<i class="fas fa-users">댓글 갯수 : #</i>
-	
-		</table>
+		</div>
 		
 	 
 	 </div>
@@ -120,7 +119,10 @@
 	 
 	 
 	<script>
-	 $('.button').click(function(){
+	
+	
+	
+	$('.button').click(function(){
 		 $.ajax({
 		 		url : "<c:url value='/board/recom/insertrecom.do' />",
 		 		data : "no=${board.no}"
@@ -146,19 +148,24 @@
 		 	}).done(function (result) {
 		 		console.log(result);
 		 var output = "";
+		 var nickname = "${user.nickname}";
  $.each(result, function(idx,val) {
-	output +='<div><tr class="text-left">'
+	 output +='<hr><div class=" text-left form-inline">'
 	+"<input type='hidden' value='+val.commentNo+'>"
-	output += '<td>'+val.writer+'　'+func1(val.regDate)+'<br><br>'
-	+val.content+'</td>'
-	output += '<td>'+'<button class="btn btn-default" onclick="upd(\''+ val.content + '\' , \'' + val.writer +'\' , \''+val.commentNo+'\')">수정</button>'
-			  +' '+ '<button class="btn btn-default" onclick="del('+val.commentNo+')">삭제</button>'+'</td>'
-	output += '</tr></div>'
+		
+		output += '<div class="form-group" >'+val.writer+'　'+func1(val.regDate)+'</div>'
+		
+		if(nickname == val.writer){			
+		output +='<div class="text-right"><button id="notify" class="btn btn-default" onclick="upd(\''+ val.content + '\' , \'' + val.writer +'\' , \''+val.commentNo+'\')">수정</button>'
+		output +='<button id="delb" class="text-right btn btn-default" onclick="del('+val.commentNo+')">삭제</button></div>'
+		}
+		output += '<div id="wrr">'+val.content+'</div></div>'
+ 			
+	
 		 })
 		 $('.comment').html(output);
 		 });
 	 }
-
 	 
 		$('#commentForm').submit(function(e) {
 			
@@ -185,6 +192,7 @@
 			 console.log("성공")
 				list();
 		 })
+		 
 	 }
 		var iii = null;
 	 function upd(result,re,num){
@@ -228,6 +236,7 @@
 		 
 	 })
 	 
+	 
 		 }
 
 	 $(".btn").mouseenter(function() {
@@ -238,9 +247,6 @@
 	
 	
 	 })	 
-	 list();
-	 
-	 
 	 
 	 function func1(reg){
 		var ymdt = new Date(reg).toLocaleString('en-GB');	// db시간 로컬(한국)
@@ -252,31 +258,33 @@
 		var times = time.substring(0,2);	//시
 		var minute = time.substring(3,5);	 //분
 		var second = time.substring(5);	//초
-		var $now = ${now2}
 		
+		var $now = ${now2}
  		var dd=(minute+second).split(":");
-		var now = $now.toString().substring(0,10);// 현재시간 년 월 일  시
-		console.log("현재 년월일시 : " + now);
-		var needay = year+month+day+times	// db 년 월 일 시
-		console.log("db 년월일시 : " + needay);
+		var now = $now.toString().substring(0,8);// 현재시간 년 월 일
+		var needay = year+month+day	// db 년 월 일
  		var nowtime = $now.toString().substring(8,10);	// 현재 시 
  		var nowmin = $now.toString().substring(10,12);	// 현재 분
  		var nowsec = $now.toString().substring(12);	// 현재 초
 		
  		var newt = parseInt(nowtime)*3600+parseInt(nowmin)*60+parseInt(nowsec);	//현재 시분초을 초로
  		var dbt= parseInt(times)*3600+parseInt(dd[0])*60 + parseInt(dd[1]);	//db시분초을 초로
- 		console.log("나우민 : "+newt, typeof(newt));
-		console.log("디비민 : "+dbt , typeof(dbt));
+// 		console.log("현재 년월일시 : " + now);
+// 		console.log("db 년월일시 : " + needay);
+//  		console.log("나우민 : "+newt, typeof(newt));
+// 		console.log("디비민 : "+dbt , typeof(dbt));
 
 		//년월일시 같을 때
  		if(now == needay){
  		
  			if(newt-dbt<200){
- 				console.log(newt-dbt);
+//  				console.log(newt-dbt);
  	 				return "방금 전";
  	 			}
- 			else if (newt-dbt > 200 && newt-dbt < 3600){
- 				return Math.floor( (newt-dbt)/60 ) + "분 전"
+ 			if (newt-dbt > 200 && newt-dbt <= 3600){
+//  				console.log(newt-dbt);
+//  				console.log(Math.floor(newt-dbt)/60);
+ 				return Math.floor((newt-dbt)/60) + "분 전"
  			}
  		
  		return ymdt;
@@ -285,7 +293,9 @@
  			return ymdt;
  		}
 	 }//function
+
 	 
+	 list();
 	</script>
 
 	  <c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>

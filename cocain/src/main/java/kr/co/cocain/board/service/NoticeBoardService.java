@@ -13,6 +13,7 @@ public interface NoticeBoardService {
     int listCount();
 
     List<Notice> listNotice(NoticePage page);
+    List<Notice> listNotice2(NoticePage page);
     
     Notice detail(int no);
 

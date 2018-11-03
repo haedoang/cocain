@@ -55,6 +55,34 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 	    model.addAttribute("list", service.listNotice(page));
 	    model.addAttribute("count", service.listCount());
 	    }
+	    @RequestMapping("/notice/list2.do")
+	    public ModelAndView list2(@RequestParam(value="pageNo" , defaultValue="1")int pageNo ,Model model){
+//	        System.out.println(model);
+	    	
+	    	ModelAndView mav = new ModelAndView("board/notice/list");
+	    	NoticePage page = new NoticePage();
+	    	page.setPageNo(pageNo);
+	    	
+	    	int count = service.listCount();
+	    	int lastPage = (int)Math.ceil(count/10d);
+	    	
+	    	// 페이지 블럭 시작
+	    	int pageSize = 10;
+	    	int currTab = (pageNo-1)/pageSize +1;
+	    	//11번 부터 2페이지가 되는것
+	    	int beginPage =  (currTab-1)*pageSize +1;
+	    	int endPage = currTab*pageSize < lastPage ? currTab*pageSize : lastPage;  
+	    	
+	    	
+	    	mav.addObject("beginPage",beginPage);
+	    	mav.addObject("endPage",endPage);
+	    	mav.addObject("lastPage",lastPage);
+	    	mav.addObject("pageNo",pageNo);
+//	    	System.out.println(service.listNotice(page).size());
+	    	mav.addObject("list", service.listNotice2(page));
+	    	mav.addObject("count", service.listCount());
+			return mav;
+	    }
 	    
 	    @RequestMapping("/notice/detail.do")
 	    public void detail(Model model, int no , NoticeRecom recom) {
