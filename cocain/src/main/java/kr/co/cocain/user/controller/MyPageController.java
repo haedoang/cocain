@@ -3,7 +3,6 @@ package kr.co.cocain.user.controller;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.cocain.repository.domain.RecentActivity;
 import kr.co.cocain.repository.domain.User;
 import kr.co.cocain.repository.domain.UserFile;
+import kr.co.cocain.repository.domain.UserRank;
 import kr.co.cocain.user.service.UserService;
 import kr.co.cocain.util.PageResult;
 
@@ -59,6 +59,10 @@ public class MyPageController {
 		UserFile userFile = new UserFile();
 		userFile.setId(user.getId());
 		model.addAttribute("userFile", service.selectFile(userFile));
+		
+		UserRank userRank = new UserRank();
+		userRank.setNickname(user.getNickname());
+		model.addAttribute("userRank", service.selectRankById(userRank.getNickname()));
 		
 		RecentActivity recentActivity = new RecentActivity();
 		recentActivity.setWriter(user.getNickname());
@@ -162,6 +166,10 @@ public class MyPageController {
 		userFile.setId(userInfo.getId());
 		model.addAttribute("userFile", service.selectFile(userFile));
 		model.addAttribute("userInfo", userInfo);
+		
+		UserRank userRank = new UserRank();
+		userRank.setNickname(writer);
+		model.addAttribute("userRank", service.selectRankById(userRank.getNickname()));
 		
 		RecentActivity recentActivity = new RecentActivity();
 		recentActivity.setWriter(writer);

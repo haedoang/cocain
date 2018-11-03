@@ -15,20 +15,28 @@
 					 select="selectFile"></association>
 	</resultMap>
 	
-	<!-- 유저파일 -->
+	<!-- 유저 파일 -->
 	<resultMap id="userFileMap" type="userFile">
 		<result column="id" property="id" />
 		<result column="fileName" property="fileName" />
 		<result column="uploadPath" property="uploadPath" />
 	</resultMap> 
 	
-	<!-- 최근활동 -->
+	<!-- 최근 활동 -->
 	<resultMap id="recentActivityMap" type="recentActivity">
 		<result column="no" property="no" />
 		<result column="title" property="title" />
 		<result column="writer" property="writer" />
 		<result column="typeqna" property="typeqna" />
 		<result column="reg_date" property="regDate" />
+	</resultMap> 
+	
+	<!-- 유저 랭킹 -->
+	<resultMap id="userRankMap" type="userRank">
+		<result column="id" property="id" />
+		<result column="nickname" property="nickname" />
+		<result column="point" property="point" />
+		<result column="lank" property="lank" />
 	</resultMap> 
 	
 	<!-- 회원 등록 -->
@@ -105,7 +113,9 @@
 			 	union 
 			   select quiz_no, title, nickname, 'typequiz', reg_date from tb_quiz_board
 			    union
-			   select no, content, writer, 'typeqnacm', reg_date from tb_qna_comment) b 
+			   select no, content, writer, 'typeqnacm', reg_date from tb_qna_comment
+			    union 
+	 		   select quiz_no, content, nickname, 'typequizcm', reg_date from tb_quiz_comment) b 
 		  where writer = #{writer}
 		  order by reg_date desc
      	  limit #{begin}, 5
@@ -120,7 +130,9 @@
 			 	  union 
 			 	 select quiz_no, title, nickname, 'typequiz', reg_date from tb_quiz_board
 				  union 
-			 	 select no, content, writer, 'typeqnacm', reg_date from tb_qna_comment) b 
+			 	 select no, content, writer, 'typeqnacm', reg_date from tb_qna_comment 
+			 	  union 
+	 			 select quiz_no, content, nickname, 'typequizcm', reg_date from tb_quiz_comment) b 
 		  where writer = #{writer}
 	</select>
 	
@@ -144,6 +156,31 @@
 	<!-- 닉네임에 대한 검색 -->
 	<select id="selectUser" parameterType="string" resultMap="userMap">
 		select * from tb_user where nickname = #{writer}
+	</select>
+	
+	<!-- 해당 유저 랭킹 -->
+	<select id="selectRankById" parameterType="string" resultMap="userRankMap">
+		select d.*
+		  from (select  id,
+		        point,
+		        nickname,
+		        IF(point=@_last_point,@curRank:=@curRank,@curRank:=@_sequence) AS rank,
+		        @_sequence:=@_sequence+1,@_last_point:=point
+				  from  tb_user p, (SELECT @curRank := 1, @_sequence:=1, @_last_point:=0) r
+		 		 order by point desc) d
+		  where nickname = #{nickname}   
+	</select>
+		  	  
+	<!-- 유저 랭킹 -->
+	<select id="selectRank" resultMap="userRankMap">
+		select d.*
+		  from (select  id,
+		        point,
+		        nickname,
+		        IF(point=@_last_point,@curRank:=@curRank,@curRank:=@_sequence) AS rank,
+		        @_sequence:=@_sequence+1,@_last_point:=point
+				  from  tb_user p, (SELECT @curRank := 1, @_sequence:=1, @_last_point:=0) r
+		 		 order by point desc) d
 	</select>
 		  	  
 </mapper>

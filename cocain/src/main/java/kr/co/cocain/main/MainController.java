@@ -13,6 +13,7 @@ import kr.co.cocain.board.service.StudyGroupBoardService;
 import kr.co.cocain.repository.domain.NoticePage;
 import kr.co.cocain.repository.domain.QnaPage;
 import kr.co.cocain.repository.domain.QuizPage;
+import kr.co.cocain.repository.domain.UserRank;
 import kr.co.cocain.user.service.UserService;
 import kr.co.cocain.util.PageResult;
 
@@ -80,6 +81,9 @@ public class MainController {
 		QnaPage qnap = new QnaPage();
 		qnap.setPageNo(pageNo);
 		model.addAttribute("qnaList", qnaService.listqna(qnap));
+		
+		// 랭킹 1위부터 3위
+		model.addAttribute("rank", userService.selectRank());
 		
 		// 전체 게시물 수
 		model.addAttribute("articleCount", userService.allArticleCount());

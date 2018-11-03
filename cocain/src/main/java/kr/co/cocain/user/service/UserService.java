@@ -5,6 +5,7 @@ import java.util.List;
 import kr.co.cocain.repository.domain.RecentActivity;
 import kr.co.cocain.repository.domain.User;
 import kr.co.cocain.repository.domain.UserFile;
+import kr.co.cocain.repository.domain.UserRank;
 
 
 /**
@@ -100,5 +101,16 @@ public interface UserService {
 	 * @param writer
 	 */
 	User selectUser(String writer);
+	
+	/**
+	 * 해당 유저 랭킹
+	 * @param nickname
+	 */
+	UserRank selectRankById(String nickname);
+	
+	/**
+	 * 유저 랭킹
+	 */
+	List<UserRank> selectRank();
 	
 } // end interface

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import kr.co.cocain.repository.domain.RecentActivity;
 import kr.co.cocain.repository.domain.User;
 import kr.co.cocain.repository.domain.UserFile;
+import kr.co.cocain.repository.domain.UserRank;
 import kr.co.cocain.repository.mapper.UserMapper;
 
 
@@ -219,5 +220,22 @@ public class UserServiceImpl implements UserService {
 	public User selectUser(String writer) {
 		return mapper.selectUser(writer);
 	} // selectId
+
+	/**
+	 * 해당 유저 랭킹
+	 * @param nickname
+	 */
+	@Override
+	public UserRank selectRankById(String nickname) {
+		return mapper.selectRankById(nickname);
+	} // selectLankById
+
+	/**
+	 * 유저 랭킹
+	 */
+	@Override
+	public List<UserRank> selectRank() {
+		return mapper.selectRank();
+	} // selectLank
 
 } // end class

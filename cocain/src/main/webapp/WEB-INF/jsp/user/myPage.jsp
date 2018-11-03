@@ -55,7 +55,7 @@
                                 </h1>
                                 <div>
                                 	<br><br>
-                                    <div><h3> 　 &nbsp;랭킹 5위 </h3><h4> (${user.point}p)</h4></div>
+                                    <div><h3> 　 &nbsp;랭킹 ${userRank.rank}위 </h3><h4> (${user.point}p)</h4></div>
                                 </div>
                             </div>
                         </div>
@@ -94,13 +94,16 @@
 	                                          			<th>지식iN에 ${active.no}번 게시물을 작성하였습니다.&nbsp;&nbsp; 
                                           			</c:when>
 	                                        		<c:when test="${active.typeqna == 'typequiz'}">
-	                                          			<th>유저 퀴즈에 ${active.no}번 게시물을 작성하였습니다.&nbsp;&nbsp; 
+	                                          			<th>퀴즈 게시판에 ${active.no}번 게시물을 작성하였습니다.&nbsp;&nbsp; 
                                           			</c:when>
                                           			<c:when test="${active.typeqna == 'typestudy'}">
                                           				<th>스터디에 ${active.no}번 게시물을 작성하였습니다.&nbsp;&nbsp;
                                           			</c:when>
                                           			<c:when test="${active.typeqna == 'typeqnacm'}">
                                           				<th>지식iN ${active.no}번 게시물에 댓글을 작성하였습니다.&nbsp;&nbsp;
+                                          			</c:when>
+                                          			<c:when test="${active.typeqna == 'typequizcm'}">
+                                          				<th>퀴즈 게시판 ${active.no}번 게시물에 댓글을 작성하였습니다.&nbsp;&nbsp;
                                           			</c:when>
 	                                            </c:choose>
 	                                            <span><fmt:formatDate value="${active.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></th>
@@ -114,7 +117,7 @@
 		                                        			<c:when test="${active.typeqna == 'typeqna' || active.typeqna == 'typeqnacm'}">
 		                                            			<a href="<c:url value="/board/qna/detail.do?no=${active.no}" />">${active.title}</a>
 		                                          			</c:when>
-			                                        		<c:when test="${active.typeqna == 'typequiz'}">
+			                                        		<c:when test="${active.typeqna == 'typequiz' || active.typeqna == 'typequizcm'}">
 		                                            			<a href="<c:url value="/board/quiz/uqdetail.do?quizNo=${active.no}" />">${active.title}</a>
 		                                          			</c:when>
 		                                          			<c:when test="${active.typeqna == 'typestudy'}">

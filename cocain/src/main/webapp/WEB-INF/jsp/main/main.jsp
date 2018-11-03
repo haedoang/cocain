@@ -78,31 +78,31 @@
                         <div class="carousel-inner">
                             <div class="item active">
                                 <h2 class="text-center">
-                                    <i class="fas fa-medal" style="color: gold"></i>&nbsp;&nbsp;김해동
+                                    <i class="fas fa-medal" style="color: gold"></i>&nbsp;&nbsp;${rank[0].nickname}
+                                </h2>
+                                <h4 class="text-center">퀴즈 랭킹</h4>
+                            </div>
+<%--                             <div class="item">
+                                <h2 class="text-center">
+                                    <i class="fas fa-medal" style="color: #c0c0c0"></i>&nbsp;&nbsp;${rank[1].nickname}
                                 </h2>
                                 <h4 class="text-center">퀴즈 랭킹</h4>
                             </div>
                             <div class="item">
                                 <h2 class="text-center">
-                                    <i class="fas fa-medal" style="color: #c0c0c0"></i>&nbsp;&nbsp;박한준
+                                    <i class="fas fa-medal" style="color: #cd7f32"></i>&nbsp;&nbsp;${rank[2].nickname}
                                 </h2>
                                 <h4 class="text-center">퀴즈 랭킹</h4>
-                            </div>
-                            <div class="item">
-                                <h2 class="text-center">
-                                    <i class="fas fa-medal" style="color: #cd7f32"></i>&nbsp;&nbsp;안규영
-                                </h2>
-                                <h4 class="text-center">퀴즈 랭킹</h4>
-                            </div>
+                            </div> --%>
                         </div>
-                        <a class="left carousel-control" href="#myCarousel-lank" data-slide="prev">
+<!--                         <a class="left carousel-control" href="#myCarousel-lank" data-slide="prev">
                             <span class="glyphicon glyphicon-chevron-left"></span>
                             <span class="sr-only">Previous</span>
                         </a>
                         <a class="right carousel-control" href="#myCarousel-lank" data-slide="next">
                             <span class="glyphicon glyphicon-chevron-right"></span>
                             <span class="sr-only">Next</span>
-                        </a>
+                        </a> -->
                     </div> 
                 </div>
             </div>
