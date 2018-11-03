@@ -30,12 +30,17 @@ public interface QuizMapper {
 	//quiz detail
 	QuizBoard selectQuizBoardByNo(int quizNo);
 	
-	//uq correct return true 1 false 0 
+	//정답 ajax  correct return true 1 false 0 
 	int selectQuizCorrect(QuizBoard quizBoard);
 	
+	//게시글 삭제 
 	void deleteQuizBoard(int quizNo);
 	
+	//게시글 수정
 	
+	void updateQuizBoard(QuizBoard quizBoard);
+	
+
 	//search
 	List<QuizBoard> selectQuizSearch(QuizBoard quizBoard);
 	
@@ -47,6 +52,5 @@ public interface QuizMapper {
 	//제출게시판 등록하기 
 	void insertQuizSubmit(QuizSubmit quizSubmit);
 	
-	//commit;
 	
 }

@@ -104,14 +104,6 @@
 		  from tb_quiz_submit
 	</select>
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	<!-- quiz insert -->
 	<insert id="insertQuizBoard" parameterType="QuizBoard">
 		insert into tb_quiz_board(
@@ -155,7 +147,6 @@
 
 
 	<!-- detail...  -->
-	
 	<select id="selectQuizBoardByNo" parameterType="int" resultMap="quizMap">
 		select *
 		  from tb_quiz_board
@@ -177,7 +168,6 @@
 	</delete>
 	
 	<!-- dq 답안 등록하기 -->
-	
 	<insert id="insertQuizSubmit" parameterType="QuizSubmit">
 		insert into tb_quiz_submit(
 									quiz_no,
@@ -194,7 +184,18 @@
 																		)
 	</insert>
 	
+	<!-- quiz수정 -->
 	
+	<update id="updateQuizBoard" parameterType="QuizBoard">
+		update tb_quiz_board
+		   set category_no = #{categoryNo}, 
+		   	   level_no = #{levelNo},
+		   	   hint = #{hint},
+		   	   title =#{title},
+		   	   content = #{content},
+		   	   correct = #{correct}
+		 where quiz_no = #{quizNo}
+	</update>
 	
 		
 </mapper>

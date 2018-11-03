@@ -86,14 +86,23 @@ public class QuizBoardController {
 		} else return UrlBasedViewResolver.REDIRECT_URL_PREFIX+"uqlist.do";
 	}
 	
-	/* detail */ 
-	//파라미터값 게시글번호..
+	/**
+	 * 
+	 * @param quizNo
+	 * @param model(detail,category,level)
+	 * 		  : 게시글 번호에 해당하는 상세페이지, 수정페이지 호출 
+	 */    
 	@RequestMapping(value= {"dqdetail.do","uqdetail.do","dqupdateform.do","uqupdateform.do"})
 	public void detail(int quizNo, Model model) {
 		model.addAttribute("data",service.selectQuizBoardByNo(quizNo));
 	}
 	
-	/* user quiz 정답 호출 ajax */
+	/**
+	 * 
+	 * @param quizBoard
+	 * @return 1 정답 0 오답 
+	 * 		  : userquiz 정답 작성 후 입력 호출 ajax  
+	 */
 	@RequestMapping("uqcorrect.do")
 	@ResponseBody
 	public int correct(QuizBoard quizBoard) {	
@@ -101,7 +110,13 @@ public class QuizBoardController {
 	}
 	
 	
-	/* delete  */ 
+	/**
+	 * 
+	 * @param quizNo
+	 * @param typeNo
+	 * @return typeNo에 해당하는 게시글 목록으로 이동
+	 *		 : 게시글 삭제 시 quizNo입력받아서 삭제. typeNo는 redirect 경로 지정 위해 설정 
+	 */
 	@RequestMapping("deleteboard.do")
 	public String deleteBoard(int quizNo,int typeNo) {
 		service.deleteQuizBoard(quizNo);
@@ -166,16 +181,26 @@ public class QuizBoardController {
 
 	}
 	
-/*	 수정!!! 
-	@RequestMapping(value= {"dqupdate.do","uqupdate.do"})
-	public void update(QuizBoard quizBoard,Model model) {
-		model.addAttribute("data", service.updateBoard(quizBoard));
+	/**
+	 *  
+	 * @param quizBoard
+	 * @return typeNo에 따른 목록 페이지  리턴.
+	 */
+	@RequestMapping(value= "updateQuizBoard.do",method=RequestMethod.POST)
+	public String updateQuizBoard(QuizBoard quizBoard) {
+		int typeNo= quizBoard.getTypeNo();
+		
+		service.updateQuizBoard(quizBoard);
+		
+		if(typeNo==1) {
+			return UrlBasedViewResolver.REDIRECT_URL_PREFIX+"dqlist.do";
+		}
+		else {
+			return UrlBasedViewResolver.REDIRECT_URL_PREFIX+"uqlist.do";
+		}
+		
+		
 	}
 	
-	 수정등록..  
-	@RequestMapping(value= {"dqupdate.do","uqupdate.do"})
-	public void update(QuizBoard quizBoard,Model model) {
-		model.addAttribute("data", service.updateBoard(quizBoard));
-	}*/
-	
+
 }

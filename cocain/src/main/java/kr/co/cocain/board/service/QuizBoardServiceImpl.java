@@ -110,12 +110,12 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 		mapper.insertQuizSubmit(quizSubmit);	
 	}
 
-/*	@Override
-	public Map<String, Object> updateBoard(QuizBoard quizBoard) {
-		mapper.updateBoard(quizBoard);
-		return null;
+	@Override
+	public void updateQuizBoard(QuizBoard quizBoard) {
+		mapper.updateQuizBoard(quizBoard);	
 	}
-*/
+
+
 
 	//commit;
 	

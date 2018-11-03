@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,6 +67,14 @@
 						<tr>
 							<th>제목</th>
 							<td><span>${data.detail.title}</span></td>
+						</tr>
+						<tr>
+							<th>작성자</th>
+							<td><span>${data.detail.nickname}</span></td>
+						</tr>
+						<tr>
+							<th>등록일</th>
+							<td><span><fmt:formatDate value="${data.detail.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></td>
 						</tr>
 						<tr>
 							<th>카테고리</th>

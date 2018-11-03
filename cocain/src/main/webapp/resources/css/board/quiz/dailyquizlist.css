@@ -73,6 +73,7 @@ div > .nav > li > a:focus {
 textarea{
 	resize:none;
 }
-#uqForm > table > tbody > tr > th,#dqForm > table > tbody > tr > th {
+
+#uqForm > table > tbody > tr > th, #dqForm > table > tbody > tr > th {
 	width:15%
 }

@@ -44,9 +44,9 @@ public interface QuizBoardService {
 	
 	//submit 등록하기!!!
 	void insertQuizSubmit(QuizSubmit quizSubmit);
-	
-/*	//update 하기!!
-	
-	Map<String,Object> updateBoard(QuizBoard quizBoard);
-	*/
+
+	//게시글 수정하기 
+	void updateQuizBoard(QuizBoard quizBoard);
+
+
 }

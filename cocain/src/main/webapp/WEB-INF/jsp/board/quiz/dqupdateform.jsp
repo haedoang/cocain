@@ -59,49 +59,74 @@
 			<div class="context"></div>
 
 			<div class="col-md-10">
-				<table class="table">
-					<tr>
-						<th>제목</th>
-						<td><input type="text" size="50" name="title"
-							value="${data.detail.title}" /></td>
-					</tr>
-					<tr>
-						<th>카테고리</th>
-						<td><select name="category">
-								<option>java</option>
-			 					<option>html</option>
-								<option>css</option>
-								<option>javascript</option>
-								<option>ajax</option>
-						</select></td>
-					</tr>
-					<tr>
-						<th>Hint 설정</th>
-						<td>
-							<div>
-								<input type="text" name="hint1" placeholder="힌트를 입력하세요" /> <input
-									type="text" name="hint2" placeholder="힌트를 입력하세요" /> <input
-									type="text" name="hint3" placeholder="힌트를 입력하세요" /><br> <span>
-									<input type="checkbox" id="1" name="hint" /> <label for="1">힌트
-										없음</label>
-								</span>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<th>문제 내용</th>
-						<td>
-							<div id="summernote">Hello Summernote</div>
-						</td>
-					</tr>
-					<tr>
-						<th class="buttons">
-							<button class="btn btn-primary">수정하기</button>
-							<button class="btn btn-primary">수정취소</button>
-						</th>
-						<td></td>
-					</tr>
-				</table>
+				<form id="dqForm" name ="dqForm" method="POST">
+					<table class="table">
+						<tr>
+							<th>게시글번호</th>
+							<td>
+								<input type="hidden" name="quizNo" value="${data.detail.quizNo}"/>
+								<input type="hidden" name="typeNo" value="${data.detail.typeNo}"/>
+								<span>${data.detail.quizNo}</span>
+							</td>
+							
+						</tr>
+						<tr>
+							<th>작성자</th>
+							<td><span>${data.detail.nickname}</span></td>
+						</tr>
+						<tr>
+							<th>카테고리</th>
+							<td><select name="categoryNo">
+									<c:forEach var="i" items="${data.category}">
+										<option value="${i.categoryNo}"
+											<c:if test="${i.categoryNo == data.detail.categoryNo}">
+										selected
+										</c:if>>${i.categoryName}</option>
+									</c:forEach>
+							</select></td>
+						</tr>  
+						<tr>
+							<th>난이도</th>
+							<td><c:forEach var="j" items="${data.level}">
+									<input type="radio" id="r${j.levelNo}" name="levelNo"
+										value="${j.levelNo}"
+										<c:if test="${j.levelNo==data.detail.levelNo}">
+									checked
+								</c:if> />
+									<label for="r${j.levelNo}">${j.levelName}</label>
+								</c:forEach></td>
+						</tr>
+						<tr>
+							<th>Hint 설정</th>
+							<td>
+								<div>
+									<input id="yeshint" type="text" name="hint"
+										value="${data.detail.hint}" /> <br> <span> <input
+										type="checkbox" id="nohint" name="hint" /> <label
+										for="nohint">힌트 없음</label>
+									</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>제목</th>
+							<td><input type="text" size="50" name="title"
+								value="${data.detail.title}" /></td>
+						</tr>
+						<tr>
+							<th>문제 내용</th>
+							<td><textarea id="summernote" name="content">${data.detail.content}</textarea>
+							</td>
+						</tr>
+						<tr>
+							<th class="buttons">
+								<button id="update" class="btn btn-primary">수정</button>
+								<button id="cancel" class="btn btn-primary">취소</button>
+							</th>
+							<td></td>
+						</tr>
+					</table>
+				</form>
 			</div>
 			<!-- col-md-8 end -->
 		</div>
@@ -114,5 +139,29 @@
 
 	<!-- summernote -->
 	<script src="<c:url value="/resources/js/edit-summernote.js"/>"></script>
+	
+		<script>
+		$("#update").click(function(e){
+			e.preventDefault();
+			
+		    var dqForm = document.dqForm;
+			
+			dqForm.action="<c:url value='updateQuizBoard.do'/>";
+			dqForm.submit();
+			alert("수정완료!! 게시판 목록으로 이동합니다.");
+		});
+		
+		$("#cancel").click(function(e){
+			e.preventDefault();
+			
+			var result = confirm("수정을 취소하시겠습니까?")
+			
+			if(!result) return;
+			
+			alert("수정 취소. 게시판 목록으로 이동합니다.");
+			location.href="<c:url value='dqlist.do'/>";
+		})
+	
+	</script>
 </body>
 </html>

@@ -47,7 +47,7 @@
 			</div>
 		</div>
 
-	<%-- 	<div class="section">
+	 	<div class="section">
 			<div class="background">
 				<img src="<c:url value="/resources/images/quiz-back2.jpg"/>"
 					width=100% height=250px; />
@@ -60,8 +60,21 @@
 			<div class="context"></div>
 
 		 	<div class="col-md-10">
-				<form id="uqForm" action="<c:url value="uqupdate.do"/>" method="POST">
+				<form id="uqForm" name ="uqForm" method="POST">
 					<table class="table">
+						<tr>
+							<th>게시글번호</th>
+							<td>
+								<input type="hidden" name="quizNo" value="${data.detail.quizNo}"/>
+								<input type="hidden" name="typeNo" value="${data.detail.typeNo}"/>
+								<span>${data.detail.quizNo}</span>
+							</td>
+							
+						</tr>
+						<tr>
+							<th>작성자</th>
+							<td><span>${data.detail.nickname}</span></td>
+						</tr>
 						<tr>
 							<th>카테고리</th>
 							<td><select name="categoryNo">
@@ -107,9 +120,13 @@
 							</td>
 						</tr>
 						<tr>
+							<th>정답</th>
+							<td><input type="text" name="correct" value="${data.detail.correct}"/></td>
+						</tr>
+						<tr>
 							<th class="buttons">
-								<button class="btn btn-primary">수정하기</button>
-								<button class="btn btn-primary">수정취소</button>
+								<button id="update" class="btn btn-primary">수정</button>
+								<button id="cancel" class="btn btn-primary">취소</button>
 							</th>
 							<td></td>
 						</tr>
@@ -120,12 +137,36 @@
 		</div>
 	</section>
 
- --%>
+
 
 	<!-- footer.. -->
 	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
 
 	<!-- summernote -->
 	<script src="<c:url value="/resources/js/edit-summernote.js"/>"></script>
+	
+	<script>
+		$("#update").click(function(e){
+			e.preventDefault();
+			
+		    var uqForm = document.uqForm;
+			
+			uqForm.action="<c:url value='updateQuizBoard.do'/>";
+			uqForm.submit();
+			alert("수정완료!! 게시판 목록으로 이동합니다.");
+		});
+		
+		$("#cancel").click(function(e){
+			e.preventDefault();
+			
+			var result = confirm("수정을 취소하시겠습니까?")
+			
+			if(!result) return;
+			
+			alert("수정 취소. 게시판 목록으로 이동합니다.");
+			location.href="<c:url value='uqlist.do'/>";
+		})
+	
+	</script>
 </body>
 </html>

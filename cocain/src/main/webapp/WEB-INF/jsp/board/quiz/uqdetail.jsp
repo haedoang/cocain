@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,15 +67,17 @@
 					<table class="table">
 						<tr>
 							<th>게시글 번호</th>
-							<td>${data.detail.quizNo}</td>
-						</tr>
-						<tr>
-							<th>제목</th>
-							<td><span>${data.detail.title}</span></td>
+							<td>
+								<span>${data.detail.quizNo}</span>
+							</td>
 						</tr>
 						<tr>
 							<th>작성자</th>
 							<td><span>${data.detail.nickname}</span></td>
+						</tr>
+						<tr>
+							<th>등록일</th>
+							<td><span><fmt:formatDate value="${data.detail.regDate}" pattern="yyyy-MM-dd"/></span></td>
 						</tr>
 						<tr>
 							<th>카테고리</th>
@@ -85,12 +88,24 @@
 							</c:forEach>
 						</tr>
 						<tr>
+							<th>난이도</th>
+							<c:forEach var="j" items="${data.level}">
+								<c:if test="${data.detail.levelNo==j.levelNo}">
+									<td><span>${j.levelName}</span></td>
+								</c:if>
+							</c:forEach>
+						</tr>
+						<tr>
 							<th>Hint</th>
 							<td>
 								<div>
 									<span>${data.detail.hint}</span>
 								</div>
 							</td>
+						</tr>
+						<tr>
+							<th>제목</th>
+							<td><span>${data.detail.title}</span></td>
 						</tr>
 						<tr>
 							<th>문제 내용</th>
