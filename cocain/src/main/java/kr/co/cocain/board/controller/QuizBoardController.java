@@ -2,6 +2,7 @@ package kr.co.cocain.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import kr.co.cocain.board.service.QuizBoardService;
 import kr.co.cocain.repository.domain.QuizBoard;
+import kr.co.cocain.repository.domain.QuizComment;
 import kr.co.cocain.repository.domain.QuizPage;
 import kr.co.cocain.repository.domain.QuizSubmit;
 import kr.co.cocain.util.PageResult;
@@ -201,6 +203,23 @@ public class QuizBoardController {
 		
 		
 	}
+	
+	//댓글등록
+	
+	@RequestMapping("insertComment.do")
+	@ResponseBody
+	public List<QuizComment> insertComment(QuizComment quizComment) {
+		service.insertComment(quizComment);	
+		return service.selectCommentByNo(quizComment.getQuizNo());
+	}
+	//댓글삭제..
+	@RequestMapping("deleteComment.do")
+	@ResponseBody
+	public void deleteComment(int comNo) {
+		System.out.println(comNo);
+		service.deleteComment(comNo);
+	}
+	
 	
 
 }

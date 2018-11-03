@@ -35,7 +35,7 @@
 							<i class="fas fa-folder"></i> 유저퀴즈
 					</a></li>
 					<li role="presentation"><a
-						href="<c:url value="rank/rank.do"/>"> <i class="fas fa-signal"></i>
+						href="<c:url value="/board/rank/rank.do"/>"> <i class="fas fa-signal"></i>
 							랭킹보기
 					</a></li>
 				</ul>
@@ -76,7 +76,7 @@
 						</c:forEach>
 						<td><a
 							href="<c:url value="/board/quiz/dqdetail.do?quizNo=${i.quizNo}"/>">${i.title}</a></td>
-						<td>${i.nickname}</td>
+						<td><a href="#"><span>${i.nickname}</span></a></td>
 						<td><fmt:formatDate value="${i.regDate}"
 								pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						<td style="color: green"><fmt:formatDate value="${i.endDate}"

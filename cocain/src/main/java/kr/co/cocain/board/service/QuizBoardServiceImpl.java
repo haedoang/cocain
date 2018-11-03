@@ -1,12 +1,14 @@
 package kr.co.cocain.board.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.cocain.repository.domain.QuizBoard;
+import kr.co.cocain.repository.domain.QuizComment;
 import kr.co.cocain.repository.domain.QuizPage;
 import kr.co.cocain.repository.domain.QuizSubmit;
 import kr.co.cocain.repository.mapper.QuizMapper;
@@ -34,8 +36,7 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 		Map<String,Object> map = new HashMap<>();
 		map.put("list", mapper.selectUQList(quizPage));
 		map.put("category", mapper.selectCategory());
-		map.put("level", mapper.selectLevel());
-		
+		map.put("level", mapper.selectLevel());		
 		return map;	
 	}
 
@@ -58,6 +59,7 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 		map.put("category", mapper.selectCategory());
 		map.put("level", mapper.selectLevel());
 		map.put("detail", mapper.selectQuizBoardByNo(quizNo));
+		map.put("comment", mapper.selectCommentByNo(quizNo));
 		
 		return map;
 	}
@@ -115,8 +117,22 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 		mapper.updateQuizBoard(quizBoard);	
 	}
 
+	@Override
+	public void insertComment(QuizComment quizComment) {
+		mapper.insertComment(quizComment);		
+	}
 
+	@Override
+	public List<QuizComment> selectCommentByNo(int QuizNo) {
+		return mapper.selectCommentByNo(QuizNo);		
+	}
 
-	//commit;
+	@Override
+	public void deleteComment(int comNo) {
+		mapper.deleteComment(comNo);
+		
+	}
+	
+
 	
 }

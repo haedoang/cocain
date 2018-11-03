@@ -1,8 +1,10 @@
 package kr.co.cocain.board.service;
 
+import java.util.List;
 import java.util.Map;
 
 import kr.co.cocain.repository.domain.QuizBoard;
+import kr.co.cocain.repository.domain.QuizComment;
 import kr.co.cocain.repository.domain.QuizPage;
 import kr.co.cocain.repository.domain.QuizSubmit;
 
@@ -47,6 +49,13 @@ public interface QuizBoardService {
 
 	//게시글 수정하기 
 	void updateQuizBoard(QuizBoard quizBoard);
+	
+	//댓글목록
+	List<QuizComment> selectCommentByNo(int QuizNo);
 
+	void insertComment(QuizComment quizComment);
+
+
+	void deleteComment(int comNo);
 
 }

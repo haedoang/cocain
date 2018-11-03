@@ -39,7 +39,7 @@
 							<i class="fas fa-folder-open"></i> 유저퀴즈
 					</a></li>
 					<li role="presentation"><a
-						href="<c:url value="rank/rank.do"/>"> <i class="fas fa-signal"></i>
+						href="<c:url value="/board/rank/rank.do"/>"> <i class="fas fa-signal"></i>
 							랭킹보기
 					</a></li>
 				</ul>
@@ -128,12 +128,10 @@
 	<!-- summernote -->
 	<script src="<c:url value="/resources/js/edit-summernote.js"/>"></script>
 
-	<script>
-		$("#submit").click(function() {
-			$("#uqForm").submit();
-		});
-		$("#cancel").click(function(){
-			locationhref="<c:url value="uqlist.do"/>";
+		<script>
+		$("#cancel").click(function(e){
+			e.preventDefault();
+			location.href="<c:url value="uqlist.do"/>";
 		});
 	</script>
 </body>

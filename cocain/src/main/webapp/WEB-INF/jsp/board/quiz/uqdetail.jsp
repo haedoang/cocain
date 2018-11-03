@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +11,7 @@
 <title>dqdetail</title>
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" />
-<link rel="stylesheet" 
+<link rel="stylesheet"
 	href="<c:url value="/resources/css/board/quiz/dailyquizlist.css"/>" />
 <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
@@ -28,9 +28,8 @@
 			<div class="sidebar">
 				<ul class="nav nav-pills nav-stacked">
 					<li role="presentation"><a href="#">퀴즈게시판</a></li>
-					<li role="presentation"><a
-						href="#"> <i class="fas fa-folder"></i>
-							데일리퀴즈
+					<li role="presentation"><a href="#"> <i
+							class="fas fa-folder"></i> 데일리퀴즈
 					</a></li>
 					<li role="presentation"><a href="<c:url value="dqlist.do"/>">
 							&nbsp;&nbsp; <i class="fas fa-folder"></i> 문제
@@ -38,11 +37,12 @@
 					<li role="presentation"><a href="<c:url value="dqsubmit.do"/>">
 							&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인
 					</a></li>
-					<li role="presentation" class="active"><a href="<c:url value="uqlist.do"/>">
-							<i class="fas fa-folder-open"></i> 유저퀴즈
+					<li role="presentation" class="active"><a
+						href="<c:url value="uqlist.do"/>"> <i
+							class="fas fa-folder-open"></i> 유저퀴즈
 					</a></li>
 					<li role="presentation"><a
-						href="<c:url value="rank/rank.do"/>"> <i class="fas fa-signal"></i>
+						href="<c:url value="/board/rank/rank.do"/>"> <i class="fas fa-signal"></i>
 							랭킹보기
 					</a></li>
 				</ul>
@@ -67,17 +67,16 @@
 					<table class="table">
 						<tr>
 							<th>게시글 번호</th>
-							<td>
-								<span>${data.detail.quizNo}</span>
-							</td>
+							<td><span>${data.detail.quizNo}</span></td>
 						</tr>
 						<tr>
 							<th>작성자</th>
-							<td><span>${data.detail.nickname}</span></td>
+							<td><a href="#"><span>${data.detail.nickname}</span></a></td>
 						</tr>
 						<tr>
 							<th>등록일</th>
-							<td><span><fmt:formatDate value="${data.detail.regDate}" pattern="yyyy-MM-dd"/></span></td>
+							<td><span><fmt:formatDate
+										value="${data.detail.regDate}" pattern="yyyy-MM-dd" /></span></td>
 						</tr>
 						<tr>
 							<th>카테고리</th>
@@ -117,57 +116,64 @@
 							<th>정답 확인하기</th>
 							<td class="buttons">
 								<form id="cForm" method="POST" action="#" class="buttons">
-									<input type="hidden" name="quizNo" value="${data.detail.quizNo}"/>
-									<input type="text"  name="correct" placeholder="정답을 입력하세요"/>
-									<button id="correct" class="btn btn-primary">정답확인</button> 
+									<input type="hidden" name="quizNo"
+										value="${data.detail.quizNo}" /> <input type="text"
+										name="correct" placeholder="정답을 입력하세요" />
+									<button id="correct" class="btn btn-primary">정답확인</button>
 									<div id="result"></div>
 								</form>
 							</td>
-							<td>
-								
-							</td>
+							<td></td>
 						</tr>
 						<tr>
 							<th colspan="2" class="buttons">
-								<button id="list" class="btn btn-primary">목록</button>
-							<c:if test="${sessionScope.user.nickname==data.detail.nickname}">	
-								<button id="update" class="btn btn-primary">수정</button>	
-								<button id="delete"  class="btn btn-primary">삭제</button>
-							</c:if>	
+								<button id="list" class="btn btn-primary">목록</button> <c:if
+									test="${sessionScope.user.nickname==data.detail.nickname}">
+									<button id="update" class="btn btn-primary">수정</button>
+									<button id="delete" class="btn btn-primary">삭제</button>
+								</c:if>
 							</th>
 						</tr>
 					</table>
 					<hr />
 					<h4>댓글테이블</h4>
 					<div class="row">
-						<div class="col-md-10">
-							<textarea class="form-control" rows="2">
-		
-							</textarea>
-
-						</div>
-						<div class="col-md-2 buttons">
-							<button class="btn btn-primary">등록</button>
-						</div>
+						<c:if test="${not empty sessionScope.user.nickname}">
+							<form id="comForm" method="POST">
+								<div class="col-md-10">
+									<input type="hidden" name="quizNo"
+										value="${data.detail.quizNo}" /> <input type="hidden"
+										name="nickname" value="${sessionScope.user.nickname}">
+									<textarea name="content" class="form-control" rows="2"></textarea>
+								</div>
+								<div class="col-md-2 buttons">
+									<button id="comSubmit" class="btn btn-primary">등록</button>
+								</div>
+							</form>
+						</c:if>
 					</div>
 					<br>
 					<div class="row">
-						<table class="table">
+						<table id="comTable" class="table">
 							<tr>
 								<th>작성자</th>
 								<th>내용</th>
 								<th>등록일</th>
 								<th></th>
 							</tr>
-							<tr>
-								<td>김해동</td>
-								<td>우와ㅏ 정말 어렵군여 ㅡㅡ</td>
-								<td>2018-07-27</td>
-								<td class="buttons">
-									<button class="btn btn-primary">수정</button>
-									<button class="btn btn-primary">삭제</button>
-								</td>
-							</tr>
+							<c:forEach var="k" items="${data.comment}">
+								<tr id="${k.comNo}">
+									<td><a href="#"><span>${k.nickname}</span></a></td>
+									<td>${k.content}</td>
+									<td><fmt:formatDate value="${k.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+									<td class="buttons">
+									<c:if test="${sessionScope.user.nickname==k.nickname}">
+										<button id="comUpdate" class="btn btn-primary">수정</button>
+										<button id="comDelete" class="btn btn-primary" onclick="comDel(${k.comNo})">삭제</button>
+									</c:if>
+									</td>
+								</tr>
+							</c:forEach>
 						</table>
 					</div>
 					<!-- 8 end  -->
@@ -183,47 +189,91 @@
 
 	<!-- summernote -->
 	<script src="<c:url value="/resources/js/edit-summernote.js"/>"></script>
-	<!-- button script -->
+	
+	<!--  date format -->
+	<script src="<c:url value="/resources/js/jquery-dateformat.js"/>"></script>
 	
 	<!-- button script -->
 	<script>
-		$("#list").click(function(){
-			location.href="<c:url value="uqlist.do"/>";
-		});
-		
-		
-		/*
-			정답호출 ajax
-		*/
-		$("#correct").click(function(e){
+		$("#comSubmit").click(function(e){
 			e.preventDefault();
-			var data = $("#cForm").serialize(); 
-			//console.log(data);
+			var comForm = $("#comForm").serialize();
+			
+			$.ajax({
+				url:"<c:url value='insertComment.do'/>",
+				method:"POST",
+				data:comForm
+			})
+			.done(function(data){
+				//console.log(data);		
+				var html ="";
+				//댓글 내용 등록;; 
+				$("#comTable > tbody > tr:eq(0)").siblings().remove();
+				for(var i of data){
+					html+="<tr id='"+i.comNo+"'><td><a href='#'><span>"+i.nickname+"</span></a></td>";
+					html+="<td>"+i.content+"</td>";
+					html+="<td>"+$.format.date(i.regDate, "yyyy-MM-dd HH:mm:ss")+"</td>";
+					
+					if(i.nickname==`${sessionScope.user.nickname}`){
+						html+="<td class='buttons'><button class='btn btn-primary'>수정</button>";
+						html+=" <button class='btn btn-primary' onclick='comDel("+i.comNo+")'>삭제</button></td>";
+					} else {
+						html+="<td></td>"
+					}		
+				}
+				$("textarea[name='content']").val("");
+				$("#comTable > tbody > tr:eq(0)").after(html);
+			});
+			
+		});
+	
+		/* 댓글 삭제 */
+		function comDel(comNo){
 			 $.ajax({
-				url:"<c:url value="uqcorrect.do"/>",
-				method:"post",
-				data:data
-			}).done(function(result){
-				if(result==0){
-					$("#result").css({color:"red"}).html("틀렸습니다.");
-				} else{
-					$("#result").css({color:"green"}).html("정답입니다!!");
+				url:"<c:url value='deleteComment.do'/>",
+				data:"comNo="+comNo
+			}).done(function(data){
+				$("#"+comNo).remove();
+				
+			}) 
+		}
+	
+	
+	
+		/* 정답호출 ajax */
+		$("#correct").click(function(e) {
+			e.preventDefault();
+			var data = $("#cForm").serialize();
+			//console.log(data);
+			$.ajax({
+				url : "<c:url value="uqcorrect.do"/>",
+				method : "post",
+				data : data
+			}).done(function(result) {
+				if (result == 0) {
+					$("#result").css({
+						color : "red"
+					}).html("틀렸습니다.");
+				} else {
+					$("#result").css({
+						color : "green"
+					}).html("정답입니다!!");
 				}
 			})
 		});
-		
-		
-		/* 삭제 */
-		$("#delete").click(function(){
-			location.href="<c:url value='deleteboard.do?quizNo=${data.detail.quizNo}&typeNo=${data.detail.typeNo}'/>"
+
+		/* 게시글 삭제 */
+		$("#delete").click(function() {
+			location.href = "<c:url value='deleteboard.do?quizNo=${data.detail.quizNo}&typeNo=${data.detail.typeNo}'/>"
 		});
-		
-		
-		$("#update").click(function(){
-			location.href="<c:url value='uqupdateform.do?quizNo=${data.detail.quizNo}'/>";
+		/* 게시글 수정*/
+		$("#update").click(function() {
+			location.href = "<c:url value='uqupdateform.do?quizNo=${data.detail.quizNo}'/>";
 		});
-		
-		
+		/* 게시글 목록 */
+		$("#list").click(function() {
+			location.href = "<c:url value="uqlist.do"/>";
+		});
 	</script>
 </body>
 </html>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.cocain.repository.domain.QuizBoard;
 import kr.co.cocain.repository.domain.QuizCategory;
+import kr.co.cocain.repository.domain.QuizComment;
 import kr.co.cocain.repository.domain.QuizLevel;
 import kr.co.cocain.repository.domain.QuizPage;
 import kr.co.cocain.repository.domain.QuizSubmit;
@@ -52,5 +53,15 @@ public interface QuizMapper {
 	//제출게시판 등록하기 
 	void insertQuizSubmit(QuizSubmit quizSubmit);
 	
+	//comment
+    List<QuizComment> selectCommentByNo(int QuizNo);
+	
+	//comment insert
+    void insertComment(QuizComment quizComment);
+    
+    //comment delete
+    void deleteComment(int comNo);
+    
+    
 	
 }

@@ -37,7 +37,7 @@
 							<i class="fas fa-folder"></i> 유저퀴즈
 					</a></li>
 					<li role="presentation"><a
-						href="<c:url value="rank/rank.do"/>"> <i class="fas fa-signal"></i>
+						href="<c:url value="/board/rank/rank.do"/>"> <i class="fas fa-signal"></i>
 							랭킹보기
 					</a></li>
 				</ul>
@@ -70,7 +70,7 @@
 						</tr>
 						<tr>
 							<th>작성자</th>
-							<td><span>${data.detail.nickname}</span></td>
+							<td><a href="#"><span>${data.detail.nickname}</span></a></td>
 						</tr>
 						<tr>
 							<th>등록일</th>

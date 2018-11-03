@@ -16,7 +16,7 @@
 
 <body>
 	<!-- header.. -->
-	<c:import url="/jsp/base-ui/header.jsp"></c:import>
+	<c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 
 	<section>
 		<div class="aside">
@@ -24,20 +24,21 @@
 				<ul class="nav nav-pills nav-stacked">
 					<li role="presentation"><a href="#">퀴즈게시판</a></li>
 					<li role="presentation"><a
-						href="<c:url value="/jsp/board/quiz/dqlist.jsp"/>"> <i
-							class="fas fa-folder"></i> 데일리퀴즈
+						href="#"> <i class="fas fa-folder"></i>
+							데일리퀴즈
 					</a></li>
-					<li role="presentation"><a href="DailyQuiz.html">
+					<li role="presentation"><a href="<c:url value="/board/quiz/dqlist.do"/>">
 							&nbsp;&nbsp; <i class="fas fa-folder"></i> 문제
 					</a></li>
-					<li role="presentation"><a href="DailyQuizResult.html">
-							&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인</span>
+					<li role="presentation"><a href="<c:url value="/board/quiz/dqsubmit.do"/>">
+							&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인
 					</a></li>
-					<li role="presentation"><a href="UserQuiz.html"> <i
-							class="fas fa-folder"></i> 유저퀴즈
+					<li role="presentation"><a href="<c:url value="/board/quiz/uqlist.do"/>">
+							<i class="fas fa-folder-open"></i> 유저퀴즈
 					</a></li>
-					<li role="presentation" class="active"><a href="RankMain.html">
-							<i class="fas fa-signal"></i> 랭킹보기
+					<li role="presentation" class="active" ><a
+						href="<c:url value="/board/rank/rank.do"/>"> <i class="fas fa-signal"></i>
+							랭킹보기
 					</a></li>
 				</ul>
 			</div>
@@ -193,7 +194,7 @@
 
 
 	<!-- footer.. -->
-	<c:import url="/jsp/base-ui/footer.jsp"></c:import>
+	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
 
 </body>
 </html>

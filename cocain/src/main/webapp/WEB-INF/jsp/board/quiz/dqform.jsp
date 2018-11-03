@@ -39,7 +39,7 @@
 							<i class="fas fa-folder"></i> 유저퀴즈
 					</a></li>
 					<li role="presentation"><a
-						href="<c:url value="rank/rank.do"/>"> <i class="fas fa-signal"></i>
+						href="<c:url value="/board/rank/rank.do"/>"> <i class="fas fa-signal"></i>
 							랭킹보기
 					</a></li>
 				</ul>
@@ -117,11 +117,9 @@
 	</section>
 
 	<script>
-		$("#submit").click(function(){
-			$("#dqForm").submit();
-		});
-		$("#cancel").click(function(){
-			locationhref="<c:url value="dqlist.do"/>";
+		$("#cancel").click(function(e){
+			e.preventDefault();
+			location.href="<c:url value="dqlist.do"/>";
 		});
 	</script>
 

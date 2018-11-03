@@ -45,6 +45,18 @@
 		<result column="file_name" property="fileName" />
 	</resultMap>
 	
+	<resultMap id="comMap" type="QuizComment">
+		<result column="com_no" property="comNo"></result>
+		<result column="quiz_no" property="quizNo"></result>
+		<result column="nickname" property="nickname"></result>
+		<result column="content" property="content"></result>
+		<result column="reg_date" property="regDate"></result>
+	</resultMap>
+	
+	
+	
+	
+	
 	<!-- category list -->
 	<select id="selectCategory" resultMap="categoryMap">
 		select * 
@@ -197,6 +209,36 @@
 		 where quiz_no = #{quizNo}
 	</update>
 	
+	<!-- 댓글을 해볼까여 -->	
+		
+	<select id="selectCommentByNo" resultMap="comMap">
+		select *
+		  from tb_quiz_comment
+		 where quiz_no=#{quizNo}
+	</select>	
+		
+	<insert id="insertComment" parameterType="QuizComment">
+		insert into tb_quiz_comment(
+									quiz_no,
+									nickname,
+									content
+											) values(
+													#{quizNo},
+													#{nickname},
+													#{content}
+																)
+	</insert>
+		
+	
+	<delete id="deleteComment" parameterType="int">
+		delete from tb_quiz_comment
+		 where com_no=#{comNo}
+	</delete>
+		
+		
+		
+		
+		
 		
 </mapper>
 
