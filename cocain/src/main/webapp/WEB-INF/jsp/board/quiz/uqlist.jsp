@@ -139,6 +139,7 @@
 				<div class="col-md-4">
 					<div class="search">
 						<form id="sForm" method="post">
+							<input type="hidden" name="pageNo" value="2"/>
 							<input type="hidden" name="typeNo" value="${data.list[0].typeNo}" />
 							<select name="categoryNo">
 								<option value="">카테고리전체</option>
@@ -187,21 +188,25 @@
 		$("#search").click(function(e){
 			e.preventDefault();
 			var formData = $("#sForm").serialize();
-			console.log(formData);
+			console.log("formData",formData)
 			$.ajax({
-				url:"<c:url value="searchtest.do"/>",
+				url:"<c:url value="search.do"/>",
 				method:"POST",
 		   		data:formData
 			}).done(function(data){
+				alert("ajax 호출");
 				console.log(data);
+				
+				
 				$("#uqtable > tbody > tr:eq(0)").siblings().remove();
+				$(".pagination > *").remove();
 				var html="";	
 				var list = data.list;
 				var category = data.category;
 				var level = data.level;
 				console.log(list);	
 				
-				for(var i of list){
+				 for(var i of list){
 					html+="<tr><td>"+i.quizNo+"</td>";
 						for(var j of category){
 							if(i.categoryNo==j.categoryNo){
@@ -217,7 +222,7 @@
 						}//category end
 					}
 		
-					}//for end 	
+					}//for end 	 
 		 			html+="</tr>"	
 				$("#uqtable > tbody > tr:eq(0)").after(html);
 			}); 

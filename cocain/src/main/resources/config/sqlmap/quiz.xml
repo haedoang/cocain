@@ -102,20 +102,7 @@
 		  from tb_quiz_board
 		 where type_no =2 
 	</select>
-	
-	<!-- dqsubmit list -->
 
-	<select id="selectSubmitList" parameterType="QuizPage" resultMap="submitMap">
-		select *
-		  from tb_quiz_submit
-		 order by submit_no desc
-		 limit #{begin}, 10
-	</select>	
-	<select id="selectSubmitListCount" resultType="int">
-		select count(*)
-		  from tb_quiz_submit
-	</select>
-	
 	<!-- quiz insert -->
 	<insert id="insertQuizBoard" parameterType="QuizBoard">
 		insert into tb_quiz_board(
@@ -139,38 +126,17 @@
 															)
 		
 	</insert>
-
-	<!-- 제목, 카테고리 검색 (제목만 먼저 구현하자..카테고리 db써야함;; )  -->
-	<select id="selectQuizSearch" parameterType="QuizBoard" resultMap="quizMap">
-		select *
-		  from tb_quiz_board
-	  <where>
-		<if test="typeNo!=null">
-	    	and	type_no=#{typeNo}
-		</if>
-		<if test="title!=null">
-			and title like concat('%',#{title},'%')
-		</if>	
-		order by quiz_no desc
-		
-		<!-- limit page 어떻게 받으면 좋을까~?  -->
-	  </where>  
-	</select>
-	
-	
 	
 	<!-- search paging -->
 	<select id="selectSearchBoard" parameterType="QuizBoardSearch" resultMap="quizMap">
 		select * 
 		  from tb_quiz_board
 		<where>
-			<if test="typeNo!=null">
-				type_no=#{typeNo}
-			</if>
-			<if test="categoryNo!=null">
+			type_no=#{typeNo}
+			<if test="categoryNo!=''">
 				and category_no=#{categoryNo}			
 			</if> 
-		 	<if test="search!=null">
+		 	<if test="search!=''">
 		 		<if test="search==1">
 		 			and title like concat('%',#{word},'%')
 		 		</if>
@@ -179,7 +145,7 @@
 		 		</if>
 		 	</if>
 		</where>
-		limit #{begin}, 10
+		<!-- limit #{begin}, 10 -->
 	</select>
 	
 		<!-- search paging -->
@@ -187,13 +153,11 @@
 		select count(*) 
 		  from tb_quiz_board
 		<where>
-			<if test="typeNo!=null">
-				and type_no=#{typeNo}
-			</if>
-			<if test="categoryNo!=null">
+		    type_no=#{typeNo}
+			<if test="categoryNo!=''">
 				and category_no=#{categoryNo}			
 			</if> 
-		 	<if test="search!=null">
+		 	<if test="search!=''">
 		 		<if test="search==1">
 		 			and title like concat('%',#{word},'%')
 		 		</if>
@@ -202,7 +166,6 @@
 		 		</if>
 		 	</if>
 		</where>
-		limit #{begin}, 10
 	</select>
 	
 	
@@ -235,22 +198,7 @@
 		 where quiz_no=#{quizNo}
 	</delete>
 	
-	<!-- dq 답안 등록하기 -->
-	<insert id="insertQuizSubmit" parameterType="QuizSubmit">
-		insert into tb_quiz_submit(
-									quiz_no,
-									nickname,
-									level_point,
-									path,
-									file_name
-												)values (
-															#{quizNo},
-															#{nickname},
-															#{levelPoint},
-															#{path},
-															#{fileName}
-																		)
-	</insert>
+	
 	
 	<!-- quiz수정 -->
 	
@@ -299,7 +247,75 @@
 		 where com_no =#{comNo}
 	</update>
 		
+
+	
+	<!-- quizSubmit -->
 		
+	<!-- dqsubmit list -->
+	<select id="selectSubmitList" parameterType="QuizPage" resultMap="submitMap">
+		select *
+		  from tb_quiz_submit
+		 order by quiz_no desc,reg_date asc
+		 limit #{begin}, 10
+	</select>	
+	
+	<select id="selectSubmitListCount" resultType="int">
+		select count(*)
+		  from tb_quiz_submit
+	</select>
+	
+	<!-- dq 답안 등록하기 -->
+	<insert id="insertQuizSubmit" parameterType="QuizSubmit">
+		insert into tb_quiz_submit(
+									quiz_no,
+									nickname,
+									level_point,
+									path,
+									file_name
+												)values (
+															#{quizNo},
+															#{nickname},
+															#{levelPoint},
+															#{path},
+															#{fileName}
+																		)
+	</insert>
+	
+	<!-- quiz submit 여부 확인 -->
+	<select id="selectSubmitUser" parameterType="QuizSubmit" resultType="int">
+		select count(*)
+		  from tb_quiz_submit
+         where	quiz_no=#{quizNo}
+           and  nickname=#{nickname}
+	</select>
+
+	
+	<!-- quiz submit 시  quiz_board try cnt 증가 -->
+	<update id="updateBoardTryCnt" parameterType="int">
+		update tb_quiz_board
+		   set try_cnt=try_cnt+1
+		 where quiz_no=#{quizNo}
+	</update>
+	<!-- evaluation 정답:y 오답 :n 미채점:u default=u -->
+	<update id="updateSubmitEvaluation" parameterType="QuizSubmit">
+		update tb_quiz_submit
+		  set evaluation =#{evaluation}
+		 where submit_no=#{submitNo}
+	</update>
+	
+	<!-- 게시글 정답자 조회하기  -->
+	<select id="selectAnswerUserByNo" parameterType="int">
+		select count(*)
+		  from tb_quiz_submit
+		 where quiz_no=#{quizNo}
+		   and evaluation='y'
+	</select>
+	
+	<update id="updateBoardAnsCnt" parameterType="int">
+		update tb_quiz_board
+		  set answer_cnt = answer_cnt+1
+		where quiz_no=#{quizNo}
+	</update>
 		
 		
 		

@@ -113,10 +113,6 @@
 									<td class="buttons">
 										<form id="submitForm" class="buttons"
 											enctype="multipart/form-data">
-											<!-- 
-												넘길 데이터 :quizNo, nickname, level_point ~~  
-							 				-->
-											<p>파일을 첨부해주세요</p>
 											<input type="hidden" name="quizNo"
 												value="${data.detail.quizNo}" /> <input type="hidden"
 												name="nickname" value="${sessionScope.user.nickname}" />
@@ -126,8 +122,19 @@
 														value="${k.levelPoint}" />
 												</c:if>
 											</c:forEach>
-											<input id="attach" type="file" name="attach" style="display: inline" />
-											<button id="submit" class="btn btn-primary">제출하기</button>
+											<!-- 마감되었으면 등록못하게 하기  -->
+											<c:set var="now" value="<%=new java.util.Date()%>" />
+											<c:set var="sysdate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" /></c:set>
+											<c:set var="endDate"><fmt:formatDate value="${data.detail.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/></c:set>
+											<c:choose>
+												<c:when test="${endDate le sysdate}">
+													<p style="color:red">제출 시간이 종료되었습니다.</p>
+												</c:when>
+												<c:otherwise>
+													<input id="attach" type="file" name="attach" style="display: inline" />
+													<button id="submit" class="btn btn-primary">제출하기</button>
+												</c:otherwise>
+											</c:choose>
 										</form>
 									</td>
 								</tr>
@@ -217,7 +224,12 @@
 				processData : false,
 				data : formData
 			}).done(function(data) {
-				if (data == "true") {
+				
+				if(data=="registered"){
+					alert("해당 문제를 제출하신 이력이 존재합니다.");
+				}
+				
+				else if (data == "true") {
 					alert("문제 제출완료!! 제출 게시판으로 이동합니다~~");
 					location.href = "<c:url value='dqsubmit.do'/>";
 				} else {

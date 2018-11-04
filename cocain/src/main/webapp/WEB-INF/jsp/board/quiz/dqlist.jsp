@@ -79,8 +79,19 @@
 						<td><a href="#"><span>${i.nickname}</span></a></td>
 						<td><fmt:formatDate value="${i.regDate}"
 								pattern="yyyy-MM-dd HH:mm:ss" /></td>
-						<td style="color: green"><fmt:formatDate value="${i.endDate}"
-								pattern="yyyy-MM-dd HH:mm:ss" /></td>
+								
+						<!-- 현시간보다 늦으면 마감되었습니다. ㄱㄱ -->		
+							<c:set var="now" value="<%=new java.util.Date()%>" />
+							<c:set var="sysdate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" /></c:set>
+							<c:set var="endDate"><fmt:formatDate value="${i.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/></c:set>
+						<c:choose>
+							<c:when test="${endDate le sysdate}">
+								<td><span style="color:red">마감되었습니다.</span></td>
+							</c:when>
+							<c:otherwise>
+								<td style="color: green">${endDate}</td>							
+							</c:otherwise>
+						</c:choose>
 						<td>${i.answerCnt}</td>
 						<td>${i.probability}%</td>
 						<c:forEach var="k" items="${data.level}">
@@ -140,14 +151,23 @@
 				<div class="col-md-4">
 					<div class="search">
 						<form id="sForm" method="post">
-							
-							<input type="hidden" name="typeNo" value="${data.list[0].typeNo}"/>
-							<select>
-								<option>제목</option>
-								<option>카테고리</option>
-							</select> <input class="ser" type="text" size="15"
-								placeholder="검색어를 입력하세요" name="title"/>
-							<button id="search" class="ser" style="background-color:#000000">
+							<input type="hidden" name="pageNo" value="2"/>
+							<input type="hidden" name="typeNo" value="${data.list[0].typeNo}" />
+							<select name="categoryNo">
+								<option value="">카테고리전체</option>
+								<c:forEach var="i" items="${data.category}">
+								<option value="${i.categoryNo}">${i.categoryName}</option>
+								</c:forEach>
+							</select> 
+							<select name="search">
+								<option value="">전체</option>
+								<option value="1">제목</option>
+								<option value="2">작성자</option>
+							</select> 
+								
+							<input class="ser" type="text" size="15"
+								placeholder="검색어를 입력하세요" name="word" />
+							<button id="search" class="ser" style="background-color: #000000">
 								&nbsp;&nbsp;<i class="fas fa-search"></i>&nbsp;&nbsp;
 							</button>
 						</form>
@@ -191,6 +211,8 @@
 			}).done(function(data){
 				//console.log(data);
 				$("#dqtable > tbody > tr:eq(0)").siblings().remove();
+				$(".pagination > *").remove();
+				
 				var html="";	
 				var list = data.list;
 				var category = data.category;

@@ -88,15 +88,6 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 	}
 
 	@Override
-	public Map<String, Object> selectQuizSearch(QuizBoard quizBoard) {
-		Map<String,Object> map = new HashMap<>();
-		map.put("list",mapper.selectQuizSearch(quizBoard));
-		map.put("category", mapper.selectCategory());
-		map.put("level", mapper.selectLevel());
-		return map;
-	}
-
-	@Override
 	public Map<String, Object> selectSubmitList(QuizPage quizPage) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("list", mapper.selectSubmitList(quizPage));
@@ -110,7 +101,9 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 
 	@Override
 	public void insertQuizSubmit(QuizSubmit quizSubmit) {
-		mapper.insertQuizSubmit(quizSubmit);	
+		//submit 등록 및 quizBoard tryCnt 추가하기 
+		mapper.insertQuizSubmit(quizSubmit);
+		mapper.updateBoardTryCnt(quizSubmit.getQuizNo());
 	}
 
 	@Override
@@ -140,14 +133,22 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 	}
 
 	@Override
-	public List<QuizBoard> selectSearchBoard(QuizBoardSearch quizBoardSearch) {
-		System.out.println("controller call");
-		return mapper.selectSearchBoard(quizBoardSearch);
+	public Map<String,Object> selectSearchBoard(QuizBoardSearch quizBoardSearch) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("list",mapper.selectSearchBoard(quizBoardSearch));
+		map.put("category",mapper.selectCategory());
+		map.put("level",mapper.selectLevel());
+		return map;
 	}
 
 	@Override
 	public int selectSearchBoardCount(QuizBoardSearch quizBoardSearch) {
 		return mapper.selectSearchBoardCount(quizBoardSearch);
+	}
+
+	@Override
+	public int selectSubmitUser(QuizSubmit quizSubmit) {
+		return mapper.selectSubmitUser(quizSubmit);
 	}
 	
 

@@ -80,16 +80,36 @@
 					<td>${i.quizNo}번 문제 제출 파일</td>
 					<td><a href="file://${i.path}"><i class="far fa-file-code"></i></a></td>
 					<td>
-						<fmt:formatDate value="${i.regDate}" pattern="yyyy-MM-dd"/>
+						<fmt:formatDate value="${i.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 					</td>
 					<c:if test="${sessionScope.user.id=='admin'}">
 						<td>
-							<form>
-							<input type="radio" id="yes" name="evaluation" value="y" />
-								<label for="yes">정답</label>
-							<input type="radio" id="no" name="evaluation" value="n" />
-								<label for="no">오답</label>　　　
-							<input type="button" value="채점">		
+							<form id="sForm${i.submitNo}" method="POST" class="buttons">
+							<input type="hidden" name="quizNo" value="${i.quizNo}"/>
+							<input type="hidden" name="comNo" value="${i.submitNo}"/>
+							<input type="radio" id="y${i.submitNo}" name="evaluation" value="y"
+								<c:if test="${i.evaluation=='y'}">
+									checked
+								</c:if>
+							/>
+								<label for="y${submitNo}">정답</label>　
+							<input type="radio" id="n${i.submitNo}" name="evaluation" value="n"
+								<c:if test="${i.evaluation=='n'}">
+									checked
+								</c:if>
+							 />
+								<label for="n${i.submitNo}">오답</label>　　　
+							<button type="button" class="btn btn-primary" onclick="doCheck(${i.submitNo})">
+							<c:choose>
+								<c:when test="${i.evaluation != 'u'}">
+									수정하기
+								</c:when>
+								<c:otherwise>
+									채점하기	
+								</c:otherwise>
+							</c:choose>
+			
+							</button>		
 							</form>
 						</td>
 					</c:if>
@@ -150,13 +170,23 @@
 		if(!${pageResult.prev}){
 			e.preventDefault();
 		}
-	})
+	});
 
 	$(".pagination > li:last > a").click(function(e){
 		if(!${pageResult.next}){
 			e.preventDefault();
 		}
-	})
+	});
+	
+	/* evaluation 설정하기.  */
+	function doCheck(submitNo){
+		var formData = $("#sForm"+submitNo).serialize();
+		console.log(formData);
+	}
+
+	
+	
+	
 	
 	</script>
 

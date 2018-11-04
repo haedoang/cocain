@@ -6,11 +6,11 @@ public class QuizBoardSearch {
 	// typeNo , categoryNo , title, nickname , word 검색어 
 	
 	private int typeNo;
-	private int categoryNo;
-	private int search; // nick or title 
+	private String categoryNo;
+	private String search; // nick or title 
 	private String word; // 입력받아서 보낼 값
 	
-	private int pageNo;
+/*	private int pageNo;
 	private int begin;
 	
 	
@@ -29,7 +29,7 @@ public class QuizBoardSearch {
 		this.begin = begin;
 	}
 	
-	
+	*/
 	
 	
 	
@@ -39,34 +39,33 @@ public class QuizBoardSearch {
 	public void setTypeNo(int typeNo) {
 		this.typeNo = typeNo;
 	}
-	public int getCategoryNo() {
+
+
+	public String getCategoryNo() {
 		return categoryNo;
 	}
-	public void setCategoryNo(int categoryNo) {
+	public void setCategoryNo(String categoryNo) {
 		this.categoryNo = categoryNo;
 	}
-
-	public int getSearch() {
+	public String getSearch() {
 		return search;
 	}
-
-	public void setSearch(int search) {
+	public void setSearch(String search) {
 		this.search = search;
 	}
-
 	public String getWord() {
 		return word;
 	}
 	public void setWord(String word) {
 		this.word = word;
 	}
-
 	@Override
 	public String toString() {
 		return "QuizBoardSearch [typeNo=" + typeNo + ", categoryNo=" + categoryNo + ", search=" + search + ", word="
-				+ word + ", pageNo=" + pageNo + ", begin=" + begin + "]";
+				+ word + "]";
 	}
-	
+
+
 
 
 	

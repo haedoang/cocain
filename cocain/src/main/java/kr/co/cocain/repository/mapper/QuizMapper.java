@@ -46,14 +46,7 @@ public interface QuizMapper {
 	//search
 	List<QuizBoard> selectQuizSearch(QuizBoard quizBoard);
 	
-	//제출게시판
-	List<QuizSubmit>selectSubmitList(QuizPage quizPage);
-	int selectSubmitListCount();
-	
-	
-	//제출게시판 등록하기 
-	void insertQuizSubmit(QuizSubmit quizSubmit);
-	
+	/* 유저퀴즈 댓글  */	
 	//comment
     List<QuizComment> selectCommentByNo(int QuizNo);
 	
@@ -77,5 +70,19 @@ public interface QuizMapper {
     
     
     
+    /* submit board 관련 */
     
+    //quizsubmit.jsp list.
+  	List<QuizSubmit>selectSubmitList(QuizPage quizPage);
+  	int selectSubmitListCount();
+  	
+  	
+  	//제출 하기
+  	void insertQuizSubmit(QuizSubmit quizSubmit);
+    
+  	//제출 전 등록 여부 판단 ajax
+  	int selectSubmitUser(QuizSubmit quizSubmit);
+  	
+  	//제출 후 board try_cnt++; 
+  	void updateBoardTryCnt(int quizNo);
 }
