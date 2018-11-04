@@ -132,10 +132,32 @@
                                     <td>${notice.no}</td>
                                     <td>
                                     	<div style="width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-	                                    	<a href="<c:url value="/board/notice/detail.do?no=${notice.no}"/>">${notice.title}</a>
+	                                    	<a 
+	                                    	<c:choose>
+	                                    		<c:when test="${user == null}">
+	                                    			href="#" data-target="#login" id="log" data-toggle="modal"
+	                                   			</c:when>
+	                                   			<c:otherwise>
+	                                    			href="<c:url value="/board/notice/detail.do?no=${notice.no}"/>"
+	                                    		</c:otherwise>
+	                                    	</c:choose> >
+	                                    		${notice.title}
+	                                    	</a>
 	                                    </div>
                                     </td>
-                                    <td><a href="<c:url value="/user/profile.do?writer=${notice.writer}" />">${notice.writer}</a></td>
+                                    <td>
+	                                    <a 
+	                                    <c:choose>
+	                                   		<c:when test="${user == null}">
+	                                   			href="#" data-target="#login" id="log" data-toggle="modal"
+	                                 		</c:when>
+	                                  		<c:otherwise>
+	                                    		href="<c:url value="/user/profile.do?writer=${notice.writer}" />"
+	                                    	</c:otherwise>
+	                                 	</c:choose> >
+	                                    	${notice.writer}
+	                                    </a>
+                                    </td>
                                     <td><fmt:formatDate value="${notice.regDate}" pattern="yy-MM-dd" /></td>
                                 </tr>
                             </c:forEach>    
@@ -166,10 +188,32 @@
                                     <td>${study.no}</td>
                                     <td>
                                     	<div style="width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                    		<a href="<c:url value="/board/studygroup/detail.do?no=${study.no}"/>">${study.title}</a>
+                                    		<a 
+                                    		<c:choose>
+	                                    		<c:when test="${user == null}">
+	                                    			href="#" data-target="#login" id="log" data-toggle="modal"
+	                                   			</c:when>
+	                                   			<c:otherwise>
+	                                   				href="<c:url value="/board/studygroup/detail.do?no=${study.no}"/>"
+	                                   			</c:otherwise>
+                                   			</c:choose> >
+                                    			${study.title}
+                                   			</a>
                                     	</div>
                                     </td>
-                                    <td><a href="<c:url value="/user/profile.do?writer=${study.id}" />">${study.id}</a></td>
+                                    <td>
+	                                    <a
+	                                    <c:choose>
+	                                   		<c:when test="${user == null}">
+	                                   			href="#" data-target="#login" id="log" data-toggle="modal"
+	                                 		</c:when>
+	                                  		<c:otherwise> 
+	                                   			href="<c:url value="/user/profile.do?writer=${study.id}" />"
+	                                    	</c:otherwise>
+	                                   	</c:choose> >
+	                                  		${study.id}
+	                                    </a>
+                                    </td>
                                     <td><fmt:formatDate value="${study.regDate}" pattern="yy-MM-dd" /></td>
                                 </tr>
                             </c:forEach>    
@@ -202,10 +246,32 @@
                                     <td>${quiz.quizNo}</td>
                                     <td>
                                     	<div style="width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                    		<a href="<c:url value="/board/quiz/uqdetail.do?quizNo=${quiz.quizNo}"/>">${quiz.title}</a>
+                                    		<a 
+                                    		<c:choose>
+	                                    		<c:when test="${user == null}">
+	                                    			href="#" data-target="#login" id="log" data-toggle="modal"
+	                                   			</c:when>
+	                                   			<c:otherwise>
+                                    				href="<c:url value="/board/quiz/uqdetail.do?quizNo=${quiz.quizNo}"/>"
+                                    			</c:otherwise>
+                                   			</c:choose> >
+                                    			${quiz.title}
+                                    		</a>
                                     	</div>
                                     </td>
-                                    <td><a href="<c:url value="/user/profile.do?writer=${quiz.nickname}" />">${quiz.nickname}</a></td>
+                                    <td>
+	                                    <a
+	                                    <c:choose>
+	                                   		<c:when test="${user == null}">
+	                                   			href="#" data-target="#login" id="log" data-toggle="modal"
+	                                 		</c:when>
+	                                  		<c:otherwise> 
+	                                    		href="<c:url value="/user/profile.do?writer=${quiz.nickname}" />"
+	                                    	</c:otherwise>
+	                                  	</c:choose> >
+	                                    	${quiz.nickname}
+	                                    </a>
+                                    </td>
                                     <td><fmt:formatDate value="${quiz.regDate}" pattern="yy-MM-dd" /></td>
                                 </tr>
                             </c:forEach>  
@@ -236,10 +302,32 @@
                                     <td>${qna.no}</td>
                                     <td>
 	                                    <div style="width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-	                                    	<a href="<c:url value="/board/qna/detail.do?no=${qna.no}"/>">${qna.title}</a>
+	                                    	<a 
+	                                    	<c:choose>
+	                                    		<c:when test="${user == null}">
+	                                    			href="#" data-target="#login" id="log" data-toggle="modal"
+	                                   			</c:when>
+	                                   			<c:otherwise>
+	                                    			href="<c:url value="/board/qna/detail.do?no=${qna.no}"/>"
+	                                    		</c:otherwise>
+                                   			</c:choose> >
+	                                    		${qna.title}
+	                                    	</a>
 	                                    </div>
                                     </td>
-                                    <td><a href="<c:url value="/user/profile.do?writer=${qna.writer}" />">${qna.writer}</a></td>
+                                    <td>
+	                                    <a
+	                                    <c:choose>
+	                                   		<c:when test="${user == null}">
+	                                   			href="#" data-target="#login" id="log" data-toggle="modal"
+	                                  		</c:when>
+	                                  		<c:otherwise> 
+	                                    		href="<c:url value="/user/profile.do?writer=${qna.writer}" />"
+	                                    	</c:otherwise>
+	                                   		</c:choose> >
+	                                    	${qna.writer}
+	                                    </a>
+                                    </td>
                                     <td><fmt:formatDate value="${qna.regDate}" pattern="yy-MM-dd" /></td>
                                 </tr>
                             </c:forEach> 

@@ -40,6 +40,13 @@
 		<mvc:interceptors>
 			<mvc:interceptor>
 				<mvc:mapping path="/user/myPage.do" /> 
+				<mvc:mapping path="/user/profile.do" /> 
+				<mvc:mapping path="/board/*/*detail.do" /> 
+				<mvc:mapping path="/board/*/*delete.do" /> 
+				<mvc:mapping path="/board/*/*Form.do" /> 
+				<mvc:mapping path="/board/*/*update.do" /> 
+				<mvc:mapping path="/board/*/*form.do" /> 
+				<mvc:mapping path="/board/*/*write.do" /> 
 				<bean class="kr.co.cocain.user.controller.AuthInterceptor" />
 			</mvc:interceptor>
 		</mvc:interceptors>

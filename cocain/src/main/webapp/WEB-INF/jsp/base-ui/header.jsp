@@ -116,7 +116,8 @@
 				} else {
 					alert("로그인 되었습니다.");
 					$("#login").modal("hide");
-					location.href = "/cocain/main/main.do";
+					// location.href = "/cocain/main/main.do";
+					location.href = "${requestScope['javax.servlet.forward.request_uri']}";
 				}
 			})
 		});

@@ -340,8 +340,27 @@
 			alert("비밀번호가 수정되었습니다. 다시 로그인 해주세요.");
 		});
 		
+ 		// 확장자 제한
+		function checkFile(f){
+			// files로 해당 파일 정보 얻기
+			var file = f.files;
+
+			// file[0].name 은 파일명
+			// 정규식으로 확장자 체크
+			if(!/(gif|jpg|jpeg|png)$/i.test(file[0].name)) {
+				alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
+				return false;
+			} else {
+				return;
+			}
+		} 
+
 		// 파일
 		$("input[type='file']").change(function(e) {
+			 if(checkFile(this) == false) {
+				 return;
+			 }
+			 
 			 var fileReader = new FileReader();
 			 var conf = null;
 			 fileReader.readAsDataURL(e.target.files[0]);
@@ -365,7 +384,6 @@
 						type: "POST"
 					})
 					.done(function(result) {
-						console.log(result);
 						location.href = "myPage.do";
 					});   
 				}, 10)
