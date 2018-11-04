@@ -62,6 +62,9 @@ public interface QuizMapper {
     //comment delete
     void deleteComment(int comNo);
     
+    //comment update
+    void updateComment(QuizComment quizComment);
+    
     
 	
 }

@@ -204,8 +204,11 @@ public class QuizBoardController {
 		
 	}
 	
-	//댓글등록
-	
+	/**
+	 * 
+	 * @param quizComment
+	 * @return quizComment inser service 호출 후 게시글 번호에 해당하는 댓글 리스트를 반환한다.
+	 */  
 	@RequestMapping("insertComment.do")
 	@ResponseBody
 	public List<QuizComment> insertComment(QuizComment quizComment) {
@@ -216,10 +219,18 @@ public class QuizBoardController {
 	@RequestMapping("deleteComment.do")
 	@ResponseBody
 	public void deleteComment(int comNo) {
-		System.out.println(comNo);
 		service.deleteComment(comNo);
 	}
 	
+	//댓글 수정.. 등록과 비슷하게 ㄱㄱ 
+	@RequestMapping("updateComment.do")
+	@ResponseBody
+	public List<QuizComment> updateComment(QuizComment quizComment) {
+		System.out.println(quizComment);
+		
+		service.updateComment(quizComment);	
+		return service.selectCommentByNo(quizComment.getQuizNo());
+	}
 	
 
 }

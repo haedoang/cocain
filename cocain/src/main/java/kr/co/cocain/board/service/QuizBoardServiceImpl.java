@@ -132,6 +132,11 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 		mapper.deleteComment(comNo);
 		
 	}
+
+	@Override
+	public void updateComment(QuizComment quizComment) {
+		mapper.updateComment(quizComment);	
+	}
 	
 
 	

@@ -209,14 +209,15 @@
 		 where quiz_no = #{quizNo}
 	</update>
 	
-	<!-- 댓글을 해볼까여 -->	
+	<!-- comment list -->	
 		
 	<select id="selectCommentByNo" resultMap="comMap">
 		select *
 		  from tb_quiz_comment
 		 where quiz_no=#{quizNo}
 	</select>	
-		
+	
+	<!-- inser comment -->
 	<insert id="insertComment" parameterType="QuizComment">
 		insert into tb_quiz_comment(
 									quiz_no,
@@ -229,12 +230,18 @@
 																)
 	</insert>
 		
-	
+	<!--  delete comment  -->
 	<delete id="deleteComment" parameterType="int">
 		delete from tb_quiz_comment
 		 where com_no=#{comNo}
 	</delete>
 		
+	<!-- update comment  -->
+	<update id="updateComment" parameterType="QuizComment">
+		update tb_quiz_comment
+		  set content = #{content}
+		 where com_no =#{comNo}
+	</update>
 		
 		
 		

@@ -58,4 +58,7 @@ public interface QuizBoardService {
 
 	void deleteComment(int comNo);
 
+
+	void updateComment(QuizComment quizComment);
+
 }

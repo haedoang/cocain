@@ -164,11 +164,11 @@
 							<c:forEach var="k" items="${data.comment}">
 								<tr id="${k.comNo}">
 									<td><a href="#"><span>${k.nickname}</span></a></td>
-									<td>${k.content}</td>
+									<td><span>${k.content}</span></td>
 									<td><fmt:formatDate value="${k.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 									<td class="buttons">
 									<c:if test="${sessionScope.user.nickname==k.nickname}">
-										<button id="comUpdate" class="btn btn-primary">수정</button>
+										<button id="comUpdate" class="btn btn-primary" onclick="comUpdate(${k.comNo})">수정</button>
 										<button id="comDelete" class="btn btn-primary" onclick="comDel(${k.comNo})">삭제</button>
 									</c:if>
 									</td>
@@ -209,13 +209,13 @@
 				var html ="";
 				//댓글 내용 등록;; 
 				$("#comTable > tbody > tr:eq(0)").siblings().remove();
-				for(var i of data){
+				for(let i of data){
 					html+="<tr id='"+i.comNo+"'><td><a href='#'><span>"+i.nickname+"</span></a></td>";
-					html+="<td>"+i.content+"</td>";
+					html+="<td><span>"+i.content+"</span></td>";
 					html+="<td>"+$.format.date(i.regDate, "yyyy-MM-dd HH:mm:ss")+"</td>";
 					
 					if(i.nickname==`${sessionScope.user.nickname}`){
-						html+="<td class='buttons'><button class='btn btn-primary'>수정</button>";
+						html+="<td class='buttons'><button class='btn btn-primary'onclick='comUpdate("+i.comNo+")'>수정</button>";
 						html+=" <button class='btn btn-primary' onclick='comDel("+i.comNo+")'>삭제</button></td>";
 					} else {
 						html+="<td></td>"
@@ -236,10 +236,47 @@
 				$("#"+comNo).remove();
 				
 			}) 
-		}
-	
-	
-	
+		} 
+		
+ 		//댓글 수정하기 
+		function comUpdate(comNo){
+			var row = $("#"+comNo);
+			var content = row.children("td:eq(1)").text();
+			//alert(content)
+			row.children("td:eq(1)").replaceWith("<td><input type='hidden' name='comNo' value='"+comNo+"'/><input type='text' name='content' value='"+content+"'/></td>");
+			row.children("td:eq(3)").replaceWith("<td class='buttons'><button class='btn btn-primary' id='comUp'>수정하기</button> <button class='btn btn-primary' onclick='doCancel("+comNo+")'>수정취소</button></td>")
+		} 
+		
+		//댓글 수정 확인 취소 .. 
+		$(document).on("click","#comUp",function(){
+			var quizNo= $("input[name=quizNo]").val();
+			var comNo= $("input[name='comNo']").val();
+			var content = $("input[name='content']").val();
+			
+			$.ajax({
+				url:"<c:url value='updateComment.do'/>",
+				data:"quizNo="+quizNo+"&comNo="+comNo+"&content="+content
+			}).done(function(data){	
+				console.log(data);
+				var html ="";
+				//댓글 내용 등록;; 
+				$("#comTable > tbody > tr:eq(0)").siblings().remove();
+				for(let i of data){
+					html+="<tr id='"+i.comNo+"'><td><a href='#'><span>"+i.nickname+"</span></a></td>";
+					html+="<td><span>"+i.content+"</span></td>";
+					html+="<td>"+$.format.date(i.regDate, "yyyy-MM-dd HH:mm:ss")+"</td>";
+					
+					if(i.nickname==`${sessionScope.user.nickname}`){
+						html+="<td class='buttons'><button class='btn btn-primary'onclick='comUpdate("+i.comNo+")'>수정</button>";
+						html+=" <button class='btn btn-primary' onclick='comDel("+i.comNo+")'>삭제</button></td>";
+					} else {
+						html+="<td></td>"
+					}		
+				}
+				$("#comTable > tbody > tr:eq(0)").after(html);
+			})
+		});
+		
 		/* 정답호출 ajax */
 		$("#correct").click(function(e) {
 			e.preventDefault();
