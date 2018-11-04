@@ -19,6 +19,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import kr.co.cocain.board.service.QuizBoardService;
 import kr.co.cocain.repository.domain.QuizBoard;
+import kr.co.cocain.repository.domain.QuizBoardSearch;
 import kr.co.cocain.repository.domain.QuizComment;
 import kr.co.cocain.repository.domain.QuizPage;
 import kr.co.cocain.repository.domain.QuizSubmit;
@@ -233,4 +234,25 @@ public class QuizBoardController {
 	}
 	
 
+	
+	
+	/* quiz search paging test*/
+	@RequestMapping("searchtest.do")
+	@ResponseBody
+	public void selectSearchBoard(@RequestParam(value="pageNo" ,defaultValue="1")int pageNo ,QuizBoardSearch quizBoardSearch,Model model){
+		System.out.println(quizBoardSearch);
+		
+		quizBoardSearch.setPageNo(pageNo);
+		PageResult pageResult = new PageResult(pageNo,service.selectSearchBoardCount(quizBoardSearch));
+		
+		model.addAttribute("data", service.selectSearchBoard(quizBoardSearch));
+		model.addAttribute("pageResult",pageResult);
+
+	
+	}
+	
+	
+	
+	
+	
 }

@@ -156,7 +156,63 @@
 		<!-- limit page 어떻게 받으면 좋을까~?  -->
 	  </where>  
 	</select>
-
+	
+	
+	
+	<!-- search paging -->
+	<select id="selectSearchBoard" parameterType="QuizBoardSearch" resultMap="quizMap">
+		select * 
+		  from tb_quiz_board
+		<where>
+			<if test="typeNo!=null">
+				type_no=#{typeNo}
+			</if>
+			<if test="categoryNo!=null">
+				and category_no=#{categoryNo}			
+			</if> 
+		 	<if test="search!=null">
+		 		<if test="search==1">
+		 			and title like concat('%',#{word},'%')
+		 		</if>
+		 		<if test="search==2">
+		 			and nickname like concat('%',#{word},'%')
+		 		</if>
+		 	</if>
+		</where>
+		limit #{begin}, 10
+	</select>
+	
+		<!-- search paging -->
+	<select id="selectSearchBoardCount" parameterType="QuizBoardSearch" resultType="int">
+		select count(*) 
+		  from tb_quiz_board
+		<where>
+			<if test="typeNo!=null">
+				and type_no=#{typeNo}
+			</if>
+			<if test="categoryNo!=null">
+				and category_no=#{categoryNo}			
+			</if> 
+		 	<if test="search!=null">
+		 		<if test="search==1">
+		 			and title like concat('%',#{word},'%')
+		 		</if>
+		 		<if test="search==2">
+		 			and nickname like concat('%',#{word},'%')
+		 		</if>
+		 	</if>
+		</where>
+		limit #{begin}, 10
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	<!-- detail...  -->
 	<select id="selectQuizBoardByNo" parameterType="int" resultMap="quizMap">

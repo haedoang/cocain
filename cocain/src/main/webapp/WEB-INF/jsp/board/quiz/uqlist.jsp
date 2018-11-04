@@ -64,8 +64,6 @@
 					<th>제목</th>
 					<th>작성자</th>
 					<th>등록일</th>
-					<th>정답자 수</th>
-					<th>정답률</th>
 					<th>난이도</th>
 				</tr>
 				<c:forEach var="i" items="${data.list}">
@@ -79,9 +77,7 @@
 						<td><a
 							href="<c:url value="/board/quiz/uqdetail.do?quizNo=${i.quizNo}"/>">${i.title}</a></td>
 						<td><a href="#"><span>${i.nickname}</span></a></td>
-						<td><fmt:formatDate value="${i.regDate}" pattern="yyyy-MM-dd" /></td>
-						<td>${i.answerCnt}</td>
-						<td>${i.probability}%</td>
+						<td><fmt:formatDate value="${i.regDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						<c:forEach var="k" items="${data.level}">
 							<c:if test="${i.levelNo eq k.levelNo}">
 								<td>${k.levelName}</td>
@@ -144,11 +140,20 @@
 					<div class="search">
 						<form id="sForm" method="post">
 							<input type="hidden" name="typeNo" value="${data.list[0].typeNo}" />
-							<select>
-								<option>제목</option>
-								<option>카테고리</option>
-							</select> <input class="ser" type="text" size="15"
-								placeholder="검색어를 입력하세요" name="title" />
+							<select name="categoryNo">
+								<option value="">카테고리전체</option>
+								<c:forEach var="i" items="${data.category}">
+								<option value="${i.categoryNo}">${i.categoryName}</option>
+								</c:forEach>
+							</select> 
+							<select name="search">
+								<option value="">전체</option>
+								<option value="1">제목</option>
+								<option value="2">작성자</option>
+							</select> 
+								
+							<input class="ser" type="text" size="15"
+								placeholder="검색어를 입력하세요" name="word" />
 							<button id="search" class="ser" style="background-color: #000000">
 								&nbsp;&nbsp;<i class="fas fa-search"></i>&nbsp;&nbsp;
 							</button>
@@ -178,23 +183,23 @@
 			}
 		})
 		
+		//검색.. 
 		$("#search").click(function(e){
 			e.preventDefault();
 			var formData = $("#sForm").serialize();
-		 
+			console.log(formData);
 			$.ajax({
-				url:"<c:url value="search.do"/>",
+				url:"<c:url value="searchtest.do"/>",
 				method:"POST",
 		   		data:formData
 			}).done(function(data){
-				//console.log(data);
+				console.log(data);
 				$("#uqtable > tbody > tr:eq(0)").siblings().remove();
 				var html="";	
 				var list = data.list;
 				var category = data.category;
 				var level = data.level;
 				console.log(list);	
-				alert(list[0].quizNo)
 				
 				for(var i of list){
 					html+="<tr><td>"+i.quizNo+"</td>";
@@ -206,8 +211,7 @@
 					html+="<td><a href='<c:url value='/board/quiz/uqdetail.do?quizNo="+i.quizNo+"'/>'>";
 					html+=i.title+"</a></td><td>"+i.nickname+"</td>";
 					html+="<td>"+$.format.date(i.regDate, "yyyy-MM-dd")+"</td>";
-					html+="<td>"+i.answerCnt+"</td><td>"+i.probability+"%</td>";
-					for(var k of level){
+					for(let k of level){
 						if(k.levelNo==i.levelNo){
 							html+="<td>"+k.levelName+"</td>";	
 						}//category end

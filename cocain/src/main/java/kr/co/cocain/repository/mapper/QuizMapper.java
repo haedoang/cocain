@@ -3,6 +3,7 @@ package kr.co.cocain.repository.mapper;
 import java.util.List;
 
 import kr.co.cocain.repository.domain.QuizBoard;
+import kr.co.cocain.repository.domain.QuizBoardSearch;
 import kr.co.cocain.repository.domain.QuizCategory;
 import kr.co.cocain.repository.domain.QuizComment;
 import kr.co.cocain.repository.domain.QuizLevel;
@@ -67,4 +68,14 @@ public interface QuizMapper {
     
     
 	
+    
+    /*  search paging test*/
+    
+    List<QuizBoard> selectSearchBoard(QuizBoardSearch quizBoardSearch);
+    
+    int selectSearchBoardCount(QuizBoardSearch quizBoardSearch);
+    
+    
+    
+    
 }

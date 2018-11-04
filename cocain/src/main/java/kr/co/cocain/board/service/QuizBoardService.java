@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.cocain.repository.domain.QuizBoard;
+import kr.co.cocain.repository.domain.QuizBoardSearch;
 import kr.co.cocain.repository.domain.QuizComment;
 import kr.co.cocain.repository.domain.QuizPage;
 import kr.co.cocain.repository.domain.QuizSubmit;
@@ -60,5 +61,10 @@ public interface QuizBoardService {
 
 
 	void updateComment(QuizComment quizComment);
+
+	
+	//quiz board search test
+	List<QuizBoard> selectSearchBoard(QuizBoardSearch quizBoardSearch);
+	int selectSearchBoardCount(QuizBoardSearch quizBoardSearch);
 
 }

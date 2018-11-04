@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.cocain.repository.domain.QuizBoard;
+import kr.co.cocain.repository.domain.QuizBoardSearch;
 import kr.co.cocain.repository.domain.QuizComment;
 import kr.co.cocain.repository.domain.QuizPage;
 import kr.co.cocain.repository.domain.QuizSubmit;
@@ -136,6 +137,17 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 	@Override
 	public void updateComment(QuizComment quizComment) {
 		mapper.updateComment(quizComment);	
+	}
+
+	@Override
+	public List<QuizBoard> selectSearchBoard(QuizBoardSearch quizBoardSearch) {
+		System.out.println("controller call");
+		return mapper.selectSearchBoard(quizBoardSearch);
+	}
+
+	@Override
+	public int selectSearchBoardCount(QuizBoardSearch quizBoardSearch) {
+		return mapper.selectSearchBoardCount(quizBoardSearch);
 	}
 	
 
