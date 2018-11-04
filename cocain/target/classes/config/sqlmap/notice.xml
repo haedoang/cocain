@@ -108,42 +108,31 @@ where comment_no =#{commentNo}
 </update>
 
 <select id="categoryList" parameterType="NoticePage2" resultMap="NoticeMap">
-	select a.* 
-		from(select *
-		from tb_notice
-		order by no desc )a 
-<!-- 		<choose> -->
-<!-- 			<when test="select=='title' " > -->
+		select * 
+		from tb_notice 
+		<choose>
+			<when test="select=='title' " >
 			where title like concat('%',#{text},'%')
  			limit #{begin} , 10
-<!-- 			</when> -->
-<!-- 			<otherwise> -->
-<!-- 			where writer like concat('%',#{text},'%'))a -->
-<!-- 			where (@rownum:=0)=0 -->
-<!--  			and rnum &lt;= #{end} -->
-<!--  			and rnum &gt;= #{begin} -->
-<!-- 			</otherwise> -->
-<!-- 		</choose> -->
+			</when>
+			<otherwise>
+			where concat(title,content) like concat('%',#{text},'%')
+			limit #{begin} , 10
+			</otherwise>
+		</choose>
 </select>
 
-<select id="categoryCount" parameterType="NoticePage" resultType="int">
-	select count(*)
-		from(select * , (@rownum:=@rownum+1) rnum
+<select id="categoryCount" parameterType="NoticePage2" resultType="int">
+		select count(*) 
 		from tb_notice 
-<!-- 		<choose> -->
-<!-- 			<when test="select=='title' " > -->
-			where title like concat('%',#{text},'%'))a
-			where (@rownum:=0)=0
-<!--  			and rnum &lt;= #{end} -->
-<!--  			and rnum &gt;= #{begin} -->
-<!-- 			</when> -->
-<!-- 			<otherwise> -->
-<!-- 			where writer like concat('%',#{text},'%'))a -->
-<!-- 			where (@rownum:=0)=0 -->
-<!--  			and rnum &lt;= #{end} -->
-<!--  			and rnum &gt;= #{begin} -->
-<!-- 			</otherwise> -->
-<!-- 		</choose> -->
+		<choose>
+			<when test="select=='title' " >
+			where title like concat('%',#{text},'%')
+			</when>
+			<otherwise>
+			where concat(title,content) like concat('%',#{text},'%')
+			</otherwise>
+		</choose>
 </select>
 
 </mapper>

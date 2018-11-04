@@ -26,7 +26,7 @@
 	<form class="form-group pull-right" id='form' name="form" method="post" action="category.do"  onsubmit='return google();'>
 	<select class="form-control"  name="select">
 		<option class="form-control" value="title">제목순</option>
-		<option class="form-control" value="writer">작성자순</option>
+		<option class="form-control" value="titlewriter">제목+내용</option>
 	</select>
 		<input class='asdf form-control'  type="text" name="text" placeholder="입력하세요">
 		<button class="btn btn-default">검색</button>

@@ -89,6 +89,7 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		return mapper.categoryList(noticePage);
 	}
 
+
 	@Override
 	public int categoryCount(NoticePage2 noticePage) {
 		return mapper.categoryCount(noticePage);
