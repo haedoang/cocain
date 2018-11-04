@@ -34,6 +34,12 @@
 		  from tb_qna
 	</select>
 	
+	<!-- 조회수 1 증가 -->
+	<update id="viewCnt" parameterType="int">
+		update tb_qna
+	 	   set view_cnt = view_cnt+1
+	 	 where no=#{no}
+	</update> 
 	
 
 	<insert id="writeqna" useGeneratedKeys="true" keyProperty="no"
@@ -64,6 +70,12 @@
 		  from tb_qna_comment
 		 where no = #{no}
 	</select>
+	
+	<select id="commentCount" parameterType="int" resultType="int">
+		select count(*)
+		  from tb_qna_comment
+		 where no=#{no}
+	</select>
 
 	<insert id="insertComment" parameterType="QnaComment">
 		insert into tb_qna_comment (no,writer,content) 
@@ -80,4 +92,28 @@
 		   set content = #{content}
 		 where comment_no = #{commentNo}
 	</update>
+	
+	<!-- 답변선택 게시글 상태 변경 -->
+	<update id="selectAnswerList" parameterType="int">
+		update tb_qna
+		   set qna_status = 'y'
+		 where no = #{no}
+	</update>
+	
+	<!-- 답변선택 댓글 상태 변경 -->
+	<update id="selectAnswerComment" parameterType="int">
+		update tb_qna_comment
+		   set qna_status = 'y'
+		 where comment_no = #{commentNo}
+	</update>
+	
+	<!-- 채택답변존재여부 확인 -->
+	<select id="answerCount" parameterType="int" resultType="int">
+		select count(*)
+		  from tb_qna_comment
+		 where qna_status='y'
+		 	and no = #{no}
+	</select>
+	  
+	
 </mapper>

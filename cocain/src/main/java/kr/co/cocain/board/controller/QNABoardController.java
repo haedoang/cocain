@@ -28,10 +28,11 @@ public class QNABoardController {
 		QnaPage qnap = new QnaPage();
 		qnap.setPageNo(pageNo);
 //		PageResult pageResult = new PageResult(pageNo, service.qnaPagingCount());
-		PageResult pageResult = new PageResult(pageNo, service.listCount());
+		PageResult pageResult = new PageResult(pageNo, service.listCount(),15,10);
 		
 		model.addAttribute("list", service.listqna(qnap));
 		model.addAttribute("listCount", service.listCount());
+//		model.addAttribute("cmtcnt", service.commentCnt(no))
 		model.addAttribute("pageResult", pageResult);
 	}
 	
@@ -72,7 +73,12 @@ public class QNABoardController {
     public List<QnaComment> commentList(int no) throws Exception {
     	return service.listComment(no);
     }
-    
+    @RequestMapping("/commentCount.do")
+    @ResponseBody
+    public String commentCount(int no) throws Exception {
+    	return Integer.toString(service.commentCnt(no));
+    }
+    	
     @RequestMapping("/insertComment.do")
     @ResponseBody
     public List<QnaComment> insertComment(QnaComment comment){
@@ -92,5 +98,20 @@ public class QNABoardController {
     public List<QnaComment> updateComment(QnaComment comment){
     	service.updateComment(comment);
     	return service.listComment(comment.getCommentNo());
+    }
+    
+    @RequestMapping("/selectAnswer.do")
+//    @ResponseBody
+//    public List<QnaComment> selectAnswer(QnaComment comment){
+    public String selectAnswer(int no, int commentNo){
+    	service.selectAnswerList(no);
+    	service.selectAnswerComment(commentNo);
+//    	return service.listComment(no);
+    	return UrlBasedViewResolver.REDIRECT_URL_PREFIX+"detail.do?no=" + no;
+    }
+    @RequestMapping("/answerCount.do")
+    @ResponseBody
+    public String answerCount(int no) throws Exception {
+    	return Integer.toString(service.answerCount(no));
     }
 }

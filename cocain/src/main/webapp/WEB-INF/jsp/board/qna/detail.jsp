@@ -47,16 +47,19 @@
 					<div class="panel-heading">
 						<a href="#">${qna.writer}</a> <span><fmt:formatDate value="${qna.regDate}" pattern="yyyy-MM-dd" /></span>
 						<div style="float: right">
-							<span>조회 20회</span> <span>추천 1</span>
+							<span>조회 ${qna.viewCnt}회</span> <span>추천 1</span>
 						</div>
 					</div>
 					<div class="panel-body" style="height: 400px">${qna.content}
 					</div>
 				</div>
 				<div class="text-right">
-					<a class="btn btn-default" href="list.do">목록</a> <a
-						class="btn btn-default" href='updateForm.do?no=${qna.no}'>수정</a> <a
-						class="btn btn-default" href='delete.do?no=${qna.no}'>삭제</a>
+					<a class="btn btn-default" href="writeForm.do">글쓰기</a> 
+					<a class="btn btn-default" href="list.do">목록</a> 
+					<c:if test="${user.nickname==qna.writer}">
+					<a class="btn btn-default" href='updateForm.do?no=${qna.no}'>수정</a> 
+					<a class="btn btn-default" href='delete.do?no=${qna.no}'>삭제</a>
+					</c:if>
 				</div>
 			</div>
 			<div class="col-md-1"></div>
@@ -66,7 +69,7 @@
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-10">
-				<label for="content"><i class="fas fa-users"></i>총 2개의 댓글</label>
+				<label for="content"><i class="fas fa-users"></i>총 <span id="cmtCnt"></span>개의 댓글</label>
 				<div class="panel panel-default">
 					<div class="comment">
 <!-- 						<div class="panel-heading"><h4 class="panel-title">djm03178 <span> 2018-10-10 </span></h4></div> -->
@@ -101,7 +104,7 @@
 					<div class="input-group">
 						<input type="hidden" name="no" value="${qna.no}" />
 						<input type="hidden" name="writer" value="${user.nickname}" />
-						<textarea class="form-control" id="content" name="content" style="height: 60px"></textarea>
+						<textarea class="form-control" id="content" name="content" style="height: 60px; resize:none;"></textarea>
 						<span class="input-group-btn">
 							<button class="btn btn-default" style="height: 60px">등록</button>
 						</span>
@@ -115,6 +118,10 @@
 		</div>
 	</div>
 	<script>
+	var nickname = "${user.nickname}";
+	var qnawriter = "${qna.writer}";
+	var numb = "${qna.no}";
+	var answer;
 	$("#commentForm").submit(function(e){
 		e.preventDefault();
 // 		console.log($(this).serialize());
@@ -123,7 +130,10 @@
 			data : $(this).serialize(),
 			type : "POST"
 		}).done(function(result){
-			$("content").val("");
+			$("#content").val("");
+// 			console.log(result[0].no);
+			var cmtcnt = result[0].no;
+			commentCount(cmtcnt);
 			commentlist();
 		}).fail(function(result){ alert("댓글을 입력 해 주세요") })
 	});
@@ -133,19 +143,55 @@
 		 		url: "/cocain/board/qna/listComment.do",
 		 		data: "no=${qna.no}"
 		 	}).done(function (result) {
+		 		$(".comment").html("");
 // 		 		console.log(result);
 		 		
 		 var output = "";
-		 var nickname = "${user.nickname}";
+		 
 $.each(result, function(idx,val) {
-	output += '<div class="panel-heading"><h4 class="panel-title">' +val.writer+ '<span>'+" "+new Date(val.regDate).toISOString().slice(0,10)+ '</span></h4></div>'
+	output += '<div class="panel-heading"><h4 class="panel-title"><a href="#">' +val.writer+ '</a> '
+	output += '<span>'+" "+new Date(val.regDate).toISOString().slice(0,10)+ '</span>　　'
+	if(answer==1) {
+		if(val.qnaStatus=='y'){
+			output += '<span><i class="fas fa-award"></i>질문자 채택 답변</span>'
+		}
+		else if(val.qnaStatus=='n'){
+			if((nickname == qnawriter)&&(nickname!=val.writer)){
+// 				output += '<span><a href="selectAnswer.do?no='+val.no+'&commentNo='+val.commentNo+'"><i class="fas fa-angle-double-right"></i>답변 채택하기</a></span>'
+		}
+			else if ((nickname == qnawriter)&&(nickname==val.writer)) {}
+		}
+	} else {
+		if((nickname == qnawriter)&&(nickname!=val.writer)){
+// 				output += '<span><a href="selectAnswer.do?no='+val.no+'&commentNo='+val.commentNo+'"><i class="fas fa-angle-double-right"></i>답변 채택하기</a></span>'
+				output += '<span><button class="btn btn-link selectanswer" type="button"><i class="fas fa-angle-double-right"></i>답변 채택하기</button></span>'
+	}
+		else if ((nickname == qnawriter)&&(nickname==val.writer)) {}
+	}
+
+	
+// 	if(val.qnaStatus=='y'){
+// 		output += '<span><i class="fas fa-award"></i>질문자 채택 답변</span>'
+// // 	} else (val.qnaStatus=='n') {
+// 	} else if ((answer =='1')&&(val.qnaStatus=='n')){
+// 		if((nickname == qnawriter)&&(nickname!=val.writer)){
+// 			output += '<span><a href="selectAnswer.do?no='+val.no+'&commentNo='+val.commentNo+'"><i class="fas fa-angle-double-right"></i>답변 채택하기</a></span>'
+// 		} else if ((nickname == qnawriter)&&(nickname==val.writer)) {};
+// 	}
+	
+// 	if((nickname == qnawriter)&&(nickname!=val.writer)){
+// 		output += '<span><a href="selectAnswer.do?no='+val.no+'&commentNo='+val.commentNo+'"><i class="fas fa-angle-double-right"></i>답변 채택하기</a></span>'
+// 	} else if (val.qnaStatus=='y'){
+// 		output += '<span><i class="fas fa-award"></i>질문자 채택 답변</span>'
+// 	}
+	output += '</h4></div>'
 	output += '<input type="hidden" class="commentNo" value="'+val.commentNo+'" />'
 	output += '<div class="panel-body" style="border-bottom: 1px solid #ddd"><p id="updateContent'+idx+'">'+val.content+'</p>'
 	if(nickname == val.writer){
 	output += '<div class="text-right"><button id="update'+idx+'" class="btn btn-default updatebtn" type="button">수정</button> '
 	output += '<button class="btn btn-default" type="button" onclick="commentdelete('+val.commentNo+')">삭제</button></div></div>'
 	} else {
-		output += '<div class="text-right">'
+		output += '<div class="text-right" style="height: 20px">'
 		output += '</div></div>'
 			}
 	})
@@ -154,11 +200,24 @@ $.each(result, function(idx,val) {
 	 }
 	commentlist();
 	
+	
+	console.log(numb);
+	function commentCount(numb){
+		$.ajax({
+			url : "/cocain/board/qna/commentCount.do",
+			data : "no=" + numb
+		}).done(function(result){
+			$("#cmtCnt").text(result);
+		})
+	}
+	commentCount(numb);
+	
 	function commentdelete(num){
 		$.ajax({
 			url : "/cocain/board/qna/deleteComment.do",
 			data : "commentNo="+num
 	 }).done(function (result) {
+		 commentCount(numb);
 			commentlist();
 	 })
 	}
@@ -167,7 +226,11 @@ $.each(result, function(idx,val) {
 		$(this).css("display", "none")
 		$(this).next().css("display", "none")
 // 		console.log($(this).parent().prev().text())
-		$(this).parent().parent().html('<textarea>'+ $(this).parent().prev().text() + '</textarea><button class="modi">수정</button><button class="cancel">취소</button>')
+		$(this).parent().parent().html(
+				'<div class="input-group" style="width: 100%"><textarea class="form-control" style="resize:none">'+ $(this).parent().prev().text() + 
+				'</textarea></div><div class="text-center" style="margin:4px"><button class="btn btn-default btn-sm modi">수정</button> <button class="btn btn-default btn-sm cancel">취소</button></div>'
+				
+		)
 		
 	})
 	$("body").on("click", ".cancel", function(){
@@ -186,6 +249,48 @@ $.each(result, function(idx,val) {
 		})
 	})
 	
+	$("body").on("click", ".selectanswer", function(){
+		console.log($(this).parent().parent().parent().next().val());
+		var temp = $(this).parent().parent().parent().next().val();
+// 		console.log(temp[value]);
+		var result = confirm("답변을 채택하시겠습니까??");
+		if(result) {
+// 			location.replace('selectAnswer.do?no=');
+// 			console.log($(this))
+			location.replace('selectAnswer.do?no='+numb+'&commentNo='+temp);
+		} else {}
+	})
+	
+
+	
+// 	function selectAnswer(num1, num2){
+// 		$.ajax({
+// 			url : "/cocain/board/qna/selectAnswer.do",
+// 			data : {
+// 				"no":num1,
+// 				"commentNo":num2
+// 				}
+// 	 }).done(function (result) {
+// 		 commentCount(numb);
+// 		 $(".comment").html("");
+// 			commentlist();
+// 	 })
+// 	}
+	
+	function answerCount(numb){
+		$.ajax({
+			type : "POST",
+			url : "/cocain/board/qna/answerCount.do",
+			data : "no="+numb,
+			async: false,
+			success : function (result){
+				answer = result;
+				console.log(answer);
+				
+			}
+		})
+	}
+	answerCount(numb);
 	
 </script>
 	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp" />

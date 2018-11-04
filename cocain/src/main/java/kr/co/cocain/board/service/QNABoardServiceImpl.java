@@ -31,6 +31,7 @@ public class QNABoardServiceImpl  implements QNABoardService{
 	}
 	@Override
 	public Qna detail(int no) {
+		mapper.viewCnt(no);
 		return mapper.detailqna(no);
 	}
 	@Override
@@ -40,6 +41,10 @@ public class QNABoardServiceImpl  implements QNABoardService{
 	@Override
 	public int listCount() {
 		return mapper.listCount();
+	}
+	@Override
+	public void viewCnt(int no) {
+		mapper.viewCnt(no);
 	}
 	@Override
 	public void update(Qna qna) {
@@ -61,9 +66,24 @@ public class QNABoardServiceImpl  implements QNABoardService{
 	public void updateComment(QnaComment comment) {
 		mapper.updateComment(comment);
 	}
-//	@Override
-//	public int qnaPagingCount() {
-//		return mapper.qnaPagingCount();
-//	}
+	@Override
+	public int commentCnt(int no) {
+		return mapper.commentCount(no);
+	}
+	@Override
+	public void selectAnswerList(int no) {
+		mapper.selectAnswerList(no);
+		
+	}
+	@Override
+	public void selectAnswerComment(int no) {
+		mapper.selectAnswerComment(no);
+		
+	}
+	// 채택답변여부 확인하기
+	@Override
+	public int answerCount(int no) {
+		return mapper.answerCount(no);
+	}
 
 }

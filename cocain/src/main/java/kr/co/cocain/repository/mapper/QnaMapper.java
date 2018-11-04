@@ -14,12 +14,19 @@ public interface QnaMapper {
 	Qna detailqna(int no);
 	void deleteqna(int no);
 	void updateqna(Qna qna);
-	
-//	int qnaPagingCount();
+	// 조회수 증가
+	void viewCnt(int no);
 
 	List<QnaComment> listComment(int no);
 	void insertComment(QnaComment comment);
 	void deleteComment(int no);
 	void updateComment(QnaComment comment);
+	// 댓글 수 확인
+	int commentCount(int no);
 	
+	// 답변선택하기
+	void selectAnswerList(int no);
+	void selectAnswerComment(int no);
+	// 채택답변존재여부 확인
+	int answerCount(int no);
 }

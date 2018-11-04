@@ -28,7 +28,7 @@
 			<div class="col-md-10">
 				<div class="table-responsive">
 					<h3>지식iN</h3>
-					<p>전체 ${listCount}건 1 페이지</p>
+					<p>전체 ${listCount}건 ${pageResult.pageNo} 페이지</p>
 					<table class="table" style="width: 100%">
 						<thead>
 							<tr>
@@ -46,17 +46,21 @@
 				<c:forEach var="list" items="${list.list}">
 							<tr>
 								<td>${list.no}</td>
-<%-- 								<c:if test="${list.qnaStatus=='n'}"> --%>
-<!-- 								<td>답변대기</td> -->
-<%-- 								</c:if> --%>
-<%-- 								<c:if test="${list.qnaStatus!='n'}"> --%>
+								<c:choose>
+								<c:when test="${list.qnaStatus eq 'y' }">
 								<td>답변완료</td>
-<%-- 								</c:if> --%>
-								<td><a href='detail.do?no=${list.no}'>${list.title}</a></td>
-								<td>${list.writer}</td>
+								</c:when>
+								<c:otherwise>
+								<td>답변대기</td>
+								</c:otherwise>
+								</c:choose>
+								<td><a href='detail.do?no=${list.no}' <c:if test="${user==null}">onclick="alert('로그인이 필요합니다.'); return false"</c:if>>${list.title}</a></td>
+								
+								
+								<td><a>${list.writer}</a></td>
 								<td><fmt:formatDate value="${list.regDate}" pattern="yyyy-MM-dd" /></td>
-								<td>${list.viewCnt}</td>
 								<td>22</td>
+								<td>${list.viewCnt}</td>
 							</tr>
 							</c:forEach>
 						</tbody>
