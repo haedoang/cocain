@@ -14,6 +14,7 @@ import kr.co.cocain.board.service.QNABoardService;
 import kr.co.cocain.repository.domain.Qna;
 import kr.co.cocain.repository.domain.QnaComment;
 import kr.co.cocain.repository.domain.QnaPage;
+import kr.co.cocain.repository.domain.QnaRecom;
 import kr.co.cocain.util.PageResult;
 
 @Controller
@@ -27,14 +28,15 @@ public class QNABoardController {
 	public void list(@RequestParam(value="pageNo" ,defaultValue="1")int pageNo,Model model) throws Exception {
 		QnaPage qnap = new QnaPage();
 		qnap.setPageNo(pageNo);
-//		PageResult pageResult = new PageResult(pageNo, service.qnaPagingCount());
 		PageResult pageResult = new PageResult(pageNo, service.listCount(),15,10);
 		
-		model.addAttribute("list", service.listqna(qnap));
+		model.addAttribute("qna", service.listqna(qnap));
 		model.addAttribute("listCount", service.listCount());
-//		model.addAttribute("cmtcnt", service.commentCnt(no))
 		model.addAttribute("pageResult", pageResult);
 	}
+//		System.out.println((String)service.listqna(qnap).get("Qna"));
+//		System.out.println(service.listqna(qnap));
+//		model.addAttribute("cmtcnt", service.commentCnt(no))
 	
     @RequestMapping("/writeForm.do")
     public void writeForm() {}
@@ -42,7 +44,6 @@ public class QNABoardController {
     @RequestMapping("/write.do")
     public String write(Qna qna) {
         service.write(qna);
-        System.out.println(qna.getNo());
         return UrlBasedViewResolver.REDIRECT_URL_PREFIX+"detail.do?no=" + qna.getNo();
     }
     
@@ -114,4 +115,21 @@ public class QNABoardController {
     public String answerCount(int no) throws Exception {
     	return Integer.toString(service.answerCount(no));
     }
+    
+    @RequestMapping("/insertrecom.do")
+    @ResponseBody
+    public int insertrecom(Model model,QnaRecom recom) {
+//    	 System.out.println("댓글 " + recom);
+    	 model.addAttribute("recom", service.insertRecom(recom));
+    	 return service.recomExist(recom);
+    }
+    
+    @RequestMapping("/deleterecom.do")
+    @ResponseBody
+    public int deleterecom(Model model, QnaRecom recom) {
+		model.addAttribute("recom", service.deleteRecom(recom));
+    	return service.recomExist(recom);
+    }
+    
+    
 }
