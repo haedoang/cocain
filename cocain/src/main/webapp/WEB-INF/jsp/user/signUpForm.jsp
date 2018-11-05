@@ -209,6 +209,7 @@
 		});
 		
 		// 이메일 입력
+		$("#sendMail").addClass("disabled");
 		$("#email").on("input", function() {
 			var email = $("#email").val();
 			
@@ -216,6 +217,7 @@
 			
 			if(!emailReg.test(email)) {
 				$("#ckEmailMsg").html("<span style='color: red; line-height: 25px;'>올바른 이메일 형식을 입력해주세요.</span>");
+				$("#sendMail").addClass("disabled");
 				emailConfirmSwich = 1;
 				
 				return false;
@@ -223,6 +225,7 @@
 				$("#ckEmailMsg").html(
 						"<span style='color: green; line-height: 25px;'>사용 가능한 이메일입니다.　</span>"
 				);
+				$("#sendMail").removeClass("disabled");
 				emailConfirmSwich = 0;
 			}
 		});
