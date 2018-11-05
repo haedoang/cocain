@@ -57,7 +57,19 @@
 								<td><a href='detail.do?no=${list.no}' <c:if test="${user==null}">onclick="alert('로그인이 필요합니다.'); return false"</c:if>>${list.title}</a></td>
 								
 								
-								<td><a>${list.writer}</a></td>
+								<td>
+									<a
+										<c:choose>
+	                                  		<c:when test="${user == null}">
+		                                   		href="#" data-target="#login" id="log" data-toggle="modal"
+		                                 	</c:when>
+		                                  	<c:otherwise> 
+		                                  		href="<c:url value="/user/profile.do?writer=${list.writer}" />"
+											</c:otherwise>
+	                                   	</c:choose> >
+										${list.writer}
+									</a>
+								</td>
 								<td><fmt:formatDate value="${list.regDate}" pattern="yyyy-MM-dd" /></td>
 								<td>22</td>
 								<td>${list.viewCnt}</td>

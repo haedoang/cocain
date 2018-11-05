@@ -45,7 +45,7 @@
 						<h3 class="panel-title">${qna.title}</h3>
 					</div>
 					<div class="panel-heading">
-						<a href="#">${qna.writer}</a> <span><fmt:formatDate value="${qna.regDate}" pattern="yyyy-MM-dd" /></span>
+						<a href="<c:url value="/user/profile.do?writer=${qna.writer}" />">${qna.writer}</a> <span><fmt:formatDate value="${qna.regDate}" pattern="yyyy-MM-dd" /></span>
 						<div style="float: right">
 							<span>조회 ${qna.viewCnt}회</span> <span>추천 1</span>
 						</div>
@@ -151,7 +151,7 @@
 		 var output = "";
 		 
 $.each(result, function(idx,val) {
-	output += '<div class="panel-heading"><h4 class="panel-title"><a href="#">' +val.writer+ '</a> '
+	output += '<div class="panel-heading"><h4 class="panel-title"><a href="<c:url value="/user/profile.do?writer=' + val.writer + '" />">' +val.writer+ '</a> '
 	output += '<span>'+" "+new Date(val.regDate).toISOString().slice(0,10)+ '</span>　　'
 	if(answer==1) {
 		if(val.qnaStatus=='y'){
