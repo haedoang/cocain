@@ -47,7 +47,7 @@
 					<div class="panel-heading">
 						<a href="<c:url value="/user/profile.do?writer=${qna.writer}" />">${qna.writer}</a> <span><fmt:formatDate value="${qna.regDate}" pattern="yyyy-MM-dd" /></span>
 						<div style="float: right">
-							<span>조회 ${qna.viewCnt}회</span> <span>추천 1</span>
+							<span>조회 ${qna.viewCnt}회</span> <span id="rc"></span>
 						</div>
 					</div>
 					<div class="panel-body" style="min-height: 400px">${qna.content}
@@ -124,6 +124,33 @@
 	var qnawriter = "${qna.writer}";
 	var numb = "${qna.no}";
 	var answer;
+	
+	var recCount = "${recCount}";
+	var recExist;
+	
+	function recExt(){
+		$.ajax({
+			url:"/cocain/board/qna/recomExist.do",
+			data : {"no":numb, "id":nickname}
+		}).done(function(result){
+			recExist = result;
+			if (recExist == 1){
+				$(".rec").html("추천<span class='glyphicon glyphicon-heart' aria-hidden='true'></span>")
+			} else {
+				$(".rec").html("추천<span class='glyphicon glyphicon-heart-empty' aria-hidden='true'></span>")
+			}
+		});
+	}
+	recExt();
+// 	console.log("추천여부:" +recExist);
+// 	$(document).ready(function() {
+// 		if (recExist == 1){
+// 			$(".rec").html("추천<span class='glyphicon glyphicon-heart' aria-hidden='true'></span>")
+// 		} else {
+// 			$(".rec").html("추천<span class='glyphicon glyphicon-heart-empty' aria-hidden='true'></span>")
+// 		}
+// 	});
+	
 	$("#commentForm").submit(function(e){
 		e.preventDefault();
 // 		console.log($(this).serialize());
@@ -293,6 +320,43 @@ $.each(result, function(idx,val) {
 		})
 	}
 	answerCount(numb);
+	
+	$(".rec").click(function(){
+		var rUrl = "insertrecom";
+		console.log("제발좀 나와라" + recExist)
+		if (recExist == 1) {
+			rUrl = "deleterecom";
+		}
+		$.ajax({
+			url : '/cocain/board/qna/' + rUrl + '.do',
+			data : {"no":numb, "id":nickname}
+		}).done(function(){
+			if (recExist == 0){
+				alert("추천되었습니다.");
+				recExist = 1;
+				$(".rec").html("추천<span class='glyphicon glyphicon-heart' aria-hidden='true'></span>");
+			} else {
+				alert("추천이 취소되었습니다.")
+				recExist = 0;
+				$(".rec").html("추천<span class='glyphicon glyphicon-heart-empty' aria-hidden='true'></span>");
+			}
+			recnumber();
+		});
+		
+	});
+	
+	
+	function recnumber(){			
+		$.ajax({
+			url:"/cocain/board/qna/recomCount.do",
+			data : "no="+numb
+		}).done(function(result){
+			$("#rc").html("추천 "+result);
+		})
+	};
+	recnumber();	
+	
+	
 	
 </script>
 	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp" />

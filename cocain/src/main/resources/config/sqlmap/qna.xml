@@ -116,7 +116,7 @@
 	</select>
 	
 	<!-- 추천여부확인하기 -->
-	<select id="recomExist" resultType="int" parameterType="QnaRecom">
+	<select id="recomExist" parameterType="QnaRecom" resultType="int" >
 		select count(*)
 		 from tb_qna_recom
 		 where no=#{no}
@@ -131,14 +131,14 @@
 	</select>
 	
 	<!-- 추천하기 -->
-	<insert id="insertRecom">
+	<insert id="insertRecom" parameterType="QnaRecom">
 		insert into tb_qna_recom (no, id)
 		values (#{no}, #{id})
 	</insert>
 	
 	<!-- 추천취소 -->
-	<delete id="deleteRecom">
-		delete tb_qna_recom
+	<delete id="deleteRecom" parameterType="QnaRecom">
+		delete from tb_qna_recom
 		 where no=#{no}
 		   and id=#{id}
 	</delete>
