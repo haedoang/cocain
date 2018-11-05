@@ -38,9 +38,6 @@ public interface QuizBoardService {
 	int selectDQListCount();
 	int selectUQListCount();
 
-
-	Map<String,Object> selectQuizSearch(QuizBoard quizBoard);
-
 	//submit 게시판
 	Map<String,Object> selectSubmitList(QuizPage quizPage);
 	int selectSubmitListCount();
@@ -56,15 +53,16 @@ public interface QuizBoardService {
 
 	void insertComment(QuizComment quizComment);
 
-
 	void deleteComment(int comNo);
-
 
 	void updateComment(QuizComment quizComment);
 
 	
 	//quiz board search test
-	List<QuizBoard> selectSearchBoard(QuizBoardSearch quizBoardSearch);
+	Map<String,Object>selectSearchBoard(QuizBoardSearch quizBoardSearch);
 	int selectSearchBoardCount(QuizBoardSearch quizBoardSearch);
+
+
+	int selectSubmitUser(QuizSubmit quizSubmit);
 
 }
