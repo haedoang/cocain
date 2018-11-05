@@ -50,12 +50,14 @@
 							<span>조회 ${qna.viewCnt}회</span> <span>추천 1</span>
 						</div>
 					</div>
-					<div class="panel-body" style="height: 400px">${qna.content}
+					<div class="panel-body" style="min-height: 400px">${qna.content}
 					</div>
 				</div>
 				<div class="text-right">
 					<a class="btn btn-default" href="writeForm.do">글쓰기</a> 
-					<a class="btn btn-default" href="list.do">목록</a> 
+					<a class="btn btn-default" href="list.do">목록</a>
+					<button class="btn btn-default rec"></button>
+					
 					<c:if test="${user.nickname==qna.writer}">
 					<a class="btn btn-default" href='updateForm.do?no=${qna.no}'>수정</a> 
 					<a class="btn btn-default" href='delete.do?no=${qna.no}'>삭제</a>
@@ -237,8 +239,8 @@ $.each(result, function(idx,val) {
 		commentlist();
 	})
 	$("body").on("click", ".modi", function(){
-		var modicontent = $(this).prev().val()
-		var modiNum = $(this).parent().prev(".commentNo").val()
+		var modicontent = $(this).parent().prev().find("textarea").val()
+		var modiNum = $(this).parent().parent().prev(".commentNo").val()
 		$.ajax({
 			url:"/cocain/board/qna/updateComment.do",
 			data : {"commentNo":modiNum,

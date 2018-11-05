@@ -43,9 +43,9 @@
 						</thead>
 						<tbody>
 						
-				<c:forEach var="list" items="${list.list}">
+				<c:forEach var="list" items="${qna.list}">
 							<tr>
-								<td>${list.no}</td>
+								<td id="listno">${list.no}</td>
 								<c:choose>
 								<c:when test="${list.qnaStatus eq 'y' }">
 								<td>답변완료</td>
@@ -150,6 +150,13 @@
 				e.preventDefault();
 			}
 		});
+		
+		var temp = $("#listno").val();
+		var num = "${list.list}"
+		function recCount(){
+			console.log(num.no)
+		}
+		recCount();
 	</script>
 </body>
 
