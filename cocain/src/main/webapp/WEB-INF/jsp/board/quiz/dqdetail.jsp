@@ -70,7 +70,7 @@
 						</tr>
 						<tr>
 							<th>작성자</th>
-							<td><a href="#"><span>${data.detail.nickname}</span></a></td>
+							<td><a href="<c:url value="/user/profile.do?writer=${data.detail.nickname}" />"><span>${data.detail.nickname}</span></a></td>
 						</tr>
 						<tr>
 							<th>등록일</th>

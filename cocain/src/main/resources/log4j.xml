@@ -27,7 +27,7 @@
     	<level value="off" />
     </logger> 
     <logger name="jdbc.resultsettable">
-    	<level value="off" />
+    	<level value="info" />
     </logger> 
     <logger name="jdbc.connection">
     	<level value="off" />

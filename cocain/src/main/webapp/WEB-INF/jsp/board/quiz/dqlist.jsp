@@ -76,7 +76,19 @@
 						</c:forEach>
 						<td><a
 							href="<c:url value="/board/quiz/dqdetail.do?quizNo=${i.quizNo}"/>">${i.title}</a></td>
-						<td><a href="#"><span>${i.nickname}</span></a></td>
+						<td>
+							<a
+							<c:choose>
+                              		<c:when test="${user == null}">
+                                 		href="#" data-target="#login" id="log" data-toggle="modal"
+                               	</c:when>
+                              	<c:otherwise> 
+                              		href="<c:url value="/user/profile.do?writer=${i.nickname}" />"
+								</c:otherwise>
+                             	</c:choose> >
+							${i.nickname}
+							</a>
+						</td>
 						<td><fmt:formatDate value="${i.regDate}"
 								pattern="yyyy-MM-dd HH:mm:ss" /></td>
 								
@@ -167,7 +179,7 @@
 								
 							<input class="ser" type="text" size="15"
 								placeholder="검색어를 입력하세요" name="word" />
-							<button id="search" class="ser" style="background-color: #000000">
+							<button id="search" class="ser" style="background-color:#000000;">
 								&nbsp;&nbsp;<i class="fas fa-search"></i>&nbsp;&nbsp;
 							</button>
 						</form>
@@ -189,13 +201,13 @@
 		$(".pagination > li:eq(0) > a").click(function(e){
 			if(!${pageResult.prev}){
 				e.preventDefault();
-			}
-		})
+			};
+		});
 	
 		$(".pagination > li:last > a").click(function(e){
 			if(!${pageResult.next}){
 				e.preventDefault();
-			}
+			};
 		})
 		
 		/* 검색 ajax */
@@ -233,8 +245,8 @@
 					for(var k of level){
 						if(k.levelNo==i.levelNo){
 							html+="<td>"+k.levelName+"</td>";	
-						}//category end
-					}
+						};//category end
+					};
 					
 				}//for end 	
 		 		html+="</tr>"	

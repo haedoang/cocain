@@ -53,10 +53,21 @@
 		<result column="reg_date" property="regDate"></result>
 	</resultMap>
 	
+	<!-- 유저 -->
+	<resultMap id="userMap" type="User">
+		<result column="id" property="id" />
+		<result column="password" property="password" />
+		<result column="nickname" property="nickname" />
+		<result column="email" property="email" />
+		<result column="point" property="point"/>
+		<result column="reg_date" property="regDate" />
+		<association property="userFile"
+					 column="id"
+					 select="selectFile"></association>
+	</resultMap>
 	
 	
-	
-	
+
 	<!-- category list -->
 	<select id="selectCategory" resultMap="categoryMap">
 		select * 
@@ -255,7 +266,7 @@
 	<select id="selectSubmitList" parameterType="QuizPage" resultMap="submitMap">
 		select *
 		  from tb_quiz_submit
-		 order by quiz_no desc,reg_date asc
+		 order by quiz_no desc,reg_date desc
 		 limit #{begin}, 10
 	</select>	
 	
@@ -303,20 +314,31 @@
 		 where submit_no=#{submitNo}
 	</update>
 	
-	<!-- 게시글 정답자 조회하기  -->
-	<select id="selectAnswerUserByNo" parameterType="int">
-		select count(*)
-		  from tb_quiz_submit
-		 where quiz_no=#{quizNo}
-		   and evaluation='y'
-	</select>
-	
+	<!-- 정답자 올리기. -->
 	<update id="updateBoardAnsCnt" parameterType="int">
 		update tb_quiz_board
 		  set answer_cnt = answer_cnt+1
 		where quiz_no=#{quizNo}
 	</update>
 		
+	<!-- 점수 올리기 -->
+	<update id="updateUserPoint" parameterType="QuizSubmit">
+		update tb_user 
+		  set point=point + #{levelPoint}
+		where nickname=#{nickname}
+	</update>	
+		
+		
+		
+		
+	<!-- 게시글 정답자 조회하기  -->
+	<select id="selectAnswerUserByNo" parameterType="int">
+		select count(*)
+		  from tb_quiz_submit
+		 where quiz_no=#{quizNo}
+		   and evaluation='y'
+	</select>	
+	
 		
 		
 </mapper>

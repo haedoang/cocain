@@ -76,7 +76,19 @@
 						</c:forEach>
 						<td><a
 							href="<c:url value="/board/quiz/uqdetail.do?quizNo=${i.quizNo}"/>">${i.title}</a></td>
-						<td><a href="#"><span>${i.nickname}</span></a></td>
+						<td>
+							<a
+							<c:choose>
+                              		<c:when test="${user == null}">
+                                 		href="#" data-target="#login" id="log" data-toggle="modal"
+                               	</c:when>
+                              	<c:otherwise> 
+                              		href="<c:url value="/user/profile.do?writer=${i.nickname}" />"
+								</c:otherwise>
+                             	</c:choose> >
+							${i.nickname}
+							</a>
+						</td>
 						<td><fmt:formatDate value="${i.regDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						<c:forEach var="k" items="${data.level}">
 							<c:if test="${i.levelNo eq k.levelNo}">
@@ -176,13 +188,13 @@
 		$(".pagination > li:eq(0) > a").click(function(e){
 			if(!${pageResult.prev}){
 				e.preventDefault();
-			}
-		})
+			};
+		});
 		$(".pagination > li:last > a").click(function(e){
 			if(!${pageResult.next}){
 				e.preventDefault();
-			}
-		})
+			};
+		});
 		
 		//검색.. 
 		$("#search").click(function(e){
@@ -211,22 +223,23 @@
 						for(var j of category){
 							if(i.categoryNo==j.categoryNo){
 								html+="<td>"+j.categoryName+"</td>";	
-							}//category end
-						}//inner for end 
+							};//category end
+						};//inner for end 
 					html+="<td><a href='<c:url value='/board/quiz/uqdetail.do?quizNo="+i.quizNo+"'/>'>";
 					html+=i.title+"</a></td><td>"+i.nickname+"</td>";
 					html+="<td>"+$.format.date(i.regDate, "yyyy-MM-dd")+"</td>";
 					for(let k of level){
 						if(k.levelNo==i.levelNo){
 							html+="<td>"+k.levelName+"</td>";	
-						}//category end
-					}
+						};//category end
+					};//innerfor 
 		
-					}//for end 	 
+					};//for end 	 
 		 			html+="</tr>"	
 				$("#uqtable > tbody > tr:eq(0)").after(html);
 			}); 
-		});
+		}); 
 	</script>
 </body>
+
 </html>

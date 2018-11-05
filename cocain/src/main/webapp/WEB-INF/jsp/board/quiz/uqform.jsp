@@ -59,7 +59,7 @@
 			<div class="context"></div>
 
 			<div class="col-md-10">
-				<form id="uqForm" action="<c:url value="uqwrite.do"/>" method="POST">
+				<form id="uqForm" action="<c:url value="uqwrite.do"/>" method="POST" onsubmit="return doCheck()">
 					<table class="table">
 						<tr>
 							<th>카테고리</th>
@@ -83,7 +83,7 @@
 								<div>
 									<input id="yeshint" type="text" name="hint" placeholder="힌트를 입력하세요"
 										size="50" /> <br> <span> <input type="checkbox"
-										id="nohint" /> <label for="nohint">힌트 없음</label>
+										id="nohint" name="hint" value=""/> <label for="nohint">힌트 없음</label>
 									</span>
 								</div>
 							</td>
@@ -127,8 +127,63 @@
 
 	<!-- summernote -->
 	<script src="<c:url value="/resources/js/edit-summernote.js"/>"></script>
+		
+
+
+
+
 
 		<script>
+		
+		
+		$(function(){
+			$("#nohint").change(function(){
+				if($("#nohint").is(":checked")){
+					$("#yeshint").val("");
+					$("#yeshint").attr("placeholder","");
+					$("#yeshint").attr("disabled","disabled");
+				} else{
+					$("#yeshint").attr("placeholder","힌트를입력하세요");
+					$("#yeshint").removeAttr("disabled");
+				}
+				
+			});
+		});
+	
+		$("#cancel").click(function(e){
+			e.preventDefault();
+			location.href="<c:url value="dqlist.do"/>";
+		});
+	
+		/* 미설정 체크  */
+		function doCheck(){
+			if(!$("input[name='levelNo']").is(":checked")){
+				alert("난이도를 선택하세요.");
+				return false;
+			}
+			if(!$("#nohint").is(":checked")&& $("#yeshint").val()==""){
+				alert("힌트를 입력하세요");
+				return false;
+			}
+			if($("input[name='title']").val()==""){
+				alert("제목을 입력하세요");
+				$("input[name='title']").focus();
+				return false;
+			}
+			if($("textarea[name='content']").val()==""){
+				alert("내용을 입력하세요");
+				$("textarea[name='content']").focus();
+				return false;
+			}
+			
+			if($("input[name='correct']").val()==""){
+				alert("정답을 입력하세요");
+				$("textarea[name='correct']").focus();
+				return false;
+			}
+			
+		
+		}
 		$("#cancel").click(function(e){
 			e.preventDefault();
 			location.href="<c:url value="uqlist.do"/>";

@@ -76,9 +76,22 @@
 					<!-- 
 					jstl masking
 					 -->
-					<td class="nickname">${fn:substring (i.nickname,0,fn:length(i.nickname)-4) }****</td>
+					<td class="nickname">${fn:substring (i.nickname,0,fn:length(i.nickname)-3) }***</td>
 					<td>${i.quizNo}번 문제 제출 파일</td>
-					<td><a href="file://${i.path}"><i class="far fa-file-code"></i></a></td>
+					<td>
+						<!-- 확장자 가져오기  -->
+						<c:set var="file" value="${i.fileName}"/>
+						<c:set var="list" value="${fn:split(file,'.')}"/>
+						<c:forEach var="k" items="${list}" varStatus="loop">
+							<c:if test="${loop.last eq true}">
+								<c:set var="ext" value="${k}"/>
+							</c:if>
+						</c:forEach>
+						
+					<a target="_blank" href="<c:url  value="fileload.do?path=${i.path}&fileName=${i.fileName}&dname=submit.${ext}"/>">
+						<i class="far fa-file-code"></i>
+						</a>
+					</td>
 					<td>
 						<fmt:formatDate value="${i.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 					</td>
@@ -86,30 +99,29 @@
 						<td>
 							<form id="sForm${i.submitNo}" method="POST" class="buttons">
 							<input type="hidden" name="quizNo" value="${i.quizNo}"/>
-							<input type="hidden" name="comNo" value="${i.submitNo}"/>
+							<input type="hidden" name="submitNo" value="${i.submitNo}"/>
+							<input type="hidden" name="levelPoint" value="${i.levelPoint}"/>
+							<input type="hidden" name="nickname" value="${i.nickname}"/>
 							<input type="radio" id="y${i.submitNo}" name="evaluation" value="y"
 								<c:if test="${i.evaluation=='y'}">
 									checked
 								</c:if>
 							/>
-								<label for="y${submitNo}">정답</label>　
+								<label for="y${i.submitNo}">정답</label>　
 							<input type="radio" id="n${i.submitNo}" name="evaluation" value="n"
 								<c:if test="${i.evaluation=='n'}">
 									checked
 								</c:if>
 							 />
 								<label for="n${i.submitNo}">오답</label>　　　
-							<button type="button" class="btn btn-primary" onclick="doCheck(${i.submitNo})">
 							<c:choose>
 								<c:when test="${i.evaluation != 'u'}">
-									수정하기
+									<span style="color:green">채점완료</span>	
 								</c:when>
 								<c:otherwise>
-									채점하기	
+									<button type="button" class="btn btn-primary" onclick="doCheck(${i.submitNo})">채점하기</button>
 								</c:otherwise>
-							</c:choose>
-			
-							</button>		
+							</c:choose>	
 							</form>
 						</td>
 					</c:if>
@@ -182,11 +194,18 @@
 	function doCheck(submitNo){
 		var formData = $("#sForm"+submitNo).serialize();
 		console.log(formData);
+		
+		$.ajax({
+			url:"<c:url value='updateEval.do'/>",
+			method:"POST",
+			data:formData
+		}).done(function(data){
+			alert("채점완료되었습니다.");
+			location.href="<c:url value='dqsubmit.do'/>";
+		})
 	}
+	
 
-	
-	
-	
 	
 	</script>
 

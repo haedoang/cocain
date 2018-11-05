@@ -71,7 +71,7 @@
 						</tr>
 						<tr>
 							<th>작성자</th>
-							<td><a href="#"><span>${data.detail.nickname}</span></a></td>
+							<td><a href="<c:url value="/user/profile.do?writer=${data.detail.nickname}" />"><span>${data.detail.nickname}</span></a></td>
 						</tr>
 						<tr>
 							<th>등록일</th>
@@ -195,6 +195,7 @@
 	
 	<!-- button script -->
 	<script>
+	
 		$("#comSubmit").click(function(e){
 			e.preventDefault();
 			var comForm = $("#comForm").serialize();
@@ -205,7 +206,18 @@
 				data:comForm
 			})
 			.done(function(data){
-				//console.log(data);		
+				listComment($("input[name=quizNo]").val());
+			});
+			
+		});
+		
+		/* 댓글 리스트 출력 함수로 빼기 */
+		var quizNo= $("input[name=quizNo]").val();
+		function listComment(quizNo){
+			$.ajax({
+				url:"<c:url value='listComment.do'/>",
+				data:"quizNo="+quizNo
+			}).done(function(data){
 				var html ="";
 				//댓글 내용 등록;; 
 				$("#comTable > tbody > tr:eq(0)").siblings().remove();
@@ -219,13 +231,17 @@
 						html+=" <button class='btn btn-primary' onclick='comDel("+i.comNo+")'>삭제</button></td>";
 					} else {
 						html+="<td></td>"
-					}		
-				}
+					};		
+				};//for end 
 				$("textarea[name='content']").val("");
 				$("#comTable > tbody > tr:eq(0)").after(html);
-			});
+		
+			});//ajax end 
 			
-		});
+		}//function end 
+		
+		
+		
 	
 		/* 댓글 삭제 */
 		function comDel(comNo){
@@ -242,12 +258,11 @@
 		function comUpdate(comNo){
 			var row = $("#"+comNo);
 			var content = row.children("td:eq(1)").text();
-			//alert(content)
 			row.children("td:eq(1)").replaceWith("<td><input type='hidden' name='comNo' value='"+comNo+"'/><input type='text' name='content' value='"+content+"'/></td>");
-			row.children("td:eq(3)").replaceWith("<td class='buttons'><button class='btn btn-primary' id='comUp'>수정하기</button> <button class='btn btn-primary' onclick='doCancel("+comNo+")'>수정취소</button></td>")
+			row.children("td:eq(3)").replaceWith("<td class='buttons'><button class='btn btn-primary' id='comUp'>수정하기</button> <button class='btn btn-primary' id='comDel'>수정취소</button></td>")
 		} 
 		
-		//댓글 수정 확인 취소 .. 
+		//댓글 수정 확인 
 		$(document).on("click","#comUp",function(){
 			var quizNo= $("input[name=quizNo]").val();
 			var comNo= $("input[name='comNo']").val();
@@ -257,25 +272,17 @@
 				url:"<c:url value='updateComment.do'/>",
 				data:"quizNo="+quizNo+"&comNo="+comNo+"&content="+content
 			}).done(function(data){	
-				console.log(data);
-				var html ="";
-				//댓글 내용 등록;; 
-				$("#comTable > tbody > tr:eq(0)").siblings().remove();
-				for(let i of data){
-					html+="<tr id='"+i.comNo+"'><td><a href='#'><span>"+i.nickname+"</span></a></td>";
-					html+="<td><span>"+i.content+"</span></td>";
-					html+="<td>"+$.format.date(i.regDate, "yyyy-MM-dd HH:mm:ss")+"</td>";
-					
-					if(i.nickname==`${sessionScope.user.nickname}`){
-						html+="<td class='buttons'><button class='btn btn-primary'onclick='comUpdate("+i.comNo+")'>수정</button>";
-						html+=" <button class='btn btn-primary' onclick='comDel("+i.comNo+")'>삭제</button></td>";
-					} else {
-						html+="<td></td>"
-					}		
-				}
-				$("#comTable > tbody > tr:eq(0)").after(html);
+				listComment($("input[name=quizNo]").val());
 			})
 		});
+		
+		//댓글 수정 취소 
+		$(document).on("click","#comDel",function(){
+			listComment($("input[name=quizNo]").val());	
+		});
+		
+		
+		
 		
 		/* 정답호출 ajax */
 		$("#correct").click(function(e) {

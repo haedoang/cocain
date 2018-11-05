@@ -65,4 +65,7 @@ public interface QuizBoardService {
 
 	int selectSubmitUser(QuizSubmit quizSubmit);
 
+
+	void updateSubmitEvaluation(QuizSubmit quizSubmit);
+
 }

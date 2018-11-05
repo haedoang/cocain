@@ -85,4 +85,10 @@ public interface QuizMapper {
   	
   	//제출 후 board try_cnt++; 
   	void updateBoardTryCnt(int quizNo);
+  	
+  	
+	void updateSubmitEvaluation(QuizSubmit quizSubmit);
+	void updateBoardAnsCnt(int QuizNo);
+	
+	void updateUserPoint(QuizSubmit quizSubmit);
 }

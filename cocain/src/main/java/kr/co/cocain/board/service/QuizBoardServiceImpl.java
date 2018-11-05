@@ -150,6 +150,20 @@ public class QuizBoardServiceImpl  implements QuizBoardService{
 	public int selectSubmitUser(QuizSubmit quizSubmit) {
 		return mapper.selectSubmitUser(quizSubmit);
 	}
+
+	@Override
+	public void updateSubmitEvaluation(QuizSubmit quizSubmit) {
+		//evaluation 변경 
+		mapper.updateSubmitEvaluation(quizSubmit);
+		
+		//y이면  해당 게시글 정답 증가. // 회원점수증가.
+		String result = quizSubmit.getEvaluation();
+		if(result.charAt(0)=='y') {
+			mapper.updateBoardAnsCnt(quizSubmit.getQuizNo());	
+			mapper.updateUserPoint(quizSubmit);
+		}
+		
+	}
 	
 
 	

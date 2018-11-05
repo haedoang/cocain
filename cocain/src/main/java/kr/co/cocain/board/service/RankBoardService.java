@@ -1,5 +1,11 @@
 package kr.co.cocain.board.service;
 
-public interface RankBoardService {
+import java.util.List;
 
+import kr.co.cocain.repository.domain.UserRank;
+
+public interface RankBoardService {
+	
+	
+	List<UserRank> selectRank();
 }

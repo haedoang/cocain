@@ -10,7 +10,7 @@ public class QuizBoardSearch {
 	private String search; // nick or title 
 	private String word; // 입력받아서 보낼 값
 	
-/*	private int pageNo;
+	private int pageNo;
 	private int begin;
 	
 	
@@ -29,17 +29,13 @@ public class QuizBoardSearch {
 		this.begin = begin;
 	}
 	
-	*/
-	
-	
-	
+
 	public int getTypeNo() {
 		return typeNo;
 	}
 	public void setTypeNo(int typeNo) {
 		this.typeNo = typeNo;
 	}
-
 
 	public String getCategoryNo() {
 		return categoryNo;

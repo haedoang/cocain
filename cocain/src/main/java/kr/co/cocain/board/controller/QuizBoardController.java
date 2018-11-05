@@ -1,11 +1,17 @@
 package kr.co.cocain.board.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -136,8 +142,15 @@ public class QuizBoardController {
 		PageResult pageResult = new PageResult(pageNo, service.selectSubmitListCount());
 		model.addAttribute("data", service.selectSubmitList(qp));
 		model.addAttribute("pageResult", pageResult);
-
 	}
+	
+	@RequestMapping("updateEval.do")
+	@ResponseBody
+	public void updateEval(QuizSubmit quizSubmit){
+		System.out.println(quizSubmit);
+		service.updateSubmitEvaluation(quizSubmit);
+	}
+	
 
 	/* dq file upload */
 	@RequestMapping(value = "dqupload.do", method = RequestMethod.POST)
@@ -160,21 +173,59 @@ public class QuizBoardController {
 		if (index != -1) {
 			ext = oriName.substring(index);
 		}
-
-		String path = request.getRealPath("/resources/fileupload");
-
+		
+		//경로 고치자
+		String uploadPath = "C:/app/upload";
+		String detailPath = "/fileupload/";
+		
+		//file rename
 		String rename = quizSubmit.getQuizNo() + "_" + quizSubmit.getNickname() + ext;
 
-		attach.transferTo(new File(path, rename));
+		attach.transferTo(new File(uploadPath+detailPath, rename));
 
-		quizSubmit.setPath("/resources/fileupload");
+		quizSubmit.setPath("/local_img/fileupload/");
 		quizSubmit.setFileName(rename);
-		//quizSubmit 등록 및 board tryCnt+1
+		
+		//try cnt++; 
 		service.insertQuizSubmit(quizSubmit);
-
+		
 		return "true";
 
 	}
+	
+	@RequestMapping("fileload.do")
+	public void fileLoad(HttpServletResponse response, String path,String fileName,String dname) throws Exception {
+		System.out.println(path);
+		System.out.println(fileName);
+		System.out.println(dname);
+		response.setHeader("Content-Type", "application/octet-stream");	
+		dname = new String(dname.getBytes("utf-8"),"8859_1");  // 사용자가 보내준 파라미터를 utf-8 바이트 형태로 보냄 (한글 처리시) 
+		
+		response.setHeader("Content-Disposition","attachment;filename="+dname);
+		
+		String uploadPath = "c:/app/upload/fileupload";   //c:/app/upload/local_img/fileupload/...
+		
+		File f = new File(uploadPath, fileName);
+		
+		FileInputStream fis = new FileInputStream(f);
+		BufferedInputStream bis = new BufferedInputStream(fis);	
+		
+		OutputStream out = response.getOutputStream(); 
+		BufferedOutputStream bos = new BufferedOutputStream(out);
+		
+		while(true) {
+			int ch = bis.read();
+			if (ch== -1) break;
+			
+			bos.write(ch);
+		}
+		
+		bis.close(); fis.close();bos.close();out.close();
+		
+		
+	
+	}
+	
 
 	/**
 	 * 
@@ -200,11 +251,16 @@ public class QuizBoardController {
 	 */
 	@RequestMapping("insertComment.do")
 	@ResponseBody
-	public List<QuizComment> insertComment(QuizComment quizComment) {
+	public void insertComment(QuizComment quizComment) {
 		service.insertComment(quizComment);
-		return service.selectCommentByNo(quizComment.getQuizNo());
 	}
-
+	
+	@RequestMapping("listComment.do")
+	@ResponseBody
+	public List<QuizComment> listComment(int quizNo){
+		return service.selectCommentByNo(quizNo);
+	}
+	
 	// 댓글삭제..
 	@RequestMapping("deleteComment.do")
 	@ResponseBody
@@ -215,9 +271,8 @@ public class QuizBoardController {
 	// 댓글 수정.. 등록과 비슷하게 ㄱㄱ
 	@RequestMapping("updateComment.do")
 	@ResponseBody
-	public List<QuizComment> updateComment(QuizComment quizComment) {
+	public void updateComment(QuizComment quizComment) {
 		service.updateComment(quizComment);
-		return service.selectCommentByNo(quizComment.getQuizNo());
 	}
 
 	/*
@@ -241,8 +296,12 @@ public class QuizBoardController {
 	// quiz search
 	@RequestMapping(value = "search.do")
 	@ResponseBody
-	public Map<String, Object> selectSearchBoard(QuizBoardSearch quizBoardSearch) {
+	public Map<String,Object> selectSearchBoard(QuizBoardSearch quizBoardSearch) {
 		return service.selectSearchBoard(quizBoardSearch);
 	}
+	
+	/*  rank page.. */
+	
+	
 
 }

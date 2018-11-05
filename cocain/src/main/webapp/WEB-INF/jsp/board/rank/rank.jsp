@@ -23,22 +23,24 @@
 			<div class="sidebar">
 				<ul class="nav nav-pills nav-stacked">
 					<li role="presentation"><a href="#">퀴즈게시판</a></li>
+					<li role="presentation"><a href="#"> <i
+							class="fas fa-folder"></i> 데일리퀴즈
+					</a></li>
 					<li role="presentation"><a
-						href="#"> <i class="fas fa-folder"></i>
-							데일리퀴즈
+						href="<c:url value="/board/quiz/dqlist.do"/>"> &nbsp;&nbsp; <i
+							class="fas fa-folder"></i> 문제
 					</a></li>
-					<li role="presentation"><a href="<c:url value="/board/quiz/dqlist.do"/>">
-							&nbsp;&nbsp; <i class="fas fa-folder"></i> 문제
+					<li role="presentation"><a
+						href="<c:url value="/board/quiz/dqsubmit.do"/>"> &nbsp;&nbsp;
+							<i class="fas fa-folder"></i> 제출확인
 					</a></li>
-					<li role="presentation"><a href="<c:url value="/board/quiz/dqsubmit.do"/>">
-							&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인
+					<li role="presentation"><a
+						href="<c:url value="/board/quiz/uqlist.do"/>"> <i
+							class="fas fa-folder-open"></i> 유저퀴즈
 					</a></li>
-					<li role="presentation"><a href="<c:url value="/board/quiz/uqlist.do"/>">
-							<i class="fas fa-folder-open"></i> 유저퀴즈
-					</a></li>
-					<li role="presentation" class="active" ><a
-						href="<c:url value="/board/rank/rank.do"/>"> <i class="fas fa-signal"></i>
-							랭킹보기
+					<li role="presentation" class="active"><a
+						href="<c:url value="/board/rank/rank.do"/>"> <i
+							class="fas fa-signal"></i> 랭킹보기
 					</a></li>
 				</ul>
 			</div>
@@ -59,92 +61,32 @@
 			<table class="table table-bordered">
 				<tr>
 					<th>순위</th>
-					<th>ID</th>
-					<th>푼 문제수</th>
-					<th>정답률</th>
+					<th>닉네임</th>
 					<th>포인트</th>
-					<th></th>
+
 				</tr>
-				<tr>
-					<td>1</td>
-					<td><a href="#">GodSeongIll</a></td>
-					<td>49291</td>
-					<td>94%</td>
-					<td>24000</td>
-					<td class="buttons"><button class="btn btn-primary">상세보기</button></td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>WonjaeZzang</td>
-					<td>40001</td>
-					<td>92%</td>
-					<td>22000</td>
-					<td class="buttons"><button class="btn btn-primary">상세보기</button></td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>TrainnerHan</td>
-					<td>25671</td>
-					<td>88%</td>
-					<td>17000</td>
-					<td class="buttons"><button class="btn btn-primary">상세보기</button></td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>electoronicCigar</td>
-					<td>22002</td>
-					<td>76%</td>
-					<td>15000</td>
-					<td class="buttons"><button class="btn btn-primary">상세보기</button></td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>haedoang</td>
-					<td>15555</td>
-					<td>42%</td>
-					<td>24000</td>
-					<td class="buttons"><button class="btn btn-primary">상세보기</button></td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>haedoang</td>
-					<td>15555</td>
-					<td>42%</td>
-					<td>24000</td>
-					<td class="buttons"><button class="btn btn-primary">상세보기</button></td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>haedoang</td>
-					<td>15555</td>
-					<td>42%</td>
-					<td>24000</td>
-					<td class="buttons"><button class="btn btn-primary">상세보기</button></td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>haedoang</td>
-					<td>15555</td>
-					<td>42%</td>
-					<td>24000</td>
-					<td class="buttons"><button class="btn btn-primary">상세보기</button></td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>haedoang</td>
-					<td>15555</td>
-					<td>42%</td>
-					<td>24000</td>
-					<td class="buttons"><button class="btn btn-primary">상세보기</button></td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>haedoang</td>
-					<td>15555</td>
-					<td>42%</td>
-					<td>24000</td>
-					<td class="buttons"><button class="btn btn-primary">상세보기</button></td>
-				</tr>
+				<c:forEach var="i" items="${list}">
+					<tr>
+						<td><c:choose>
+								<c:when test="${i.rank==1}">
+								🥇
+							</c:when>
+								<c:when test="${i.rank==2}">
+								🥈
+							</c:when>
+								<c:when test="${i.rank==3}">
+								🥉
+							</c:when>
+								<c:otherwise>
+								${i.rank}
+							</c:otherwise>
+							</c:choose>
+						</td>
+						<td><a href="#">${i.nickname}</a></td>
+						<td>${i.point}</td>
+					</tr>
+
+				</c:forEach>
 
 			</table>
 
