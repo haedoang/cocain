@@ -11,6 +11,7 @@ import kr.co.cocain.board.service.QNABoardService;
 import kr.co.cocain.repository.domain.Qna;
 import kr.co.cocain.repository.domain.QnaComment;
 import kr.co.cocain.repository.domain.QnaPage;
+import kr.co.cocain.repository.domain.QnaRecom;
 import kr.co.cocain.repository.mapper.QnaMapper;
 
 @Service
@@ -23,6 +24,7 @@ public class QNABoardServiceImpl  implements QNABoardService{
 	public Map<String,Object> listqna(QnaPage qnaPage) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("list", mapper.listqna(qnaPage));
+//		map.put("qnano", mapper.listno());
 		return map;
 	}
 	@Override
@@ -84,6 +86,19 @@ public class QNABoardServiceImpl  implements QNABoardService{
 	@Override
 	public int answerCount(int no) {
 		return mapper.answerCount(no);
+	}
+	@Override
+	public int recomExist(QnaRecom recom) {
+		return mapper.recomExist(recom);
+	}
+	@Override
+	public int insertRecom(QnaRecom recom) {
+		return mapper.insertRecom(recom);
+		
+	}
+	@Override
+	public int deleteRecom(QnaRecom recom) {
+		return mapper.deleteRecom(recom);
 	}
 
 }

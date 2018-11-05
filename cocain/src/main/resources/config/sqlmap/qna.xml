@@ -114,6 +114,36 @@
 		 where qna_status='y'
 		 	and no = #{no}
 	</select>
+	
+	<!-- 추천여부확인하기 -->
+	<select id="recomExist" resultType="int" parameterType="QnaRecom">
+		select count(*)
+		 from tb_qna_recom
+		 where no=#{no}
+		   and id=#{id}
+	</select>
+	
+	<!-- 추천수 확인 -->
+	<select id="recomCount" parameterType="int" resultType="int">
+		select count(*)
+		  from tb_qna_recom
+		 where no = #{no}
+	</select>
+	
+	<!-- 추천하기 -->
+	<insert id="insertRecom">
+		insert into tb_qna_recom (no, id)
+		values (#{no}, #{id})
+	</insert>
+	
+	<!-- 추천취소 -->
+	<delete id="deleteRecom">
+		delete tb_qna_recom
+		 where no=#{no}
+		   and id=#{id}
+	</delete>
+	
+	
 	  
 	
 </mapper>

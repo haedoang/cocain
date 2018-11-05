@@ -5,10 +5,12 @@ import java.util.List;
 import kr.co.cocain.repository.domain.Qna;
 import kr.co.cocain.repository.domain.QnaComment;
 import kr.co.cocain.repository.domain.QnaPage;
+import kr.co.cocain.repository.domain.QnaRecom;
 
 public interface QnaMapper {
 
 	List<Qna> listqna(QnaPage qnaPage);
+	// 추천수 확인 및 댓글수 확인을 위한 글번호만 뽑아내기
 	int listCount();
 	void writeqna(Qna qna);
 	Qna detailqna(int no);
@@ -29,4 +31,11 @@ public interface QnaMapper {
 	void selectAnswerComment(int no);
 	// 채택답변존재여부 확인
 	int answerCount(int no);
+	
+	//추천여부 확인
+	int recomExist(QnaRecom recom);
+	//
+	int recomCount(int no);
+	int insertRecom(QnaRecom recom);
+	int deleteRecom(QnaRecom recom);
 }
