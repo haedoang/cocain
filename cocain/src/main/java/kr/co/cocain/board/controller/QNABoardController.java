@@ -48,8 +48,9 @@ public class QNABoardController {
     }
     
     @RequestMapping("/detail.do")
-	public void detail(int no, Model model) throws Exception {
+	public void detail(int no, Model model, QnaRecom recom) {
 		model.addAttribute("qna", service.detail(no));
+		model.addAttribute("recCount", service.recomExist(recom));
 	}
     
     @RequestMapping("/delete.do")
@@ -118,18 +119,33 @@ public class QNABoardController {
     
     @RequestMapping("/insertrecom.do")
     @ResponseBody
-    public int insertrecom(Model model,QnaRecom recom) {
+    public int insertrecom(QnaRecom recom) {
 //    	 System.out.println("댓글 " + recom);
-    	 model.addAttribute("recom", service.insertRecom(recom));
+//    	 model.addAttribute("recom", service.insertRecom(recom));
+    	 service.insertRecom(recom);
     	 return service.recomExist(recom);
     }
     
     @RequestMapping("/deleterecom.do")
     @ResponseBody
-    public int deleterecom(Model model, QnaRecom recom) {
-		model.addAttribute("recom", service.deleteRecom(recom));
+    public int deleterecom(QnaRecom recom) {
+//		model.addAttribute("recom", service.deleteRecom(recom));
+		service.deleteRecom(recom);
     	return service.recomExist(recom);
     }
     
+    // 추천수 카운트
+    @RequestMapping("/recomCount.do")
+    @ResponseBody
+	public int recnumber(int no) {
+		return service.recomCount(no);
+	}
+    
+    // 추천 여부 확인 0 / 1
+    @RequestMapping("/recomExist.do")
+    @ResponseBody
+	public int recExist(QnaRecom recom) {
+		return service.recomExist(recom);
+	}
     
 }

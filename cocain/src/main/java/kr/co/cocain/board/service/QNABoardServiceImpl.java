@@ -100,5 +100,9 @@ public class QNABoardServiceImpl  implements QNABoardService{
 	public int deleteRecom(QnaRecom recom) {
 		return mapper.deleteRecom(recom);
 	}
+	@Override
+	public int recomCount(int no) {
+		return mapper.recomCount(no);
+	}
 
 }

@@ -32,9 +32,9 @@ public interface QnaMapper {
 	// 채택답변존재여부 확인
 	int answerCount(int no);
 	
-	//추천여부 확인
+	//추천여부 확인 0 or 1
 	int recomExist(QnaRecom recom);
-	//
+	// 추천수
 	int recomCount(int no);
 	int insertRecom(QnaRecom recom);
 	int deleteRecom(QnaRecom recom);
