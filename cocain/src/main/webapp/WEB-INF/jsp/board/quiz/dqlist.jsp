@@ -135,10 +135,10 @@
 									<a
 										<c:choose>
 											<c:when test='${requestScope["javax.servlet.forward.request_uri"].substring(18) eq "/search.do"}'>
-												href="<c:url value="search.do?pageNo=${pageResult.beginPage-1}&typeNo=1&categoryNo=${data.list[0].categoryNo}"/>"
+												href="<c:url value="search.do?pageNo=${pageResult.beginPage-1}&typeNo=${search.typeNo}&categoryNo=${search.categoryNo}&search=${search.search}&word=${search.word}"/>"
 											</c:when>
-											<c:otherwise>
-												href="<c:url value="dqlist.do?pageNo=${pageResult.beginPage+1}"/>"									
+											<c:otherwise>  
+												href="<c:url value="dqlist.do?pageNo=${pageResult.beginPage-1}"/>"									
 											</c:otherwise>
 										</c:choose>
 									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
