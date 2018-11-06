@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.co.cocain.repository.domain.MainSearch;
+import kr.co.cocain.repository.domain.RankPage;
 import kr.co.cocain.repository.domain.RecentActivity;
 import kr.co.cocain.repository.domain.User;
 import kr.co.cocain.repository.domain.UserFile;
@@ -256,5 +257,7 @@ public class UserServiceImpl implements UserService {
 	public int mainSearchCount(MainSearch mainSearch) {
 		return mapper.mainSearchCount(mainSearch);
 	} // mainSearchCount
+
+
 
 } // end class

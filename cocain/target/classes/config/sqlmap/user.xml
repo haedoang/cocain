@@ -184,10 +184,34 @@
 		 		 order by point desc) d
 		  where nickname = #{nickname}   
 	</select>
-		  	  
-	<!-- 유저 랭킹 -->
+	
+	<!-- 유저 랭킹  -->
 	<select id="selectRank" resultMap="userRankMap">
 		select d.*
+		  from (select  id,
+		        point,
+		        nickname,
+		        IF(point=@_last_point,@curRank:=@curRank,@curRank:=@_sequence) AS rank,
+		        @_sequence:=@_sequence+1,@_last_point:=point
+				  from  tb_user p, (SELECT @curRank := 1, @_sequence:=1, @_last_point:=0) r
+		 		 order by point desc) d
+	</select>
+		  
+	<!-- 유저 랭킹 paging  -->
+	<select id="selectRankPaging" parameterType="RankPage" resultMap="userRankMap">
+		select d.*
+		  from (select  id,
+		        point,
+		        nickname,
+		        IF(point=@_last_point,@curRank:=@curRank,@curRank:=@_sequence) AS rank,
+		        @_sequence:=@_sequence+1,@_last_point:=point
+				  from  tb_user p, (SELECT @curRank := 1, @_sequence:=1, @_last_point:=0) r
+		 		 order by point desc) d
+		 limit ${begin}, 20
+	</select>
+	
+	<select id="selectRankCount" resultType="int">
+		select count(*)
 		  from (select  id,
 		        point,
 		        nickname,

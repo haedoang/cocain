@@ -59,7 +59,7 @@
 			<div class="context"></div>
 
 			<div class="col-md-8">
-				<table class="table table-bordered">
+				<table class="table table-condensed">
 					<tr>
 						<th>순위</th>
 						<th>닉네임</th>
@@ -99,51 +99,61 @@
 					</c:forEach>
 
 				</table>
+
+
 				<div class="row">
-					<div class="col-md-4">
-						<div class="write"></div>
+					<div class="col-md-10 col-md-offset-1">
+						<c:if test="${pageResult.count!=0}">
+							<!-- 전체 게시글이 0개가 아닐때 -->
+							<ul class="pagination pagination-sm">
+								<c:forEach var="i" begin="${pageResult.beginPage}"
+									end="${pageResult.endPage}">
+									<!-- 현재페이지 체크 불가 -->
+									<li
+										<c:if test="${i eq pageResult.pageNo}">
+								class="active"</c:if>>
+										<a
+										<c:choose>
+											<c:when test='${requestScope["javax.servlet.forward.request_uri"].substring(18) eq "/search.do"}'>
+												href="<c:url value="search.do?pageNo=${i}&typeNo=${search.typeNo}&categoryNo=${search.categoryNo}&search=${search.search}&word=${search.word}"/>"
+											</c:when>
+											<c:otherwise>
+												href="<c:url value="rank.do?pageNo=${i}"/>"									
+											</c:otherwise>
+										</c:choose>>${(i-1)*20+1}
+											~ ${i*20} </a>
+									</li>
+								</c:forEach>
+							</ul>
+						</c:if>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-10 col-md-offset-1">
+						<form class="buttons">
+							<input type="text" placeholder="아이디를 입력해주세요" />
+							<button class="btn btn-primary">찾기</button>
+						</form>
 					</div>
 
-					<div class="col-md-4">
-						<ul class="pagination pagination-sm">
-							<li><a href="#" aria-label="Previous"> <span
-									aria-hidden="true">&laquo;</span>
-							</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#" aria-label="Next"> <span
-									aria-hidden="true">&raquo;</span>
-							</a></li>
-						</ul>
-					</div>
-
-
-					<div class="col-md-4">
-						<div class="search">
-							<select>
-								<option>아이디로 검색</option>
-								<option>순위로 검색</option>
-							</select> <input class="ser" type="text" size="15"
-								placeholder="검색어를 입력하세요! 갓 해동!!! 사랑해요 !!" />
-							<button class="ser">
-								&nbsp;&nbsp;<i class="fas fa-search"></i>&nbsp;&nbsp;
-							</button>
-						</div>
-					</div>
 				</div>
 			</div>
 
-			<!-- row end -->
 		</div>
+
+
+
+
+		<!-- row end -->
+
 	</section>
 
 
 
 	<!-- footer.. -->
 	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
-
+	<script>
+		
+	</script>
 </body>
 </html>

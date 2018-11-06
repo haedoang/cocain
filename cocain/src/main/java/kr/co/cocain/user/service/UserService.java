@@ -3,6 +3,7 @@ package kr.co.cocain.user.service;
 import java.util.List;
 
 import kr.co.cocain.repository.domain.MainSearch;
+import kr.co.cocain.repository.domain.RankPage;
 import kr.co.cocain.repository.domain.RecentActivity;
 import kr.co.cocain.repository.domain.User;
 import kr.co.cocain.repository.domain.UserFile;
@@ -113,6 +114,7 @@ public interface UserService {
 	 * 유저 랭킹
 	 */
 	List<UserRank> selectRank();
+	
 	
 	/**
 	 * 메인 검색

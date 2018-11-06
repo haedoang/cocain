@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import kr.co.cocain.repository.domain.RankPage;
 import kr.co.cocain.repository.domain.UserRank;
 import kr.co.cocain.repository.mapper.UserMapper;
 
@@ -16,8 +17,13 @@ public class RankBoardServiceImpl implements RankBoardService{
 	UserMapper mapper;
 	
 	@Override
-	public List<UserRank> selectRank() {
-		return mapper.selectRank();
+	public List<UserRank> selectRankPaging(RankPage rankPage) {
+		return mapper.selectRankPaging(rankPage);
+	}
+
+	@Override
+	public int selectRankCount() {
+		return mapper.selectRankCount();
 	}
 
 }

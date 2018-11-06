@@ -339,8 +339,6 @@
 		 where quiz_no=#{quizNo}
 		   and evaluation='y'
 	</select>	
-	
-		
 		
 </mapper>
 

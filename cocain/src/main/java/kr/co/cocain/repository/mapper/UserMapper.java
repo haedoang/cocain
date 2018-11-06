@@ -3,6 +3,7 @@ package kr.co.cocain.repository.mapper;
 import java.util.List;
 
 import kr.co.cocain.repository.domain.MainSearch;
+import kr.co.cocain.repository.domain.RankPage;
 import kr.co.cocain.repository.domain.RecentActivity;
 import kr.co.cocain.repository.domain.User;
 import kr.co.cocain.repository.domain.UserFile;
@@ -107,6 +108,16 @@ public interface UserMapper {
 	 * 유저 랭킹
 	 */
 	List<UserRank> selectRank();
+	
+	/**
+	 * 유저 랭킹 페이징 (위에꺼 메인에서 쓰길래 만듬) 
+	 */
+	List<UserRank>selectRankPaging(RankPage rankPage);
+	/**
+	 * 
+	 * 유저 랭킹 카운트
+	 */
+	int selectRankCount();
 	
 	/**
 	 * 메인 검색
