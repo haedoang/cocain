@@ -156,7 +156,8 @@
 		 		</if>
 		 	</if>
 		</where>
-		<!-- limit #{begin}, 10 -->
+		    order by quiz_no desc
+		    limit #{begin}, 10 
 	</select>
 	
 		<!-- search paging -->

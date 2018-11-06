@@ -55,12 +55,13 @@ public class QuizBoardSearch {
 	public void setWord(String word) {
 		this.word = word;
 	}
+
 	@Override
 	public String toString() {
 		return "QuizBoardSearch [typeNo=" + typeNo + ", categoryNo=" + categoryNo + ", search=" + search + ", word="
-				+ word + "]";
+				+ word + ", pageNo=" + pageNo + ", begin=" + begin + "]";
 	}
-
+	
 
 
 

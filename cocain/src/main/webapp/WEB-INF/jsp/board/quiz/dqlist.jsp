@@ -50,6 +50,7 @@
 
 			<div class="title">
 				<h2>DailyQuiz > 문제</h2>
+				
 			</div>
 
 			<div class="context"></div>
@@ -132,7 +133,14 @@
 								<li
 									<c:if test="${pageResult.prev eq false}">class="disabled"</c:if>>
 									<a
-									href="<c:url value="dqlist.do?pageNo=${pageResult.beginPage-1}"/>"
+										<c:choose>
+											<c:when test='${requestScope["javax.servlet.forward.request_uri"].substring(18) eq "/search.do"}'>
+												href="<c:url value="search.do?pageNo=${pageResult.beginPage-1}&typeNo=1&categoryNo=${data.list[0].categoryNo}"/>"
+											</c:when>
+											<c:otherwise>
+												href="<c:url value="dqlist.do?pageNo=${pageResult.beginPage+1}"/>"									
+											</c:otherwise>
+										</c:choose>
 									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 								</a>
 								</li>
@@ -143,16 +151,33 @@
 									<li
 										<c:if test="${i eq pageResult.pageNo}">
 								class="active"</c:if>>
-										<a href="<c:url value="dqlist.do?pageNo=${i}"/>">${i}</a>
+										<a 
+											<c:choose>
+											<c:when test='${requestScope["javax.servlet.forward.request_uri"].substring(18) eq "/search.do"}'>
+												href="<c:url value="search.do?pageNo=${i}&typeNo=${search.typeNo}&categoryNo=${search.categoryNo}&search=${search.search}&word=${search.word}"/>"
+											</c:when>
+											<c:otherwise>
+												href="<c:url value="dqlist.do?pageNo=${i}"/>"									
+											</c:otherwise>
+										</c:choose>
+											>${i}</a>	
 									</li>
 								</c:forEach>
 
 								<li
 									<c:if test="${pageResult.next eq false}">class="disabled"</c:if>>
+									
 									<a
-									href="<c:url value="dqlist.do?pageNo=${pageResult.endPage+1}"/>"
+										<c:choose>
+											<c:when test='${requestScope["javax.servlet.forward.request_uri"].substring(18) eq "/search.do"}'>
+												href="<c:url value="search.do?pageNo=${pageResult.endPage+1}&typeNo=${search.typeNo}&categoryNo=${search.categoryNo}&search=${search.search}&word=${search.word}"/>"
+											</c:when>
+											<c:otherwise>
+												href="<c:url value="dqlist.do?pageNo=${pageResult.endPage+1}"/>"									
+											</c:otherwise>
+										</c:choose>
 									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-								</a>
+									</a>
 								</li>
 							</ul>
 						</c:if>
@@ -162,8 +187,8 @@
 
 				<div class="col-md-4">
 					<div class="search">
-						<form id="sForm" method="post">
-							<input type="hidden" name="pageNo" value="2"/>
+						<form id="sForm" action=<c:url value="search.do"/> method="post">
+							
 							<input type="hidden" name="typeNo" value="${data.list[0].typeNo}" />
 							<select name="categoryNo">
 								<option value="">카테고리전체</option>
@@ -197,6 +222,7 @@
 
 	<script src="<c:url value="/resources/js/jquery-dateformat.js"/>"></script>
 	<script>
+	
 		/* paging 설정하기 !! */
 		$(".pagination > li:eq(0) > a").click(function(e){
 			if(!${pageResult.prev}){
@@ -210,9 +236,9 @@
 			};
 		})
 		
-		/* 검색 ajax */
+		/* 검색  */
 		
-		$("#search").click(function(e){
+		/* $("#search").click(function(e){
 			e.preventDefault();
 			var formData = $("#sForm").serialize();
 		 
@@ -253,7 +279,7 @@
 				$("#dqtable > tbody > tr:eq(0)").after(html);
 			}); 
 		});
-		
+		 */
 
 		
 	</script>

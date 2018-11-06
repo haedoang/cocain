@@ -4,11 +4,9 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import kr.co.cocain.board.service.QuizBoardService;
@@ -293,15 +292,41 @@ public class QuizBoardController {
 	 * 
 	 * }
 	 */
-	// quiz search
+/*	// quiz search
 	@RequestMapping(value = "search.do")
 	@ResponseBody
 	public Map<String,Object> selectSearchBoard(QuizBoardSearch quizBoardSearch) {
 		return service.selectSearchBoard(quizBoardSearch);
+	}*/
+	
+    /* 검색페이지 가즈아  */ 
+	
+	@RequestMapping(value = "search.do")
+	public ModelAndView selectSearchBoard(@RequestParam(value="pageNo",defaultValue="1")int pageNo, QuizBoardSearch quizBoardSearch) {
+		 //service.selectSearchBoard(quizBoardSearch);
+		ModelAndView mav;	
+		
+		System.out.println(quizBoardSearch);
+			quizBoardSearch.setPageNo(pageNo);
+			PageResult pageResult = new PageResult(pageNo, service.selectSearchBoardCount(quizBoardSearch));
+			
+			int typeNo = quizBoardSearch.getTypeNo();
+			if(typeNo==1) {
+				mav=  new ModelAndView("/board/quiz/dqlist");
+			} else {
+				mav = new ModelAndView("/board/quiz/uqlist");
+			}
+			
+			mav.addObject("data", service.selectSearchBoard(quizBoardSearch));
+			mav.addObject("pageResult",pageResult);
+			
+			//보낼 데이터 
+			mav.addObject("search",quizBoardSearch);
+		
+		
+			return mav; 
+			
+	
 	}
-	
-	/*  rank page.. */
-	
-	
 
 }

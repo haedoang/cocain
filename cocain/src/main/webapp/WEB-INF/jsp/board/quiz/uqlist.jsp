@@ -111,35 +111,57 @@
 				</div>
 
 				<div class="col-md-4">
-					<nav>
-						<c:if test="${pageResult.count!=0}">
+					<c:if test="${pageResult.count!=0}">
+							<!-- 전체 게시글이 0개가 아닐때 -->
 							<ul class="pagination pagination-sm">
 								<li
-									<c:if test="${pageResult.prev eq false}">
-										class="disabled"
-									 </c:if>
-								>
-									<a href="<c:url value="uqlist.do?pageNo=${pageResult.beginPage-1}"/>"aria-label="Previous">
-							        <span aria-hidden="true">&laquo;</span></a>
+									<c:if test="${pageResult.prev eq false}">class="disabled"</c:if>>
+									<a
+										<c:choose>
+											<c:when test='${requestScope["javax.servlet.forward.request_uri"].substring(18) eq "/search.do"}'>
+												href="<c:url value="search.do?pageNo=${pageResult.beginPage-1}&typeNo=1&categoryNo=${data.list[0].categoryNo}"/>"
+											</c:when>
+											<c:otherwise>
+												href="<c:url value="uqlist.do?pageNo=${pageResult.beginPage+1}"/>"									
+											</c:otherwise>
+										</c:choose>
+									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								</a>
 								</li>
 
-								<!-- 반복 -->
 								<c:forEach var="i" begin="${pageResult.beginPage}"
 									end="${pageResult.endPage}">
 									<!-- 현재페이지 체크 불가 -->
 									<li
 										<c:if test="${i eq pageResult.pageNo}">
 								class="active"</c:if>>
-										<a href="<c:url value="uqlist.do?pageNo=${i}"/>">${i}</a>
+										<a 
+											<c:choose>
+											<c:when test='${requestScope["javax.servlet.forward.request_uri"].substring(18) eq "/search.do"}'>
+												href="<c:url value="search.do?pageNo=${i}&typeNo=${search.typeNo}&categoryNo=${search.categoryNo}&search=${search.search}&word=${search.word}"/>"
+											</c:when>
+											<c:otherwise>
+												href="<c:url value="uqlist.do?pageNo=${i}"/>"									
+											</c:otherwise>
+										</c:choose>
+											>${i}</a>	
 									</li>
 								</c:forEach>
 
 								<li
 									<c:if test="${pageResult.next eq false}">class="disabled"</c:if>>
+									
 									<a
-									href="<c:url value="uqlist.do?pageNo=${pageResult.endPage+1}"/>"
+										<c:choose>
+											<c:when test='${requestScope["javax.servlet.forward.request_uri"].substring(18) eq "/search.do"}'>
+												href="<c:url value="search.do?pageNo=${pageResult.endPage+1}&typeNo=${search.typeNo}&categoryNo=${search.categoryNo}&search=${search.search}&word=${search.word}"/>"
+											</c:when>
+											<c:otherwise>
+												href="<c:url value="uqlist.do?pageNo=${pageResult.endPage+1}"/>"									
+											</c:otherwise>
+										</c:choose>
 									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-								</a>
+									</a>
 								</li>
 							</ul>
 						</c:if>
@@ -150,8 +172,7 @@
 
 				<div class="col-md-4">
 					<div class="search">
-						<form id="sForm" method="post">
-							<input type="hidden" name="pageNo" value="2"/>
+						<form id="sForm" action="<c:url value="search.do"/>" method="post">
 							<input type="hidden" name="typeNo" value="${data.list[0].typeNo}" />
 							<select name="categoryNo">
 								<option value="">카테고리전체</option>
@@ -196,7 +217,7 @@
 			};
 		});
 		
-		//검색.. 
+	/* 	//검색.. 
 		$("#search").click(function(e){
 			e.preventDefault();
 			var formData = $("#sForm").serialize();
@@ -238,7 +259,7 @@
 		 			html+="</tr>"	
 				$("#uqtable > tbody > tr:eq(0)").after(html);
 			}); 
-		}); 
+		});  */
 	</script>
 </body>
 
