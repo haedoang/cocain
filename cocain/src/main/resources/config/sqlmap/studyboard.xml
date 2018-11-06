@@ -11,12 +11,19 @@
 		<result column="reg_date" property="regDate" />
 		<result column="view_cnt" property="viewCnt" />
 		<result column="category_name" property="categoryName" />
-		
 	</resultMap>
 
 
 	<resultMap id="categoryMap" type="QuizCategory">
 		<result column="category_name" property="categoryName"></result>
+	</resultMap>
+	
+	<resultMap id="CommentMap" type="studyComment">
+		<result column="comment_no" property="commentNo" />
+		<result column="no" property="no" />
+		<result column="content" property="content" />
+		<result column="id" property="id" />
+		<result column="reg_date" property="regDate" />
 	</resultMap>
 
 
@@ -28,13 +35,21 @@
 
 
 
-	<!-- 전체 목록 가져오기 -->
-	<select id="selectBoard" resultMap="BoardMap">
-		select *
-		from tb_study
-		order by
-		no desc
+	<!-- 전체 목록 가져오기  , 댓글 총 갯수 가져오기 -->
+	<select id="selectBoard" resultMap="BoardMap" parameterType="StudyPage">
+		select s.*,(select count(*) from tb_study_comment where no = s.no) as comCnt
+		from tb_study s
+		order by no desc
+		limit #{begin},20
 	</select>
+	
+		<!-- paging count.. -->
+	<select id="selectBoardCount" resultType="int">
+		select count(*)
+		  from tb_study
+	
+	</select>
+	
 
 	<!-- 상세보기 -->
 	<select id="selectBoardByNo" parameterType="int" resultMap="BoardMap">
@@ -69,7 +84,43 @@
 		category_name = #{categoryName}
 		where no = #{no}
 	</update>
+	
+	<!-- 조회수 1 증가 -->
+	<update id="viewCnt" parameterType="int">
+		update tb_study
+	 	   set view_cnt = view_cnt+1
+	 	 where no=#{no}
+	</update> 
+	
+	<!-- 댓글 목록 가져오기 -->
+	
+	<select id="listComment" parameterType="int" resultMap="CommentMap">
+		select *
+		  from tb_study_comment
+		 where no = #{no}
+	</select>
+	
+		<insert id="insertComment" parameterType="studyComment">
+		insert into tb_study_comment (no,id,content) 
+		values (#{no}, #{id}, #{content})
+	</insert>
 
+	<delete id="deleteComment" parameterType="int">
+		delete from tb_study_comment
+	 	 where comment_no = #{commentNo}
+	</delete>
+
+	<update id="updateComment" parameterType="studyComment">
+		update tb_study_comment
+		   set content = #{content}
+		 where comment_no = #{commentNo}
+	</update>
+	
+		<select id="commentCount" parameterType="int" resultType="int">
+		select count(*)
+		  from tb_study_comment
+		 where no=#{no}
+	</select>
 
 </mapper>
 

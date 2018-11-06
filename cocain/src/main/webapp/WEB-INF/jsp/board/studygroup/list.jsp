@@ -104,7 +104,7 @@ th {
 									<div>
 										<span class="glyphicon glyphicon-eye-open">${b.viewCnt}</span>
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										 <span class="glyphicon glyphicon-pencil">댓글</span>
+										 <span class="glyphicon glyphicon-pencil">${b.comCnt}</span> <!-- 조회수 알리아스 -->
 										<div><a href='detail.do?no=${b.no}'></a></div>
 									</div>
 								</td>
@@ -118,24 +118,41 @@ th {
 						style="background-color: black; border-color: black;" onclick="location.href='writeForm.do'">글쓰기</button>
 				</div>
 			</div>
-
-			<nav class="text-center">
-				<ul class="pagination">
-					<li><a href="#" aria-label="Previous"> <span
-							aria-hidden="true">&laquo;</span>
-					</a></li>
-					<li><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li><a href="#" aria-label="Next"> <span
-							aria-hidden="true">&raquo;</span>
-					</a></li>
-				</ul>
-			</nav>
 			<div class="col-md-2"></div>
 		</div>
+
+			<nav class="text-center">
+				<c:if test="${pageResult.count!=0}">
+							<!-- 전체 게시글이 0개가 아닐때 -->
+							<ul class="pagination pagination-sm">
+								<li
+									<c:if test="${pageResult.prev eq false}">class="disabled"</c:if>>
+									<a
+									href="<c:url value="list.do?pageNo=${pageResult.beginPage-1}"/>"
+									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								</a>
+								</li>
+
+								<c:forEach var="i" begin="${pageResult.beginPage}"
+									end="${pageResult.endPage}">
+									<!-- 현재페이지 체크 불가 -->
+									<li
+										<c:if test="${i eq pageResult.pageNo}">
+								class="active"</c:if>>
+										<a href="<c:url value="list.do?pageNo=${i}"/>">${i}</a>
+									</li>
+								</c:forEach>
+
+								<li
+									<c:if test="${pageResult.next eq false}">class="disabled"</c:if>>
+									<a
+									href="<c:url value="list.do?pageNo=${pageResult.endPage+1}"/>"
+									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+								</a>
+								</li>
+							</ul>
+						</c:if>
+			</nav>
 	</div>
 	<c:import url="../../base-ui/footer.jsp" />
 	

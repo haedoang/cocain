@@ -12,6 +12,8 @@ public class StudyBoard {
 	private String title;
 	private Date regDate;
 	private String categoryName;
+	private int comCnt;
+	
 	
 	
 	public int getNo() {
