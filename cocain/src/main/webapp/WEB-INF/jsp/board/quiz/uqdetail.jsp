@@ -71,7 +71,7 @@
 						</tr>
 						<tr>
 							<th>작성자</th>
-							<td><a href="<c:url value="/user/profile.do?writer=${data.detail.nickname}" />"><span>${data.detail.nickname}</span></a></td>
+							<td><a href="<c:url value="/user/profile.do?writer=${data.detail.nickname}" />"><span><c:out value="${data.detail.nickname}"/></span></a></td>
 						</tr>
 						<tr>
 							<th>등록일</th>
@@ -98,13 +98,13 @@
 							<th>Hint</th>
 							<td>
 								<div>
-									<span>${data.detail.hint}</span>
+									<span><c:out value="${data.detail.hint}"/></span>
 								</div>
 							</td>
 						</tr>
 						<tr>
 							<th>제목</th>
-							<td><span>${data.detail.title}</span></td>
+							<td><span><c:out value="${data.detail.title}"/></span></td>
 						</tr>
 						<tr>
 							<th>문제 내용</th>
@@ -163,8 +163,8 @@
 							</tr>
 							<c:forEach var="k" items="${data.comment}">
 								<tr id="${k.comNo}">
-									<td><a href="#"><span>${k.nickname}</span></a></td>
-									<td><span>${k.content}</span></td>
+									<td><a href="#"><span><c:out value="${k.nickname}"/></span></a></td>
+									<td><span><c:out value="${k.content}"/></span></td>
 									<td><fmt:formatDate value="${k.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 									<td class="buttons">
 									<c:if test="${sessionScope.user.nickname==k.nickname}">
@@ -184,8 +184,7 @@
 
 
 
-	<!-- footer.. -->
-	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
+	
 
 	<!-- summernote -->
 	<script src="<c:url value="/resources/js/edit-summernote.js"/>"></script>
@@ -219,7 +218,6 @@
 				data:"quizNo="+quizNo
 			}).done(function(data){
 				var html ="";
-				//댓글 내용 등록;; 
 				$("#comTable > tbody > tr:eq(0)").siblings().remove();
 				for(let i of data){
 					html+="<tr id='"+i.comNo+"'><td><a href='#'><span>"+i.nickname+"</span></a></td>";
@@ -320,4 +318,6 @@
 		});
 	</script>
 </body>
+<!-- footer.. -->
+	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
 </html>

@@ -5,21 +5,23 @@
 /* content size */ 
 section{
 	height:1200px; 
+	overflow:auto;
 }
 
 .section{
     width:83.7%;
 /*   	border:1px solid red; */
     display:inline-block;
-    position:absolute;
+    /* position:absolute */
     margin-left:25px;
+	
     }
 .aside{
     /* background:skyblue; */
     width:12%;
     height:500px;
 /*     display:inline-block; */
-	float:left;
+	float:left; 
 /*     border:1px solid blue; */
 
 }

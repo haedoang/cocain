@@ -75,7 +75,7 @@
 							</c:if>
 						</c:forEach>
 						<td><a
-							href="<c:url value="/board/quiz/uqdetail.do?quizNo=${i.quizNo}"/>">${i.title}</a></td>
+							href="<c:url value="/board/quiz/uqdetail.do?quizNo=${i.quizNo}"/>"><c:out value="${i.title}"/></a></td>
 						<td>
 							<a
 							<c:choose>
@@ -86,7 +86,7 @@
                               		href="<c:url value="/user/profile.do?writer=${i.nickname}" />"
 								</c:otherwise>
                              	</c:choose> >
-							${i.nickname}
+							<c:out value="${i.nickname}"/>
 							</a>
 						</td>
 						<td><fmt:formatDate value="${i.regDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
@@ -211,6 +211,7 @@
 				e.preventDefault();
 			};
 		});
+		
 		$(".pagination > li:last > a").click(function(e){
 			if(!${pageResult.next}){
 				e.preventDefault();

@@ -72,7 +72,7 @@
 						</tr>
 						<tr>
 							<th>작성자</th>
-							<td><span>${data.detail.nickname}</span></td>
+							<td><span><c:out value="${data.detail.nickname}"/></span></td>
 						</tr>
 						<tr>
 							<th>카테고리</th>
@@ -101,7 +101,7 @@
 							<td>
 								<div>
 									<input id="yeshint" type="text" name="hint"
-										value="${data.detail.hint}" /> <br> <span> <input
+										value="<c:out value="${data.detail.hint}"/>"/> <br> <span> <input
 										type="checkbox" id="nohint" name="hint" /> <label
 										for="nohint">힌트 없음</label>
 									</span>
@@ -111,11 +111,11 @@
 						<tr>
 							<th>제목</th>
 							<td><input type="text" size="50" name="title"
-								value="${data.detail.title}" /></td>
+								value="<c:out value="${data.detail.title}"/>"/></td>
 						</tr>
 						<tr>
 							<th>문제 내용</th>
-							<td><textarea id="summernote" name="content">${data.detail.content}</textarea>
+							<td><textarea id="summernote" name="content"><c:out value="${data.detail.content}"/></textarea>
 							</td>
 						</tr>
 						<tr>

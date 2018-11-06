@@ -76,7 +76,7 @@
 							</c:if>
 						</c:forEach>
 						<td><a
-							href="<c:url value="/board/quiz/dqdetail.do?quizNo=${i.quizNo}"/>">${i.title}</a></td>
+							href="<c:url value="/board/quiz/dqdetail.do?quizNo=${i.quizNo}"/>"><c:out value="${i.title}"></c:out></a></td>
 						<td>
 							<a
 							<c:choose>
@@ -87,7 +87,7 @@
                               		href="<c:url value="/user/profile.do?writer=${i.nickname}" />"
 								</c:otherwise>
                              	</c:choose> >
-							${i.nickname}
+							<c:out value="${i.nickname}"/>
 							</a>
 						</td>
 						<td><fmt:formatDate value="${i.regDate}"

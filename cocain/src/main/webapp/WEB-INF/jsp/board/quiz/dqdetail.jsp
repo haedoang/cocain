@@ -66,11 +66,11 @@
 						</tr>
 						<tr>
 							<th>제목</th>
-							<td><span>${data.detail.title}</span></td>
+							<td><span><c:out value="${data.detail.title}"/></span></td>
 						</tr>
 						<tr>
 							<th>작성자</th>
-							<td><a href="<c:url value="/user/profile.do?writer=${data.detail.nickname}" />"><span>${data.detail.nickname}</span></a></td>
+							<td><a href="<c:url value="/user/profile.do?writer=${data.detail.nickname}" />"><span><c:out value="${data.detail.nickname}"/></span></a></td>
 						</tr>
 						<tr>
 							<th>등록일</th>
@@ -96,7 +96,7 @@
 							<th>Hint</th>
 							<td>
 								<div>
-									<span>${data.detail.hint}</span>
+									<span><c:out value="${data.detail.hint}"/></span>
 								</div>
 							</td>
 						</tr>
