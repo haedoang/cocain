@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import kr.co.cocain.repository.domain.MainSearch;
 import kr.co.cocain.repository.domain.RecentActivity;
 import kr.co.cocain.repository.domain.User;
 import kr.co.cocain.repository.domain.UserFile;
@@ -237,5 +238,23 @@ public class UserServiceImpl implements UserService {
 	public List<UserRank> selectRank() {
 		return mapper.selectRank();
 	} // selectLank
+
+	/**
+	 * 메인 검색
+	 * @param mainSearch
+	 */
+	@Override
+	public List<MainSearch> mainSearch(MainSearch mainSearch) {
+		return mapper.mainSearch(mainSearch);
+	} // mainSearch
+	
+	/**
+	 * 메인 검색 수
+	 * @param mainSearch
+	 */
+	@Override
+	public int mainSearchCount(MainSearch mainSearch) {
+		return mapper.mainSearchCount(mainSearch);
+	} // mainSearchCount
 
 } // end class

@@ -52,11 +52,11 @@
 	            <li><a href="<c:url value="/login/logout.do"/>">로그아웃</a></li>
             </c:if>
 		</ul>
-		<form class="navbar-form navbar-right" action="">
+		<form class="navbar-form navbar-right" action="<c:url value="/main/mainSearch.do"/>">
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="내용을 입력하세요.">
+				<input id="searchContent" name="searchContent" type="text" class="form-control" placeholder="내용을 입력하세요.">
 			</div>
-			<button type="submit" class="btn btn-default">검색</button>
+			<button id="searchBtn" type="submit" class="btn btn-default">검색</button>
 		</form>
 	</div>
 	</nav><!--header end --> </header>
@@ -122,6 +122,14 @@
 			})
 		});
 	
+ 		$("#searchBtn").on("click", function(e) {
+ 			var searchContent = $("#searchContent").val();
+ 			if(searchContent == "") {
+	 			alert("내용을 입력하세요.");
+	 			return false;
+ 			}
+		});
+ 		
 	</script> 
 </body>
 </html>

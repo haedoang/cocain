@@ -31,6 +31,16 @@
 		<result column="reg_date" property="regDate" />
 	</resultMap> 
 	
+	<!-- 메인 검색 -->
+	<resultMap id="mainSearchMap" type="mainSearch">
+		<result column="no" property="no" />
+		<result column="title" property="title" />
+		<result column="writer" property="writer" />
+		<result column="typeqna" property="typeqna" />
+		<result column="reg_date" property="regDate" />
+		<result column="comCnt" property="comCnt" />
+	</resultMap> 
+	
 	<!-- 유저 랭킹 -->
 	<resultMap id="userRankMap" type="userRank">
 		<result column="id" property="id" />
@@ -115,7 +125,9 @@
 			    union
 			   select no, content, writer, 'typeqnacm', reg_date from tb_qna_comment
 			    union 
-	 		   select quiz_no, content, nickname, 'typequizcm', reg_date from tb_quiz_comment) b 
+	 		   select quiz_no, content, nickname, 'typequizcm', reg_date from tb_quiz_comment
+			    union 
+		       select no, content, id, 'typestudycm', reg_date from tb_study_comment) b 
 		  where writer = #{writer}
 		  order by reg_date desc
      	  limit #{begin}, 5
@@ -132,7 +144,9 @@
 				  union 
 			 	 select no, content, writer, 'typeqnacm', reg_date from tb_qna_comment 
 			 	  union 
-	 			 select quiz_no, content, nickname, 'typequizcm', reg_date from tb_quiz_comment) b 
+	 			 select quiz_no, content, nickname, 'typequizcm', reg_date from tb_quiz_comment
+	 		  	  union 
+		         select no, content, id, 'typestudycm', reg_date from tb_study_comment) b 
 		  where writer = #{writer}
 	</select>
 	
@@ -182,5 +196,35 @@
 				  from  tb_user p, (SELECT @curRank := 1, @_sequence:=1, @_last_point:=0) r
 		 		 order by point desc) d
 	</select>
-		  	  
+	
+	<!-- 메인 검색 리스트 -->
+ 	<select id="mainSearch" parameterType="mainSearch" resultMap="mainSearchMap">
+		select no, title, content, writer, typeqna, reg_date, comCnt 
+		  from(select no, title, content, writer, 'typeqna', reg_date, (select count(*) from tb_qna_comment where no = q.no) as comCnt  from tb_qna q
+		        union
+			   select no, title, content, id, 'typestudy', reg_date, (select count(*) from tb_study_comment where no = s.no) as comCnt from tb_study s
+			 	union 
+			   select quiz_no, title, content, nickname, 'typequiz', reg_date, (select count(*) from tb_quiz_comment where quiz_no = qz.quiz_no) as comCnt from tb_quiz_board qz
+				union 
+			   select no, title, content, writer, 'typenotice', reg_date, (select count(*) from tb_notice_comment where no = n.no) as comCnt from tb_notice n) b 
+		  where title like concat('%', #{searchContent}, '%')
+             or content like concat('%', #{searchContent}, '%')
+		  order by reg_date desc
+		  limit #{begin}, 10
+	</select> 	  	
+	
+		
+	<!-- 메인 검색 리스트 갯수 -->
+ 	<select id="mainSearchCount" parameterType="recentActivity" resultType="int">
+		select count(*)
+		  from(select no, title, content, writer, 'typeqna', reg_date, (select count(*) from tb_qna_comment where no = q.no) as comCnt  from tb_qna q
+		        union
+			   select no, title, content, id, 'typestudy', reg_date, (select count(*) from tb_study_comment where no = s.no) as comCnt from tb_study s
+			 	union 
+			   select quiz_no, title, content, nickname, 'typequiz', reg_date, (select count(*) from tb_quiz_comment where quiz_no = qz.quiz_no) as comCnt from tb_quiz_board qz
+				union 
+			   select no, title, content, writer, 'typenotice', reg_date, (select count(*) from tb_notice_comment where no = n.no) as comCnt from tb_notice n) b 
+		  where title like concat('%', #{searchContent}, '%')
+             or content like concat('%', #{searchContent}, '%')
+	</select>  
 </mapper>

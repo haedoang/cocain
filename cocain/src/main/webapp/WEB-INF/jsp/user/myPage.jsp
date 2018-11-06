@@ -105,6 +105,9 @@
                                           			<c:when test="${active.typeqna == 'typequizcm'}">
                                           				<th>퀴즈 게시판 ${active.no}번 게시물에 댓글을 작성하였습니다.&nbsp;&nbsp;
                                           			</c:when>
+                                    			    <c:when test="${active.typeqna == 'typestudycm'}">
+                                          				<th>스터디 ${active.no}번 게시물에 댓글을 작성하였습니다.&nbsp;&nbsp;
+                                          			</c:when>
 	                                            </c:choose>
 	                                            <span><fmt:formatDate value="${active.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span></th>
 	                                        </tr>
@@ -120,7 +123,7 @@
 			                                        		<c:when test="${active.typeqna == 'typequiz' || active.typeqna == 'typequizcm'}">
 		                                            			<a href="<c:url value="/board/quiz/uqdetail.do?quizNo=${active.no}" />">${active.title}</a>
 		                                          			</c:when>
-		                                          			<c:when test="${active.typeqna == 'typestudy'}">
+		                                          			<c:when test="${active.typeqna == 'typestudy' || active.typeqna == 'typestudycm'}">
 		                                            			<a href="<c:url value="/board/studygroup/detail.do?no=${active.no}" />">${active.title}</a>
 		                                          			</c:when>
 		                                            	</c:choose>

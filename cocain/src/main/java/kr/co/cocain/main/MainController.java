@@ -10,9 +10,12 @@ import kr.co.cocain.board.service.NoticeBoardService;
 import kr.co.cocain.board.service.QNABoardService;
 import kr.co.cocain.board.service.QuizBoardService;
 import kr.co.cocain.board.service.StudyGroupBoardService;
+import kr.co.cocain.repository.domain.MainSearch;
 import kr.co.cocain.repository.domain.NoticePage;
 import kr.co.cocain.repository.domain.QnaPage;
 import kr.co.cocain.repository.domain.QuizPage;
+import kr.co.cocain.repository.domain.RecentActivity;
+import kr.co.cocain.repository.domain.StudyPage;
 import kr.co.cocain.repository.domain.UserRank;
 import kr.co.cocain.user.service.UserService;
 import kr.co.cocain.util.PageResult;
@@ -70,7 +73,9 @@ public class MainController {
 	    model.addAttribute("noticeList", noticeService.listNotice(page));
 	    
 		// 스터디 목록
-	    model.addAttribute("studyList", studyService.list());
+	    StudyPage sp = new StudyPage();
+	    sp.setPageNo(pageNo);
+	    model.addAttribute("studyList", studyService.list(sp));
 	    
 		// 유저 퀴즈 목록
 		QuizPage qp = new QuizPage();
@@ -91,5 +96,22 @@ public class MainController {
 		// 전체 문제 수
 		model.addAttribute("quizCount", userService.allQuizCount());
 	} // mains
+	
+	/**
+	 * 메인화면 검색 부분 처리
+	 * @param pageNo, model, mainSearch
+	 * 	- 검색어에 따른 모든 게시물 목록을 보여준다.
+	 */
+	@RequestMapping("mainSearch.do")
+	public void mainSearch(@RequestParam(value="pageNo", defaultValue="1") int pageNo, Model model, String searchContent) {
+		MainSearch mainSearch = new MainSearch();
+		mainSearch.setSearchContent(searchContent);
+		mainSearch.setPageNo(pageNo);
+		PageResult pageResult = new PageResult(pageNo, userService.mainSearchCount(mainSearch), 10, 5);
+		
+		model.addAttribute("pageResult", pageResult);
+		model.addAttribute("list", userService.mainSearch(mainSearch));
+		model.addAttribute("searchContent", searchContent);
+	} // mainSearch
 	
 } // end class

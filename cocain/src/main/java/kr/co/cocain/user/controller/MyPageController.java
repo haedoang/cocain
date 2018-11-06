@@ -67,7 +67,7 @@ public class MyPageController {
 		RecentActivity recentActivity = new RecentActivity();
 		recentActivity.setWriter(user.getNickname());
 		recentActivity.setPageNo(pageNo);
-		PageResult pageResult = new PageResult(pageNo, service.userRecentActivityCount(recentActivity), 5, 5);
+		PageResult pageResult = new PageResult(pageNo, service.userRecentActivityCount(recentActivity), 5, 10);
 		model.addAttribute("pageResult", pageResult);
 		model.addAttribute("ra", service.userRecentActivity(recentActivity));
 	} // myPage

@@ -2,6 +2,7 @@ package kr.co.cocain.repository.mapper;
 
 import java.util.List;
 
+import kr.co.cocain.repository.domain.MainSearch;
 import kr.co.cocain.repository.domain.RecentActivity;
 import kr.co.cocain.repository.domain.User;
 import kr.co.cocain.repository.domain.UserFile;
@@ -106,5 +107,17 @@ public interface UserMapper {
 	 * 유저 랭킹
 	 */
 	List<UserRank> selectRank();
+	
+	/**
+	 * 메인 검색
+	 * @param mainSearch
+	 */
+	List<MainSearch> mainSearch(MainSearch mainSearch);
+	
+	/**
+	 * 메인 검색 수
+	 * @param mainSearch
+	 */
+	int mainSearchCount(MainSearch mainSearch);
 	
 } // end interface
