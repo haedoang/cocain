@@ -14,4 +14,6 @@ public class Qna {
 	private String writer;
 	private String content;
 	private Date regDate;
+	private int qnaCmt;
+	private int qnaRecom;
 }

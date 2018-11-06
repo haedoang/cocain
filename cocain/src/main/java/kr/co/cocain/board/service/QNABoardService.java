@@ -6,6 +6,7 @@ import java.util.Map;
 import kr.co.cocain.repository.domain.Qna;
 import kr.co.cocain.repository.domain.QnaComment;
 import kr.co.cocain.repository.domain.QnaPage;
+import kr.co.cocain.repository.domain.QnaPageSearch;
 import kr.co.cocain.repository.domain.QnaRecom;
 
 public interface QNABoardService {
@@ -41,5 +42,9 @@ public interface QNABoardService {
 	// 추천
 	int insertRecom(QnaRecom recom);
 	int deleteRecom(QnaRecom recom);
+
+	Map<String, Object> searchlist(QnaPageSearch qnaps);
+
+	int searchlistCount(QnaPageSearch qps);
 
 }

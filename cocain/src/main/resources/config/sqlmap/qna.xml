@@ -22,10 +22,59 @@
 	</resultMap>
 
 	<select id="listqna" parameterType="QnaPage" resultMap="QnaMap">
-		select *
-		  from tb_qna
+		select qna.*,(select count(*) from tb_qna_comment where no = qna.no) as qnaCmt, (select count(*) from tb_qna_recom where no=qna.no) as qnaRecom
+          from tb_qna qna
 		 order by no desc
 		 limit #{begin}, 15
+	</select>
+	
+	<!-- 검색리스트 -->
+	<select id="searchlist" parameterType="QnaPageSearch" resultMap="QnaMap">
+		select qna.*,(select count(*) from tb_qna_comment where no = qna.no) as qnaCmt, (select count(*) from tb_qna_recom where no=qna.no) as qnaRecom
+          from tb_qna qna
+			<choose>
+				<when test="select=='title'" >
+				where qna.title like concat('%',#{keyword},'%')
+				order by no desc
+				limit #{begin} , 15
+				</when>
+				<when test="select=='writer'" >
+				where qna.writer like concat('%',#{keyword},'%')
+				order by no desc
+				limit #{begin} , 15
+				</when>
+				<when test="select=='content'" >
+				where qna.content like concat('%',#{keyword},'%')
+				order by no desc
+				limit #{begin} , 15
+				</when>
+				<otherwise>
+				where concat(qna.title,qna.content) like concat('%',#{keyword},'%')
+				order by no desc
+				limit #{begin} , 15
+				</otherwise>
+			</choose>
+			
+	</select>
+	
+	<!-- 검색결과 카운트 -->
+	<select id="searchlistCount" parameterType="QnaPageSearch" resultType="int">
+		select count(*) 
+		from tb_qna 
+		<choose>
+			<when test="select=='title' " >
+			where title like concat('%',#{keyword},'%')
+			</when>
+			<when test="select=='writer' " >
+			where title like concat('%',#{keyword},'%')
+			</when>
+			<when test="select=='content' " >
+			where title like concat('%',#{keyword},'%')
+			</when>
+			<otherwise>
+			where concat(title,content) like concat('%',#{keyword},'%')
+			</otherwise>
+		</choose>
 	</select>
 
 <!-- 	<select id="qnaPagingCount" resultType="int"> -->

@@ -246,8 +246,8 @@ $.each(result, function(idx,val) {
 			url : "/cocain/board/qna/deleteComment.do",
 			data : "commentNo="+num
 	 }).done(function (result) {
-		 commentCount(numb);
-			commentlist();
+		commentCount(numb);
+		commentlist();
 	 })
 	}
 

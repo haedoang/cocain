@@ -8,12 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import kr.co.cocain.board.service.QNABoardService;
 import kr.co.cocain.repository.domain.Qna;
 import kr.co.cocain.repository.domain.QnaComment;
 import kr.co.cocain.repository.domain.QnaPage;
+import kr.co.cocain.repository.domain.QnaPageSearch;
 import kr.co.cocain.repository.domain.QnaRecom;
 import kr.co.cocain.util.PageResult;
 
@@ -26,17 +28,31 @@ public class QNABoardController {
 
 	@RequestMapping("/list.do")
 	public void list(@RequestParam(value="pageNo" ,defaultValue="1")int pageNo,Model model) throws Exception {
-		QnaPage qnap = new QnaPage();
-		qnap.setPageNo(pageNo);
+		QnaPage qp = new QnaPage();
+		System.out.println(pageNo);
+		qp.setPageNo(pageNo);
 		PageResult pageResult = new PageResult(pageNo, service.listCount(),15,10);
 		
-		model.addAttribute("qna", service.listqna(qnap));
+		model.addAttribute("qna", service.listqna(qp));
 		model.addAttribute("listCount", service.listCount());
 		model.addAttribute("pageResult", pageResult);
-	}
-//		System.out.println((String)service.listqna(qnap).get("Qna"));
 //		System.out.println(service.listqna(qnap));
 //		model.addAttribute("cmtcnt", service.commentCnt(no))
+	}
+		
+	@RequestMapping("/searchlist.do")
+	public ModelAndView searchlist(@RequestParam(value="pageNo" ,defaultValue="1")int pageNo, QnaPageSearch qnaPage) throws Exception {
+		ModelAndView mav = new ModelAndView("board/qna/list");
+		qnaPage.setPageNo(pageNo);
+		PageResult pageResult = new PageResult(pageNo, service.searchlistCount(qnaPage),15, 10);
+		
+		mav.addObject("search", qnaPage);
+        mav.addObject("qna", service.searchlist(qnaPage));
+        mav.addObject("listCount", service.searchlistCount(qnaPage));
+        mav.addObject("pageResult", pageResult);
+		return mav;
+	}
+
 	
     @RequestMapping("/writeForm.do")
     public void writeForm() {}
