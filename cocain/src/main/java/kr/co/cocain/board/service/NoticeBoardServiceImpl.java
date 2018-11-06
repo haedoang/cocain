@@ -28,6 +28,9 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
     public List<Notice> listNotice2(NoticePage page) {
     	return mapper.listNotice2(page);
     }
+    public List<Notice> listNotice3(NoticePage page) {
+    	return mapper.listNotice3(page);
+    }
 
     @Override
     public Notice detail(int no) {
@@ -105,6 +108,14 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	@Override
 	public int recomCount(int no) {
 		return mapper.recomCount(no);
+	}
+
+	/**
+	 * 물어볼 예제
+	 */
+	@Override
+	public int commentCount(int no) {
+		return mapper.CommentCount(no);
 	}
 
 	

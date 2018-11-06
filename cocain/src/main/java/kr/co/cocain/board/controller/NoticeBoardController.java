@@ -46,7 +46,6 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 	        int beginPage =  (currTab-1)*pageSize +1;
 	        int endPage = currTab*pageSize < lastPage ? currTab*pageSize : lastPage;  
 	        
-	        System.out.println(notice.getNo());
 	        model.addAttribute("beginPage",beginPage);
 	        model.addAttribute("endPage",endPage);
 	    model.addAttribute("lastPage",lastPage);
@@ -55,6 +54,8 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 	    model.addAttribute("list", service.listNotice(page));
 	    model.addAttribute("count", service.listCount());
 	    }
+	    
+	    
 	    @RequestMapping("/notice/list2.do")
 	    public ModelAndView list2(@RequestParam(value="pageNo" , defaultValue="1")int pageNo ,Model model){
 //	        System.out.println(model);
@@ -83,6 +84,38 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 	    	mav.addObject("count", service.listCount());
 			return mav;
 	    }
+	    
+	    @RequestMapping("/notice/list3.do")
+	    public ModelAndView list3(@RequestParam(value="pageNo" , defaultValue="1")int pageNo , Model model){
+//	        System.out.println(model);
+	    	
+	    	ModelAndView mav = new ModelAndView("board/notice/list");
+	    	
+	    	NoticePage page = new NoticePage();
+	    	page.setPageNo(pageNo);
+	    	
+	    	int count = service.listCount();
+	    	int lastPage = (int)Math.ceil(count/10d);
+	    	
+	    	// 페이지 블럭 시작
+	    	int pageSize = 10;
+	    	int currTab = (pageNo-1)/pageSize +1;
+	    	//11번 부터 2페이지가 되는것
+	    	int beginPage =  (currTab-1)*pageSize +1;
+	    	int endPage = currTab*pageSize < lastPage ? currTab*pageSize : lastPage;  
+	    	
+	    	
+	    	mav.addObject("beginPage",beginPage);
+	    	mav.addObject("endPage",endPage);
+	    	mav.addObject("lastPage",lastPage);
+	    	mav.addObject("pageNo",pageNo);
+//	    	System.out.println(service.listNotice(page).size());
+	    	mav.addObject("list", service.listNotice3(page));
+	    	mav.addObject("count", service.listCount());
+			return mav;
+	    }
+	    
+	 
 	    
 	    @RequestMapping("/notice/detail.do")
 	    public void detail(Model model, int no , NoticeRecom recom) {
@@ -133,29 +166,42 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 
 	    @RequestMapping("/notice/insertrecom.do")
 	    @ResponseBody
-	    public int insertrecom(Model model,NoticeRecom recom) {
+	    public int insertrecom(NoticeRecom recom) {
 //	    	 System.out.println("댓글 " + recom);
-	    	 model.addAttribute("recom" , service.insertRecom(recom));
+	    	 service.insertRecom(recom);
 	    	 return service.recomExist(recom);
 	    }
 	    
 	    @RequestMapping("/notice/deleterecom.do")
 	    @ResponseBody
-	    public int deleterecom(Model model, NoticeRecom recom) {
-			model.addAttribute("recom", service.deleteRecom(recom));
+	    public int deleterecom(NoticeRecom recom) {
+	    	service.deleteRecom(recom);
 	    	return service.recomExist(recom);
 	    }
 	    
 	    @RequestMapping("/listComment.do")
 	    @ResponseBody
 	    public List<NoticeComment> commentList(int no) throws Exception {
-//	    	System.out.println("댓글 리스트" + no);
+	    	return service.listComment(no);
+	    }
+	    
+	    
+	    /**
+	     * 물어볼 예제
+	     * @param no
+	     * @return
+	     * @throws Exception
+	     */
+	    @RequestMapping("/notice/CommentCount.do")
+	    @ResponseBody
+	    public List<NoticeComment> commentCount(int no)throws Exception{
+	    	service.commentCount(no);
 	    	return service.listComment(no);
 	    }
 	      
 	    @RequestMapping("/insertComment.do")
 	    @ResponseBody
-	    public List<NoticeComment> insertComment(NoticeComment comment, Model model){
+	    public List<NoticeComment> insertComment(NoticeComment comment){
 //	    	System.out.println("코멘트"+comment);
 	    	service.insertComment(comment);
 	    	return service.listComment(comment.getNo());

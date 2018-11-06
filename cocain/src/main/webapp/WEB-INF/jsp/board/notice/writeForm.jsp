@@ -60,9 +60,17 @@
 		alert("제목이 없잖아");
 		return false;
 		}
+		else if ($('#title').val().length > 30){
+		alert("제목은 30자 이상 넘을 수 없습니다.")
+			return false;
+		}
+		
 		if($('#ddd').val() ==""){
 			alert("내용 입력 해 주세요")
 		return false;
+		}else if ( $('#ddd').val().length > 1300 ){
+			alert("내용이 1300자를 초과합니다");
+			return false;
 		}
 	})
 	

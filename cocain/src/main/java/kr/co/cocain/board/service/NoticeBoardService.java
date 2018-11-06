@@ -14,6 +14,8 @@ public interface NoticeBoardService {
 
     List<Notice> listNotice(NoticePage page);
     List<Notice> listNotice2(NoticePage page);
+    List<Notice> listNotice3(NoticePage page);
+    
     
     Notice detail(int no);
 
@@ -46,6 +48,16 @@ public interface NoticeBoardService {
 	int recomExist(NoticeRecom recom);
 	// 추천수 카운트
 	int recomCount(int no);
+
+	
+	/**
+	 * 물어볼 예제
+	 * @param no
+	 * @return
+	 */
+	int commentCount(int no);
+
+	
 
 	
 

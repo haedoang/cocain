@@ -10,6 +10,7 @@
 		<result column="content" property="content" />
 		<result column="reg_date" property="regDate" />
 		<result column="view_cnt" property="viewCnt"/>
+		<result column="cnt" property="cnt"/>
 	</resultMap>
 	
 	<resultMap id="CommentMap" type="NoticeComment">
@@ -22,16 +23,23 @@
 	
 
 <select id="listNotice" parameterType="NoticePage" resultMap="NoticeMap"  useCache="false" flushCache="true">
-select *
-	from tb_notice
-	order by no desc
+ select a.*,(select count(*) from tb_notice_comment where no = a.no) as cnt
+      from tb_notice a
+      order by no desc
 	limit #{begin}, 10
 
 </select>
 <select id="listNotice2" parameterType="NoticePage" resultMap="NoticeMap"  useCache="false" flushCache="true">
-select *
-	from tb_notice
-	order by no asc
+select a.*,(select count(*) from tb_notice_comment where no = a.no) as cnt
+      from tb_notice a
+      order by no asc
+	limit #{begin}, 10
+
+</select>
+<select id="listNotice3" parameterType="NoticePage" resultMap="NoticeMap"  useCache="false" flushCache="true">
+select *, (select count(*) from tb_notice_comment where no = a.no) as cnt
+	from tb_notice a
+	order by view_cnt desc
 	limit #{begin}, 10
 
 </select>
@@ -117,8 +125,8 @@ where comment_no =#{commentNo}
 </update>
 
 <select id="categoryList" parameterType="NoticePage2" resultMap="NoticeMap">
-		select * 
-		from tb_notice 
+		select * ,(select count(*) from tb_notice_comment where no = a.no) as cnt
+		from tb_notice a
 		<choose>
 			<when test="select=='title' " >
 			where title like concat('%',#{text},'%')
@@ -132,7 +140,7 @@ where comment_no =#{commentNo}
 </select>
 
 <select id="categoryCount" parameterType="NoticePage2" resultType="int">
-		select count(*) 
+		select count(*)
 		from tb_notice 
 		<choose>
 			<when test="select=='title' " >
@@ -150,4 +158,10 @@ set view_cnt = view_cnt+1
 where no = #{no}
 </update>
 
+<!--  물어볼 예제-->
+<select id="CommentCount" parameterType="int" resultType="int">
+select count(*)
+from tb_notice_comment
+where no = #{no}
+</select>
 </mapper>

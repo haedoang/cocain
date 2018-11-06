@@ -46,6 +46,9 @@
 		resize: none;
 		}
 		
+		.ppp{
+		 word-break:break-all;
+		}
 		
 	</style>
 </head>
@@ -70,15 +73,14 @@
 	<hr>
 	
 	
-	<div>${board.content}</div>
+	<div class="ppp">${board.content}</div>
 	
 	 <hr>
 	 
 	 <div class="list-inline">
-	 <label for="label1">추천</label>
-	 <button class="rec" id="label1">
-	 </button>
-	 </button>
+	 <label for="label1">추천 : </label>
+	 <i class="rec" id="label1">
+	 </i>
 	 <span class="text-center">
 	 <a class="btn btn-default" href='updateForm.do?no=${board.no}'>수정</a>
 	 <a class="btn btn-default" href='delete.do?no=${board.no}'>삭제</a>
@@ -104,7 +106,8 @@
 		<div id="divv"></div>
 
 <br>		
-			<i class="fas fa-users col-md-10 col-md-offset-1">댓글 갯수 : #</i>
+			<i class="count fas fa-users col-md-10 col-md-offset-1">댓글 갯수 : #</i>
+			<i class="count2 fas fa-users col-md-10 col-md-offset-1">댓글 갯수2 : #</i>
 	 <div class='comment col-md-10 col-md-offset-1' >			
 	 <c:set var="now" value="<%=new java.util.Date()%>" />
 	 <c:set var="now2"><fmt:formatDate value="${now}" pattern="yyyyMMddHHmmss" /></c:set> 
@@ -133,9 +136,9 @@
 			console.log(result);
 			recExist = result;
 			if (recExist == 1){
-				$(".rec").html("추천<span class='glyphicon glyphicon-heart' aria-hidden='true'></span>")
+				$(".rec").html("<i class='glyphicon glyphicon-heart btn btn-danger' aria-hidden='true'></i>")
 			} else {
-				$(".rec").html("추천<span class='glyphicon glyphicon-heart-empty' aria-hidden='true'></span>")
+				$(".rec").html("<i class='glyphicon glyphicon-heart-empty btn btn-default' aria-hidden='true'></i>")
 			}
 		});
 	}
@@ -156,11 +159,11 @@
 			if (recExist == 0){
 				alert("추천되었습니다.");
 				recExist = 1;
-				$(".rec").html("추천<span class='glyphicon glyphicon-heart' aria-hidden='true'></span>");
+				$(".rec").html("<i class='glyphicon glyphicon-heart btn btn-danger' aria-hidden='true'></i>");
 			} else {
 				alert("추천이 취소되었습니다.")
 				recExist = 0;
-				$(".rec").html("추천<span class='glyphicon glyphicon-heart-empty' aria-hidden='true'></span>");
+				$(".rec").html("<i class='glyphicon glyphicon-heart-empty btn btn-default' aria-hidden='true'></i>");
 			}
 			recnumber();
 		});
@@ -184,9 +187,11 @@
 		 		url: "<c:url value='/board/listComment.do' />",
 		 		data: "no=${board.no}"
 		 	}).done(function (result) {
+		 		$('.count').text("댓글 갯수 : "+result.length);
 		 		console.log(result);
-		 var output = "";
+		 		
 		 var nickname = "${user.nickname}";
+		 var output = "";
  $.each(result, function(idx,val) {
 	 output +='<hr><div class=" text-left form-inline">'
 	+"<input type='hidden' value='+val.commentNo+'>"
@@ -204,6 +209,18 @@
 		 $('.comment').html(output);
 		 });
 	 }
+	 
+	 $(document).ready(function(){		 
+		 $.ajax({
+			 url : "<c:url value='/board/notice/CommentCount.do' />",
+			 data : "no=${board.no}",
+		 }).done(function(result){
+				console.log(result)
+				$('.count2').text(result);
+		 })
+	 })
+	
+	 
 	 
 		$('#commentForm').submit(function(e) {
 			
@@ -249,8 +266,6 @@
 			+'</div></form>'		 
 		 );
 		 
-			
-// 			<img src="http://codingschool.info/img/title_comment.gif">
 			
 		 
 	

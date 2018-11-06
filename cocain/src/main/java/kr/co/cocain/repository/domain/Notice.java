@@ -11,9 +11,14 @@ public class Notice {
 	private String writer;
 	private String content;
 	private Date regDate;
+	private int cnt;
 	
-	
-	
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
 	public int getRnum() {
 		return rnum;
 	}

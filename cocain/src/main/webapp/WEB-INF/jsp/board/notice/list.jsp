@@ -38,11 +38,11 @@
 	<table class="table table-hover">	
 	<tr>
 		<th><a id="num" href="list2.do" >번호<i class="fas fa-sort"></i></a></th><th>제목</th><th>글쓴이</th><th>작성일</th>
-		<th><a id="num2" href="#" >조회수<i class="fas fa-sort"></i></a></th>
+		<th><a id="num2" href="list3.do" >조회수<i class="fas fa-sort"></i></a></th>
 	</tr>
 
 	<c:forEach var="b" items="${list}">
-    <tr>
+	<tr>
 		<td>${b.no}</td>
 		<td>
 		 <a
@@ -54,7 +54,7 @@
 		  href='detail.do?no=${b.no}'  
 		   </c:otherwise>
 		   </c:choose>  >
-			${b.title}
+			${b.title}　[${b.cnt}]
 		 </a></td>
 		<td>${b.writer}</td>
 	    <td><fmt:formatDate value="${b.regDate}" pattern="yy-MM-dd" /></td>
@@ -138,11 +138,17 @@
 				$(this).removeClass("active focus")
 			});
 		
+				 $(function(){
+					 
 				 if(${requestScope["javax.servlet.forward.request_uri"].substring(20) == '/list2.do'}){
 // 					 console.log("성공");
 					 $('#num').attr("href" , "list.do"); 
+				 } else if (${requestScope["javax.servlet.forward.request_uri"].substring(20) == '/list3.do'}){
+					 $('#num').attr("href" , "list.do"); 
+					 $('#num2').attr("href" , "list.do"); 
 				 }
 				
+				 })
 		
 	</script>
 </body>

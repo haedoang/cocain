@@ -17,6 +17,8 @@ public interface NoticeMapper {
 	 */
 	List<Notice> listNotice(NoticePage page);
 	List<Notice> listNotice2(NoticePage page);
+	List<Notice> listNotice3(NoticePage page);
+	
 	
 	/**
 	 * @return 공지사항 전체 글 갯수
@@ -64,4 +66,10 @@ public interface NoticeMapper {
 	int recomExist(NoticeRecom recom);
 	// 추천수
 	int recomCount(int no);
+	/**
+	 * 물어볼 예쩨
+	 * @param no
+	 * @return
+	 */
+	int CommentCount(int no);
 }
