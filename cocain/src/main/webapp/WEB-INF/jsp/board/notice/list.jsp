@@ -13,7 +13,7 @@
 <body>
 
 <!-- 게시물 목록 표현하기 -->
-	<div><c:if test="${user.nickname != undefined}">${user.nickname} 님이 로그인 중입니다 </c:if></div>
+	<marquee speed=1000><c:if test="${user.nickname != undefined}">${user.nickname} 님이 로그인 중입니다 </c:if></marquee>
 	<div class="container">
 	
 	<div class="h2">공지사항</div>
@@ -21,7 +21,6 @@
 	<hr>
 	<div class="form-inline">
 <!-- 		<a class="btn btn-default "  href="list.do">최신순</a> -->
-		<a class="btn btn-default"  href="selectView.do">조회순 구현하자</a>	
 	
 	<form class="form-group pull-right" id='form' name="form" method="post" action="category.do"  onsubmit='return google();'>
 	<select class="form-control"  name="select">
@@ -38,7 +37,8 @@
 	
 	<table class="table table-hover">	
 	<tr>
-		<th><a id="num" href="list2.do" >번호<i class="fas fa-sort"></i></a></th><th>제목</th><th>글쓴이</th><th>작성일</th><th>조회수</th>
+		<th><a id="num" href="list2.do" >번호<i class="fas fa-sort"></i></a></th><th>제목</th><th>글쓴이</th><th>작성일</th>
+		<th><a id="num2" href="#" >조회수<i class="fas fa-sort"></i></a></th>
 	</tr>
 
 	<c:forEach var="b" items="${list}">
@@ -138,11 +138,12 @@
 				$(this).removeClass("active focus")
 			});
 		
-				 if(${requestScope["javax.servlet.forward.request_uri"].substring(20) eq "/list2.do"}){
-					 console.log("성공");
+				 if(${requestScope["javax.servlet.forward.request_uri"].substring(20) == '/list2.do'}){
+// 					 console.log("성공");
 					 $('#num').attr("href" , "list.do"); 
 				 }
-				 
+				
+		
 	</script>
 </body>
 </html>

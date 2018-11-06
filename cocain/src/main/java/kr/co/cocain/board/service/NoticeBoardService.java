@@ -23,8 +23,6 @@ public interface NoticeBoardService {
 
     void update(Notice notice);
 
-	int recom(NoticeRecom recom);
-
 	int insertRecom(NoticeRecom notice);
 	
 	int deleteRecom(NoticeRecom recom);
@@ -42,7 +40,12 @@ public interface NoticeBoardService {
 
 	int categoryCount(NoticePage2 noticePage);
 
-	
+	void updateViewCnt(int no);
+
+	// 추천여부 확인
+	int recomExist(NoticeRecom recom);
+	// 추천수 카운트
+	int recomCount(int no);
 
 	
 

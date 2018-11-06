@@ -46,7 +46,7 @@ public interface NoticeMapper {
 	
 	int insertRecom(NoticeRecom recom);
 	
-	int deleteRecon(NoticeRecom recom);
+	int deleteRecom(NoticeRecom recom);
 	
 	List<NoticeComment> listComment(int commentNo);
 	
@@ -56,8 +56,12 @@ public interface NoticeMapper {
 	
 	void updateComment(NoticeComment comment);
 	
-	
 	List<Notice> categoryList(NoticePage2 noticePage);
 	int categoryCount(NoticePage2 noticePage);
-
+	
+	void updateViewCnt(int no);
+	
+	int recomExist(NoticeRecom recom);
+	// 추천수
+	int recomCount(int no);
 }

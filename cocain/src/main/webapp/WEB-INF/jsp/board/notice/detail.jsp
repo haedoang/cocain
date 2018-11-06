@@ -60,7 +60,7 @@
 	 	<th>번호</th><th>${board.no}</th>
 	 	<th>글쓴이</th><th><c:out value="${board.writer}" /></th>
 	 	<th>조회수</th><th>${board.viewCnt}</th>
-	 	<th>추천수</th><th id='recom1'>${recom}</th>
+	 	<th>추천수</th><th id="rc">${recom}</th>
 	 </tr>
 	 <tr>	
 	 	<th>제목</th><th colspan="5"><c:out value="${board.title}" /></th>
@@ -76,14 +76,13 @@
 	 
 	 <div class="list-inline">
 	 <label for="label1">추천</label>
-	 <button id="label1" class='btn btn-default button glyphicon glyphicon-music' aria-hidden="true">
+	 <button class="rec" id="label1">
 	 </button>
-	 <button class='btn btn-default button1'>
 	 </button>
 	 <span class="text-center">
 	 <a class="btn btn-default" href='updateForm.do?no=${board.no}'>수정</a>
 	 <a class="btn btn-default" href='delete.do?no=${board.no}'>삭제</a>
-	 <a class="btn btn-default" href='list.do'>목록</a>
+	 <a class="btn btn-default"  onclick="history.go(-1)">목록</a>
 	 </span>
 	 </div>
 	 
@@ -119,27 +118,66 @@
 	 
 	 
 	<script>
+	var nickname = "${user.nickname}";
+	var qnawriter = "${board.writer}";
+	var numb = "${board.no}";
+	var answer;
+	var recCount = "${recCount}";
+	var recExist;
+	
+	function recExt(){
+		$.ajax({
+			url:"/cocain/board/notice/recomExist.do",
+			data : {"no":numb, "id":nickname}
+		}).done(function(result){
+			console.log(result);
+			recExist = result;
+			if (recExist == 1){
+				$(".rec").html("추천<span class='glyphicon glyphicon-heart' aria-hidden='true'></span>")
+			} else {
+				$(".rec").html("추천<span class='glyphicon glyphicon-heart-empty' aria-hidden='true'></span>")
+			}
+		});
+	}
+	recExt();
 	
 	
+	$(".rec").click(function(){
+		console.log("recExist : "+recExist);
+		var rUrl = "insertrecom";
+		if (recExist == 1) {
+			rUrl = "deleterecom";
+		}
+		$.ajax({
+			url : '/cocain/board/notice/' + rUrl + '.do',
+			data : {"no":numb, "id":nickname}
+		}).done(function(result){
+			console.log("insert or delete result : " +result);
+			if (recExist == 0){
+				alert("추천되었습니다.");
+				recExist = 1;
+				$(".rec").html("추천<span class='glyphicon glyphicon-heart' aria-hidden='true'></span>");
+			} else {
+				alert("추천이 취소되었습니다.")
+				recExist = 0;
+				$(".rec").html("추천<span class='glyphicon glyphicon-heart-empty' aria-hidden='true'></span>");
+			}
+			recnumber();
+		});
+		
+	});
 	
-	$('.button').click(function(){
-		 $.ajax({
-		 		url : "<c:url value='/board/recom/insertrecom.do' />",
-		 		data : "no=${board.no}"
-		 	}).done(function (result) {
-		 		console.log(result);
-		 		$('#recom1').text(result);
-		 	})
-	 })
-	 $('.button1').click(function(){
-		 $.ajax({
-		 		url : "<c:url value='/board/recom/deleterecom.do' />",
-		 		data : "no=${board.no}"
-		 	}).done(function (result) {
-		 		console.log(result);
-		 		$('#recom1').text(result)
-		 	});
-	 })
+	
+	function recnumber(){			
+		$.ajax({
+			url:"/cocain/board/notice/recomCount.do",
+			data : "no="+numb
+		}).done(function(result){
+			$("#rc").html("추천 "+result);
+		})
+	};
+	recnumber();	
+
 	  
 	 function list() {
 		 $.ajax({
@@ -294,7 +332,6 @@
  		}
 	 }//function
 
-	 
 	 list();
 	</script>
 

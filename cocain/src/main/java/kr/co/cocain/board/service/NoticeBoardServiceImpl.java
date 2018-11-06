@@ -31,7 +31,8 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 
     @Override
     public Notice detail(int no) {
-        return mapper.detailNotice(no);
+    	mapper.updateViewCnt(no);
+    	return mapper.detailNotice(no);
     }
 
     @Override
@@ -49,10 +50,6 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
         mapper.updateNotice(notice);
     }
 
-	@Override
-	public int recom(NoticeRecom notice) {
-		return mapper.selectRecom(notice);
-	}
 
 	@Override
 	public int insertRecom(NoticeRecom recom) {
@@ -61,7 +58,7 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 
 	@Override
 	public int deleteRecom(NoticeRecom recom) {
-		return mapper.deleteRecon(recom);
+		return mapper.deleteRecom(recom);
 	}
 	
 	@Override
@@ -95,8 +92,20 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		return mapper.categoryCount(noticePage);
 	}
 
+	@Override
+	public void updateViewCnt(int no) {
+		mapper.updateViewCnt(no);
+	}
+
+	@Override
+	public int recomExist(NoticeRecom recom) {
+		return mapper.recomExist(recom);
+	}
 	
+	@Override
+	public int recomCount(int no) {
+		return mapper.recomCount(no);
+	}
 
 	
-    
 }

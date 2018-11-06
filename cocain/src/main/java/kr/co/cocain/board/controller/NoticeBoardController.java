@@ -29,7 +29,7 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 	//  ModelAndView 객체를 계속 만들어서 계속 주소를 지정하는것보다
 	// 요청한 주소와 이동할 주소가 같을때에는 Model객체로 정보를 공유하는게 편하다고 함....? 이 부분 공부 필요
 	    @RequestMapping("/notice/list.do")
-	    public void list(@RequestParam(value="pageNo" , defaultValue="1")int pageNo ,Model model){
+	    public void list(@RequestParam(value="pageNo" , defaultValue="1")int pageNo ,Model model, Notice notice){
 //	        System.out.println(model);
 	    
 	        
@@ -46,12 +46,12 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 	        int beginPage =  (currTab-1)*pageSize +1;
 	        int endPage = currTab*pageSize < lastPage ? currTab*pageSize : lastPage;  
 	        
-	        
+	        System.out.println(notice.getNo());
 	        model.addAttribute("beginPage",beginPage);
 	        model.addAttribute("endPage",endPage);
 	    model.addAttribute("lastPage",lastPage);
 	    model.addAttribute("pageNo",pageNo);
-	    System.out.println(service.listNotice(page).size());
+//	    System.out.println(service.listNotice(page).size());
 	    model.addAttribute("list", service.listNotice(page));
 	    model.addAttribute("count", service.listCount());
 	    }
@@ -86,9 +86,24 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 	    
 	    @RequestMapping("/notice/detail.do")
 	    public void detail(Model model, int no , NoticeRecom recom) {
-	    	model.addAttribute("recom" , service.recom(recom));
-	        model.addAttribute("board" ,service.detail(no));
+	    	model.addAttribute("recCount", service.recomExist(recom));
+	    	model.addAttribute("board" ,service.detail(no));
 	    }
+	    
+	    //추천수 카운트
+	    @RequestMapping("/notice/recomCount.do")
+	    @ResponseBody
+		public int recnumber(int no) {
+			return service.recomCount(no);
+		}
+	    
+	    // 추천 여부 확인 0 / 1
+	    @RequestMapping("/notice/recomExist.do")
+	    @ResponseBody
+		public int recExist(NoticeRecom recom) {
+			return service.recomExist(recom);
+		}
+	    
 	    
 	    @RequestMapping("/notice/writeForm.do")
 	    public void writeForm() {}
@@ -116,19 +131,19 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 	        return UrlBasedViewResolver.REDIRECT_URL_PREFIX+"list.do";
 	    }
 
-	    @RequestMapping("/recom/insertrecom.do")
+	    @RequestMapping("/notice/insertrecom.do")
 	    @ResponseBody
 	    public int insertrecom(Model model,NoticeRecom recom) {
 //	    	 System.out.println("댓글 " + recom);
 	    	 model.addAttribute("recom" , service.insertRecom(recom));
-	    	 return service.recom(recom);
+	    	 return service.recomExist(recom);
 	    }
 	    
-	    @RequestMapping("/recom/deleterecom.do")
+	    @RequestMapping("/notice/deleterecom.do")
 	    @ResponseBody
 	    public int deleterecom(Model model, NoticeRecom recom) {
 			model.addAttribute("recom", service.deleteRecom(recom));
-	    	return service.recom(recom);
+	    	return service.recomExist(recom);
 	    }
 	    
 	    @RequestMapping("/listComment.do")
@@ -170,8 +185,7 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 
 	    	int count = service.categoryCount(noticePage);
 	    	
-	    	NoticePage2 page = new NoticePage2();
-	    	page.setPageNo(pageNo);
+	    	noticePage.setPageNo(pageNo);
 	    	
 	    	int lastPage = (int)Math.ceil(count/10d);
 	         
@@ -193,4 +207,6 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 	    	
 	        return mav;
 	    }
+	    
+	    
 }

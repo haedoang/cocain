@@ -69,20 +69,29 @@ select *
 	        where no = #{no}
 </update>
 
-<select id="selectRecom" resultType="int"  parameterType="NoticeRecom">
-select count(*) 
-from tb_notice_recom
-where no =#{no}
-		<!-- id = #{id} -->
-</select>
+<!-- 추천여부확인하기 -->
+	<select id="recomExist" parameterType="NoticeRecom" resultType="int" >
+		select count(*)
+		 from tb_notice_recom
+		 where no=#{no}
+		   and id=#{id}
+	</select>
+	
+	<!-- 추천수 확인 -->
+	<select id="recomCount" parameterType="int" resultType="int">
+		select count(*)
+		  from tb_notice_recom
+		 where no = #{no}
+	</select>
 
 <insert id="insertRecom"  parameterType="NoticeRecom">
-insert into tb_notice_recom (no) values (#{no})
+insert into tb_notice_recom (no,id) values (#{no},#{id})
 </insert>
 
-<delete id="deleteRecon" parameterType="NoticeRecom" >
+<delete id="deleteRecom" parameterType="NoticeRecom" >
 delete from tb_notice_recom
-where no = #{no}
+where id = #{id}
+and no = #{no}
 </delete>
 
 <select id="listComment" parameterType="int" resultMap="CommentMap">
@@ -134,5 +143,11 @@ where comment_no =#{commentNo}
 			</otherwise>
 		</choose>
 </select>
+
+<update id="updateViewCnt" parameterType="int">
+update tb_notice
+set view_cnt = view_cnt+1
+where no = #{no}
+</update>
 
 </mapper>
