@@ -197,7 +197,6 @@
 								</c:forEach>
 							</select> 
 							<select name="search">
-								<option value="">전체</option>
 								<option value="1">제목</option>
 								<option value="2">작성자</option>
 							</select> 

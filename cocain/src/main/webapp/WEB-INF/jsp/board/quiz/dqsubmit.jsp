@@ -110,7 +110,7 @@
 								<label for="y${i.submitNo}">정답</label>　
 							<input type="radio" id="n${i.submitNo}" name="evaluation" value="n"
 								<c:if test="${i.evaluation=='n'}">
-									checked
+									checked disabled
 								</c:if>
 							 />
 								<label for="n${i.submitNo}">오답</label>　　　
@@ -119,7 +119,7 @@
 									<span style="color:green">채점완료</span>	
 								</c:when>
 								<c:otherwise>
-									<button type="button" class="btn btn-primary" onclick="doCheck(${i.submitNo})">채점하기</button>
+									<button id="b${i.submitNo}" type="button" class="btn btn-primary" onclick="doCheck(${i.submitNo})">채점하기</button>
 								</c:otherwise>
 							</c:choose>	
 							</form>
@@ -134,7 +134,6 @@
 				<div class="col-md-4">
 					<nav>
 						<c:if test="${pageResult.count!=0}">
-							<!-- 전체 게시글이 0개가 아닐때 -->
 							<ul class="pagination pagination-sm">
 								<li
 									<c:if test="${pageResult.prev eq false}">class="disabled"</c:if>>
@@ -144,10 +143,8 @@
 								</a>
 								</li>
 
-								<!-- 반복 -->
 								<c:forEach var="i" begin="${pageResult.beginPage}"
 									end="${pageResult.endPage}">
-									<!-- 현재페이지 체크 불가 -->
 									<li
 										<c:if test="${i eq pageResult.pageNo}">
 								class="active"</c:if>>
@@ -200,8 +197,13 @@
 			method:"POST",
 			data:formData
 		}).done(function(data){
-			alert("채점완료되었습니다.");
-			location.href="<c:url value='dqsubmit.do'/>";
+			$("#b"+submitNo).before("<span style='color:green'>채점완료</span>");
+			$("#b"+submitNo).remove();
+			$("#y"+submitNo).attr("disabled","true");
+			$("#n"+submitNo).attr("disabled","true");
+			
+			
+			/* location.href="<c:url value='dqsubmit.do'/>"; */
 		})
 	}
 	
