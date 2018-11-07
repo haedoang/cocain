@@ -201,7 +201,7 @@
 								<option value="1">제목</option>
 								<option value="2">작성자</option>
 							</select> 
-								
+							<input type="text" style="display:none;"/>	
 							<input class="ser" type="text" size="15"
 								placeholder="검색어를 입력하세요" name="word" />
 							<button id="search" class="ser" style="background-color:#000000;">

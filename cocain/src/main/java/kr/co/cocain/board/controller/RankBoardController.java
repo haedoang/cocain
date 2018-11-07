@@ -5,9 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.cocain.board.service.RankBoardService;
 import kr.co.cocain.repository.domain.RankPage;
+import kr.co.cocain.repository.domain.UserRank;
 import kr.co.cocain.util.PageResult;
 
 @Controller("kr.co.cocain.board.controller.RankBoardController")
@@ -27,6 +29,13 @@ public class RankBoardController {
 		model.addAttribute("list",service.selectRankPaging(rp));
 		model.addAttribute("pageResult",pageResult);
 		
+	}
+	
+	
+	@RequestMapping("search.do")
+	@ResponseBody
+	public UserRank rankSearch(String nickname) {
+		return service.selectRankById(nickname);
 	}
 	
 }

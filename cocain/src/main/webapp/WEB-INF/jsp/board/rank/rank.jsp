@@ -61,9 +61,9 @@
 			<div class="col-md-8">
 				<table class="table table-condensed">
 					<tr>
-						<th>순위</th>
-						<th>닉네임</th>
-						<th>포인트</th>
+						<th width="20%">순위</th>
+						<th width="40%">닉네임</th>
+						<th width="40%">포인트</th>
 
 					</tr>
 					<c:forEach var="i" items="${list}">
@@ -104,24 +104,13 @@
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1">
 						<c:if test="${pageResult.count!=0}">
-							<!-- 전체 게시글이 0개가 아닐때 -->
 							<ul class="pagination pagination-sm">
-								<c:forEach var="i" begin="${pageResult.beginPage}"
-									end="${pageResult.endPage}">
-									<!-- 현재페이지 체크 불가 -->
+								<c:forEach var="i" begin="${pageResult.beginPage}" end="5">
 									<li
 										<c:if test="${i eq pageResult.pageNo}">
 								class="active"</c:if>>
-										<a
-										<c:choose>
-											<c:when test='${requestScope["javax.servlet.forward.request_uri"].substring(18) eq "/search.do"}'>
-												href="<c:url value="search.do?pageNo=${i}&typeNo=${search.typeNo}&categoryNo=${search.categoryNo}&search=${search.search}&word=${search.word}"/>"
-											</c:when>
-											<c:otherwise>
-												href="<c:url value="rank.do?pageNo=${i}"/>"									
-											</c:otherwise>
-										</c:choose>>${(i-1)*20+1}
-											~ ${i*20} </a>
+										<a href="<c:url value="rank.do?pageNo=${i}"/>">
+											${(i-1)*20+1} ~ ${i*20} </a>
 									</li>
 								</c:forEach>
 							</ul>
@@ -129,21 +118,17 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-10 col-md-offset-1">
-						<form class="buttons">
-							<input type="text" placeholder="아이디를 입력해주세요" />
-							<button class="btn btn-primary">찾기</button>
+					<div class="col-md-6 col-md-offset-3">
+						<form id="sForm" method="POST" class="buttons">
+							<input type="text" style="display: none;" /> <input type="text"
+								name="nickname" placeholder="아이디를 입력해주세요" />
+							<button id="search" type="button" class="btn btn-primary">찾기</button>
 						</form>
 					</div>
 
 				</div>
 			</div>
-
 		</div>
-
-
-
-
 		<!-- row end -->
 
 	</section>
@@ -153,7 +138,49 @@
 	<!-- footer.. -->
 	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"></c:import>
 	<script>
+		$(document).on("click","#search",function(){
+			if($("input[name='nickname']").val()==""){
+				alert("닉네임을 입력해주세요");
+				$("input[name='nickname']").focus();
+				return false;
+			}
+			
+			$.ajax({
+				url:"<c:url value='search.do'/>",
+				data:"nickname="+$("input[name='nickname']").val()
+			}).done(function(data){
+				
+				var html="";
+				$("table > tbody > tr:eq(0)").siblings().remove();
+				$(".pagination").remove();
+							
+				//조회결과 없을때 
+				if(data.length==0){
+					html="<tr><td></td><td>검색 결과가 존재하지 않습니다.</td><td></td></tr>";
+					$( 'html, body' ).animate( { scrollTop : 48 }, 400 );
+				
+				} else {
+					
+					html="<tr><td>";
+					switch(data.rank){
+					case 1 : html+="🥇"
+						break;
+					case 2 : html+="🥈";
+						break;
+					case 3 : html+="🥉";
+					default: html+=data.rank;
+					}
+					
+					html+="</td><td>"+data.nickname+"</td><td>"+data.point+"</td></tr>";
+				}
+				$("table > tbody > tr:eq(0)").after(html);
+				$( 'html, body' ).animate( { scrollTop : 48 }, 400 );
+				
+			})
+		});
 		
+	
+	
 	</script>
 </body>
 </html>

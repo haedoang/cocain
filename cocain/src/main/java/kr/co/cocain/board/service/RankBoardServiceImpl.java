@@ -26,4 +26,9 @@ public class RankBoardServiceImpl implements RankBoardService{
 		return mapper.selectRankCount();
 	}
 
+	@Override
+	public UserRank selectRankById(String nickname) {
+		return mapper.selectRankById(nickname);
+	}
+
 }

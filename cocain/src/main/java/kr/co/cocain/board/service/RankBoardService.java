@@ -9,6 +9,9 @@ public interface RankBoardService {
 	
 	List<UserRank> selectRankPaging(RankPage rankPage);	
 	int selectRankCount();
+	UserRank selectRankById(String nickname);
+	
+	
 	
 	
 }
