@@ -156,15 +156,15 @@
 					<div class="row">
 						<table id="comTable" class="table">
 							<tr>
-								<th>작성자</th>
-								<th>내용</th>
-								<th>등록일</th>
-								<th></th>
+								<th width="10%">작성자</th>
+								<th width="40%">내용</th>
+								<th width="20%">등록일</th>
+								<th width="20%"></th>
 							</tr>
 							<c:forEach var="k" items="${data.comment}">
 								<tr id="${k.comNo}">
 									<td><a href="#"><span><c:out value="${k.nickname}"/></span></a></td>
-									<td><span><c:out value="${k.content}"/></span></td>
+									<td><span>${k.content}</span></td>
 									<td><fmt:formatDate value="${k.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 									<td class="buttons">
 									<c:if test="${sessionScope.user.nickname==k.nickname}">
@@ -188,15 +188,23 @@
 
 	<!-- summernote -->
 	<script src="<c:url value="/resources/js/edit-summernote.js"/>"></script>
-	
 	<!--  date format -->
 	<script src="<c:url value="/resources/js/jquery-dateformat.js"/>"></script>
-	
+
 	<!-- button script -->
 	<script>
+
 	
 		$("#comSubmit").click(function(e){
 			e.preventDefault();
+			
+			var str = $("textarea[name='content']").val();
+			str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+
+			$("textarea[name='content']").val(str);
+			
+				
+			
 			var comForm = $("#comForm").serialize();
 			
 			$.ajax({
@@ -255,8 +263,12 @@
  		//댓글 수정하기 
 		function comUpdate(comNo){
 			var row = $("#"+comNo);
-			var content = row.children("td:eq(1)").text();
-			row.children("td:eq(1)").replaceWith("<td><input type='hidden' name='comNo' value='"+comNo+"'/><input type='text' name='content' value='"+content+"'/></td>");
+			var content = row.children("td:eq(1)").children("span").html();
+			console.log(content);
+			content= content.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
+			alert(content);
+		
+			row.children("td:eq(1)").replaceWith("<td><input type='hidden' name='comNo' value='"+comNo+"'/> <textarea name='cContent' cols='50'>"+content+"</textarea></td>");
 			row.children("td:eq(3)").replaceWith("<td class='buttons'><button class='btn btn-primary' id='comUp'>수정하기</button> <button class='btn btn-primary' id='comDel'>수정취소</button></td>")
 		} 
 		
@@ -264,11 +276,15 @@
 		$(document).on("click","#comUp",function(){
 			var quizNo= $("input[name=quizNo]").val();
 			var comNo= $("input[name='comNo']").val();
-			var content = $("input[name='content']").val();
+			var cContent = $("textarea[name='cContent']").val();
+			
+		
+			cContent = cContent.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+			
 			
 			$.ajax({
 				url:"<c:url value='updateComment.do'/>",
-				data:"quizNo="+quizNo+"&comNo="+comNo+"&content="+content
+				data:"quizNo="+quizNo+"&comNo="+comNo+"&content="+cContent
 			}).done(function(data){	
 				listComment($("input[name=quizNo]").val());
 			})
