@@ -116,12 +116,16 @@
 				} else {
 					alert("로그인 되었습니다.");
 					$("#login").modal("hide");
-					// location.href = "/cocain/main/main.do";
+					var url = "${requestScope['javax.servlet.forward.request_uri']}";
+					if(url == "/cocain/user/signUpForm.do") {
+						location.href = "/cocain/main/main.do";
+						return;
+					}
 					location.href = "${requestScope['javax.servlet.forward.request_uri']}";
 				}
 			})
 		});
-	
+		
  		$("#searchBtn").on("click", function(e) {
  			var searchContent = $("#searchContent").val();
  			if(searchContent == "") {

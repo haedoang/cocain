@@ -19,7 +19,7 @@ import kr.co.cocain.repository.domain.StudyPage;
 import kr.co.cocain.repository.domain.UserRank;
 import kr.co.cocain.user.service.UserService;
 import kr.co.cocain.util.PageResult;
-//
+
 
 /**
  * 메인화면 컨트롤러
