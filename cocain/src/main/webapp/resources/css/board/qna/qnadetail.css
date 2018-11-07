@@ -1,0 +1,7 @@
+.detailcontent {
+	word-break:break-all;
+}
+
+.col-md-10 > #commentForm > .input-group > .note-editor {
+	margin-bottom: 0;
+}

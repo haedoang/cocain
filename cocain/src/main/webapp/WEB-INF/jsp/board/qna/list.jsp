@@ -12,6 +12,8 @@
 <title>CoCaIn</title>
 <link rel="stylesheet" href="/cocain/resources/css/bootstrap/bootstrap.css">
 
+<link rel="stylesheet" href="/cocain/resources/css/board/qna/qnalist.css"/>
+
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
@@ -34,7 +36,7 @@
 							<tr>
 								<th>번호</th>
 								<th>분류</th>
-								<th>제목</th>
+								<th class="title">제목</th>
 								<th>작성자</th>
 								<th>날짜</th>
 								<th>추천수</th>
@@ -45,18 +47,18 @@
 						
 				<c:forEach var="list" items="${qna.list}">
 							<tr>
-								<td id="listno">${list.no}</td>
+								<td class="ln">${list.no}</td>
 								<c:choose>
 								<c:when test="${list.qnaStatus eq 'y' }">
-								<td>답변완료</td>
+								<td class="la">답변완료</td>
 								</c:when>
 								<c:otherwise>
-								<td>답변대기</td>
+								<td class="la">답변대기</td>
 								</c:otherwise>
 								</c:choose>
-								<td><a href='detail.do?no=${list.no}' <c:if test="${user==null}">onclick="alert('로그인이 필요합니다.'); return false"</c:if>>
+								<td class="title"><a href='detail.do?no=${list.no}' <c:if test="${user==null}">onclick="alert('로그인이 필요합니다.'); return false"</c:if>>
 											${list.title}</a><c:if test="${list.qnaCmt!=0}"><span>　[${list.qnaCmt }]</span></c:if> </td>
-								<td>
+								<td class="lw">
 									<a
 										<c:choose>
 	                                  		<c:when test="${user == null}">
@@ -69,9 +71,9 @@
 										${list.writer}
 									</a>
 								</td>
-								<td><fmt:formatDate value="${list.regDate}" pattern="yyyy-MM-dd" /></td>
-								<td>${list.qnaRecom }</td>
-								<td>${list.viewCnt}</td>
+								<td class="ld"><fmt:formatDate value="${list.regDate}" pattern="yyyy-MM-dd" /></td>
+								<td class="lr">${list.qnaRecom }</td>
+								<td class="lv">${list.viewCnt}</td>
 							</tr>
 							</c:forEach>
 						</tbody>
@@ -145,7 +147,7 @@
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-10 text-center">
-				<form class="form-inline" role="form" action="searchlist.do" method="post">
+				<form class="form-inline" role="form" action="searchlist.do" method="post" onsubmit="return doCheck()">
 					<div class="form-group">
 						<select class="form-control" name="select">
 							<option value="title">제목</option>
@@ -169,7 +171,6 @@
 	</div>
 	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp" />
 	<script>
-	console.log(${requestScope["javax.servlet.forward.request_uri"].substring(18)})
 		/* paging 설정하기 !! */
 		$(".pagination > li:eq(0) > a").click(function(e){
 			if(!${pageResult.prev}){
@@ -181,6 +182,15 @@
 				e.preventDefault();
 			}
 		});
+		
+		/* 미설정 체크  */
+		function doCheck(){
+			if($("input[name='keyword']").val()==""){
+				alert("검색어를 입력하세요");
+				$("input[name='keyword']").focus();
+				return false;
+			}
+		}
 	</script>
 </body>
 

@@ -1,0 +1,27 @@
+.title {
+	width: 45%;
+}
+
+.title>a {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.la {
+	width: 9%
+}
+
+.lw {
+	width: 11%;
+	white-space: nowrap;
+	overflow: ellipsis;
+}
+
+.ln {
+	width: 5%
+}
+
+table>thead>tr>th, .lr, .lv, .la, .ln, .ld {
+	text-align: center;
+}

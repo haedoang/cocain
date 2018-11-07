@@ -23,7 +23,7 @@
 <body>
 	<div class="container">
         <div class="row">
-            <form action="update.do" method="post">
+            <form action="update.do" method="post" onsubmit="return doCheck()">
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
                     <h3>지식iN</h3>
@@ -65,7 +65,13 @@
 	      resize: false 
 		});
 
-		
+    	function doCheck(){
+			if($("input[name='title']").val()==""){
+				alert("제목을 입력하세요");
+				$("input[name='title']").focus();
+				return false;
+			}
+		}
     	
 //     $('#summernote').summernote({
 //         placeholder: 'Hello stand alone ui',

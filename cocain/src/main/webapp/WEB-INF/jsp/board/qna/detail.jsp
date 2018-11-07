@@ -10,8 +10,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>CoCaIn</title>
+<c:import url="/WEB-INF/jsp/base-ui/header.jsp" />
 <link rel="stylesheet"
 	href="/cocain/resources/css/bootstrap/bootstrap.css">
+
+<link rel="stylesheet" href="/cocain/resources/css/board/qna/qnadetail.css"/>
 
 <!-- include libraries(jQuery, bootstrap) -->
 <link
@@ -28,12 +31,12 @@
 	rel="stylesheet">
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
 <script src="/cocain/resources/js/bootstrap.js"></script>
 </head>
 
 <body>
-	<c:import url="/WEB-INF/jsp/base-ui/header.jsp" />
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-md-1"></div>
@@ -50,7 +53,7 @@
 							<span>조회 ${qna.viewCnt}회</span> <span id="rc"></span>
 						</div>
 					</div>
-					<div class="panel-body" style="min-height: 400px">${qna.content}
+					<div class="panel-body detailcontent" style="min-height: 400px">${qna.content}
 					</div>
 				</div>
 				<div class="text-right">
@@ -106,7 +109,7 @@
 					<div class="input-group">
 						<input type="hidden" name="no" value="${qna.no}" />
 						<input type="hidden" name="writer" value="${user.nickname}" />
-						<textarea class="form-control" id="content" name="content" style="height: 60px; resize:none;"></textarea>
+						<textarea class="form-control" id="summernote2" name="content" style="height: 60px; resize:none;"></textarea>
 						<span class="input-group-btn">
 							<button class="btn btn-default" style="height: 60px">등록</button>
 						</span>
@@ -120,6 +123,29 @@
 		</div>
 	</div>
 	<script>
+// 	$(document).ready(function() {
+// 		$("#summernote").summernote({
+// 			height:500,
+// 			minHeight: null,
+// 		    maxHeight: null,
+// 		    focus: true,
+// 		    lang: 'ko-KR',
+// 		    disableResize: true,            // Does not work
+// 		    disableResizeEditor: true,      // Does not work either
+// 		    resize: false 
+// 		});
+// 	});
+$("#summernote2").summernote({
+	toolbar:false,
+	height : 60,
+    focus: true,
+    lang: 'ko-KR',
+    disableResize: true,            // Does not work
+    disableResizeEditor: true,      // Does not work either
+    resize: false 
+		});
+	
+	
 	var nickname = "${user.nickname}";
 	var qnawriter = "${qna.writer}";
 	var numb = "${qna.no}";
@@ -152,14 +178,22 @@
 // 	});
 	
 	$("#commentForm").submit(function(e){
+		if($("textarea[name='content']").val()==""){
+			alert("내용을 입력하세요");
+			$("textarea[name='content']").focus();
+			return false;
+		}
 		e.preventDefault();
 // 		console.log($(this).serialize());
+
 		$.ajax({
 			url : "/cocain/board/qna/insertComment.do",
 			data : $(this).serialize(),
 			type : "POST"
 		}).done(function(result){
-			$("#content").val("");
+			$("textarea[name='content']").val("")
+			$(".note-editable").html("");
+			$("#summernote2").html("");
 // 			console.log(result[0].no);
 			var cmtcnt = result[0].no;
 			commentCount(cmtcnt);
@@ -215,7 +249,7 @@ $.each(result, function(idx,val) {
 // 	}
 	output += '</h4></div>'
 	output += '<input type="hidden" class="commentNo" value="'+val.commentNo+'" />'
-	output += '<div class="panel-body" style="border-bottom: 1px solid #ddd"><p id="updateContent'+idx+'">'+val.content+'</p>'
+	output += '<div class="panel-body" style="border-bottom: 1px solid #ddd"><div id="updateContent'+idx+'">'+val.content+'</div>'
 	if(nickname == val.writer){
 	output += '<div class="text-right"><button id="update'+idx+'" class="btn btn-default updatebtn" type="button">수정</button> '
 	output += '<button class="btn btn-default" type="button" onclick="commentdelete('+val.commentNo+')">삭제</button></div></div>'
@@ -254,20 +288,32 @@ $.each(result, function(idx,val) {
 	$("body").on("click", ".updatebtn", function(){
 		$(this).css("display", "none")
 		$(this).next().css("display", "none")
-// 		console.log($(this).parent().prev().text())
 		$(this).parent().parent().html(
-				'<div class="input-group" style="width: 100%"><textarea class="form-control" style="resize:none">'+ $(this).parent().prev().text() + 
+				'<div class="input-group" style="width: 100%"><textarea id="summernote" class="form-control" style="resize:none">'+ $(this).parent().prev().html() + 
 				'</textarea></div><div class="text-center" style="margin:4px"><button class="btn btn-default btn-sm modi">수정</button> <button class="btn btn-default btn-sm cancel">취소</button></div>'
 				
 		)
-		
+		$("#summernote").summernote({
+			toolbar: false,
+			height : 100,
+		    lang: 'ko-KR',
+		    disableResize: true,            // Does not work
+		    disableResizeEditor: true,      // Does not work either
+		    resize: false 
+		});
 	})
 	$("body").on("click", ".cancel", function(){
 		commentlist();
 	})
 	$("body").on("click", ".modi", function(){
 		var modicontent = $(this).parent().prev().find("textarea").val()
+		console.log(modicontent)
 		var modiNum = $(this).parent().parent().prev(".commentNo").val()
+		if(modicontent=="" || modicontent=="<p><br></p>"){
+			alert("내용을 입력하세요");
+			$(this).parent().prev().find("textarea").focus();
+			return false;
+		}
 		$.ajax({
 			url:"/cocain/board/qna/updateComment.do",
 			data : {"commentNo":modiNum,
@@ -290,22 +336,6 @@ $.each(result, function(idx,val) {
 		} else {}
 	})
 	
-
-	
-// 	function selectAnswer(num1, num2){
-// 		$.ajax({
-// 			url : "/cocain/board/qna/selectAnswer.do",
-// 			data : {
-// 				"no":num1,
-// 				"commentNo":num2
-// 				}
-// 	 }).done(function (result) {
-// 		 commentCount(numb);
-// 		 $(".comment").html("");
-// 			commentlist();
-// 	 })
-// 	}
-	
 	function answerCount(numb){
 		$.ajax({
 			type : "POST",
@@ -323,7 +353,6 @@ $.each(result, function(idx,val) {
 	
 	$(".rec").click(function(){
 		var rUrl = "insertrecom";
-		console.log("제발좀 나와라" + recExist)
 		if (recExist == 1) {
 			rUrl = "deleterecom";
 		}
@@ -345,7 +374,6 @@ $.each(result, function(idx,val) {
 		
 	});
 	
-	
 	function recnumber(){			
 		$.ajax({
 			url:"/cocain/board/qna/recomCount.do",
@@ -356,6 +384,14 @@ $.each(result, function(idx,val) {
 	};
 	recnumber();	
 	
+// 	/* 미설정 체크  */
+// 	function doCheck(){
+// 		if($(".note-editable").val()==""){
+// 			alert("내용을 입력하세요");
+// 			$(".note-editable").focus();
+// 			return false;
+// 		}
+// 	}
 	
 	
 </script>
