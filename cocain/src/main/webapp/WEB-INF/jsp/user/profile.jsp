@@ -70,7 +70,7 @@
 	                        <div class="media">
 	                            <div class="media-left">
 	                           		<c:choose>
-	                           			<c:when test="${active.typeqna == 'typeqna' or active.typeqna == 'typequiz' or active.typeqna == 'typestudy'}">
+	                           			<c:when test="${active.typeqna == 'typeqna' or active.typeqna == 'typequiz' or active.typeqna == 'typestudy' or active.typeqna == 'typenotice'}">
 		                                	<i class="far fa-edit fa-3x"></i>
 		                                </c:when>
 		                                <c:otherwise>
@@ -83,6 +83,9 @@
 	                                    <thead>
 	                                        <tr>
 	                                        	<c:choose>
+	                                        		<c:when test="${active.typeqna == 'typenotice'}">
+	                                          			<th>공지사항에 ${active.no}번 게시물을 작성하였습니다.&nbsp;&nbsp; 
+                                          			</c:when>
 	                                        		<c:when test="${active.typeqna == 'typeqna'}">
 	                                          			<th>지식iN에 ${active.no}번 게시물을 작성하였습니다.&nbsp;&nbsp; 
                                           			</c:when>
@@ -91,6 +94,9 @@
                                           			</c:when>
                                           			<c:when test="${active.typeqna == 'typestudy'}">
                                           				<th>스터디에 ${active.no}번 게시물을 작성하였습니다.&nbsp;&nbsp;
+                                          			</c:when>
+                                          			<c:when test="${active.typeqna == 'typenoticecm'}">
+	                                          			<th>공지사항 ${active.no}번 게시물에 댓글을 작성하였습니다.&nbsp;&nbsp; 
                                           			</c:when>
                                           			<c:when test="${active.typeqna == 'typeqnacm'}">
                                           				<th>지식iN ${active.no}번 게시물에 댓글을 작성하였습니다.&nbsp;&nbsp;
@@ -118,6 +124,9 @@
 		                                          			</c:when>
 		                                          			<c:when test="${active.typeqna == 'typestudy' || active.typeqna ==  'typestudycm'}">
 		                                            			<a href="<c:url value="/board/studygroup/detail.do?no=${active.no}" />">${active.title}</a>
+		                                          			</c:when>
+		                                          			<c:when test="${active.typeqna == 'typenotice' || active.typeqna == 'typenoticecm'}">
+		                                            			<a href="<c:url value="/board/notice/detail.do?no=${active.no}" />">${active.title}</a>
 		                                          			</c:when>
 		                                            	</c:choose>
 		                                            </div>

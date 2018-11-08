@@ -127,7 +127,11 @@
 			    union 
 	 		   select quiz_no, content, nickname, 'typequizcm', reg_date from tb_quiz_comment
 			    union 
-		       select no, content, id, 'typestudycm', reg_date from tb_study_comment) b 
+		       select no, content, id, 'typestudycm', reg_date from tb_study_comment
+		        union 
+		 	   select no, title, writer, 'typenotice', reg_date from tb_notice
+			    union 
+		 	   select no, content, writer, 'typenoticecm', reg_date from tb_notice_comment) b 
 		  where writer = #{writer}
 		  order by reg_date desc
      	  limit #{begin}, 5
@@ -146,7 +150,11 @@
 			 	  union 
 	 			 select quiz_no, content, nickname, 'typequizcm', reg_date from tb_quiz_comment
 	 		  	  union 
-		         select no, content, id, 'typestudycm', reg_date from tb_study_comment) b 
+		         select no, content, id, 'typestudycm', reg_date from tb_study_comment
+		          union 
+			 	 select no, title, writer, 'typenotice', reg_date from tb_notice
+				  union 
+			 	 select no, content, writer, 'typenoticecm', reg_date from tb_notice_comment) b 
 		  where writer = #{writer}
 	</select>
 	
