@@ -8,12 +8,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>content 연습</title>
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" />
+<%-- <link rel="stylesheet"
+	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" /> --%>
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/board/quiz/dailyquizlist.css"/>" />
-<script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
-<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+<%-- <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
+<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script> --%>
 </head>
 
 <body>
@@ -30,10 +30,10 @@
 							데일리퀴즈
 					</a></li>
 					<li role="presentation"><a href="<c:url value="dqlist.do"/>">
-							&nbsp;&nbsp; <i class="fas fa-folder-open"></i> 문제
+							&nbsp;&nbsp; <i class="fas fa-folder"></i> 문제
 					</a></li>
 					<li role="presentation" class="active"><a href="<c:url value="dqsubmit.do"/>">
-							&nbsp;&nbsp; <i class="fas fa-folder"></i> 제출확인
+							&nbsp;&nbsp; <i class="fas fa-folder-open"></i> 제출확인
 					</a></li>
 					<li role="presentation"><a href="<c:url value="uqlist.do"/>">
 							<i class="fas fa-folder"></i> 유저퀴즈

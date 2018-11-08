@@ -7,12 +7,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>daily-quiz list</title>
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" />
+<%-- <link rel="stylesheet"
+	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" /> --%>
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/board/quiz/dailyquizlist.css"/>" />
-<script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
-<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+<%-- <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
+<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script> --%>
 </head>
 
 <body>
@@ -187,7 +187,7 @@
 							<input type="text" style="display:none;"/>		
 							<input class="ser" type="text" size="15"
 								placeholder="검색어를 입력하세요" name="word" />
-							<button id="search" class="ser" style="background-color: #000000">
+							<button id="search" class="ser" style="background-color:white">
 								&nbsp;&nbsp;<i class="fas fa-search"></i>&nbsp;&nbsp;
 							</button>
 						</form>

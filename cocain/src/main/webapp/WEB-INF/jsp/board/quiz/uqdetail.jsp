@@ -8,13 +8,13 @@
 <!-- header.. -->
 <c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>dqdetail</title>
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" />
+<title>유저퀴즈 상세페이지</title>
+<%-- <link rel="stylesheet"
+	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" /> --%>
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/board/quiz/dailyquizlist.css"/>" />
-<script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
-<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+<%-- <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
+<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script> --%>
 
 <!-- summernote -->
 <link rel="stylesheet"
@@ -266,7 +266,7 @@
 			var content = row.children("td:eq(1)").children("span").html();
 			console.log(content);
 			content= content.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
-			alert(content);
+			//alert(content);
 		
 			row.children("td:eq(1)").replaceWith("<td><input type='hidden' name='comNo' value='"+comNo+"'/> <textarea name='cContent' cols='50'>"+content+"</textarea></td>");
 			row.children("td:eq(3)").replaceWith("<td class='buttons'><button class='btn btn-primary' id='comUp'>수정하기</button> <button class='btn btn-primary' id='comDel'>수정취소</button></td>")

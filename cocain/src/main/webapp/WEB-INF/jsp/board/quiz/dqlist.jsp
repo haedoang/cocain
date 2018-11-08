@@ -7,12 +7,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>daily-quiz list</title>
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" />
+<%-- <link rel="stylesheet"
+	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" /> --%>
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/board/quiz/dailyquizlist.css"/>" />
-<script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
-<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+<%-- <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script> --%>
+<%-- <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script> --%>
 </head>
 <body>
 	<!-- header.. -->
@@ -57,15 +57,15 @@
 
 			<table id="dqtable" class="table table-bordered">
 				<tr>
-					<th>번호</th>
-					<th>카테고리</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>등록시간</th>
-					<th>마감시간</th>
-					<th>정답자 수</th>
-					<th>정답률</th>
-					<th>난이도</th>
+					<th width="5%">번호</th>
+					<th width="5%">카테고리</th>
+					<th width="25%">제목</th>
+					<th width="15%">작성자</th>
+					<th width="15%">등록시간</th>
+					<th width="15%">마감시간</th>
+					<th width="7%">정답자 수</th>
+					<th width="8%">정답률</th>
+					<th width="5%">난이도</th>
 				</tr>
 				<c:forEach var="i" items="${data.list}">
 					<tr>
@@ -126,7 +126,6 @@
 				</div>
 
 				<div class="col-md-4">
-					<nav>
 						<c:if test="${pageResult.count!=0}">
 							<!-- 전체 게시글이 0개가 아닐때 -->
 							<ul class="pagination pagination-sm">
@@ -181,7 +180,6 @@
 								</li>
 							</ul>
 						</c:if>
-					</nav>
 				</div>
 
 
@@ -203,7 +201,7 @@
 							<input type="text" style="display:none;"/>	
 							<input class="ser" type="text" size="15"
 								placeholder="검색어를 입력하세요" name="word" />
-							<button id="search" class="ser" style="background-color:#000000;">
+							<button id="search" class="ser" style="background-color:white">
 								&nbsp;&nbsp;<i class="fas fa-search"></i>&nbsp;&nbsp;
 							</button>
 						</form>

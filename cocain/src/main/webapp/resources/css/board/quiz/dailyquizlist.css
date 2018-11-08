@@ -7,6 +7,10 @@ section{
 	height:1200px; 
 	overflow:auto;
 }
+section::-webkit-scrollbar { 
+  /* This is the magic bit */
+  display: none;
+}
 
 .section{
     width:83.7%;
@@ -78,6 +82,15 @@ textarea{
 
 #uqForm > table > tbody > tr > th, #dqForm > table > tbody > tr > th {
 	width:15%
+}
+
+div > .pagination > li > a {
+	color: rgba(0,0,0,0.8); 
+}
+div > .pagination > li.active > a {
+	color: #ffffff; 
+	border-color: rgba(0,0,0,0.8); 
+	background-color: rgba(0,0,0,0.8); 
 }
 
 

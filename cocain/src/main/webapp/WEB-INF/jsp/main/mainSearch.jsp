@@ -162,11 +162,11 @@
 		</div>
 	</div>
 
-	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp" />
 
 	<script>
 		var searchContent = "${searchContent}";
 		$("#searchContent").val(searchContent);
 	</script>
+	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp" />
 </body>
 </html>
