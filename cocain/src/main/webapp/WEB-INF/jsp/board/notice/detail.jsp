@@ -84,7 +84,7 @@ textarea {
 				<th>번호</th>
 				<th>${board.no}</th>
 				<th>글쓴이</th>
-				<th><c:out value="${board.writer}" /></th>
+				<th><a href="/cocain/user/profile.do?writer=${board.writer}">${board.writer}</a></th>
 				<th>조회수</th>
 				<th>${board.viewCnt}</th>
 				<th>추천수</th>
