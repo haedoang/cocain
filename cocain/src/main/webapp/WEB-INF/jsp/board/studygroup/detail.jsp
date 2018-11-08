@@ -41,23 +41,12 @@
 }
 </style>
 
-<link href="../../css/bootstrap.css" rel="stylesheet" />
-<link rel="stylesheet"
-	href="../../resources/css/bootstrap/bootstrap.css">
-<link rel="stylesheet" href="../../resources/css/base-ui/footer.css">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="../../resources/js/jquery.animateNumber.js"></script>
-<script src="../../resources/js/bootstrap.js"></script>
 
 
 </head>
 
 <body>
-	<c:import url="../../base-ui/header.jsp" />
+	<c:import url="/WEB-INF/jsp/base-ui/header.jsp"/> 
 	<hr>
 
 	<div class="container">
@@ -146,7 +135,7 @@
 		<div class="col-md-2"></div>
 		<div></div>
 	</div>
-	<c:import url="../../base-ui/footer.jsp" />
+	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"/>  
 
 	<script src="<c:url value='/resources/js/jquery-dateformat.js'/>"></script>
 	<script>
