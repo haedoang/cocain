@@ -8,13 +8,8 @@
 <c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>데일리퀴즈 등록하기</title>
-<%-- <link rel="stylesheet"
-	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" /> --%>
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/board/quiz/dailyquizlist.css"/>" />
-<%-- <script src="<c:url value="/resources/js/jquery-3.1.1.min.js"/>"></script>
-<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script> --%>
-
 <!-- include summernote css/js -->
 <link rel="stylesheet"
 	href="<c:url value="/resources/summernote/summernote.css"/>" />
@@ -159,11 +154,7 @@
 				$("textarea[name='content']").focus();
 				return false;
 			}
-			
-		
 		}
-		
-		
 	</script>
 
 	<!-- footer.. -->

@@ -186,12 +186,7 @@
 			location.href="<c:url value='dqupdateform.do?quizNo=${data.detail.quizNo}'/>";
 		});
 		
-		
-		
-		
-		
-		
-		
+
 		$("#submit").click(function(e) {
 			e.preventDefault();
 			
@@ -214,8 +209,7 @@
 				return;
 
 			var formData = new FormData($("#submitForm")[0]);
-			console.log(formData);
-
+		
 			$.ajax({
 				url : "<c:url value='dqupload.do'/>",
 				method : "POST",

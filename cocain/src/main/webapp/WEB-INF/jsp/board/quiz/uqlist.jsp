@@ -7,14 +7,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>daily-quiz list</title>
-<%-- <link rel="stylesheet"
-	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" /> --%>
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/board/quiz/dailyquizlist.css"/>" />
-<%-- <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
-<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script> --%>
 </head>
-
 <body>
 	<!-- header.. -->
 	<c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
@@ -59,12 +54,12 @@
 
 			<table id="uqtable" class="table table-bordered">
 				<tr>
-					<th>번호</th>
-					<th>카테고리</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>등록일</th>
-					<th>난이도</th>
+					<th width="8%">번호</th>
+					<th width="8%">카테고리</th>
+					<th width="34%">제목</th>
+					<th width="15%">작성자</th>
+					<th width="25%">등록일</th>
+					<th width="20%">난이도</th>
 				</tr>
 				<c:forEach var="i" items="${data.list}">
 					<tr>
@@ -216,50 +211,7 @@
 				e.preventDefault()
 			};
 		});
-		
-	/* 	//검색.. 
-		$("#search").click(function(e){
-			e.preventDefault();
-			var formData = $("#sForm").serialize();
-			console.log("formData",formData)
-			$.ajax({
-				url:"<c:url value="search.do"/>",
-				method:"POST",
-		   		data:formData
-			}).done(function(data){
-				alert("ajax 호출");
-				console.log(data);
-				
-				
-				$("#uqtable > tbody > tr:eq(0)").siblings().remove();
-				$(".pagination > *").remove();
-				var html="";	
-				var list = data.list;
-				var category = data.category;
-				var level = data.level;
-				console.log(list);	
-				
-				 for(var i of list){
-					html+="<tr><td>"+i.quizNo+"</td>";
-						for(var j of category){
-							if(i.categoryNo==j.categoryNo){
-								html+="<td>"+j.categoryName+"</td>";	
-							};//category end
-						};//inner for end 
-					html+="<td><a href='<c:url value='/board/quiz/uqdetail.do?quizNo="+i.quizNo+"'/>'>";
-					html+=i.title+"</a></td><td>"+i.nickname+"</td>";
-					html+="<td>"+$.format.date(i.regDate, "yyyy-MM-dd")+"</td>";
-					for(let k of level){
-						if(k.levelNo==i.levelNo){
-							html+="<td>"+k.levelName+"</td>";	
-						};//category end
-					};//innerfor 
-		
-					};//for end 	 
-		 			html+="</tr>"	
-				$("#uqtable > tbody > tr:eq(0)").after(html);
-			}); 
-		});  */
+	
 	</script>
 </body>
 

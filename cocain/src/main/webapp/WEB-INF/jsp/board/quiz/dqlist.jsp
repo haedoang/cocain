@@ -58,8 +58,8 @@
 			<table id="dqtable" class="table table-bordered">
 				<tr>
 					<th width="5%">번호</th>
-					<th width="5%">카테고리</th>
-					<th width="25%">제목</th>
+					<th width="7%">카테고리</th>
+					<th width="23%">제목</th>
 					<th width="15%">작성자</th>
 					<th width="15%">등록시간</th>
 					<th width="15%">마감시간</th>
