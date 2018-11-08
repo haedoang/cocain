@@ -35,6 +35,10 @@
 .row > .col-md-12 > form > div > textarea{
 	width: 100%;
 }
+
+.bc{
+	word-break:break-all;
+}
 </style>
 
 <link href="../../css/bootstrap.css" rel="stylesheet" />
@@ -61,7 +65,19 @@
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<table class="table table-bordered">
-					<span class="id">${board.id}</span> &nbsp;&nbsp;
+					<span class="id">
+						<a 
+	                       <c:choose>
+	                       	 <c:when test="${user == null}">
+	                                 	href="#" data-target="#login" id="log" data-toggle="modal"
+	                         </c:when>
+	                         <c:otherwise>
+	                                  	href="<c:url value="/user/profile.do?writer=${board.id}" />"
+	                         </c:otherwise>
+	                        </c:choose> >
+	                                   ${board.id}
+	                     </a>
+					</span> &nbsp;&nbsp;
 					<span class="date"><fmt:formatDate value="${board.regDate}"
 							pattern="yyyy-MM-dd" /></span>
 					<br>
@@ -73,7 +89,7 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;
 
 					<hr>
-					${board.content}
+					<div class="bc">${board.content}</div>
 					<br>
 
 				</table>
@@ -105,7 +121,7 @@
 								<br>
 							<div class="text-right">
 								<span class="input-group-btn"> </span>
-								<button class="btn btn btn-primary" style="background-color: black; border-color: black;">비밀글</button>
+<!-- 								<button class="btn btn btn-primary" style="background-color: black; border-color: black;">비밀글</button> -->
 								<button class="btn btn btn-primary"	style="background-color: black; border-color: black;">등록</button>
 							</div>
 						</form>
@@ -151,6 +167,8 @@
 		}).fail(function(result){ alert("댓글을 입력 해 주세요") })
 	});
 	commentlist();
+	
+	
 	var comm = "";
 	
 	
@@ -165,25 +183,70 @@
 		 		comm += result[i].content + "</div></td></tr>";
 		 		}
 		 		$("#commenttbody").html(comm);
+		 		
+		 		
+		 		 var output = "";
+				 
+		 		$.each(result, function(idx,val) {
+		 			output += '<div class="panel-heading"><h4 class="panel-title"><a href="<c:url value="/user/profile.do?writer=' + val.id + '" />">' +val.id+ '</a> '
+		 			output += '<span>'+" "+new Date(val.regDate).toISOString().slice(0,10)+ '</span>　　'
+		 		
+		 			output += '</h4></div>'
+		 			output += '<input type="hidden" class="commentNo" value="'+val.commentNo+'" />'
+		 			output += '<div class="panel-body" style="border-bottom: 1px solid #ddd"><p id="updateContent'+idx+'">'+val.content+'</p>'
+		 			if(nickname == val.id){
+		 			output += '<div class="text-right"><button id="update'+idx+'" class="btn btn-default updatebtn" type="button">수정</button> '
+		 			output += '<button class="btn btn-default" type="button" onclick="commentdelete('+val.commentNo+')">삭제</button></div></div>'
+		 			} else {
+		 				output += '<div class="text-right" style="height: 20px">'
+		 				output += '</div></div>'
+		 					}
+		 			})
+		 			 $('.comment').html(output);
 		 	});
 		 }
+	commentlist();
+	
+	
+	
+	
 	function commentdelete(num){
 		$.ajax({
 		 		url : "/cocain/board/studygroup/deleteComment.do",
 		 		data : "commentNo="+num
 		 	 }).done(function (result) {
-		 		 commentCount(numb);
+		 		$("#commenttbody").html("");
 		 			commentlist();
 		 		 });
 		 }
 	
-	
-		// $.ajax({
-		// 	url: "<c:url value="/comment/list.json" />",
-		// 	data: "no=${board.no}",
-		// }).done(function(result){
-		// 	console.log(result);
-		// });
+	$("body").on("click", ".updatebtn", function(){
+		$(this).css("display", "none")
+		$(this).next().css("display", "none")
+// 		console.log($(this).parent().prev().text())
+		$(this).parent().parent().html(
+				'<div class="input-group" style="width: 100%"><textarea class="form-control" style="resize:none">'+ $(this).parent().prev().text() + 
+				'</textarea></div><div class="text-center" style="margin:4px"><button class="btn btn-default btn-sm modi">수정</button> <button class="btn btn-default btn-sm cancel">취소</button></div>'
+				
+		)
+		
+	})
+	$("body").on("click", ".cancel", function(){
+		commentlist();
+	})
+	$("body").on("click", ".modi", function(){
+		var modicontent = $(this).parent().prev().find("textarea").val()
+		var modiNum = $(this).parent().parent().prev(".commentNo").val()
+		$.ajax({
+			url:"/cocain/board/studygroup/updateComment.do",
+			data : {"commentNo":modiNum,
+					"content":modicontent		
+			}
+		}).done(function(){
+			commentlist();
+		})
+	})
+
 	</script>
 </body>
 

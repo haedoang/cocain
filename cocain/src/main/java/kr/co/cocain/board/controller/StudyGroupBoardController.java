@@ -8,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import kr.co.cocain.board.service.StudyGroupBoardService;
+import kr.co.cocain.repository.domain.QnaPageSearch;
 import kr.co.cocain.repository.domain.StudyBoard;
 import kr.co.cocain.repository.domain.StudyComment;
 import kr.co.cocain.repository.domain.StudyPage;
@@ -109,5 +111,17 @@ public class StudyGroupBoardController {
     public String commentCount(int no) throws Exception {
     	return Integer.toString(service.commentCnt(no));
     }
+    
+    @RequestMapping("/searchlist.do")
+	public ModelAndView searchStudy(StudyBoard board) throws Exception {
+		ModelAndView mav = new ModelAndView("board/studygroup/list");
+		
+		mav.addObject("keyword", board.getKeyword());
+		mav.addObject("category", service.category());
+        mav.addObject("list", service.searchStudy(board));
+		return mav;
+	}
+    
+    
 	
 }

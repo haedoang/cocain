@@ -40,9 +40,15 @@ select>option {
 <body>
 	<c:import url="../../base-ui/header.jsp" />
 	<hr>
-	<form action="write.do" method="post">
+	<form method="post" onsubmit="return doAction()" action="write.do">
 	<input type="hidden" name="id" value="${user.nickname}"/>
 	<div class="container">
+				<div class="row text-center ">
+		<div class="background">
+				<img src="<c:url value="/resources/images/ii.jpg"/>" height=200px; position= left; />
+			</div>
+			</div>
+			<br>
 		<div class="row">
 			<div class="col-md-2"></div>
 
@@ -69,7 +75,7 @@ select>option {
 				</div>
 				<br>
 				<div class="text-center">
-					<button class="btn btn btn-primary" style="background-color: black; border-color: black;" onclick="location.href='list.do'">
+					<button class="btn btn btn-primary" style="background-color: black; border-color: black;" >
 					등록</button>
 					<button class="btn btn btn-primary" style="background-color: black; border-color: black;" onclick="location.href='list.do'">
 					목록</button>
@@ -80,7 +86,28 @@ select>option {
 		<div class="col-md-2"></div>
 	</div>
 	</form>
+	<br>
 	<c:import url="../../base-ui/footer.jsp" />
+	
+	
+	
+	<script>
+	<!-- 값 체크하기 -->
+	function doAction(){
+		if($("input[name='title']").val()==""){
+			alert("제목을 입력하세요");
+			$("input[name='title']").focus();
+			return false;
+		}
+		if($("textarea[name='content']").val()==""){
+			alert("내용을 입력하세요");
+			$("textarea[name='content']").focus();
+			return false;
+		}
+	}
+	
+	
+	</script>
 </body>
 
 </html>

@@ -29,4 +29,7 @@ public interface StudyBoardMapper {
 	// 페이징
 	int selectBoardCount();
 	
+	// 검색
+	List<StudyBoard> searchStudy(StudyBoard board);
+	
 }

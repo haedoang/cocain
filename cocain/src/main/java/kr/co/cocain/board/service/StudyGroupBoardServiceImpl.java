@@ -1,6 +1,8 @@
 package kr.co.cocain.board.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -96,6 +98,11 @@ public class StudyGroupBoardServiceImpl implements StudyGroupBoardService {
 	@Override
 	public int commentCnt(int no) {
 		return mapper.commentCount(no);
+	}
+
+	@Override
+	public List<StudyBoard> searchStudy(StudyBoard board) {
+		return mapper.searchStudy(board);
 	}
 	
 }

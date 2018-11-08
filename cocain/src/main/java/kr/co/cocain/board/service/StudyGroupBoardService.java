@@ -1,6 +1,8 @@
 package kr.co.cocain.board.service;
 
 import java.util.List;
+import java.util.Map;
+
 
 import kr.co.cocain.repository.domain.QuizCategory;
 import kr.co.cocain.repository.domain.StudyBoard;
@@ -27,4 +29,8 @@ public interface StudyGroupBoardService {
 	int commentCnt(int no);
 	
 	int selectBoardCount();
+	
+	
+	List<StudyBoard> searchStudy(StudyBoard board);
+
 }

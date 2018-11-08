@@ -14,6 +14,11 @@ public class StudyBoard {
 	private String categoryName;
 	private int comCnt;
 	
+	// seachtype
+	
+	private String searchType;
+	private String keyword;
+	
 	
 	
 	public int getNo() {

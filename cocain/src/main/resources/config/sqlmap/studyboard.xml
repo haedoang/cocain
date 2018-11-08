@@ -27,6 +27,34 @@
 	</resultMap>
 
 
+	<!-- search -->
+	<select id="searchStudy" parameterType="studyBoard" resultMap="BoardMap">
+		select * 
+			from tb_study
+			<where>
+				<if test="searchType == 'java'">
+					and title like concat('%',#{keyword},'%')
+					or content like concat('%',#{keyword},'%')
+				</if>
+				<if test="searchType == 'javascript'">
+					and title like concat('%',#{keyword},'%')
+					or content like concat('%',#{keyword},'%')
+				</if>
+				<if test="searchType == 'sql'">
+					and title like concat('%',#{keyword},'%')
+					or content like concat('%',#{keyword},'%')
+				</if>
+				<if test="searchType == 'html/css'">
+					and title like concat('%',#{keyword},'%')
+					or content like concat('%',#{keyword},'%')
+				</if>
+				
+			</where>
+		
+		
+	</select>
+
+
 	<!-- category list -->
 	<select id="selectCategory" resultMap="categoryMap">
 		select *
