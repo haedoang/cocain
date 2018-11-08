@@ -12,7 +12,7 @@
 <script src="/cocain/resources/js/jquery.animateNumber.js"></script>
 </head>
 <body>
-	<div class="container">
+	<div class="container SearchContainer">
 		<div class="row">
 			<c:if test="${not empty list}">
 				<div class="row">

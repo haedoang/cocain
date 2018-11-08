@@ -11,6 +11,9 @@ a:hover {
     text-decoration: none;
     cursor: pointer;
 }
+.signUpContainer {
+	height: 750px;
+}
 .container > .row:first-child {
 	margin-top: 120px; 	
 	margin-bottom: 120px; 	
