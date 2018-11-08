@@ -124,19 +124,18 @@ where comment_no =#{commentNo}
 		where comment_no =#{commentNo}
 </update>
 
-<select id="categoryList" parameterType="NoticePage2" resultMap="NoticeMap">
+<select id="categoryList" parameterType="NoticePage2" resultMap="NoticeMap" useCache="false" flushCache="true">
 		select * ,(select count(*) from tb_notice_comment where no = a.no) as cnt
 		from tb_notice a
 		<choose>
-			<when test="select=='title' " >
+			<when test="select=='title'" >
 			where title like concat('%',#{text},'%')
- 			limit #{begin} , 10
 			</when>
 			<otherwise>
-			where concat(title,content) like concat('%',#{text},'%')
-			limit #{begin} , 10
+			where concat(a.title,a.content) like concat('%',#{text},'%')
 			</otherwise>
 		</choose>
+			limit #{begin} , 10
 </select>
 
 <select id="categoryCount" parameterType="NoticePage2" resultType="int">

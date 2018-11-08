@@ -46,9 +46,31 @@
 		resize: none;
 		}
 		
-		.ppp{
+		.ppp, #wrr {
 		 word-break:break-all;
 		}
+		
+		.section {
+    height: 0px;
+    padding: 20px 0;
+   display: block;
+}
+		
+	.downwrap{
+	display: block !important;
+	text-align: center !important;
+	}
+
+.down {
+   position: relative;
+   margin: 0 auto;
+   cursor: pointer;
+   width: 0;
+   height: 0;
+   border-right: 17px solid transparent;  
+   border-left: 17px solid transparent; 
+   border-top: 25px solid #000;
+} 
 		
 	</style>
 </head>
@@ -98,7 +120,7 @@
 			<input id="no" name="no"  value="${board.no}" type="hidden">
 		<img src="http://codingschool.info/img/title_comment.gif">
 			<input class="form-control" id="writer" name="writer"  type="text"  readonly="readonly"  value="${user.nickname}">
-			<textarea placeholder="댓글내용을 입력 해 주세요" style="width: 91%; height:100px;" class="form-control resize"  id='content' name="content"></textarea>
+			<input type="text" style="width: 91%; height: 100px;" class="form-control" id="content" name="content" />
 			<button id=subm ><img src="http://codingschool.info/img/ok_ripple.gif" /></button>
 		</div>
 		</form>
@@ -106,8 +128,12 @@
 		<div id="divv"></div>
 
 <br>		
+
 			<i class="count fas fa-users col-md-10 col-md-offset-1">댓글 갯수 : #</i>
-			<i class="count2 fas fa-users col-md-10 col-md-offset-1">댓글 갯수2 : #</i>
+			<br>
+	
+
+<!-- 			<i class="count2 fas fa-users col-md-10 col-md-offset-1">댓글 갯수2 : #</i> -->
 	 <div class='comment col-md-10 col-md-offset-1' >			
 	 <c:set var="now" value="<%=new java.util.Date()%>" />
 	 <c:set var="now2"><fmt:formatDate value="${now}" pattern="yyyyMMddHHmmss" /></c:set> 
@@ -115,8 +141,10 @@
 		
 	 
 	 </div>
-	 
-	 <br>
+	 	<div class="section">
+	<div class="downwrap">댓글 Click<div class="down"></div></div>
+    </div>
+	 <br><br><br>
 	 
 	 
 	 
@@ -187,29 +215,39 @@
 		 		url: "<c:url value='/board/listComment.do' />",
 		 		data: "no=${board.no}"
 		 	}).done(function (result) {
-		 		$('.count').text("댓글 갯수 : "+result.length);
-		 		console.log(result);
 		 		
 		 var nickname = "${user.nickname}";
 		 var output = "";
+		 		$('.count').text("댓글 갯수 : "+result.length);
+		 		if(result.length == 0){
+		 			output = '<hr><div class="text-center">조회할 댓글이 없습니다.</div>'
+		 			$('.section').css('display' , 'none');
+		 		}
+		 		else{
+		 			$('.section').css('display' , 'unset');
+		 		
  $.each(result, function(idx,val) {
 	 output +='<hr><div class=" text-left form-inline">'
 	+"<input type='hidden' value='+val.commentNo+'>"
 		
-		output += '<div class="form-group" >'+val.writer+'　'+func1(val.regDate)+'</div>'
+		output += '<div class="form-group" ><a href="#">'+val.writer+'</a>'+'　'+func1(val.regDate)+'</div>'
 		
 		if(nickname == val.writer){			
-		output +='<div class="text-right"><button id="notify" class="btn btn-default" onclick="upd(\''+ val.content + '\' , \'' + val.writer +'\' , \''+val.commentNo+'\')">수정</button>'
+		output +='<div class="text-right"><button id="notify'+val.commentNo+'" class="btn btn-default" onclick="upd( \''+ val.content + '\' , \'' + val.writer +'\' , \''+val.commentNo+'\')">수정</button>'
 		output +='<button id="delb" class="text-right btn btn-default" onclick="del('+val.commentNo+')">삭제</button></div>'
 		}
-		output += '<div id="wrr">'+val.content+'</div></div>'
+		output += '<div class="wrr">'+val.content+'</div></div>'
  			
 	
 		 })
+		}
+		 	
+		 		
 		 $('.comment').html(output);
 		 });
 	 }
 	 
+	 /* 물어볼거 예제용 */
 	 $(document).ready(function(){		 
 		 $.ajax({
 			 url : "<c:url value='/board/notice/CommentCount.do' />",
@@ -223,6 +261,10 @@
 	 
 	 
 		$('#commentForm').submit(function(e) {
+			 if($('#content').val()==""){
+					alert("댓글을 입력 해 주세요")
+					return false;
+				 }
 			
 			e.preventDefault();
 // 			console.log($(this).serialize());
@@ -232,12 +274,14 @@
 				method : "POST"
 			}).done(function(result){ 
 				list();
-
 			$('#content').val("");
 			})
 			.fail(function(result){ alert("댓글을 입력 해 주세요") })
 
 		});
+	 
+	
+	 
 	
 	 function del(eee) {
 		 $.ajax({
@@ -249,31 +293,34 @@
 		 })
 		 
 	 }
-		var iii = null;
-	 function upd(result,re,num){
+		
+	 var iii = null;
+	 function upd(result,re,num){		 
 		 iii = num;
-		 console.log("1 : "+iii)
-		 
-		 $('#divv').css("display", "unset");
-		 $('#commentForm').css("display", "none");
-		 $('#divv').html(
-			  '<form class="form-inline" id="cf2" method="post" >'
+		console.dir( $('#notify'+iii).parent().next());
+		 console.log("1 : "+iii);
+		 $('#notify'+num).parent().next().html(
+			  '<form class="form-inline" name="cf2" id="cf2" method="post" >'
 			+'<div class="form-group" style="width: 100%; background-color: #efefef ">'
 			+'<input id="commentNo" name="commentNo" value='+iii+' type="hidden">'
 			+'<input class="form-control" id="writer2" name="writer"  type="hidden">'
-			+'<textarea style="width: 91%; height: 100px; resize: none" class="form-control" id="content2" name="content" rows="4" cols="50"></textarea>'
+			+'<input type="text" style="width: 91%; height: 100px; class="form-control" id="content2" name="content" />'			
 			+'<button id="butt2"><img src="http://codingschool.info/img/ok_ripple.gif" /></button>'
-			+'</div></form>'		 
+			+'</div></form>'		 	
 		 );
 		 
-			
-		 
-	
+	 
 	 $('#writer2').val(re);
 	 $('#content2').val(result);
 	 
 	 
+	 
+	 
 	 $('#cf2').submit(function (event) {
+		 if($('#content2').val()==""){
+		 alert("내용이 없습니다");
+		 return false;
+		 };
 		 event.preventDefault();
 		 console.log($(this).serialize());
 		 $.ajax({
@@ -347,6 +394,23 @@
  		}
 	 }//function
 
+	 
+		$(document).ready(
+				function() {
+				    function move() {
+				        $('.down','.downwrap').animate({'top':'5px'},600).animate({'top':'20px'},600, move);
+				    }
+				    move();
+				}	
+		)
+		   
+	 
+		$('.comment').css("display" , "none");
+		$('.down').click(function(){
+			$('.comment').css("display", "unset");
+			
+		})
+		
 	 list();
 	</script>
 

@@ -25,7 +25,7 @@
 	<form class="form-group pull-right" id='form' name="form" method="post" action="category.do"  onsubmit='return google();'>
 	<select class="form-control"  name="select">
 		<option class="form-control" value="title">제목순</option>
-		<option class="form-control" value="titlewriter">제목+내용</option>
+		<option class="form-control" value="tc">제목+내용</option>
 	</select>
 		<input class='asdf form-control'  type="text" name="text" placeholder="입력하세요">
 		<button class="btn btn-default">검색</button>
@@ -87,7 +87,7 @@
     <li ><a
     <c:choose>
    	<c:when test='${requestScope["javax.servlet.forward.request_uri"].substring(20) eq "/category.do"}'>
-    href="category.do?pageNo=${i-1}&select=${select}&text=${text}"
+    href="<c:url value='category.do?pageNo=${i-1}&select=${result.select}&text=${result.text}' />"
     </c:when>
    	<c:when test='${requestScope["javax.servlet.forward.request_uri"].substring(20) eq "/list2.do"}'>
     href="list2.do?pageNo=${i}"
@@ -122,7 +122,7 @@
 	
 	<script>
 	
-			function google() {
+	function google() {
 			if($.trim($('.asdf').val())==''){
 			    alert('검색어를 입력 해 주세요.');
 				$('.asdf').focus();
@@ -150,6 +150,9 @@
 				
 				 })
 		
+				 
+					console.log( '${requestScope["javax.servlet.forward.request_uri"]}'.substring(20)   );
+				 
 	</script>
 </body>
 </html>
