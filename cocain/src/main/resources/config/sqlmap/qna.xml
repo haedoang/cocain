@@ -34,22 +34,22 @@
           from tb_qna qna
 			<choose>
 				<when test="select=='title'" >
-				where qna.title like concat('%',#{keyword},'%')
+				where title like concat('%',#{keyword},'%')
 				order by no desc
 				limit #{begin} , 15
 				</when>
 				<when test="select=='writer'" >
-				where qna.writer like concat('%',#{keyword},'%')
+				where writer like concat('%',#{keyword},'%')
 				order by no desc
 				limit #{begin} , 15
 				</when>
 				<when test="select=='content'" >
-				where qna.content like concat('%',#{keyword},'%')
+				where content like concat('%',#{keyword},'%')
 				order by no desc
 				limit #{begin} , 15
 				</when>
 				<otherwise>
-				where concat(qna.title,qna.content) like concat('%',#{keyword},'%')
+				where concat(title,content) like concat('%',#{keyword},'%')
 				order by no desc
 				limit #{begin} , 15
 				</otherwise>
@@ -66,10 +66,10 @@
 			where title like concat('%',#{keyword},'%')
 			</when>
 			<when test="select=='writer' " >
-			where title like concat('%',#{keyword},'%')
+			where writer like concat('%',#{keyword},'%')
 			</when>
 			<when test="select=='content' " >
-			where title like concat('%',#{keyword},'%')
+			where content like concat('%',#{keyword},'%')
 			</when>
 			<otherwise>
 			where concat(title,content) like concat('%',#{keyword},'%')

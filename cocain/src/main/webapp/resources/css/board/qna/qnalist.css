@@ -1,11 +1,18 @@
 .title {
 	width: 45%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .title>a {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+#listtable {
+	margin-bottom:10px;
+	border-bottom: 1px solid #ddd;
 }
 
 .la {
@@ -14,14 +21,29 @@
 
 .lw {
 	width: 11%;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	white-space: nowrap;
-	overflow: ellipsis;
 }
 
 .ln {
 	width: 5%
 }
 
-table>thead>tr>th, .lr, .lv, .la, .ln, .ld {
+#listtable>thead>tr>th, .lr, .lv, .la, .ln, .ld {
 	text-align: center;
+}
+
+.pagination {
+	margin-top:0px;
+	margin-bottom: 5px
+}
+
+div > .pagination > li > a {
+	color: rgba(0,0,0,0.8); 
+}
+div > .pagination > li.active > a {
+	color: #ffffff; 
+	border-color: rgba(0,0,0,0.8); 
+	background-color: rgba(0,0,0,0.8); 
 }

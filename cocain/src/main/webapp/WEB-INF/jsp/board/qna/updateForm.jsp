@@ -55,14 +55,23 @@
     <script>
 
     	$("#summernote").summernote({
+    		toolbar: [
+    		    // [groupName, [list of button]]
+    		    ['style', ['bold', 'italic', 'underline', 'clear']],
+    		    ['font', ['strikethrough', 'superscript', 'subscript']],
+    		    ['fontsize', ['fontsize']],
+    		    ['color', ['color']],
+    		    ['para', ['ul', 'ol', 'paragraph']],
+    		    ['height', ['height']]
+    		  ],
 			height:500,
 			minHeight: null,
-         maxHeight: null,
-         focus: true,
-         lang: 'ko-KR',
-         disableResize: true,            // Does not work
-	      disableResizeEditor: true,      // Does not work either
-	      resize: false 
+			maxHeight: null,
+			focus: true,
+			lang: 'ko-KR',
+			disableResize: true,            // Does not work
+			disableResizeEditor: true,      // Does not work either
+			resize: false 
 		});
 
     	function doCheck(){

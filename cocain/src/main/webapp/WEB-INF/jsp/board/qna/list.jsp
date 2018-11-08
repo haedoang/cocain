@@ -24,14 +24,14 @@
 
 <body>
 	<c:import url="/WEB-INF/jsp/base-ui/header.jsp" />
-	<div class="container">
+	<div class="container" style="min-height: 770px">
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-10">
 				<div class="table-responsive">
 					<h3>지식iN</h3>
 					<p>전체 ${listCount}건 ${pageResult.pageNo} 페이지</p>
-					<table class="table" style="width: 100%">
+					<table class="table" id="listtable" style="width: 100%">
 						<thead>
 							<tr>
 								<th>번호</th>
@@ -78,7 +78,6 @@
 							</c:forEach>
 						</tbody>
 					</table>
-					<hr />
 				</div>
 			</div>
 			<div class="col-md-1"></div>

@@ -42,7 +42,7 @@
 			<div class="col-md-1"></div>
 			<div class="col-md-10">
 				<h3>지식iN</h3>
-				<p>질문좀 냄겨봐</p>
+				<br>
 				<div class="panel panel-default" style="margin-bottom: 10px">
 					<div class="panel-heading">
 						<h3 class="panel-title">${qna.title}</h3>
@@ -123,18 +123,6 @@
 		</div>
 	</div>
 	<script>
-// 	$(document).ready(function() {
-// 		$("#summernote").summernote({
-// 			height:500,
-// 			minHeight: null,
-// 		    maxHeight: null,
-// 		    focus: true,
-// 		    lang: 'ko-KR',
-// 		    disableResize: true,            // Does not work
-// 		    disableResizeEditor: true,      // Does not work either
-// 		    resize: false 
-// 		});
-// 	});
 $("#summernote2").summernote({
 	toolbar:false,
 	height : 60,
