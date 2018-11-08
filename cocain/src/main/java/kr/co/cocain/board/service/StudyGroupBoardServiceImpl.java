@@ -89,7 +89,7 @@ public class StudyGroupBoardServiceImpl implements StudyGroupBoardService {
 	public void updateComment(StudyComment studyComment) {
 		mapper.updateComment(studyComment);
 	}
-
+ 
 	@Override
 	public int selectBoardCount() {
 		return mapper.selectBoardCount();

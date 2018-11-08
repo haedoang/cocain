@@ -35,10 +35,10 @@ public class StudyGroupBoardController {
 		model.addAttribute("category", service.category());
 
 		PageResult pageResult = new PageResult(pageNo, service.selectBoardCount(), 20,10);
-		model.addAttribute("pageResult", pageResult);
+		model.addAttribute("pageResult", pageResult); 
 		
 		model.addAttribute("comment", service.commentCnt(pageNo));
-	}
+	} 
 
 	
 	@RequestMapping("detail.do")

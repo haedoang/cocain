@@ -23,7 +23,7 @@ public interface StudyBoardMapper {
 	// 댓글 관련
 	List<StudyComment> listComment(int no);
 	void insertComment(StudyComment studyComment);
-	void deleteComment(int no);
+	void deleteComment(int no); 
 	void updateComment(StudyComment studyComment);
 	int commentCount(int no);
 	// 페이징
@@ -32,4 +32,4 @@ public interface StudyBoardMapper {
 	// 검색
 	List<StudyBoard> searchStudy(StudyBoard board);
 	
-}
+} 

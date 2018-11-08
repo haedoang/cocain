@@ -16,7 +16,7 @@ public interface StudyGroupBoardService {
 	StudyBoard detail(int no);
 	void write(StudyBoard board);
 	void delete(int no);
-	public StudyBoard updateForm(int no);
+	public StudyBoard updateForm(int no); 
 	void update(StudyBoard board);
 	List<QuizCategory> category();
 

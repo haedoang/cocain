@@ -19,7 +19,7 @@ public class StudyPage {
 	public void setBegin(int begin) {
 		this.begin = begin;
 	}
-	
+	 
 	//commit;
 	
 }
