@@ -10,26 +10,27 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 
 public interface NoticeBoardService {
 
-    int listCount();
+	int listCount();
 
-    List<Notice> listNotice(NoticePage page);
-    List<Notice> listNotice2(NoticePage page);
-    List<Notice> listNotice3(NoticePage page);
-    
-    
-    Notice detail(int no);
+	List<Notice> listNotice(NoticePage page);
 
-    void write(Notice notice);
+	List<Notice> listNotice2(NoticePage page);
 
-    void delete(int no);
+	List<Notice> listNotice3(NoticePage page);
 
-    void update(Notice notice);
+	Notice detail(int no);
+
+	void write(Notice notice);
+
+	void delete(int no);
+
+	void update(Notice notice);
 
 	int insertRecom(NoticeRecom notice);
-	
+
 	int deleteRecom(NoticeRecom recom);
-//	댓글
-	
+	// 댓글
+
 	List<NoticeComment> listComment(int no);
 
 	void insertComment(NoticeComment comment);
@@ -46,20 +47,16 @@ public interface NoticeBoardService {
 
 	// 추천여부 확인
 	int recomExist(NoticeRecom recom);
+
 	// 추천수 카운트
 	int recomCount(int no);
 
-	
 	/**
 	 * 물어볼 예제
+	 * 
 	 * @param no
 	 * @return
 	 */
 	int commentCount(int no);
 
-	
-
-	
-
-    
 }
