@@ -13,7 +13,7 @@
 </head>
 <body>
   	<c:import url="/WEB-INF/jsp/base-ui/header.jsp"/> 
-    <div class="container">
+    <div class="container profileContainer">
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-primary">
