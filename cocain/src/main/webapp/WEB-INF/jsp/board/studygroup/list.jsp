@@ -21,9 +21,8 @@ th {
 }
 
 .title{
-	font-size: 20px;
 	color: grey;
-	font-style: bold;
+	font: bold 20px italic 굴림;
 }
 .categori{
 	font-size: 14px;
@@ -36,12 +35,6 @@ th {
 }
 </style>
 
- <link rel="stylesheet" href="../../resources/css/bootstrap/bootstrap.css">
-    <link rel="stylesheet" href="../../resources/css/base-ui/footer.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="../../resources/js/jquery.animateNumber.js"></script>
-    <script src="../../resources/js/bootstrap.js"></script>
 </head>
 
 
@@ -59,7 +52,7 @@ th {
 	</table>
 	<a href="writeForm.do">글쓰기</a> -->
 	
-	<c:import url="../../base-ui/header.jsp" />
+	<c:import url="/WEB-INF/jsp/base-ui/header.jsp"/> 
 	<hr>
 	<div class="container">
 		<div class="form-inline">
@@ -134,7 +127,7 @@ th {
 										<span class="categori">${b.categoryName}</span>
 									</div>
 									<div>
-									<span class="title"><a 
+									<span class="title" ><a 
 											<c:choose>
 	                                    		<c:when test="${user == null}">
 	                                    			href="#" data-target="#login" id="log" data-toggle="modal"
@@ -197,7 +190,7 @@ th {
 						</c:if>
 			</nav>
 	</div>
-	<c:import url="../../base-ui/footer.jsp" />
+	<c:import url="/WEB-INF/jsp/base-ui/footer.jsp"/>  
 
 	
 </body>
