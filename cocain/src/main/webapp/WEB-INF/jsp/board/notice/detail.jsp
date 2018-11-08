@@ -106,12 +106,15 @@ textarea {
 		<hr>
 
 		<div class="list-inline">
-			<label for="label1">추천 : </label> <i class="rec" id="label1"> </i> <span
-				class="text-center"> <a class="btn btn-default"
-				href='updateForm.do?no=${board.no}'>수정</a> <a
-				class="btn btn-default" href='delete.do?no=${board.no}'>삭제</a> <a
-				class="btn btn-default" onclick="history.go(-1)">목록</a>
+			<label for="label1">추천 : </label> <i class="rec" id="label1"> </i> 
+			
+			<c:if test="${user.nickname == '코카인관리자'}">
+			<span class="text-center"> 
+				<a class="btn btn-default" href='updateForm.do?no=${board.no}'>수정</a> 
+				<a class="btn btn-default" href='delete.do?no=${board.no}'>삭제</a> 
 			</span>
+			</c:if>
+			<a class="btn btn-default" onclick="history.go(-1)">목록</a>
 		</div>
 
 		<hr>
