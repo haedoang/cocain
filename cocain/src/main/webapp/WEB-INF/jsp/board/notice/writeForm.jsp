@@ -51,7 +51,16 @@
 			height : 500,
 			minHeight : null,
 			maxHeight : null,
-			focus : true
+			focus : true,
+			toolbar: [
+    		    // [groupName, [list of button]]
+    		    ['style', ['bold', 'italic', 'underline', 'clear']],
+    		    ['font', ['strikethrough', 'superscript', 'subscript']],
+    		    ['fontsize', ['fontsize']],
+    		    ['color', ['color']],
+    		    ['para', ['ul', 'ol', 'paragraph']],
+    		    ['height', ['height']]
+    		  ]
 		});
 
 		$coco = $('.summernote').summernote('code');
