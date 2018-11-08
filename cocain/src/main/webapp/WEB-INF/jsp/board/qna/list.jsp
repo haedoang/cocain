@@ -24,23 +24,23 @@
 
 <body>
 	<c:import url="/WEB-INF/jsp/base-ui/header.jsp" />
-	<div class="container" style="min-height: 770px">
+	<div class="container" style="min-height: 790px">
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-10">
 				<div class="table-responsive">
 					<h3>지식iN</h3>
 					<p>전체 ${listCount}건 ${pageResult.pageNo} 페이지</p>
-					<table class="table" id="listtable" style="width: 100%">
+					<table class="table" id="listtable">
 						<thead>
 							<tr>
-								<th>번호</th>
-								<th>분류</th>
+								<th class="ln">번호</th>
+								<th class="la">분류</th>
 								<th class="title">제목</th>
-								<th>작성자</th>
-								<th>날짜</th>
-								<th>추천수</th>
-								<th>조회수</th>
+								<th class="lw">작성자</th>
+								<th class="ld">날짜</th>
+								<th class="lr">추천수</th>
+								<th class="lv">조회수</th>
 							</tr>
 						</thead>
 						<tbody>
