@@ -1,49 +1,57 @@
-.title {
+th.ln, td.ln {
+	width: 7%;
+	text-align: center;
+}
+th.la, td.la {
+	width: 8%;
+	text-align: center;
+}
+th.title, td.title {
 	width: 45%;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-
-.title>a {
+th.lw, td.lw {
+	width: 12%;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+
+th.ld, td.ld {
+	width: 12%;
+	text-align: center;
+}
+th.ld, td.lr {
+	width: 8%;
+	text-align: center;
+}
+th.lv, td.lv {
+	width: 8%;
+	text-align: center;
+}
+
 #listtable {
-	margin-bottom:10px;
+	margin-bottom: 10px;
 	border-bottom: 1px solid #ddd;
 }
 
-.la {
-	width: 9%
-}
-
-.lw {
-	width: 11%;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-.ln {
-	width: 5%
-}
-
-#listtable>thead>tr>th, .lr, .lv, .la, .ln, .ld {
+#listtable>thead>tr>th{
 	text-align: center;
 }
 
 .pagination {
-	margin-top:0px;
+	margin-top: 0px;
 	margin-bottom: 5px
 }
 
-div > .pagination > li > a {
-	color: rgba(0,0,0,0.8); 
+div>.pagination>li>a {
+	color: rgba(0, 0, 0, 0.8);
 }
-div > .pagination > li.active > a {
-	color: #ffffff; 
-	border-color: rgba(0,0,0,0.8); 
-	background-color: rgba(0,0,0,0.8); 
+
+div>.pagination>li.active>a {
+	color: #ffffff;
+	border-color: rgba(0, 0, 0, 0.8);
+	background-color: rgba(0, 0, 0, 0.8);
 }
