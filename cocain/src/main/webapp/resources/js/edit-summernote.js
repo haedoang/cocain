@@ -9,7 +9,18 @@
 				  focus: true,                  // set focus to editable area after initializing summernote
 				  disableResize: true,            // Does not work
 			      disableResizeEditor: true,      // Does not work either
-			      resize: false  
+			      resize: false,
+			      toolbar: [
+			    	    ['style', ['bold', 'italic', 'underline', 'clear']],
+			    	    ['font', ['strikethrough', 'superscript', 'subscript']],
+			    	    ['fontsize', ['fontsize']],
+			    	    ['color', ['color']],
+			    	    ['para', ['ul', 'ol', 'paragraph']],
+			    	    ['height', ['height']]
+			    	  ]
+			       
+			      
+			      
 			 });
 			 
 	
