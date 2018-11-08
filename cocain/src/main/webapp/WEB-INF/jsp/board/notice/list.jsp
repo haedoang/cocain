@@ -151,7 +151,7 @@
 				 })
 		
 				 
-					console.log( '${requestScope["javax.servlet.forward.request_uri"]}'.substring(20)   );
+// 					console.log( '${requestScope["javax.servlet.forward.request_uri"]}'.substring(20)   );
 				 
 	</script>
 </body>

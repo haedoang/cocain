@@ -46,7 +46,7 @@
 		resize: none;
 		}
 		
-		.ppp, #wrr {
+		.ppp, .wrr {
 		 word-break:break-all;
 		}
 		
@@ -119,8 +119,8 @@
 		<div class="form-group" style="width: 100%; background-color: #efefef ">
 			<input id="no" name="no"  value="${board.no}" type="hidden">
 		<img src="http://codingschool.info/img/title_comment.gif">
-			<input class="form-control" id="writer" name="writer"  type="text"  readonly="readonly"  value="${user.nickname}">
-			<input type="text" style="width: 91%; height: 100px;" class="form-control" id="content" name="content" />
+			<input class="form-control" id="textarea" name="writer"  type="text"  readonly="readonly"  value="${user.nickname}">
+			<textarea style="width: 91%; height: 100px;" class="form-control textarea" name="content" /></textarea>
 			<button id=subm ><img src="http://codingschool.info/img/ok_ripple.gif" /></button>
 		</div>
 		</form>
@@ -161,7 +161,7 @@
 			url:"/cocain/board/notice/recomExist.do",
 			data : {"no":numb, "id":nickname}
 		}).done(function(result){
-			console.log(result);
+// 			console.log(result);
 			recExist = result;
 			if (recExist == 1){
 				$(".rec").html("<i class='glyphicon glyphicon-heart btn btn-danger' aria-hidden='true'></i>")
@@ -174,7 +174,7 @@
 	
 	
 	$(".rec").click(function(){
-		console.log("recExist : "+recExist);
+// 		console.log("recExist : "+recExist);
 		var rUrl = "insertrecom";
 		if (recExist == 1) {
 			rUrl = "deleterecom";
@@ -183,7 +183,7 @@
 			url : '/cocain/board/notice/' + rUrl + '.do',
 			data : {"no":numb, "id":nickname}
 		}).done(function(result){
-			console.log("insert or delete result : " +result);
+// 			console.log("insert or delete result : " +result);
 			if (recExist == 0){
 				alert("추천되었습니다.");
 				recExist = 1;
@@ -236,7 +236,7 @@
 		output +='<div class="text-right"><button id="notify'+val.commentNo+'" class="btn btn-default" onclick="upd( \''+ val.content + '\' , \'' + val.writer +'\' , \''+val.commentNo+'\')">수정</button>'
 		output +='<button id="delb" class="text-right btn btn-default" onclick="del('+val.commentNo+')">삭제</button></div>'
 		}
-		output += '<div class="wrr">'+val.content+'</div></div>'
+		output += '<div class="wrr'+val.commentNo+'">'+val.content+'</div></div>'
  			
 	
 		 })
@@ -253,7 +253,7 @@
 			 url : "<c:url value='/board/notice/CommentCount.do' />",
 			 data : "no=${board.no}",
 		 }).done(function(result){
-				console.log(result)
+// 				console.log(result)
 				$('.count2').text(result);
 		 })
 	 })
@@ -261,20 +261,24 @@
 	 
 	 
 		$('#commentForm').submit(function(e) {
-			 if($('#content').val()==""){
+			e.preventDefault();
+			var str = $('.textarea').val();
+			str = str.replace(/(?:\r\n|\r|\n)/g, '<br>');
+			$('.textarea').val(str);
+			
+			 if($('.textarea').val()==""){
 					alert("댓글을 입력 해 주세요")
 					return false;
 				 }
 			
-			e.preventDefault();
 // 			console.log($(this).serialize());
 			$.ajax({
 				url : "<c:url value='/board/insertComment.do' />",
 				data : $(this).serialize(),
 				method : "POST"
 			}).done(function(result){ 
+			$('.textarea').val("");
 				list();
-			$('#content').val("");
 			})
 			.fail(function(result){ alert("댓글을 입력 해 주세요") })
 
@@ -288,47 +292,65 @@
 				url : "<c:url value='/board/deleteComment.do' />",
 				data : "commentNo="+eee
 		 }).done(function (result) {
-			 console.log("성공")
+// 			 console.log("성공")
 				list();
 		 })
 		 
 	 }
 		
 	 var iii = null;
-	 function upd(result,re,num){		 
+	 
+	 var result = '';
+	 function upd(result,re,num){		
+		 result = result.split('<br>').join("\r\n");
+	 	
+	 	
+		$('.dkanrjsk').css("display", "none");	 
 		 iii = num;
-		console.dir( $('#notify'+iii).parent().next());
-		 console.log("1 : "+iii);
+// 		console.dir( $('#notify'+iii).parent().next());
+// 		 console.log("1 : "+iii);
 		 $('#notify'+num).parent().next().html(
-			  '<form class="form-inline" name="cf2" id="cf2" method="post" >'
+			  '<form class="form-inline dkanrjsk" name="cf2" method="post" >'
 			+'<div class="form-group" style="width: 100%; background-color: #efefef ">'
 			+'<input id="commentNo" name="commentNo" value='+iii+' type="hidden">'
-			+'<input class="form-control" id="writer2" name="writer"  type="hidden">'
-			+'<input type="text" style="width: 91%; height: 100px; class="form-control" id="content2" name="content" />'			
-			+'<button id="butt2"><img src="http://codingschool.info/img/ok_ripple.gif" /></button>'
+			+'<input class="form-control wr333"  name="writer"  type="hidden">'
+			+'<textarea style="width: 100%; height : 100%;" class="co333 form-control" name="content" ></textarea>'			
+			+'<span class="input-group-btn"><button class="btn btn-default">수정</button></span>'
+			+'<span class="input-group-btn"><button class="btn btn-default can">취소</button></span>'
 			+'</div></form>'		 	
-		 );
 		 
+		 );
+			
+		$('.co333').val(result);
+	 $('.wr333').val(re);
+	 $('.dkanrjsk').css("display", "unset");	
+	 $('.can').click(function(event){
+		 event.preventDefault();
+		 list();
+	 })
 	 
-	 $('#writer2').val(re);
-	 $('#content2').val(result);
 	 
-	 
-	 
-	 
-	 $('#cf2').submit(function (event) {
+	 $('.dkanrjsk').submit(function (event) {
+		 event.preventDefault();
+
+		 var coco = $(this).children().children().eq(2);
+		 
+		 var str = coco.val();
+			str = str.replace(/(?:\r\n|\r|\n)/g, '<br>');
+			coco.val(str);
+		 
+		 
 		 if($('#content2').val()==""){
 		 alert("내용이 없습니다");
 		 return false;
 		 };
-		 event.preventDefault();
-		 console.log($(this).serialize());
+		 
 		 $.ajax({
 				url : "<c:url value='/board/updateComment.do' />",
 				data : $(this).serialize(),
 				method : "POST"
 		 }).done(function (result) {
-			 console.log("김성공");
+// 			 console.log("김성공");
 			 $('#commentForm').css("display", "unset");
 			 $('#divv').css("display", "none");
 			 list();
@@ -336,7 +358,7 @@
 		 
 	 })
 	 
-	 
+	
 		 }
 
 	 $(".btn").mouseenter(function() {

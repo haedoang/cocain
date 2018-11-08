@@ -224,7 +224,7 @@ import kr.co.cocain.repository.domain.NoticeRecom;
 	    }
 	    
 	    @RequestMapping("/notice/category.do")
-	    public ModelAndView category(@RequestParam(value="pageNo", defaultValue="1")int pageNo, NoticePage2 noticePage){
+	    public ModelAndView category(@RequestParam(value="pageNo", defaultValue="0")int pageNo, NoticePage2 noticePage){
 	    	ModelAndView mav = new ModelAndView("board/notice/list");
 
 	    	int count = service.categoryCount(noticePage);
