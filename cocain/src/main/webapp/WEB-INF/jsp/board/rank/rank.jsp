@@ -7,13 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>daily-quiz list</title>
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>" />
-<link rel="stylesheet"
 	href="<c:url value="/resources/css/board/quiz/dailyquizlist.css"/>" />
-<script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
-<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 </head>
-
 <body>
 	<!-- header.. -->
 	<c:import url="/WEB-INF/jsp/base-ui/header.jsp"></c:import>
