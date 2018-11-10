@@ -25,7 +25,7 @@
 ### Version management
      SourceTree
  
-### 사용 예제
+## 사용 예제
      jdbc.mysql.url=jdbc:mysql://localhost:3306/????
      jdbc.mysql.driver=com.mysql.jdbc.Driver
      jdbc.mysql.username=????
